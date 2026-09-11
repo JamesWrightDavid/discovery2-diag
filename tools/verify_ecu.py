@@ -130,7 +130,7 @@ def verify_airbag(port: str, buzzer: bool = False, esp: bool = False) -> int:
 def main() -> int:
     ap = argparse.ArgumentParser(description="Active read-only ECU verification")
     ap.add_argument("module", choices=["td5", "slabs", "bcu", "airbag"])
-    ap.add_argument("port")
+    ap.add_argument("port", help="serial device, or 'auto' to detect the cable")
     ap.add_argument("--buzzer", action="store_true", help="SLABS: offer a buzzer test (write)")
     ap.add_argument("--esp", action="store_true",
                     help="talk over an ESP32 in USB cable mode instead of a KKL cable")
@@ -138,7 +138,13 @@ def main() -> int:
     fn = {"td5": verify_td5, "slabs": verify_slabs,
           "bcu": verify_bcu, "airbag": verify_airbag}[args.module]
     try:
-        return fn(args.port, args.buzzer, args.esp)
+        port = args.port
+        if not args.esp:  # 'auto' (and bare names) resolve to a concrete /dev/cu.* — novices never hunt for a port
+            from d2diag.ports import resolve_serial_port  # noqa: E402
+            port = resolve_serial_port(args.port)
+            if port != args.port:
+                print(f"Using cable at {port}")
+        return fn(port, args.buzzer, args.esp)
     except Exception as exc:  # noqa: BLE001
         print(f"\nERROR: {type(exc).__name__}: {exc}", file=sys.stderr)
         print("Check: right port? ignition on? transmitting cable? vehicle stationary?", file=sys.stderr)
