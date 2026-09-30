@@ -1,3 +1,13 @@
+---
+title: "The Shared K-line / KWP2000 Layer"
+area: docs
+status: stable
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Shared K-line/KWP2000 layer: physical bus, init handshakes, the two frame formats, services and teardown rules common to all modules.
+---
+
 # The Shared K-line / KWP2000 Layer
 
 This is the common transport-and-protocol foundation every Discovery 2 module in

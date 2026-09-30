@@ -1,3 +1,13 @@
+---
+title: "Verification backlog — Td5"
+area: docs
+status: draft
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Td5 verification backlog: items to move from assumed/unknown to proven, feeding back into engine-td5.md.
+---
+
 # Verification backlog — Td5
 
 Open items to move from 🟡 **Assumed** / 🔴 **Unknown** toward 🟢 **Proven**, and new

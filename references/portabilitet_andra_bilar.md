@@ -1,3 +1,13 @@
+---
+title: "Portability — the tool on other car models (roadmap, not started)"
+area: references
+status: draft
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Roadmap for porting the tool to other car models via a vehicle-profile layer; strategy only, nothing built.
+---
+
 # Portability — the tool on other car models (roadmap, not started)
 
 Written 2026-08-20. **Strategy and preparation — no code changed yet.** Captures

@@ -1,3 +1,13 @@
+---
+title: "Handoff — Discovery 2 diagnostics: protocol state (for parallel work)"
+area: references
+status: stable
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Current split of proven, candidate and open protocol facts per module, for a second analyst to build on.
+---
+
 # Handoff — Discovery 2 diagnostics: protocol state (for parallel work)
 
 This document summarizes what is **proven** vs **candidate** vs **open**, so a second

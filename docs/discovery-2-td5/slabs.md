@@ -1,3 +1,13 @@
+---
+title: "SLABS — Wabco ABS + rear self-levelling suspension"
+area: docs
+status: stable
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Wabco SLABS (ABS plus rear self-levelling): init, services, signals, actuator tests, bleed procedure and open scalings.
+---
+
 # SLABS — Wabco ABS + rear self-levelling suspension
 
 The **SLABS** ECU is the Wabco unit that runs both the **anti-lock brakes (ABS,

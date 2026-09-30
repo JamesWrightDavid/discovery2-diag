@@ -1,3 +1,13 @@
+---
+title: "reference tool weekend — sniff test plan & function TODO (Discovery 2)"
+area: references
+status: draft
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Sniff test plan and function TODO for a reference-tool weekend: init, addresses, keybytes and header formats to capture.
+---
+
 # reference tool weekend — sniff test plan & function TODO (Discovery 2)
 
 > **Appendix.** The living backlog of what to test next is `references/test_plan.md`;

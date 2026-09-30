@@ -1,3 +1,13 @@
+---
+title: "reference tool master-menu transcription (Discovery 2) — reference"
+area: references
+status: draft
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Transcription of a reference tool's module menus (2170 lines) used to drive menu maps and decoding hints. Examples are not constants.
+---
+
 # reference tool master-menu transcription (Discovery 2) — reference
 
 Source: the owner's `reference tool_protocol_...docx` (AI-processed reading of the

@@ -1,3 +1,13 @@
+---
+title: "Test backlog — the living plan for what to do next in the car"
+area: references
+status: stable
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Living backlog of what to test next in the car or with a borrowed tool, each item with context tag, procedure and pre-written decision rule; Resolved log.
+---
+
 # Test backlog — the living plan for what to do next in the car
 
 **This is the single reference for "what do we test next".** Before a session in the

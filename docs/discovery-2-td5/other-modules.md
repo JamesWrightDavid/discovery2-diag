@@ -1,3 +1,13 @@
+---
+title: "Other Modules — ACE, EAT Autobox, Airbag/SRS"
+area: docs
+status: draft
+version: 1.0
+updated: 2026-09-30
+summary: >
+  ACE, EAT autobox and airbag/SRS: what is proven versus open for each; all earlier-stage than Td5, SLABS and BCU.
+---
+
 # Other Modules — ACE, EAT Autobox, Airbag/SRS
 
 Three more modules hang off the shared Discovery 2 K-line. All three are at an

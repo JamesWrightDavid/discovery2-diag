@@ -1,3 +1,13 @@
+---
+title: "Land Rover Discovery 2 Diagnostic Protocol Capability Inventory"
+area: docs
+status: draft
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Consolidated capability inventory for Td5, SLABS, BCU/DCU, ACE, auto gearbox and airbag: observed K-line behaviour, established hex commands and unresolved areas.
+---
+
 # Land Rover Discovery 2 Diagnostic Protocol Capability Inventory
 
 **TD5 · SLABS · BCU/DCU · ACE · Auto Gearbox · Airbag**

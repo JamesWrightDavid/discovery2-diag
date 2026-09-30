@@ -1,3 +1,13 @@
+---
+title: "BCU sniff — checklist (while the reference tool is available)"
+area: references
+status: draft
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Checklist for passively capturing Valeo BCU traffic (EKA is the main prize) while a reference tool runs.
+---
+
 # BCU sniff — checklist (while the reference tool is available)
 
 > **Appendix.** The living backlog of what to test next is `references/test_plan.md`;

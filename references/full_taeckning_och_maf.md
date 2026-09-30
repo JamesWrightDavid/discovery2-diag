@@ -1,3 +1,13 @@
+---
+title: "Full data coverage + the MAF find (Td5)"
+area: references
+status: stable
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Method and findings from the MAF hunt: capture all received bytes, correlate unmapped bytes against known inputs.
+---
+
 # Full data coverage + the MAF find (Td5)
 
 Written 2026-08-21. The principle, method and concrete findings from the MAF hunt on RDL016.

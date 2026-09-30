@@ -1,3 +1,13 @@
+---
+title: "Fault reading — cross-off list (before the reference tool is returned)"
+area: references
+status: draft
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Cross-off list for reading faults on every module from a borrowed tool's screen before it is returned.
+---
+
 # Fault reading — cross-off list (before the reference tool is returned)
 
 > **Appendix.** The living backlog of what to test next is `references/test_plan.md`;

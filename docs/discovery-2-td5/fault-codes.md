@@ -1,3 +1,13 @@
+---
+title: "Fault codes — reading and raw ↔ display mapping"
+area: docs
+status: stable
+version: 1.0
+updated: 2026-09-30
+summary: >
+  How faults are stored, read and decoded over K-line, and where raw index, factory-tool number and display text are known to line up.
+---
+
 # Fault codes — reading and raw ↔ display mapping
 
 How the Discovery 2 Td5 modules store diagnostic faults over the K-line, how this

@@ -1,3 +1,13 @@
+---
+title: "Wabco SLABS — complete K-line protocol (sniffed from reference tool 1)"
+area: references
+status: stable
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Complete SLABS K-line protocol as sniffed from a reference tool: init, services, LIDs and routines, proven from real traffic.
+---
+
 # Wabco SLABS — complete K-line protocol (sniffed from reference tool 1)
 
 Captured 2026-08-07 via a passive ESP32 tap (RX-only, GPIO16) on pin 7, while a borrowed

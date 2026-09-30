@@ -1,3 +1,13 @@
+---
+title: "reference tool menu map (RDL 016) + cross-reference against sniffed protocol"
+area: references
+status: stable
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Menu map of the borrowed reference tool for this car, cross-referenced against sniffed 21 xx LIDs and 31 xx routines.
+---
+
 # reference tool menu map (RDL 016) + cross-reference against sniffed protocol
 
 Source: the owner's `Discovery 2/reference tool.txt` — the menus in the borrowed reference tool (reference tool 1).

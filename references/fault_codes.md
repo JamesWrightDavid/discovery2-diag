@@ -1,3 +1,13 @@
+---
+title: "Fault codes — index (the canonical dictionary lives in the register)"
+area: references
+status: stable
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Index of fault-code sources; the canonical dictionary lives in the sister register repo. Module capacities listed.
+---
+
 # Fault codes — index (the canonical dictionary lives in the register)
 
 **Canonical fault-code dictionary:** `Discovery 2/discovery2_reference tool_fault_dictionary.md`

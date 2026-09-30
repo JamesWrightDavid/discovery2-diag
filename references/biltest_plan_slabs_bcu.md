@@ -1,3 +1,13 @@
+---
+title: "Car test — SLABS signals/bleeding + BCU/EKA (plan)"
+area: references
+status: draft
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Stationary car-test plan from 2026-08-19 verifying SLABS signals/bleeding and BCU/EKA changes.
+---
+
 # Car test — SLABS signals/bleeding + BCU/EKA (plan)
 
 > **Appendix.** The living backlog of what to test next is `references/test_plan.md`;

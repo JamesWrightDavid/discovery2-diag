@@ -1,3 +1,13 @@
+---
+title: "Interactive input mapper — design (plan before code)"
+area: references
+status: draft
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Design-only plan for a guided differential input mapper that turns documented names into proven bits.
+---
+
 # Interactive input mapper — design (plan before code)
 
 Status: **design only, not built.** This document is the plan for a guided tool that turns

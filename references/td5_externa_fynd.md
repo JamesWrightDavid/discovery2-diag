@@ -1,3 +1,13 @@
+---
+title: "Td5 — findings from external repos (research 2026-08-21)"
+area: references
+status: stable
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Review of external Td5 repos to find what this project lacks; most items were already implemented.
+---
+
 # Td5 — findings from external repos (research 2026-08-21)
 
 Review of EA2EGA/Ekaitza_Itzali (Python, real sniff logs), SimonRafferty
