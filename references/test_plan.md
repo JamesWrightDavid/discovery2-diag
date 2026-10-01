@@ -240,6 +240,12 @@ does a baseline → change one input → re-read and prints which LIDs' bytes **
 **Route results** to `references/valeo_bcu_capabilities.md` (the auth-boundary table) and,
 for any live field found, the signal store + a BCU `DataSource`. Never the EKA code.
 
+> **Update (2026-10-01, ADR-0007).** The "stopped chasing EKA" note above still holds for
+> *our* old pairs (rolling seed, no clean keys). A rented NanoCom changes it: it computes
+> the correct key per rolled seed, giving clean pairs for an **offline** seed→key
+> derivation (`bcu/keygen.py`). See T-27/T-28 and
+> [bcu_security_research.md](bcu_security_research.md). Live unlock stays gated.
+
 #### T-17 `[idle]` — Autobox (EAT) read faults
 The one module we have never got fault codes out of. Engine **running**, selector in
 **P/N**. Framing is solved (`72 <len> <data> <XOR-cs>`) and `72 05 04 00 73` →
@@ -285,6 +291,49 @@ Signals sharing a LID are read in one request, so a bad read corrupts them toget
 Whole-LID corrupt = comms glitch (~1 % baseline); one signal bad while its LID-mates are
 valid = a real sensor/circuit fault, corroborated by the ECU's own DTC. Tag CSV/snapshot
 rows with a `comms_glitch` marker and classify in the analysis. Detail in `TODO.md`.
+
+### P7 — NanoCom rental readiness `[tool]` `[offline]`
+
+The rental plan and tooling are specced in
+[`specs/2026-10-01-nanocom-capture-design.md`](../specs/2026-10-01-nanocom-capture-design.md)
+and ADR-0005. The session runbook is
+[nanocom_capture_protocol.md](nanocom_capture_protocol.md).
+
+#### T-25 `[tool]` — Capture every module against the NanoCom screen
+Passive ESP32 tap; log with `tools/esp32_read.py` and the structured markers
+(`s <module>/<page>`, `v <name>=<text>`). Work the per-module screen order and budget in
+[nanocom_capture_protocol.md](nanocom_capture_protocol.md): hold each screen ~10 s, change
+one input at a time, and record (never replay) every write/security/coding frame.
+**Decision rule.** After the session, `tools/nanocom_import.py --write` must reproduce the
+already-proven Td5 mappings (rpm/coolant/battery) from the labelled capture before any new
+mapping is trusted; a new mapping enters the store as `candidate` with the capture as
+provenance, promoted only by a later on-car confirmation.
+
+#### T-26 `[key-on]` — Read-only address scan to confirm/rule out the asserted modules
+Run `tools/module_scan.py auto` (ignition on, stationary). It walks fast-init and 5-baud
+addresses and records who answers, sending only init + StopCommunication.
+**Decision rule.** An address that responds and is not an already-known module is a
+candidate — tag it by key bytes and plan a capture (e.g. cruise). An address silent across
+the scan is ruled out for this car; note it and stop guessing. The `0x18` responder: record
+its key bytes to characterise it. Route results to the module pages and the system map.
+
+#### T-27 `[tool]` — Capture clean BCU `(seed, key)` pairs
+During the BCU security session (NanoCom READ-SET EKA + key programming, run several
+times), record every `27 01`/`27 02` exchange with valid checksums. The high-impedance tap
+must not corrupt the frames (unlike the old KKL tap — see
+[valeo_bcu_capabilities.md](valeo_bcu_capabilities.md)).
+**Decision rule.** Feed the clean pairs to `src/d2diag/bcu/keygen.py`. A family that fits
+every pair with evidence to spare → commit the **algorithm** (never the pairs or any EKA).
+No fit → widen the search or plan a bench EEPROM read
+([bcu_security_research.md](bcu_security_research.md)). Offline only; no live byte here.
+
+#### T-28 `[key-on]` — Verify a derived BCU key on-car (GATED)
+⚠️ **Security/write action — behind ADR-0007 and an explicit confirmation gate, never
+automatic, never part of a default path.** Only after T-27 yields a confirmed algorithm:
+our own `27 01` → compute key → `27 02`, expecting `67 02`.
+**Decision rule.** A positive `67 02` proves the derived keygen; record that the algorithm
+is verified (not the key). An `invalidKey` (`7F 27 35`) means the derivation is wrong —
+back to T-27 with more pairs. Do not retry blindly (likely attempt counter/lockout).
 
 ---
 

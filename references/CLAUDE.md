@@ -12,6 +12,8 @@ link there instead of repeating them. The dashboard's Documents tab serves both 
 - `menus/` — reference-tool menu transcriptions, one file per module.
 - `reference_tool_menu_map.md`, `*_capabilities.md`, `*_fault_codes.md` — tool and
   vendor references.
+- `nanocom_capture_protocol.md` — the NanoCom sniffing-session runbook (T-25).
+- `bcu_security_research.md` — the offline BCU seed→key path (ADR-0007).
 - `*_sniff_plan.md`, `*_checklist.md`, `final_session_plan.md`, `car-test-slabs-bcu.md`
   — step-by-step appendices to the test plan.
 - `td5-*.md`, `portability-other-vehicles.md`, `input_mapper_design.md` — research.
