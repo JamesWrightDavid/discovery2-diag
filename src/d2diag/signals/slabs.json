@@ -12,7 +12,15 @@
     "source": "21 54 byte0 = left height; proven via variance session.log 2026-08-08 reference tool reference: normal ~110–135 (calibration-dependent); L and R should sit close to each other on level ground; fixed 0/255 = broken arm/sensor.",
     "label": "Height left (raw)",
     "group": "Ride height",
-    "description": "Left ride-height sensor (raw 0–255). Normal ~110–135; L≈R on level ground."
+    "description": "Left ride-height sensor (raw 0–255). Normal ~110–135; L≈R on level ground.",
+    "span": [
+      0,
+      255
+    ],
+    "normal": [
+      110,
+      135
+    ]
   },
   {
     "name": "height_right",
@@ -27,7 +35,15 @@
     "source": "21 54 byte1 = right height; proven via variance session.log 2026-08-08 reference tool reference: normal ~110–135 (calibration-dependent); L and R should sit close to each other on level ground; fixed 0/255 = broken arm/sensor.",
     "label": "Height right (raw)",
     "group": "Ride height",
-    "description": "Right ride-height sensor (raw 0–255). Normal ~110–135."
+    "description": "Right ride-height sensor (raw 0–255). Normal ~110–135.",
+    "span": [
+      0,
+      255
+    ],
+    "normal": [
+      110,
+      135
+    ]
   },
   {
     "name": "any_door",
@@ -65,7 +81,15 @@
     "source": "21 44 byte12 u8×0.0625 V. PROVEN in the car 2026-08-20: 13.5 V with the engine running (charging), 12.0 V with the engine off — tracks system voltage correctly.",
     "label": "Battery",
     "group": "Electrical",
-    "description": "System voltage. 13.8–14.4 V running; below 13 = charging fault."
+    "description": "System voltage. 13.8–14.4 V running; below 13 = charging fault.",
+    "span": [
+      10,
+      16
+    ],
+    "normal": [
+      12.4,
+      14.8
+    ]
   },
   {
     "name": "ecu_supply",
@@ -83,7 +107,15 @@
     "source": "21 44 byte13 u8×0.0625 V. PROVEN 2026-08-20: same as battery (13.5 V engine on, 12.0 V off).",
     "label": "ECU supply",
     "group": "Electrical",
-    "description": "Internal SLABS ECU supply voltage."
+    "description": "Internal SLABS ECU supply voltage.",
+    "span": [
+      10,
+      16
+    ],
+    "normal": [
+      12.4,
+      14.8
+    ]
   },
   {
     "name": "wheel_speed_fl",
@@ -161,7 +193,15 @@
     "source": "21 50@0 u8×0.02 V. Decoding PROVEN 2026-08-20 (all ~2.3 V steady). ⚠ WHEEL order not confirmed. CANDIDATE.",
     "label": "ABS sensor FL",
     "group": "Wheels",
-    "description": "Front-left ABS sensor voltage (~2.3 V). ⚠ Order unconfirmed."
+    "description": "Front-left ABS sensor voltage (~2.3 V). ⚠ Order unconfirmed.",
+    "span": [
+      1,
+      3.5
+    ],
+    "normal": [
+      2.0,
+      2.4
+    ]
   },
   {
     "name": "abs_sensor_fr",
@@ -179,7 +219,15 @@
     "source": "21 50@1 u8×0.02 V. Decoding PROVEN 2026-08-20 (all ~2.3 V steady). ⚠ WHEEL order not confirmed. CANDIDATE.",
     "label": "ABS sensor FR",
     "group": "Wheels",
-    "description": "Front-right ABS sensor voltage (~2.3 V). ⚠ Order unconfirmed."
+    "description": "Front-right ABS sensor voltage (~2.3 V). ⚠ Order unconfirmed.",
+    "span": [
+      1,
+      3.5
+    ],
+    "normal": [
+      2.0,
+      2.4
+    ]
   },
   {
     "name": "abs_sensor_rl",
@@ -197,7 +245,15 @@
     "source": "21 50@2 u8×0.02 V. Decoding PROVEN 2026-08-20 (all ~2.3 V steady). ⚠ WHEEL order not confirmed. CANDIDATE.",
     "label": "ABS sensor RL",
     "group": "Wheels",
-    "description": "Rear-left ABS sensor voltage. ⚠ Order unconfirmed."
+    "description": "Rear-left ABS sensor voltage. ⚠ Order unconfirmed.",
+    "span": [
+      1,
+      3.5
+    ],
+    "normal": [
+      2.0,
+      2.4
+    ]
   },
   {
     "name": "abs_sensor_rr",
@@ -215,6 +271,14 @@
     "source": "21 50@3 u8×0.02 V. Decoding PROVEN 2026-08-20 (all ~2.3 V steady). ⚠ WHEEL order not confirmed. CANDIDATE.",
     "label": "ABS sensor RR",
     "group": "Wheels",
-    "description": "Rear-right ABS sensor voltage. ⚠ Order unconfirmed."
+    "description": "Rear-right ABS sensor voltage. ⚠ Order unconfirmed.",
+    "span": [
+      1,
+      3.5
+    ],
+    "normal": [
+      2.0,
+      2.4
+    ]
   }
 ]
