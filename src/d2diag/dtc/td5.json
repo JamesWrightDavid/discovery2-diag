@@ -1,0 +1,2052 @@
+[
+  {
+    "key": "0.0",
+    "name": "egr inlet throttle diagnostics (Logged Low)",
+    "description": "Egr inlet throttle: actuator/feedback diagnostic fault (short/low-side fault logged).",
+    "cause": "Check the egr inlet throttle actuator, its vacuum/feedback and the wiring.",
+    "severity": "logged (low/short)",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0403"
+  },
+  {
+    "key": "0.1",
+    "name": "turbocharger wastegate diagnostics (Logged Low)",
+    "description": "Turbocharger wastegate: actuator/feedback diagnostic fault (short/low-side fault logged).",
+    "cause": "Check the turbocharger wastegate actuator, its vacuum/feedback and the wiring.",
+    "severity": "logged (low/short)",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0243"
+  },
+  {
+    "key": "0.2",
+    "name": "egr vacuum diagnostics (Logged Low)",
+    "description": "Egr vacuum: actuator/feedback diagnostic fault (short/low-side fault logged).",
+    "cause": "Check the egr vacuum actuator, its vacuum/feedback and the wiring.",
+    "severity": "logged (low/short)",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0409"
+  },
+  {
+    "key": "0.3",
+    "name": "temperature gauge diagnostics (Logged Low)",
+    "description": "Temperature gauge: actuator/feedback diagnostic fault (short/low-side fault logged).",
+    "cause": "Check the temperature gauge actuator, its vacuum/feedback and the wiring.",
+    "severity": "logged (low/short)",
+    "system": "cooling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "0.4",
+    "name": "driver demand problem 1 (Logged Low)",
+    "description": "Driver demand problem 1.",
+    "cause": "Accelerator pedal sensor — check the pedal tracks, supply and wiring.",
+    "severity": "logged (low/short)",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0121"
+  },
+  {
+    "key": "0.5",
+    "name": "driver demand problem 2 (Logged Low)",
+    "description": "Driver demand problem 2.",
+    "cause": "Accelerator pedal sensor — check the pedal tracks, supply and wiring.",
+    "severity": "logged (low/short)",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0221"
+  },
+  {
+    "key": "0.6",
+    "name": "air flow circuit (Logged Low)",
+    "description": "Air flow circuit: sensor-circuit fault, signal low.",
+    "cause": "Short to ground or low supply — check the sensor, wiring and connector.",
+    "severity": "logged (low/short)",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0100"
+  },
+  {
+    "key": "0.7",
+    "name": "manifold pressure circuit (Logged Low)",
+    "description": "Manifold pressure circuit: sensor-circuit fault, signal low.",
+    "cause": "Short to ground or low supply — check the sensor, wiring and connector.",
+    "severity": "logged (low/short)",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0105"
+  },
+  {
+    "key": "1.0",
+    "name": "inlet air temp. circuit (Logged Low)",
+    "description": "Inlet air temp. circuit: sensor-circuit fault, signal low.",
+    "cause": "Short to ground or low supply — check the sensor, wiring and connector.",
+    "severity": "logged (low/short)",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0110"
+  },
+  {
+    "key": "1.1",
+    "name": "fuel temp. circuit (Logged Low)",
+    "description": "Fuel temp. circuit: sensor-circuit fault, signal low.",
+    "cause": "Short to ground or low supply — check the sensor, wiring and connector.",
+    "severity": "logged (low/short)",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0180"
+  },
+  {
+    "key": "1.2",
+    "name": "coolant temp. circuit (Logged Low)",
+    "description": "Coolant temp. circuit: sensor-circuit fault, signal low.",
+    "cause": "Short to ground or low supply — check the sensor, wiring and connector.",
+    "severity": "logged (low/short)",
+    "system": "cooling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0115"
+  },
+  {
+    "key": "1.3",
+    "name": "battery volts (Logged Low)",
+    "description": "Battery volts.",
+    "cause": "See the workshop manual fault-finding for this circuit.",
+    "severity": "logged (low/short)",
+    "system": "electrical",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0560"
+  },
+  {
+    "key": "1.4",
+    "name": "reference voltage (Logged Low)",
+    "description": "Reference voltage.",
+    "cause": "See the workshop manual fault-finding for this circuit.",
+    "severity": "logged (low/short)",
+    "system": "electrical",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0641"
+  },
+  {
+    "key": "1.5",
+    "name": "ambient air temp. circuit (Logged Low)",
+    "description": "Ambient air temp. circuit: sensor-circuit fault, signal low.",
+    "cause": "Short to ground or low supply — check the sensor, wiring and connector.",
+    "severity": "logged (low/short)",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0070"
+  },
+  {
+    "key": "1.6",
+    "name": "driver demand supply problem (Logged Low)",
+    "description": "Driver demand supply problem.",
+    "cause": "Accelerator pedal sensor — check the pedal tracks, supply and wiring.",
+    "severity": "logged (low/short)",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0641"
+  },
+  {
+    "key": "1.7",
+    "name": "ambient pressure circuit (Logged Low)",
+    "description": "Ambient pressure circuit: sensor-circuit fault, signal low.",
+    "cause": "Short to ground or low supply — check the sensor, wiring and connector.",
+    "severity": "logged (low/short)",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P2227"
+  },
+  {
+    "key": "2.0",
+    "name": "egr inlet throttle diagnostics (Logged High)",
+    "description": "Egr inlet throttle: actuator/feedback diagnostic fault (open/high-side fault logged).",
+    "cause": "Check the egr inlet throttle actuator, its vacuum/feedback and the wiring.",
+    "severity": "logged (high/open)",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0403"
+  },
+  {
+    "key": "2.1",
+    "name": "turbocharger wastegate diagnostics (Logged High)",
+    "description": "Turbocharger wastegate: actuator/feedback diagnostic fault (open/high-side fault logged).",
+    "cause": "Check the turbocharger wastegate actuator, its vacuum/feedback and the wiring.",
+    "severity": "logged (high/open)",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0243"
+  },
+  {
+    "key": "2.2",
+    "name": "egr vacuum diagnostics (Logged High)",
+    "description": "Egr vacuum: actuator/feedback diagnostic fault (open/high-side fault logged).",
+    "cause": "Check the egr vacuum actuator, its vacuum/feedback and the wiring.",
+    "severity": "logged (high/open)",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0409"
+  },
+  {
+    "key": "2.3",
+    "name": "temperature gauge diagnostics (Logged High)",
+    "description": "Temperature gauge: actuator/feedback diagnostic fault (open/high-side fault logged).",
+    "cause": "Check the temperature gauge actuator, its vacuum/feedback and the wiring.",
+    "severity": "logged (high/open)",
+    "system": "cooling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "2.4",
+    "name": "driver demand problem 1 (Logged High)",
+    "description": "Driver demand problem 1.",
+    "cause": "Accelerator pedal sensor — check the pedal tracks, supply and wiring.",
+    "severity": "logged (high/open)",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0121"
+  },
+  {
+    "key": "2.5",
+    "name": "driver demand problem 2 (Logged High)",
+    "description": "Driver demand problem 2.",
+    "cause": "Accelerator pedal sensor — check the pedal tracks, supply and wiring.",
+    "severity": "logged (high/open)",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0221"
+  },
+  {
+    "key": "2.6",
+    "name": "air flow circuit (Logged High)",
+    "description": "Air flow circuit: sensor-circuit fault, signal high.",
+    "cause": "Open circuit or break — check the sensor, wiring and connector.",
+    "severity": "logged (high/open)",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0100"
+  },
+  {
+    "key": "2.7",
+    "name": "manifold pressure circuit (Logged High)",
+    "description": "Manifold pressure circuit: sensor-circuit fault, signal high.",
+    "cause": "Open circuit or break — check the sensor, wiring and connector.",
+    "severity": "logged (high/open)",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0105"
+  },
+  {
+    "key": "3.0",
+    "name": "inlet air temp. circuit (Logged High)",
+    "description": "Inlet air temp. circuit: sensor-circuit fault, signal high.",
+    "cause": "Open circuit or break — check the sensor, wiring and connector.",
+    "severity": "logged (high/open)",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0110"
+  },
+  {
+    "key": "3.1",
+    "name": "fuel temperature circuit (Logged High)",
+    "description": "Fuel temperature circuit: sensor-circuit fault, signal high.",
+    "cause": "Open circuit or break — check the sensor, wiring and connector.",
+    "severity": "logged (high/open)",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0180"
+  },
+  {
+    "key": "3.2",
+    "name": "coolant temp. circuit (Logged High)",
+    "description": "Coolant temp. circuit: sensor-circuit fault, signal high.",
+    "cause": "Open circuit or break — check the sensor, wiring and connector.",
+    "severity": "logged (high/open)",
+    "system": "cooling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0115"
+  },
+  {
+    "key": "3.3",
+    "name": "battery volts (Logged High)",
+    "description": "Battery volts.",
+    "cause": "See the workshop manual fault-finding for this circuit.",
+    "severity": "logged (high/open)",
+    "system": "electrical",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0560"
+  },
+  {
+    "key": "3.4",
+    "name": "reference voltage (Logged High)",
+    "description": "Reference voltage.",
+    "cause": "See the workshop manual fault-finding for this circuit.",
+    "severity": "logged (high/open)",
+    "system": "electrical",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0641"
+  },
+  {
+    "key": "3.5",
+    "name": "ambient air temperature circuit (Logged High)",
+    "description": "Ambient air temperature circuit: sensor-circuit fault, signal high.",
+    "cause": "Open circuit or break — check the sensor, wiring and connector.",
+    "severity": "logged (high/open)",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0070"
+  },
+  {
+    "key": "3.6",
+    "name": "driver demand supply problem (Logged High)",
+    "description": "Driver demand supply problem.",
+    "cause": "Accelerator pedal sensor — check the pedal tracks, supply and wiring.",
+    "severity": "logged (high/open)",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0641"
+  },
+  {
+    "key": "3.7",
+    "name": "ambient pressure circuit (Logged High)",
+    "description": "Ambient pressure circuit: sensor-circuit fault, signal high.",
+    "cause": "Open circuit or break — check the sensor, wiring and connector.",
+    "severity": "logged (high/open)",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P2227"
+  },
+  {
+    "key": "4.0",
+    "name": "egr inlet throttle diagnostics (Current)",
+    "description": "Egr inlet throttle: actuator/feedback diagnostic fault.",
+    "cause": "Check the egr inlet throttle actuator, its vacuum/feedback and the wiring.",
+    "severity": "current",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0403"
+  },
+  {
+    "key": "4.1",
+    "name": "turbocharger wastegate diagnostics (Current)",
+    "description": "Turbocharger wastegate: actuator/feedback diagnostic fault.",
+    "cause": "Check the turbocharger wastegate actuator, its vacuum/feedback and the wiring.",
+    "severity": "current",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0243"
+  },
+  {
+    "key": "4.2",
+    "name": "egr vacuum diagnostics (Current)",
+    "description": "Egr vacuum: actuator/feedback diagnostic fault.",
+    "cause": "Check the egr vacuum actuator, its vacuum/feedback and the wiring.",
+    "severity": "current",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0409"
+  },
+  {
+    "key": "4.3",
+    "name": "temperature gauge diagnostics (Current)",
+    "description": "Temperature gauge: actuator/feedback diagnostic fault.",
+    "cause": "Check the temperature gauge actuator, its vacuum/feedback and the wiring.",
+    "severity": "current",
+    "system": "cooling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "4.4",
+    "name": "driver demand problem 1 (Current)",
+    "description": "Driver demand problem 1.",
+    "cause": "Accelerator pedal sensor — check the pedal tracks, supply and wiring.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0121"
+  },
+  {
+    "key": "4.5",
+    "name": "driver demand problem 2 (Current)",
+    "description": "Driver demand problem 2.",
+    "cause": "Accelerator pedal sensor — check the pedal tracks, supply and wiring.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0221"
+  },
+  {
+    "key": "4.6",
+    "name": "air flow circuit (Current)",
+    "description": "Air flow circuit: sensor-circuit fault.",
+    "cause": "Check the sensor, its wiring and connector.",
+    "severity": "current",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0100"
+  },
+  {
+    "key": "4.7",
+    "name": "manifold pressure circuit (Current)",
+    "description": "Manifold pressure circuit: sensor-circuit fault.",
+    "cause": "Check the sensor, its wiring and connector.",
+    "severity": "current",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0105"
+  },
+  {
+    "key": "5.0",
+    "name": "inlet air temp. circuit (Current)",
+    "description": "Inlet air temp. circuit: sensor-circuit fault.",
+    "cause": "Check the sensor, its wiring and connector.",
+    "severity": "current",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0110"
+  },
+  {
+    "key": "5.1",
+    "name": "fuel temperature circuit (Current)",
+    "description": "Fuel temperature circuit: sensor-circuit fault.",
+    "cause": "Check the sensor, its wiring and connector.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0180"
+  },
+  {
+    "key": "5.2",
+    "name": "coolant temp. circuit (Current)",
+    "description": "Coolant temp. circuit: sensor-circuit fault.",
+    "cause": "Check the sensor, its wiring and connector.",
+    "severity": "current",
+    "system": "cooling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0115"
+  },
+  {
+    "key": "5.3",
+    "name": "battery voltage problem (Current)",
+    "description": "Battery voltage problem.",
+    "cause": "See the workshop manual fault-finding for this circuit.",
+    "severity": "current",
+    "system": "electrical",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0560"
+  },
+  {
+    "key": "5.4",
+    "name": "reference voltage (Current)",
+    "description": "Reference voltage.",
+    "cause": "See the workshop manual fault-finding for this circuit.",
+    "severity": "current",
+    "system": "electrical",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0641"
+  },
+  {
+    "key": "5.6",
+    "name": "driver demand supply problem (Current)",
+    "description": "Driver demand supply problem.",
+    "cause": "Accelerator pedal sensor — check the pedal tracks, supply and wiring.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0641"
+  },
+  {
+    "key": "5.7",
+    "name": "ambient pressure circuit (Current)",
+    "description": "Ambient pressure circuit: sensor-circuit fault.",
+    "cause": "Check the sensor, its wiring and connector.",
+    "severity": "current",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P2227"
+  },
+  {
+    "key": "6.0",
+    "name": "cruise lamp drive over temp. (Logged)",
+    "description": "Cruise lamp drive: output driver stage over-temperature (overload protection).",
+    "cause": "Driver overloaded — check the circuit for a short or excessive current.",
+    "severity": "logged",
+    "system": "cruise control",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "6.1",
+    "name": "fuel used output drive over temp. (Logged)",
+    "description": "Fuel used output drive: output driver stage over-temperature (overload protection).",
+    "cause": "Driver overloaded — check the circuit for a short or excessive current.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "6.2",
+    "name": "radiator fan drive over temp. (Logged)",
+    "description": "Radiator fan drive: output driver stage over-temperature (overload protection).",
+    "cause": "Driver overloaded — check the circuit for a short or excessive current.",
+    "severity": "logged",
+    "system": "cooling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0480"
+  },
+  {
+    "key": "6.3",
+    "name": "active engine mounting over temp. (Logged)",
+    "description": "Active engine mounting: output driver stage over-temperature (overload protection).",
+    "cause": "Driver overloaded — check the circuit for a short or excessive current.",
+    "severity": "logged",
+    "system": "engine",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "6.4",
+    "name": "turbocharger wastegate short circuit (Logged)",
+    "description": "Turbocharger wastegate short circuit.",
+    "cause": "Short in the actuator/injector or its harness — check wiring.",
+    "severity": "logged",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0245"
+  },
+  {
+    "key": "6.5",
+    "name": "egr inlet throttle short circuit (Logged)",
+    "description": "Egr inlet throttle short circuit.",
+    "cause": "Short in the actuator/injector or its harness — check wiring.",
+    "severity": "logged",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0405"
+  },
+  {
+    "key": "6.6",
+    "name": "egr vacuum modulator short circuit (Logged)",
+    "description": "Egr vacuum modulator short circuit.",
+    "cause": "Short in the actuator/injector or its harness — check wiring.",
+    "severity": "logged",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0409"
+  },
+  {
+    "key": "6.7",
+    "name": "temperature gauge short circuit (Logged)",
+    "description": "Temperature gauge short circuit.",
+    "cause": "Short in the actuator/injector or its harness — check wiring.",
+    "severity": "logged",
+    "system": "cooling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "7.0",
+    "name": "air conditioning fan drive over temp. (Logged)",
+    "description": "Air conditioning fan drive: output driver stage over-temperature (overload protection).",
+    "cause": "Driver overloaded — check the circuit for a short or excessive current.",
+    "severity": "logged",
+    "system": "engine",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "7.1",
+    "name": "fuel pump drive over temp. (Logged)",
+    "description": "Fuel pump drive: output driver stage over-temperature (overload protection).",
+    "cause": "Driver overloaded — check the circuit for a short or excessive current.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0230"
+  },
+  {
+    "key": "7.2",
+    "name": "tacho drive over temp. (Logged)",
+    "description": "Tacho drive: output driver stage over-temperature (overload protection).",
+    "cause": "Driver overloaded — check the circuit for a short or excessive current.",
+    "severity": "logged",
+    "system": "engine",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "7.3",
+    "name": "gearbox/abs drive over temp. (Logged)",
+    "description": "Gearbox/abs drive: output driver stage over-temperature (overload protection).",
+    "cause": "Driver overloaded — check the circuit for a short or excessive current.",
+    "severity": "logged",
+    "system": "drivetrain",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "7.4",
+    "name": "air conditioning clutch over temp. (Logged)",
+    "description": "Air conditioning clutch: output driver stage over-temperature (overload protection).",
+    "cause": "Driver overloaded — check the circuit for a short or excessive current.",
+    "severity": "logged",
+    "system": "engine",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "7.5",
+    "name": "mil lamp drive over temp. (Logged)",
+    "description": "Mil lamp drive: output driver stage over-temperature (overload protection).",
+    "cause": "Driver overloaded — check the circuit for a short or excessive current.",
+    "severity": "logged",
+    "system": "electrical",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "7.6",
+    "name": "glow plug relay drive over temp. (Logged)",
+    "description": "Glow plug relay drive: output driver stage over-temperature (overload protection).",
+    "cause": "Driver overloaded — check the circuit for a short or excessive current.",
+    "severity": "logged",
+    "system": "electrical",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0380"
+  },
+  {
+    "key": "7.7",
+    "name": "glowplug lamp drive over temperature (Logged)",
+    "description": "Glowplug lamp drive: output driver stage over-temperature (overload protection).",
+    "cause": "Driver overloaded — check the circuit for a short or excessive current.",
+    "severity": "logged",
+    "system": "electrical",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0380"
+  },
+  {
+    "key": "8.0",
+    "name": "fuel used output drive open load (Logged)",
+    "description": "Fuel used output drive: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "8.1",
+    "name": "cruise lamp drive open load (Logged)",
+    "description": "Cruise lamp drive: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "logged",
+    "system": "cruise control",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "8.2",
+    "name": "radiator fan drive open load (Logged)",
+    "description": "Radiator fan drive: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "logged",
+    "system": "cooling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0480"
+  },
+  {
+    "key": "8.3",
+    "name": "active engine mounting open load (Logged)",
+    "description": "Active engine mounting: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "logged",
+    "system": "engine",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "8.4",
+    "name": "turbocharger wastegate open load (Logged)",
+    "description": "Turbocharger wastegate: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "logged",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0244"
+  },
+  {
+    "key": "8.5",
+    "name": "egr inlet throttle open load (Logged)",
+    "description": "Egr inlet throttle: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "logged",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0404"
+  },
+  {
+    "key": "8.6",
+    "name": "egr vacuum modulator open load (Logged)",
+    "description": "Egr vacuum modulator: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "logged",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0409"
+  },
+  {
+    "key": "8.7",
+    "name": "temperature gauge open load (Logged)",
+    "description": "Temperature gauge: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "logged",
+    "system": "cooling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "9.0",
+    "name": "air conditioning fan drive open load (Logged)",
+    "description": "Air conditioning fan drive: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "logged",
+    "system": "engine",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "9.1",
+    "name": "fuel pump drive open load (Logged)",
+    "description": "Fuel pump drive: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0230"
+  },
+  {
+    "key": "9.2",
+    "name": "tachometer open load (Logged)",
+    "description": "Tachometer: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "logged",
+    "system": "engine",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "9.3",
+    "name": "gearbox/abs drive open load (Logged)",
+    "description": "Gearbox/abs drive: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "logged",
+    "system": "drivetrain",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "9.4",
+    "name": "air conditioning clutch open load (Logged)",
+    "description": "Air conditioning clutch: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "logged",
+    "system": "engine",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "9.5",
+    "name": "mil lamp drive open load (Logged)",
+    "description": "Mil lamp drive: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "logged",
+    "system": "electrical",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "9.6",
+    "name": "glow plug lamp drive open load (Logged)",
+    "description": "Glow plug lamp drive: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "logged",
+    "system": "electrical",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0380"
+  },
+  {
+    "key": "9.7",
+    "name": "glow plug relay drive open load (Logged)",
+    "description": "Glow plug relay drive: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "logged",
+    "system": "electrical",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0380"
+  },
+  {
+    "key": "10.0",
+    "name": "cruise control lamp drive over temperature (Current)",
+    "description": "Cruise control lamp drive: output driver stage over-temperature (overload protection).",
+    "cause": "Driver overloaded — check the circuit for a short or excessive current.",
+    "severity": "current",
+    "system": "cruise control",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "10.1",
+    "name": "fuel used output drive over temperature (Current)",
+    "description": "Fuel used output drive: output driver stage over-temperature (overload protection).",
+    "cause": "Driver overloaded — check the circuit for a short or excessive current.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "10.2",
+    "name": "radiator fan drive over temperature (Current)",
+    "description": "Radiator fan drive: output driver stage over-temperature (overload protection).",
+    "cause": "Driver overloaded — check the circuit for a short or excessive current.",
+    "severity": "current",
+    "system": "cooling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0480"
+  },
+  {
+    "key": "10.3",
+    "name": "active engine mounting over temperature (Current)",
+    "description": "Active engine mounting: output driver stage over-temperature (overload protection).",
+    "cause": "Driver overloaded — check the circuit for a short or excessive current.",
+    "severity": "current",
+    "system": "engine",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "10.4",
+    "name": "turbocharger wastegate short circuit (Current)",
+    "description": "Turbocharger wastegate short circuit.",
+    "cause": "Short in the actuator/injector or its harness — check wiring.",
+    "severity": "current",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0245"
+  },
+  {
+    "key": "10.5",
+    "name": "egr inlet throttle short circuit (Current)",
+    "description": "Egr inlet throttle short circuit.",
+    "cause": "Short in the actuator/injector or its harness — check wiring.",
+    "severity": "current",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0405"
+  },
+  {
+    "key": "10.6",
+    "name": "egr vacuum modulator short circuit (Current)",
+    "description": "Egr vacuum modulator short circuit.",
+    "cause": "Short in the actuator/injector or its harness — check wiring.",
+    "severity": "current",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0409"
+  },
+  {
+    "key": "10.7",
+    "name": "temperature gauge short circuit (Current)",
+    "description": "Temperature gauge short circuit.",
+    "cause": "Short in the actuator/injector or its harness — check wiring.",
+    "severity": "current",
+    "system": "cooling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "11.0",
+    "name": "air conditioning fan drive open load (Current)",
+    "description": "Air conditioning fan drive: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "current",
+    "system": "engine",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "11.1",
+    "name": "fuel pump drive open load (Current)",
+    "description": "Fuel pump drive: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0230"
+  },
+  {
+    "key": "11.2",
+    "name": "tachometer open load (Current)",
+    "description": "Tachometer: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "current",
+    "system": "engine",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "11.3",
+    "name": "gearbox/abs drive open load (Current)",
+    "description": "Gearbox/abs drive: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "current",
+    "system": "drivetrain",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "11.4",
+    "name": "air conditioning clutch open load (Current)",
+    "description": "Air conditioning clutch: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "current",
+    "system": "engine",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "11.5",
+    "name": "mil lamp drive open load (Current)",
+    "description": "Mil lamp drive: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "current",
+    "system": "electrical",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "11.6",
+    "name": "glow plug relay drive open load (Current)",
+    "description": "Glow plug relay drive: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "current",
+    "system": "electrical",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0380"
+  },
+  {
+    "key": "11.7",
+    "name": "glowplug relay drive open load (Current)",
+    "description": "Glowplug relay drive: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "current",
+    "system": "electrical",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0380"
+  },
+  {
+    "key": "12.0",
+    "name": "cruise control lamp drive over temp. (Current)",
+    "description": "Cruise control lamp drive: output driver stage over-temperature (overload protection).",
+    "cause": "Driver overloaded — check the circuit for a short or excessive current.",
+    "severity": "current",
+    "system": "cruise control",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "12.1",
+    "name": "fuel used output drive over temp. (Current)",
+    "description": "Fuel used output drive: output driver stage over-temperature (overload protection).",
+    "cause": "Driver overloaded — check the circuit for a short or excessive current.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "12.2",
+    "name": "radiator fan drive over temp. (Current)",
+    "description": "Radiator fan drive: output driver stage over-temperature (overload protection).",
+    "cause": "Driver overloaded — check the circuit for a short or excessive current.",
+    "severity": "current",
+    "system": "cooling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0480"
+  },
+  {
+    "key": "12.3",
+    "name": "active engine mounting over temp. (Current)",
+    "description": "Active engine mounting: output driver stage over-temperature (overload protection).",
+    "cause": "Driver overloaded — check the circuit for a short or excessive current.",
+    "severity": "current",
+    "system": "engine",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "12.4",
+    "name": "turbocharger wastegate short circuit (Current)",
+    "description": "Turbocharger wastegate short circuit.",
+    "cause": "Short in the actuator/injector or its harness — check wiring.",
+    "severity": "current",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0245"
+  },
+  {
+    "key": "12.5",
+    "name": "egr inlet throttle short circuit (Current)",
+    "description": "Egr inlet throttle short circuit.",
+    "cause": "Short in the actuator/injector or its harness — check wiring.",
+    "severity": "current",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0405"
+  },
+  {
+    "key": "12.6",
+    "name": "egr vacuum modulator short circuit (Current)",
+    "description": "Egr vacuum modulator short circuit.",
+    "cause": "Short in the actuator/injector or its harness — check wiring.",
+    "severity": "current",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0409"
+  },
+  {
+    "key": "12.7",
+    "name": "temperature gauge short circuit (Current)",
+    "description": "Temperature gauge short circuit.",
+    "cause": "Short in the actuator/injector or its harness — check wiring.",
+    "severity": "current",
+    "system": "cooling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "13.0",
+    "name": "air conditioning fan drive open load (Current)",
+    "description": "Air conditioning fan drive: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "current",
+    "system": "engine",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "13.1",
+    "name": "fuel pump drive open load (Current)",
+    "description": "Fuel pump drive: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0230"
+  },
+  {
+    "key": "13.2",
+    "name": "tachometer open load (Current)",
+    "description": "Tachometer: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "current",
+    "system": "engine",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "13.3",
+    "name": "gearbox/abs drive open load (Current)",
+    "description": "Gearbox/abs drive: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "current",
+    "system": "drivetrain",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "13.4",
+    "name": "air conditioning clutch open load (Current)",
+    "description": "Air conditioning clutch: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "current",
+    "system": "engine",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "13.5",
+    "name": "mil lamp drive open load (Current)",
+    "description": "Mil lamp drive: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "current",
+    "system": "electrical",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "13.6",
+    "name": "glow plug relay drive open load (Current)",
+    "description": "Glow plug relay drive: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "current",
+    "system": "electrical",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0380"
+  },
+  {
+    "key": "13.7",
+    "name": "glowplug relay drive open load (Current)",
+    "description": "Glowplug relay drive: output driver sees no load (open).",
+    "cause": "Open circuit — check the actuator and its wiring/connector.",
+    "severity": "current",
+    "system": "electrical",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0380"
+  },
+  {
+    "key": "14.1",
+    "name": "high speed crank (Logged)",
+    "description": "High speed crank.",
+    "cause": "Crankshaft sensor signal issue — check the sensor and reluctor.",
+    "severity": "logged",
+    "system": "engine sensors",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0335"
+  },
+  {
+    "key": "15.1",
+    "name": "high speed crank (Logged)",
+    "description": "High speed crank.",
+    "cause": "Crankshaft sensor signal issue — check the sensor and reluctor.",
+    "severity": "logged",
+    "system": "engine sensors",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0335"
+  },
+  {
+    "key": "16.1",
+    "name": "high speed crank (Current)",
+    "description": "High speed crank.",
+    "cause": "Crankshaft sensor signal issue — check the sensor and reluctor.",
+    "severity": "current",
+    "system": "engine sensors",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0335"
+  },
+  {
+    "key": "18.1",
+    "name": "can rx/tx error (Logged)",
+    "description": "Can rx/tx error.",
+    "cause": "CAN bus communication fault — check the bus wiring and the modules on it (SLABS/gearbox).",
+    "severity": "logged",
+    "system": "comms (CAN)",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "U0001"
+  },
+  {
+    "key": "18.2",
+    "name": "can tx/rx error (Logged)",
+    "description": "Can tx/rx error.",
+    "cause": "CAN bus communication fault — check the bus wiring and the modules on it (SLABS/gearbox).",
+    "severity": "logged",
+    "system": "comms (CAN)",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "U0001"
+  },
+  {
+    "key": "18.5",
+    "name": "noisy crank signal has been detected (Logged)",
+    "description": "Noisy crank signal has been detected.",
+    "cause": "Crankshaft sensor signal issue — check the sensor and reluctor.",
+    "severity": "logged",
+    "system": "engine sensors",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0335"
+  },
+  {
+    "key": "18.7",
+    "name": "can has had reset failure (Logged)",
+    "description": "Can has had reset failure.",
+    "cause": "CAN bus communication fault — check the bus wiring and the modules on it (SLABS/gearbox).",
+    "severity": "logged",
+    "system": "comms (CAN)",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "U0001"
+  },
+  {
+    "key": "19.0",
+    "name": "turbocharger under boosting (Logged)",
+    "description": "Turbocharger under boosting.",
+    "cause": "Boost-control fault — check the turbo, wastegate modulator, hoses and MAP.",
+    "severity": "logged",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0299"
+  },
+  {
+    "key": "19.1",
+    "name": "turbocharger over boosting (Logged)",
+    "description": "Turbocharger over boosting.",
+    "cause": "Boost-control fault — check the turbo, wastegate modulator, hoses and MAP.",
+    "severity": "logged",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0234"
+  },
+  {
+    "key": "19.3",
+    "name": "egr valve stuck open (Logged)",
+    "description": "Egr valve stuck open.",
+    "cause": "EGR valve/modulator stuck — check the valve, vacuum and soot.",
+    "severity": "logged",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0402"
+  },
+  {
+    "key": "19.4",
+    "name": "egr valve stuck closed (Logged)",
+    "description": "Egr valve stuck closed.",
+    "cause": "EGR valve/modulator stuck — check the valve, vacuum and soot.",
+    "severity": "logged",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0401"
+  },
+  {
+    "key": "20.3",
+    "name": "driver demand 1 out of range (Logged)",
+    "description": "Driver demand 1 out of range.",
+    "cause": "Accelerator pedal sensor — check the pedal tracks, supply and wiring.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0121"
+  },
+  {
+    "key": "20.4",
+    "name": "driver demand 2 out of range (Logged)",
+    "description": "Driver demand 2 out of range.",
+    "cause": "Accelerator pedal sensor — check the pedal tracks, supply and wiring.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0221"
+  },
+  {
+    "key": "20.5",
+    "name": "problem detected with driver demand (Logged)",
+    "description": "Problem detected with driver demand.",
+    "cause": "Accelerator pedal sensor — check the pedal tracks, supply and wiring.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0120"
+  },
+  {
+    "key": "20.6",
+    "name": "inconsistencies found with driver demand (Logged)",
+    "description": "Inconsistencies found with driver demand.",
+    "cause": "Accelerator pedal sensor — check the pedal tracks, supply and wiring.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P2135"
+  },
+  {
+    "key": "21.0",
+    "name": "road speed missing (Logged)",
+    "description": "Road speed missing.",
+    "cause": "Road-speed signal missing — check the source (SLABS/instruments).",
+    "severity": "logged",
+    "system": "engine sensors",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0500"
+  },
+  {
+    "key": "21.2",
+    "name": "vehicle accel. outside bounds of cruise control (Logged)",
+    "description": "Vehicle accel. outside bounds of cruise control.",
+    "cause": "Cruise-control input/switch fault — check the stalk and brake/clutch switches.",
+    "severity": "logged",
+    "system": "cruise control",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "21.6",
+    "name": "cruise control resume stuck closed (Logged)",
+    "description": "Cruise control resume stuck closed.",
+    "cause": "Cruise-control input/switch fault — check the stalk and brake/clutch switches.",
+    "severity": "logged",
+    "system": "cruise control",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "21.7",
+    "name": "cruise control set stuck closed (Logged)",
+    "description": "Cruise control set stuck closed.",
+    "cause": "Cruise-control input/switch fault — check the stalk and brake/clutch switches.",
+    "severity": "logged",
+    "system": "cruise control",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "22.0",
+    "name": "excessive can bus off (Current)",
+    "description": "Excessive can bus off.",
+    "cause": "CAN bus communication fault — check the bus wiring and the modules on it (SLABS/gearbox).",
+    "severity": "current",
+    "system": "comms (CAN)",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "U0001"
+  },
+  {
+    "key": "22.1",
+    "name": "can rx/tx error (Current)",
+    "description": "Can rx/tx error.",
+    "cause": "CAN bus communication fault — check the bus wiring and the modules on it (SLABS/gearbox).",
+    "severity": "current",
+    "system": "comms (CAN)",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "U0001"
+  },
+  {
+    "key": "22.2",
+    "name": "can tx/rx error (Current)",
+    "description": "Can tx/rx error.",
+    "cause": "CAN bus communication fault — check the bus wiring and the modules on it (SLABS/gearbox).",
+    "severity": "current",
+    "system": "comms (CAN)",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "U0001"
+  },
+  {
+    "key": "22.3",
+    "name": "unable to detect remote can mode (Current)",
+    "description": "Unable to detect remote can mode.",
+    "cause": "CAN bus communication fault — check the bus wiring and the modules on it (SLABS/gearbox).",
+    "severity": "current",
+    "system": "comms (CAN)",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "U0001"
+  },
+  {
+    "key": "22.4",
+    "name": "under boost has occurred on this trip (Current)",
+    "description": "Under boost has occurred on this trip.",
+    "cause": "Boost-control fault — check the turbo, wastegate modulator, hoses and MAP.",
+    "severity": "current",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0299"
+  },
+  {
+    "key": "22.5",
+    "name": "noisy crank signal has been detected (Current)",
+    "description": "Noisy crank signal has been detected.",
+    "cause": "Crankshaft sensor signal issue — check the sensor and reluctor.",
+    "severity": "current",
+    "system": "engine sensors",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0335"
+  },
+  {
+    "key": "23.0",
+    "name": "turbocharger under boosting (Current)",
+    "description": "Turbocharger under boosting.",
+    "cause": "Boost-control fault — check the turbo, wastegate modulator, hoses and MAP.",
+    "severity": "current",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0299"
+  },
+  {
+    "key": "23.1",
+    "name": "turbocharger over boosting (Current)",
+    "description": "Turbocharger over boosting.",
+    "cause": "Boost-control fault — check the turbo, wastegate modulator, hoses and MAP.",
+    "severity": "current",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0234"
+  },
+  {
+    "key": "23.2",
+    "name": "over boost has occurred this trip (Current)",
+    "description": "Over boost has occurred this trip.",
+    "cause": "Boost-control fault — check the turbo, wastegate modulator, hoses and MAP.",
+    "severity": "current",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0234"
+  },
+  {
+    "key": "23.3",
+    "name": "egr valve stuck open (Current)",
+    "description": "Egr valve stuck open.",
+    "cause": "EGR valve/modulator stuck — check the valve, vacuum and soot.",
+    "severity": "current",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0402"
+  },
+  {
+    "key": "23.4",
+    "name": "egr valve stuck closed (Current)",
+    "description": "Egr valve stuck closed.",
+    "cause": "EGR valve/modulator stuck — check the valve, vacuum and soot.",
+    "severity": "current",
+    "system": "engine air & boost",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0401"
+  },
+  {
+    "key": "23.6",
+    "name": "problem detected with auto gear box (Current)",
+    "description": "Problem detected with auto gear box.",
+    "cause": "Fault reported for the automatic gearbox — read the EAT module.",
+    "severity": "current",
+    "system": "drivetrain",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0700"
+  },
+  {
+    "key": "24.3",
+    "name": "driver demand 1 out of range (Logged)",
+    "description": "Driver demand 1 out of range.",
+    "cause": "Accelerator pedal sensor — check the pedal tracks, supply and wiring.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0121"
+  },
+  {
+    "key": "24.4",
+    "name": "driver demand 2 out of range (Logged)",
+    "description": "Driver demand 2 out of range.",
+    "cause": "Accelerator pedal sensor — check the pedal tracks, supply and wiring.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0221"
+  },
+  {
+    "key": "24.5",
+    "name": "problem detected with drive demand (Current)",
+    "description": "Problem detected with drive demand.",
+    "cause": "See the workshop manual fault-finding for this circuit.",
+    "severity": "current",
+    "system": "engine",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0120"
+  },
+  {
+    "key": "24.6",
+    "name": "inconsistencies found with driver demand (Current)",
+    "description": "Inconsistencies found with driver demand.",
+    "cause": "Accelerator pedal sensor — check the pedal tracks, supply and wiring.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P2135"
+  },
+  {
+    "key": "24.7",
+    "name": "injector trim data corrupted (Current)",
+    "description": "Injector trim data corrupted: stored injector classification codes are corrupt.",
+    "cause": "Re-enter the injector codes with a capable tool.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P1633"
+  },
+  {
+    "key": "25.0",
+    "name": "road speed missing (Current)",
+    "description": "Road speed missing.",
+    "cause": "Road-speed signal missing — check the source (SLABS/instruments).",
+    "severity": "current",
+    "system": "engine sensors",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0500"
+  },
+  {
+    "key": "25.1",
+    "name": "cruise control system problem (Current)",
+    "description": "Cruise control system problem.",
+    "cause": "Cruise-control input/switch fault — check the stalk and brake/clutch switches.",
+    "severity": "current",
+    "system": "cruise control",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "25.2",
+    "name": "vehicle accel. outside bounds for cruise control (Current)",
+    "description": "Vehicle accel. outside bounds for cruise control.",
+    "cause": "Cruise-control input/switch fault — check the stalk and brake/clutch switches.",
+    "severity": "current",
+    "system": "cruise control",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "25.6",
+    "name": "cruise control resume stuck closed (Current)",
+    "description": "Cruise control resume stuck closed.",
+    "cause": "Cruise-control input/switch fault — check the stalk and brake/clutch switches.",
+    "severity": "current",
+    "system": "cruise control",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "25.7",
+    "name": "cruise control set stuck closed (Current)",
+    "description": "Cruise control set stuck closed.",
+    "cause": "Cruise-control input/switch fault — check the stalk and brake/clutch switches.",
+    "severity": "current",
+    "system": "cruise control",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "26.0",
+    "name": "inj. 1 peak charge long (Logged)",
+    "description": "Inj. 1 peak charge long: injector peak-charge timing out of range.",
+    "cause": "Suspect injector or harness — check resistance/connector, compare balance.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0201"
+  },
+  {
+    "key": "26.1",
+    "name": "inj. 2 peak charge long (Logged)",
+    "description": "Inj. 2 peak charge long: injector peak-charge timing out of range.",
+    "cause": "Suspect injector or harness — check resistance/connector, compare balance.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0202"
+  },
+  {
+    "key": "26.2",
+    "name": "inj. 3 peak charge long (Logged)",
+    "description": "Inj. 3 peak charge long: injector peak-charge timing out of range.",
+    "cause": "Suspect injector or harness — check resistance/connector, compare balance.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0203"
+  },
+  {
+    "key": "26.3",
+    "name": "inj. 4 peak charge long (Logged)",
+    "description": "Inj. 4 peak charge long: injector peak-charge timing out of range.",
+    "cause": "Suspect injector or harness — check resistance/connector, compare balance.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0204"
+  },
+  {
+    "key": "26.4",
+    "name": "inj. 5 peak charge long (Logged)",
+    "description": "Inj. 5 peak charge long: injector peak-charge timing out of range.",
+    "cause": "Suspect injector or harness — check resistance/connector, compare balance.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0205"
+  },
+  {
+    "key": "26.5",
+    "name": "inj. 6 peak charge long (Logged)",
+    "description": "Inj. 6 peak charge long: injector peak-charge timing out of range.",
+    "cause": "Suspect injector or harness — check resistance/connector, compare balance.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0206"
+  },
+  {
+    "key": "26.6",
+    "name": "topside switch failed post injection (Logged)",
+    "description": "Topside switch failed post injection.",
+    "cause": "See the workshop manual fault-finding for this circuit.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "27.0",
+    "name": "inj. 1 peak charge short (Logged)",
+    "description": "Inj. 1 peak charge short: injector peak-charge timing out of range.",
+    "cause": "Suspect injector or harness — check resistance/connector, compare balance.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0201"
+  },
+  {
+    "key": "27.1",
+    "name": "inj. 2 peak charge short (Logged)",
+    "description": "Inj. 2 peak charge short: injector peak-charge timing out of range.",
+    "cause": "Suspect injector or harness — check resistance/connector, compare balance.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0202"
+  },
+  {
+    "key": "27.2",
+    "name": "inj. 3 peak charge short (Logged)",
+    "description": "Inj. 3 peak charge short: injector peak-charge timing out of range.",
+    "cause": "Suspect injector or harness — check resistance/connector, compare balance.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0203"
+  },
+  {
+    "key": "27.3",
+    "name": "inj. 4 peak charge short (Logged)",
+    "description": "Inj. 4 peak charge short: injector peak-charge timing out of range.",
+    "cause": "Suspect injector or harness — check resistance/connector, compare balance.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0204"
+  },
+  {
+    "key": "27.4",
+    "name": "inj. 5 peak charge short (Logged)",
+    "description": "Inj. 5 peak charge short: injector peak-charge timing out of range.",
+    "cause": "Suspect injector or harness — check resistance/connector, compare balance.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0205"
+  },
+  {
+    "key": "27.5",
+    "name": "inj. 6 peak charge short (Logged)",
+    "description": "Inj. 6 peak charge short: injector peak-charge timing out of range.",
+    "cause": "Suspect injector or harness — check resistance/connector, compare balance.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0206"
+  },
+  {
+    "key": "27.6",
+    "name": "topside switch failed pre injection (Logged)",
+    "description": "Topside switch failed pre injection.",
+    "cause": "See the workshop manual fault-finding for this circuit.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "28.0",
+    "name": "inj. 1 peak charge long (Current)",
+    "description": "Inj. 1 peak charge long: injector peak-charge timing out of range.",
+    "cause": "Suspect injector or harness — check resistance/connector, compare balance.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0201"
+  },
+  {
+    "key": "28.1",
+    "name": "inj. 2 peak charge long (Current)",
+    "description": "Inj. 2 peak charge long: injector peak-charge timing out of range.",
+    "cause": "Suspect injector or harness — check resistance/connector, compare balance.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0202"
+  },
+  {
+    "key": "28.2",
+    "name": "inj. 3 peak charge long (Current)",
+    "description": "Inj. 3 peak charge long: injector peak-charge timing out of range.",
+    "cause": "Suspect injector or harness — check resistance/connector, compare balance.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0203"
+  },
+  {
+    "key": "28.3",
+    "name": "inj. 4 peak charge long (Current)",
+    "description": "Inj. 4 peak charge long: injector peak-charge timing out of range.",
+    "cause": "Suspect injector or harness — check resistance/connector, compare balance.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0204"
+  },
+  {
+    "key": "28.4",
+    "name": "inj. 5 peak charge long (Current)",
+    "description": "Inj. 5 peak charge long: injector peak-charge timing out of range.",
+    "cause": "Suspect injector or harness — check resistance/connector, compare balance.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0205"
+  },
+  {
+    "key": "28.5",
+    "name": "inj. 6 peak charge long (Current)",
+    "description": "Inj. 6 peak charge long: injector peak-charge timing out of range.",
+    "cause": "Suspect injector or harness — check resistance/connector, compare balance.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0206"
+  },
+  {
+    "key": "28.6",
+    "name": "topside switch failed post injection (Current)",
+    "description": "Topside switch failed post injection.",
+    "cause": "See the workshop manual fault-finding for this circuit.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "29.0",
+    "name": "inj. 1 peak charge short (Current)",
+    "description": "Inj. 1 peak charge short: injector peak-charge timing out of range.",
+    "cause": "Suspect injector or harness — check resistance/connector, compare balance.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0201"
+  },
+  {
+    "key": "29.1",
+    "name": "inj. 2 peak charge short (Current)",
+    "description": "Inj. 2 peak charge short: injector peak-charge timing out of range.",
+    "cause": "Suspect injector or harness — check resistance/connector, compare balance.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0202"
+  },
+  {
+    "key": "29.2",
+    "name": "inj. 3 peak charge short (Current)",
+    "description": "Inj. 3 peak charge short: injector peak-charge timing out of range.",
+    "cause": "Suspect injector or harness — check resistance/connector, compare balance.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0203"
+  },
+  {
+    "key": "29.3",
+    "name": "inj. 4 peak charge short (Current)",
+    "description": "Inj. 4 peak charge short: injector peak-charge timing out of range.",
+    "cause": "Suspect injector or harness — check resistance/connector, compare balance.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0204"
+  },
+  {
+    "key": "29.4",
+    "name": "inj. 5 peak charge short (Current)",
+    "description": "Inj. 5 peak charge short: injector peak-charge timing out of range.",
+    "cause": "Suspect injector or harness — check resistance/connector, compare balance.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0205"
+  },
+  {
+    "key": "29.5",
+    "name": "inj. 6 peak charge short (Current)",
+    "description": "Inj. 6 peak charge short: injector peak-charge timing out of range.",
+    "cause": "Suspect injector or harness — check resistance/connector, compare balance.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0206"
+  },
+  {
+    "key": "29.6",
+    "name": "topside switch failed pre injection (Current)",
+    "description": "Topside switch failed pre injection.",
+    "cause": "See the workshop manual fault-finding for this circuit.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+  },
+  {
+    "key": "30.0",
+    "name": "inj. 1 open circuit (Logged)",
+    "description": "Inj. 1 open circuit.",
+    "cause": "Open circuit — check the actuator/injector and its wiring.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0201"
+  },
+  {
+    "key": "30.1",
+    "name": "inj. 2 open circuit (Logged)",
+    "description": "Inj. 2 open circuit.",
+    "cause": "Open circuit — check the actuator/injector and its wiring.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0202"
+  },
+  {
+    "key": "30.2",
+    "name": "inj. 3 open circuit (Logged)",
+    "description": "Inj. 3 open circuit.",
+    "cause": "Open circuit — check the actuator/injector and its wiring.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0203"
+  },
+  {
+    "key": "30.3",
+    "name": "inj. 4 open circuit (Logged)",
+    "description": "Inj. 4 open circuit.",
+    "cause": "Open circuit — check the actuator/injector and its wiring.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0204"
+  },
+  {
+    "key": "30.4",
+    "name": "inj. 5 open circuit (Logged)",
+    "description": "Inj. 5 open circuit.",
+    "cause": "Open circuit — check the actuator/injector and its wiring.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0205"
+  },
+  {
+    "key": "30.5",
+    "name": "inj. 6 open circuit (Logged)",
+    "description": "Inj. 6 open circuit.",
+    "cause": "Open circuit — check the actuator/injector and its wiring.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0206"
+  },
+  {
+    "key": "31.0",
+    "name": "inj. 1 short circuit (Logged)",
+    "description": "Inj. 1 short circuit.",
+    "cause": "Short in the actuator/injector or its harness — check wiring.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0201"
+  },
+  {
+    "key": "31.1",
+    "name": "inj. 2 short circuit (Logged)",
+    "description": "Inj. 2 short circuit.",
+    "cause": "Short in the actuator/injector or its harness — check wiring.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0202"
+  },
+  {
+    "key": "31.2",
+    "name": "inj. 3 short circuit (Logged)",
+    "description": "Inj. 3 short circuit.",
+    "cause": "Short in the actuator/injector or its harness — check wiring.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0203"
+  },
+  {
+    "key": "31.3",
+    "name": "inj. 4 short circuit (Logged)",
+    "description": "Inj. 4 short circuit.",
+    "cause": "Short in the actuator/injector or its harness — check wiring.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0204"
+  },
+  {
+    "key": "31.4",
+    "name": "inj. 5 short circuit (Logged)",
+    "description": "Inj. 5 short circuit.",
+    "cause": "Short in the actuator/injector or its harness — check wiring.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0205"
+  },
+  {
+    "key": "31.5",
+    "name": "inj. 6 short circuit (Logged)",
+    "description": "Inj. 6 short circuit.",
+    "cause": "Short in the actuator/injector or its harness — check wiring.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0206"
+  },
+  {
+    "key": "32.0",
+    "name": "inj. 1 open circuit (Current)",
+    "description": "Inj. 1 open circuit.",
+    "cause": "Open circuit — check the actuator/injector and its wiring.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0201"
+  },
+  {
+    "key": "32.1",
+    "name": "inj. 2 open circuit (Current)",
+    "description": "Inj. 2 open circuit.",
+    "cause": "Open circuit — check the actuator/injector and its wiring.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0202"
+  },
+  {
+    "key": "32.2",
+    "name": "inj. 3 open circuit (Current)",
+    "description": "Inj. 3 open circuit.",
+    "cause": "Open circuit — check the actuator/injector and its wiring.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0203"
+  },
+  {
+    "key": "32.3",
+    "name": "inj. 4 open circuit (Current)",
+    "description": "Inj. 4 open circuit.",
+    "cause": "Open circuit — check the actuator/injector and its wiring.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0204"
+  },
+  {
+    "key": "32.4",
+    "name": "inj. 5 open circuit (Current)",
+    "description": "Inj. 5 open circuit.",
+    "cause": "Open circuit — check the actuator/injector and its wiring.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0205"
+  },
+  {
+    "key": "32.5",
+    "name": "inj. 6 open circuit (Current)",
+    "description": "Inj. 6 open circuit.",
+    "cause": "Open circuit — check the actuator/injector and its wiring.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0206"
+  },
+  {
+    "key": "33.0",
+    "name": "inj. 1 short circuit (Current)",
+    "description": "Inj. 1 short circuit.",
+    "cause": "Short in the actuator/injector or its harness — check wiring.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0201"
+  },
+  {
+    "key": "33.1",
+    "name": "inj. 2 short circuit (Current)",
+    "description": "Inj. 2 short circuit.",
+    "cause": "Short in the actuator/injector or its harness — check wiring.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0202"
+  },
+  {
+    "key": "33.2",
+    "name": "inj. 3 short circuit (Current)",
+    "description": "Inj. 3 short circuit.",
+    "cause": "Short in the actuator/injector or its harness — check wiring.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0203"
+  },
+  {
+    "key": "33.3",
+    "name": "inj. 4 short circuit (Current)",
+    "description": "Inj. 4 short circuit.",
+    "cause": "Short in the actuator/injector or its harness — check wiring.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0204"
+  },
+  {
+    "key": "33.4",
+    "name": "inj. 5 short circuit (Current)",
+    "description": "Inj. 5 short circuit.",
+    "cause": "Short in the actuator/injector or its harness — check wiring.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0205"
+  },
+  {
+    "key": "33.5",
+    "name": "inj. 6 short circuit (Current)",
+    "description": "Inj. 6 short circuit.",
+    "cause": "Short in the actuator/injector or its harness — check wiring.",
+    "severity": "current",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0206"
+  },
+  {
+    "key": "34.0",
+    "name": "inj. 1 partial short circuit (Logged)",
+    "description": "Inj. 1 partial short circuit: injector partial short circuit.",
+    "cause": "Check the injector and its harness; compare cylinder balance.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0201"
+  },
+  {
+    "key": "34.1",
+    "name": "inj. 2 partial short circuit (Logged)",
+    "description": "Inj. 2 partial short circuit: injector partial short circuit.",
+    "cause": "Check the injector and its harness; compare cylinder balance.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0202"
+  },
+  {
+    "key": "34.2",
+    "name": "inj. 3 partial short circuit (Logged)",
+    "description": "Inj. 3 partial short circuit: injector partial short circuit.",
+    "cause": "Check the injector and its harness; compare cylinder balance.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0203"
+  },
+  {
+    "key": "34.3",
+    "name": "inj. 4 partial short circuit (Logged)",
+    "description": "Inj. 4 partial short circuit: injector partial short circuit.",
+    "cause": "Check the injector and its harness; compare cylinder balance.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0204"
+  },
+  {
+    "key": "34.4",
+    "name": "inj. 5 partial short circuit (Logged)",
+    "description": "Inj. 5 partial short circuit: injector partial short circuit.",
+    "cause": "Check the injector and its harness; compare cylinder balance.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0205"
+  },
+  {
+    "key": "34.5",
+    "name": "inj. 6 partial short circuit (Logged)",
+    "description": "Inj. 6 partial short circuit: injector partial short circuit.",
+    "cause": "Check the injector and its harness; compare cylinder balance.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "pcode": "P0206"
+  }
+]

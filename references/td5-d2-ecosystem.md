@@ -78,8 +78,20 @@ SLABS / BCU / airbag / EAT / ACE / cruise / HEVAC.
   fault indexing — a future enhancement to `td5/faults.py` / `faultmap.json` (deferred: 211
   entries, wants its own verification pass).
 
-## Not yet mined / next
+## Fault dictionary (built 2026-10-01)
+The "meaning of each error" is now a store: `src/d2diag/dtc/<module>.json` (loader
+`d2diag.dtc`), seeded for Td5 (210 codes, meaning+cause+severity+inferred P-code), SLABS
+(012–114 from rswsolutions) and airbag (sparse). It is served two ways: the generated
+[fault dictionary](../docs/discovery-2-td5/fault-dictionary.md) (Docs tab, `tools/gen_fault_docs.py`)
+and the web `/faults` endpoint (live meanings on the dashboard). The DTC→P-code
+cross-reference above is folded in. Decoders stay the source of truth for bit→name; the
+`dtc` store adds meaning.
+
+## Not yet mined / next (the RAVE replacement, continued)
+- **Wiring/technical diagram catalogue + connector/pinout library + viewer**, and **manual
+  ingestion** (RAVE/ETM PDFs the owner supplies). Binaries live in the gitignored
+  `manuals/`/`diagrams/` dirs; only the index + extracted text get committed. Deferred pass.
 - The Faultmate `SM0xx` help and RAVE ETM for the **non-engine modules** (SLABS calibrations,
   ACE, EAT payloads, cruise, HEVAC) — the functional layer the NanoCom capture (ADR-0005) and
-  `module_scan` will turn into protocol facts.
-- DTC → P-code cross-reference (above).
+  `module_scan` will turn into protocol facts; also to enrich the airbag/EAT/BCU/ACE fault
+  meanings (currently sparse).

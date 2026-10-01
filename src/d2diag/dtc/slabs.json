@@ -1,0 +1,506 @@
+[
+  {
+    "key": "012",
+    "name": "Pump Fail — Monitor Line",
+    "description": "Pump Fail — Monitor Line (SLABS ABS/SLS fault 012).",
+    "cause": "Pump monitor line fault — check the monitor wiring.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "013",
+    "name": "Pump Fail — Pump Not Running When On",
+    "description": "Pump Fail — Pump Not Running When On (SLABS ABS/SLS fault 013).",
+    "cause": "Pump commanded on but not running — check the pump, relay and supply.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "014",
+    "name": "Pump Fail — Pump Sticking",
+    "description": "Pump Fail — Pump Sticking (SLABS ABS/SLS fault 014).",
+    "cause": "Mechanical sticking — inspect the valve/pump.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "015",
+    "name": "Pump Fail — Pump Running When Not On",
+    "description": "Pump Fail — Pump Running When Not On (SLABS ABS/SLS fault 015).",
+    "cause": "Pump running when off — check the relay and pump drive.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "016",
+    "name": "Shuttle Valve Switch Long Term Failure",
+    "description": "Shuttle Valve Switch Long Term Failure (SLABS ABS/SLS fault 016).",
+    "cause": "See the workshop manual fault-finding for this circuit.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "017",
+    "name": "ECU Internal Valve Relay Bad",
+    "description": "ECU Internal Valve Relay Bad (SLABS ABS/SLS fault 017).",
+    "cause": "Internal valve relay fault — ECU suspect.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "020",
+    "name": "No Batt Supply Voltage",
+    "description": "No Batt Supply Voltage (SLABS ABS/SLS fault 020).",
+    "cause": "See the workshop manual fault-finding for this circuit.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "021",
+    "name": "Engine PWM Signal Bad",
+    "description": "Engine PWM Signal Bad (SLABS ABS/SLS fault 021).",
+    "cause": "See the workshop manual fault-finding for this circuit.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "022",
+    "name": "ECU Gnd or Reference Gnd Bad",
+    "description": "ECU Gnd or Reference Gnd Bad (SLABS ABS/SLS fault 022).",
+    "cause": "See the workshop manual fault-finding for this circuit.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "023",
+    "name": "Gear Info Not Valid",
+    "description": "Gear Info Not Valid (SLABS ABS/SLS fault 023).",
+    "cause": "See the workshop manual fault-finding for this circuit.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "030",
+    "name": "Front Right In Valve — Open Circuit",
+    "description": "Front Right In Valve — Open Circuit (SLABS ABS/SLS fault 030).",
+    "cause": "Open circuit — check the component and its wiring/connector.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "031",
+    "name": "Front Right Out Valve — Open Circuit",
+    "description": "Front Right Out Valve — Open Circuit (SLABS ABS/SLS fault 031).",
+    "cause": "Open circuit — check the component and its wiring/connector.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "032",
+    "name": "Front Left In Valve — Open Circuit",
+    "description": "Front Left In Valve — Open Circuit (SLABS ABS/SLS fault 032).",
+    "cause": "Open circuit — check the component and its wiring/connector.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "033",
+    "name": "Front Left Out Valve — Open Circuit",
+    "description": "Front Left Out Valve — Open Circuit (SLABS ABS/SLS fault 033).",
+    "cause": "Open circuit — check the component and its wiring/connector.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "034",
+    "name": "Rear Right In Valve — Open Circuit",
+    "description": "Rear Right In Valve — Open Circuit (SLABS ABS/SLS fault 034).",
+    "cause": "Open circuit — check the component and its wiring/connector.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "035",
+    "name": "Rear Right Out Valve — Open Circuit",
+    "description": "Rear Right Out Valve — Open Circuit (SLABS ABS/SLS fault 035).",
+    "cause": "Open circuit — check the component and its wiring/connector.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "036",
+    "name": "Rear Left In Valve — Open Circuit",
+    "description": "Rear Left In Valve — Open Circuit (SLABS ABS/SLS fault 036).",
+    "cause": "Open circuit — check the component and its wiring/connector.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "037",
+    "name": "Rear Left Out Valve — Open Circuit",
+    "description": "Rear Left Out Valve — Open Circuit (SLABS ABS/SLS fault 037).",
+    "cause": "Open circuit — check the component and its wiring/connector.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "040",
+    "name": "Pump Relay — Open Circuit",
+    "description": "Pump Relay — Open Circuit (SLABS ABS/SLS fault 040).",
+    "cause": "Open circuit — check the component and its wiring/connector.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "041",
+    "name": "Brake Light Relay — Open Circuit",
+    "description": "Brake Light Relay — Open Circuit (SLABS ABS/SLS fault 041).",
+    "cause": "Open circuit — check the component and its wiring/connector.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "044",
+    "name": "Front Right Sensor — Output Low",
+    "description": "Front Right Sensor — Output Low (SLABS ABS/SLS fault 044).",
+    "cause": "Wheel-speed signal low — check the sensor air gap, reluctor ring and wiring.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "045",
+    "name": "Rear Left Sensor — Output Low",
+    "description": "Rear Left Sensor — Output Low (SLABS ABS/SLS fault 045).",
+    "cause": "Wheel-speed signal low — check the sensor air gap, reluctor ring and wiring.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "046",
+    "name": "Front Left Sensor — Output Low",
+    "description": "Front Left Sensor — Output Low (SLABS ABS/SLS fault 046).",
+    "cause": "Wheel-speed signal low — check the sensor air gap, reluctor ring and wiring.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "047",
+    "name": "Rear Right Sensor — Output Low",
+    "description": "Rear Right Sensor — Output Low (SLABS ABS/SLS fault 047).",
+    "cause": "Wheel-speed signal low — check the sensor air gap, reluctor ring and wiring.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "050",
+    "name": "Front Right In Valve — Short To Gnd",
+    "description": "Front Right In Valve — Short To Gnd (SLABS ABS/SLS fault 050).",
+    "cause": "Short to ground — check the wiring for a short to chassis.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "051",
+    "name": "Front Right Out Valve — Short To Gnd",
+    "description": "Front Right Out Valve — Short To Gnd (SLABS ABS/SLS fault 051).",
+    "cause": "Short to ground — check the wiring for a short to chassis.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "052",
+    "name": "Front Left In Valve — Short To Gnd",
+    "description": "Front Left In Valve — Short To Gnd (SLABS ABS/SLS fault 052).",
+    "cause": "Short to ground — check the wiring for a short to chassis.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "053",
+    "name": "Front Left Out Valve — Short To Gnd",
+    "description": "Front Left Out Valve — Short To Gnd (SLABS ABS/SLS fault 053).",
+    "cause": "Short to ground — check the wiring for a short to chassis.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "054",
+    "name": "Rear Right In Valve — Short To Gnd",
+    "description": "Rear Right In Valve — Short To Gnd (SLABS ABS/SLS fault 054).",
+    "cause": "Short to ground — check the wiring for a short to chassis.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "055",
+    "name": "Rear Right Out Valve — Short To Gnd",
+    "description": "Rear Right Out Valve — Short To Gnd (SLABS ABS/SLS fault 055).",
+    "cause": "Short to ground — check the wiring for a short to chassis.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "056",
+    "name": "Rear Left In Valve — Short To Gnd",
+    "description": "Rear Left In Valve — Short To Gnd (SLABS ABS/SLS fault 056).",
+    "cause": "Short to ground — check the wiring for a short to chassis.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "057",
+    "name": "Rear Left Out Valve — Short To Gnd",
+    "description": "Rear Left Out Valve — Short To Gnd (SLABS ABS/SLS fault 057).",
+    "cause": "Short to ground — check the wiring for a short to chassis.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "060",
+    "name": "Pump Relay — Short To Gnd",
+    "description": "Pump Relay — Short To Gnd (SLABS ABS/SLS fault 060).",
+    "cause": "Short to ground — check the wiring for a short to chassis.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "061",
+    "name": "Brake Light Relay — Short To Gnd",
+    "description": "Brake Light Relay — Short To Gnd (SLABS ABS/SLS fault 061).",
+    "cause": "Short to ground — check the wiring for a short to chassis.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "064",
+    "name": "Front Right Sensor — Electric Fail",
+    "description": "Front Right Sensor — Electric Fail (SLABS ABS/SLS fault 064).",
+    "cause": "Wheel-speed sensor electrical failure — check the sensor and wiring.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "065",
+    "name": "Rear Left Sensor — Electric Fail",
+    "description": "Rear Left Sensor — Electric Fail (SLABS ABS/SLS fault 065).",
+    "cause": "Wheel-speed sensor electrical failure — check the sensor and wiring.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "066",
+    "name": "Front Left Sensor — Electric Fail",
+    "description": "Front Left Sensor — Electric Fail (SLABS ABS/SLS fault 066).",
+    "cause": "Wheel-speed sensor electrical failure — check the sensor and wiring.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "067",
+    "name": "Rear Right Sensor — Electric Fail",
+    "description": "Rear Right Sensor — Electric Fail (SLABS ABS/SLS fault 067).",
+    "cause": "Wheel-speed sensor electrical failure — check the sensor and wiring.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "070",
+    "name": "Front Right In Valve — Short to Supply",
+    "description": "Front Right In Valve — Short to Supply (SLABS ABS/SLS fault 070).",
+    "cause": "Short to +12V — check the wiring for a short to supply.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "071",
+    "name": "Front Right Out Valve — Short to Supply",
+    "description": "Front Right Out Valve — Short to Supply (SLABS ABS/SLS fault 071).",
+    "cause": "Short to +12V — check the wiring for a short to supply.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "072",
+    "name": "Front Left In Valve — Short to Supply",
+    "description": "Front Left In Valve — Short to Supply (SLABS ABS/SLS fault 072).",
+    "cause": "Short to +12V — check the wiring for a short to supply.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "073",
+    "name": "Front Left Out Valve — Short to Supply",
+    "description": "Front Left Out Valve — Short to Supply (SLABS ABS/SLS fault 073).",
+    "cause": "Short to +12V — check the wiring for a short to supply.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "074",
+    "name": "Rear Right In Valve — Short to Supply",
+    "description": "Rear Right In Valve — Short to Supply (SLABS ABS/SLS fault 074).",
+    "cause": "Short to +12V — check the wiring for a short to supply.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "075",
+    "name": "Rear Right Out Valve — Short to Supply",
+    "description": "Rear Right Out Valve — Short to Supply (SLABS ABS/SLS fault 075).",
+    "cause": "Short to +12V — check the wiring for a short to supply.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "076",
+    "name": "Rear Left In Valve — Short to Supply",
+    "description": "Rear Left In Valve — Short to Supply (SLABS ABS/SLS fault 076).",
+    "cause": "Short to +12V — check the wiring for a short to supply.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "077",
+    "name": "Rear Left Out Valve — Short to Supply",
+    "description": "Rear Left Out Valve — Short to Supply (SLABS ABS/SLS fault 077).",
+    "cause": "Short to +12V — check the wiring for a short to supply.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "080",
+    "name": "Pump Relay — Short To Supply",
+    "description": "Pump Relay — Short To Supply (SLABS ABS/SLS fault 080).",
+    "cause": "Short to +12V — check the wiring for a short to supply.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "081",
+    "name": "Brake Light Relay — Short to Supply",
+    "description": "Brake Light Relay — Short to Supply (SLABS ABS/SLS fault 081).",
+    "cause": "Short to +12V — check the wiring for a short to supply.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "090",
+    "name": "Front Right In Valve — Drive Short to Supply",
+    "description": "Front Right In Valve — Drive Short to Supply (SLABS ABS/SLS fault 090).",
+    "cause": "Driver short to +12V — suspect the ECU driver or a harness short to supply.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "091",
+    "name": "Front Right Out Valve — Drive Short to Supply",
+    "description": "Front Right Out Valve — Drive Short to Supply (SLABS ABS/SLS fault 091).",
+    "cause": "Driver short to +12V — suspect the ECU driver or a harness short to supply.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "092",
+    "name": "Front Left In Valve — Drive Short to Supply",
+    "description": "Front Left In Valve — Drive Short to Supply (SLABS ABS/SLS fault 092).",
+    "cause": "Driver short to +12V — suspect the ECU driver or a harness short to supply.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "093",
+    "name": "Front Left Out Valve — Drive Short to Supply",
+    "description": "Front Left Out Valve — Drive Short to Supply (SLABS ABS/SLS fault 093).",
+    "cause": "Driver short to +12V — suspect the ECU driver or a harness short to supply.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "094",
+    "name": "Rear Right In Valve — Drive Short to Supply",
+    "description": "Rear Right In Valve — Drive Short to Supply (SLABS ABS/SLS fault 094).",
+    "cause": "Driver short to +12V — suspect the ECU driver or a harness short to supply.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "095",
+    "name": "Rear Right Out Valve — Drive Short to Supply",
+    "description": "Rear Right Out Valve — Drive Short to Supply (SLABS ABS/SLS fault 095).",
+    "cause": "Driver short to +12V — suspect the ECU driver or a harness short to supply.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "096",
+    "name": "Rear Left In Valve — Drive Short to Supply",
+    "description": "Rear Left In Valve — Drive Short to Supply (SLABS ABS/SLS fault 096).",
+    "cause": "Driver short to +12V — suspect the ECU driver or a harness short to supply.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "097",
+    "name": "Rear Left Out Valve — Drive Short to Supply",
+    "description": "Rear Left Out Valve — Drive Short to Supply (SLABS ABS/SLS fault 097).",
+    "cause": "Driver short to +12V — suspect the ECU driver or a harness short to supply.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "100",
+    "name": "Pump Relay — Drive Short to Supply",
+    "description": "Pump Relay — Drive Short to Supply (SLABS ABS/SLS fault 100).",
+    "cause": "Driver short to +12V — suspect the ECU driver or a harness short to supply.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "101",
+    "name": "Brake Light Relay — Drive Short to Supply",
+    "description": "Brake Light Relay — Drive Short to Supply (SLABS ABS/SLS fault 101).",
+    "cause": "Driver short to +12V — suspect the ECU driver or a harness short to supply.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "110",
+    "name": "Sticking Throttle Detected",
+    "description": "Sticking Throttle Detected (SLABS ABS/SLS fault 110).",
+    "cause": "Mechanical sticking — inspect the valve/pump.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "111",
+    "name": "Shuttle Valve Sticking",
+    "description": "Shuttle Valve Sticking (SLABS ABS/SLS fault 111).",
+    "cause": "Mechanical sticking — inspect the valve/pump.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "112",
+    "name": "Internal ECU comms error",
+    "description": "Internal ECU comms error (SLABS ABS/SLS fault 112).",
+    "cause": "See the workshop manual fault-finding for this circuit.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "113",
+    "name": "Shuttle Valve Switch Dynamic Failure",
+    "description": "Shuttle Valve Switch Dynamic Failure (SLABS ABS/SLS fault 113).",
+    "cause": "See the workshop manual fault-finding for this circuit.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  },
+  {
+    "key": "114",
+    "name": "Shuttle Valve Switch Electrical Failure",
+    "description": "Shuttle Valve Switch Electrical Failure (SLABS ABS/SLS fault 114).",
+    "cause": "See the workshop manual fault-finding for this circuit.",
+    "system": "brakes & suspension (SLABS)",
+    "source": "references/slabs_fault_codes.md (rswsolutions)"
+  }
+]
