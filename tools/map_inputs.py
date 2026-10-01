@@ -4,7 +4,7 @@ Wiggle-watch: connect to a module, poll a set of switch/input LIDs continuously,
 change event whenever a bit flips — so you toggle a physical input (open a door, turn the key)
 and see exactly which `LID byteN bitM` moves. Continuous polling keeps the session alive (no
 "press Enter" that would time it out). On Ctrl-C it lists every bit that moved and lets you label
-them; labels are written to the signal store as `kandidat`.
+them; labels are written to the signal store as `candidate`.
 
     PYTHONPATH=src python3 tools/map_inputs.py bcu   /dev/cu.usbserial-0001 --esp
     PYTHONPATH=src python3 tools/map_inputs.py td5   /dev/cu.usbserial-XXXX
@@ -181,12 +181,12 @@ def main() -> int:
             continue
         upsert_field(args.module, {
             "name": name, "lid": lid, "offset": off, "kind": "bit", "bit": bit,
-            "scale": 1.0, "bias": 0.0, "unit": "", "confidence": "kandidat",
+            "scale": 1.0, "bias": 0.0, "unit": "", "confidence": "candidate",
             "states": {"0": "off", "1": "on"},
             "source": f"differential map ({' '.join(events)}"
                       f"{'; round-trip' if roundtrip else ''}) — {args.module} 21 {lid.upper()} b{off}.{bit}",
         })
-        print(f"    → wrote '{name}' to {args.module}.json (kandidat)")
+        print(f"    → wrote '{name}' to {args.module}.json (candidate)")
     return 0
 
 

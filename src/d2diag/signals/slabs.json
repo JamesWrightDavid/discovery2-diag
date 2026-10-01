@@ -7,7 +7,7 @@
     "scale": 1.0,
     "bias": 0.0,
     "unit": "",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": null,
     "source": "21 54 byte0 = left height; proven via variance session.log 2026-08-08 reference tool reference: normal ~110–135 (calibration-dependent); L and R should sit close to each other on level ground; fixed 0/255 = broken arm/sensor."
   },
@@ -19,7 +19,7 @@
     "scale": 1.0,
     "bias": 0.0,
     "unit": "",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": null,
     "source": "21 54 byte1 = right height; proven via variance session.log 2026-08-08 reference tool reference: normal ~110–135 (calibration-dependent); L and R should sit close to each other on level ground; fixed 0/255 = broken arm/sensor."
   },
@@ -32,7 +32,7 @@
     "scale": 1.0,
     "bias": 0.0,
     "unit": "",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": null,
     "states": {
       "0": "closed",
@@ -48,7 +48,7 @@
     "scale": 0.0625,
     "bias": 0.0,
     "unit": "V",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": [
       11.5,
       15.0
@@ -63,7 +63,7 @@
     "scale": 0.0625,
     "bias": 0.0,
     "unit": "V",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": [
       11.5,
       15.0
@@ -78,7 +78,7 @@
     "scale": 1.0,
     "bias": 0.0,
     "unit": "",
-    "confidence": "kandidat",
+    "confidence": "candidate",
     "limits": null,
     "source": "21 43@0 u16le. Decoding PROVEN in the car 2026-08-20 (all four read 124 stationary, ≠ km/h). ⚠ WHEEL order (which offset = which wheel) not confirmed — all equally stationary cannot be told apart. Requires a spin-ONE-wheel test. CANDIDATE until then."
   },
@@ -90,7 +90,7 @@
     "scale": 1.0,
     "bias": 0.0,
     "unit": "",
-    "confidence": "kandidat",
+    "confidence": "candidate",
     "limits": null,
     "source": "21 43@2 u16le. Decoding PROVEN in the car 2026-08-20 (all four read 124 stationary, ≠ km/h). ⚠ WHEEL order (which offset = which wheel) not confirmed — all equally stationary cannot be told apart. Requires a spin-ONE-wheel test. CANDIDATE until then."
   },
@@ -102,7 +102,7 @@
     "scale": 1.0,
     "bias": 0.0,
     "unit": "",
-    "confidence": "kandidat",
+    "confidence": "candidate",
     "limits": null,
     "source": "21 43@4 u16le. Decoding PROVEN in the car 2026-08-20 (all four read 124 stationary, ≠ km/h). ⚠ WHEEL order (which offset = which wheel) not confirmed — all equally stationary cannot be told apart. Requires a spin-ONE-wheel test. CANDIDATE until then."
   },
@@ -114,7 +114,7 @@
     "scale": 1.0,
     "bias": 0.0,
     "unit": "",
-    "confidence": "kandidat",
+    "confidence": "candidate",
     "limits": null,
     "source": "21 43@6 u16le. Decoding PROVEN in the car 2026-08-20 (all four read 124 stationary, ≠ km/h). ⚠ WHEEL order (which offset = which wheel) not confirmed — all equally stationary cannot be told apart. Requires a spin-ONE-wheel test. CANDIDATE until then."
   },
@@ -126,7 +126,7 @@
     "scale": 0.02,
     "bias": 0.0,
     "unit": "V",
-    "confidence": "kandidat",
+    "confidence": "candidate",
     "limits": [
       1.5,
       3.0
@@ -141,7 +141,7 @@
     "scale": 0.02,
     "bias": 0.0,
     "unit": "V",
-    "confidence": "kandidat",
+    "confidence": "candidate",
     "limits": [
       1.5,
       3.0
@@ -156,7 +156,7 @@
     "scale": 0.02,
     "bias": 0.0,
     "unit": "V",
-    "confidence": "kandidat",
+    "confidence": "candidate",
     "limits": [
       1.5,
       3.0
@@ -171,7 +171,7 @@
     "scale": 0.02,
     "bias": 0.0,
     "unit": "V",
-    "confidence": "kandidat",
+    "confidence": "candidate",
     "limits": [
       1.5,
       3.0

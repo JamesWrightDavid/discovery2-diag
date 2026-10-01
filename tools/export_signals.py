@@ -15,39 +15,39 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."
 from d2diag.td5.identifiers import LIMITS, SIGNALS  # noqa: E402
 
 # Curated confidence + source per signal (from code comments/log verification).
-# Default if not listed: ("kandidat", "").
+# Default if not listed: ("candidate", "").
 ANNOT: "dict[str, tuple[str, str]]" = {
-    "rpm":            ("belagt", "fuelling verified against the car (RDL 016)"),
-    "speed":          ("belagt", "fuelling verified against the car"),
-    "battery":        ("belagt", "u16/1000 V, verified against the car"),
-    "coolant_temp":   ("belagt", "21 1A@0 u16/10−273.2; verified 2026-08-03 (59.2 °C)"),
-    "air_temp":       ("belagt", "21 1A@4, same temp scale"),
-    "ext_temp":       ("kandidat", "sensor NOT fitted → constant 0x1088=150 °C (unconnected)"),
-    "fuel_temp":      ("belagt", "21 1A@12, same temp scale"),
-    "accel_way1":     ("belagt", "21 1B@0 u16/1000 V; sniffed 2026-08-08"),
-    "accel_way2":     ("belagt", "21 1B@2 u16/1000 V"),
-    "accel_way3":     ("kandidat", "21 1B@4; third voltage track, scale not confirmed (0 V in capture)"),
-    "accel_supply":   ("belagt", "21 1B@6 u16/1000 V (5V reference)"),
-    "manifold_press": ("belagt", "21 1C@0 u16/10000 bar; CONFIRMED 2026-08-03 (1.0→1.2 bar)"),
-    "maf":            ("kandidat", "21 1D u16@4; MAF field proven (r=0.95 vs rpm×MAP, WOT 2026-08-21); kg/hr scale candidate"),
-    "injection_qty":  ("belagt", "21 1D@6 u16 ×0.01 mg/stroke"),
-    "egr_modulator":  ("kandidat", "21 1D@15 u8 ×100/255 % duty"),
-    "wastegate_modulator": ("kandidat", "21 1D@17 u8 ×100/255 % duty"),
-    "rpm_error":      ("kandidat", "21 21@0 s16; idle control error"),
-    "ambient_press_1": ("belagt", "21 23@0 u16/10000 bar"),
-    "ambient_press_2": ("belagt", "21 23@2 u16/10000 bar"),
-    "balance_1":      ("kandidat", "21 40@0 s16; cylinder balance 1"),
-    "balance_2":      ("kandidat", "21 40@2 s16; cylinder balance 2"),
-    "balance_3":      ("kandidat", "21 40@4 s16; cylinder balance 3"),
-    "balance_4":      ("kandidat", "21 40@6 s16; cylinder balance 4"),
-    "balance_5":      ("kandidat", "21 40@8 s16; cylinder balance 5"),
+    "rpm":            ("proven", "fuelling verified against the car (RDL 016)"),
+    "speed":          ("proven", "fuelling verified against the car"),
+    "battery":        ("proven", "u16/1000 V, verified against the car"),
+    "coolant_temp":   ("proven", "21 1A@0 u16/10−273.2; verified 2026-08-03 (59.2 °C)"),
+    "air_temp":       ("proven", "21 1A@4, same temp scale"),
+    "ext_temp":       ("candidate", "sensor NOT fitted → constant 0x1088=150 °C (unconnected)"),
+    "fuel_temp":      ("proven", "21 1A@12, same temp scale"),
+    "accel_way1":     ("proven", "21 1B@0 u16/1000 V; sniffed 2026-08-08"),
+    "accel_way2":     ("proven", "21 1B@2 u16/1000 V"),
+    "accel_way3":     ("candidate", "21 1B@4; third voltage track, scale not confirmed (0 V in capture)"),
+    "accel_supply":   ("proven", "21 1B@6 u16/1000 V (5V reference)"),
+    "manifold_press": ("proven", "21 1C@0 u16/10000 bar; CONFIRMED 2026-08-03 (1.0→1.2 bar)"),
+    "maf":            ("candidate", "21 1D u16@4; MAF field proven (r=0.95 vs rpm×MAP, WOT 2026-08-21); kg/hr scale candidate"),
+    "injection_qty":  ("proven", "21 1D@6 u16 ×0.01 mg/stroke"),
+    "egr_modulator":  ("candidate", "21 1D@15 u8 ×100/255 % duty"),
+    "wastegate_modulator": ("candidate", "21 1D@17 u8 ×100/255 % duty"),
+    "rpm_error":      ("candidate", "21 21@0 s16; idle control error"),
+    "ambient_press_1": ("proven", "21 23@0 u16/10000 bar"),
+    "ambient_press_2": ("proven", "21 23@2 u16/10000 bar"),
+    "balance_1":      ("candidate", "21 40@0 s16; cylinder balance 1"),
+    "balance_2":      ("candidate", "21 40@2 s16; cylinder balance 2"),
+    "balance_3":      ("candidate", "21 40@4 s16; cylinder balance 3"),
+    "balance_4":      ("candidate", "21 40@6 s16; cylinder balance 4"),
+    "balance_5":      ("candidate", "21 40@8 s16; cylinder balance 5"),
 }
 
 
 def main() -> int:
     rows = []
     for s in SIGNALS:
-        conf, src = ANNOT.get(s.name, ("kandidat", ""))
+        conf, src = ANNOT.get(s.name, ("candidate", ""))
         rows.append({
             "name": s.name,
             "lid": f"{s.lid:02X}",

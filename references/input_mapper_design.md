@@ -28,7 +28,7 @@ Turning a documented name ("driver door switch") into a stored signal needs a di
 capture a baseline, toggle the physical input, diff the bytes. Done by hand on a *live* bus this
 is error-prone — counters, voltages and timers change on their own and drown the real bit. This
 tool **guides** the toggle loop and **de-noises** the diff, then writes confirmed bits to the
-signal store as `kandidat`. It is module-agnostic: any bitfield LID on any module.
+signal store as `candidate`. It is module-agnostic: any bitfield LID on any module.
 
 ## Interaction models (we want both)
 
@@ -69,7 +69,7 @@ This is ~80% of the value. Without it the tool is unusable on a live bus.
 - **`sniff/automap.py` is already the differential mapper** — it consumes
   `EcuSession.read_block(lids) -> {lid_hex: bytes}`. This tool is an **interactive front-end +
   noise mask + A-B-A logic** on top of that shape, not a new mapper.
-- **Signal store + `upsert_field`** to write proven bits as `kandidat` (never hand-paste `Signal(...)`).
+- **Signal store + `upsert_field`** to write proven bits as `candidate` (never hand-paste `Signal(...)`).
 - **Transport-agnostic**: the same mapper runs over KKL (`SerialTransport`) or the ESP in cable
   mode (`EspTransport`). BCU/airbag need slow init (already on both paths); no new transport work.
 
@@ -106,12 +106,12 @@ same code). A thin `tools/map_inputs.py` CLI is the quickest first cut for bench
 Each confirmed bit → `upsert_field` on `<module>.json`:
 
 ```
-{ lid, offset, kind: "bit", bit_index, name, konfidens: "kandidat",
+{ lid, offset, kind: "bit", bit_index, name, confidence: "candidate",
   note: "differential: <input>, off->on->off, RDL016 <date>" }
 ```
 
-- Start every mapping as `kandidat`. Promote to `belagt` only after independent re-confirmation in
-  a separate session (keep the `belagt`/`kandidat` distinction honest — it propagates to the UI).
+- Start every mapping as `candidate`. Promote to `proven` only after independent re-confirmation in
+  a separate session (keep the `proven`/`candidate` distinction honest — it propagates to the UI).
 - Record the exact toggle procedure + date + reg in the note (ground truth, like the VIN/EKA trick).
 
 ## Session / polling notes
@@ -157,7 +157,7 @@ behind **explicit confirmation, stationary + ignition on**, warn on risky actuat
 ## Phased build plan (when we do it)
 
 1. **Bench CLI** — `Mapper` (stable/diff/record) + A-B-A flow + volatile-byte mask, over cable/KKL,
-   writing `kandidat` to `bcu.json`. Prove the de-noising on a known input (driver door).
+   writing `candidate` to `bcu.json`. Prove the de-noising on a known input (driver door).
 2. **Web map mode** — extend the existing host dashboard: live bit-matrix that flashes changed
    cells, tap-to-label, the A-B-A flow. Host-served, usable on the big screen and the phone.
 
@@ -168,4 +168,4 @@ behind **explicit confirmation, stationary + ignition on**, warn on risky actuat
 - ~~Session owner~~ — **DECIDED: host-driven (Mac/Pi), ESP firmware stays clean.**
 - How to present **multi-bit** inputs (e.g. a 3-position switch spanning several bits).
 - Inputs that need the **engine running / ignition on** — how to script those safely.
-- Promotion rule `kandidat -> belagt` (how many independent confirmations).
+- Promotion rule `candidate -> proven` (how many independent confirmations).

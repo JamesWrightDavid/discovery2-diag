@@ -71,17 +71,17 @@ Best case: do it on a Td5 with a healthy MAF, or after the air-flow fault is fix
 
 **Decision rule.**
 - `1C`@4 non-zero and roughly 55–65 kg/h at idle, ~185–200 at 2000 rpm →
-  `1C`@4 = **MAF (belagt)**; `1D`@4 gets renamed to a modelled air mass and its
+  `1C`@4 = **MAF (proven)**; `1D`@4 gets renamed to a modelled air mass and its
   invented scale/bias dropped.
 - `1C`@4 still zero-with-blips while `1D`@4 tracks load → consistent with the dead
-  sensor; **inconclusive**, both stay `kandidat`. Do not "fix" it by rescaling.
+  sensor; **inconclusive**, both stay `candidate`. Do not "fix" it by rescaling.
 - `1C`@4 moves but nowhere near kg/h → it is something else. Record the range and
   stop guessing at a scale.
 - Fastest possible answer: **T-19** — one MAF reading off a reference tool screen
   settles it without any of the above.
 
 #### T-02 `[drive]` — Cross-check the two wastegate mappings
-**Question.** We have `1D`@17 (u8 ×100/255 %, `kandidat`). BinOwl and SimonRafferty
+**Question.** We have `1D`@17 (u8 ×100/255 %, `candidate`). BinOwl and SimonRafferty
 independently claim `21 38` = wastegate modulator (u16/1000 %). Our idle capture has
 `04 61 38 00 00` = 0.0 %, which is compatible but does not discriminate.
 
@@ -104,7 +104,7 @@ gear) → idle again.
 
 **Decision rule.** @0 should follow the pedal and drop to ~0 on overrun; @14 should be
 roughly constant and only meaningful at idle (it is the governor's demand). If they
-behave that way, write both to the store as `kandidat` with this test as the source.
+behave that way, write both to the store as `candidate` with this test as the source.
 
 #### T-04 `[idle]` — What is `21 1C`@6?
 Constant `0x009C` (156) in every capture we have. Watch it across cold start, warm idle,
@@ -133,7 +133,7 @@ register (injector matching), not for live data.
 Still open. `1E` toggles `00 CA`↔`00 EA` (bit `0x20`); `36` sat constant `00 0D`.
 Differential procedure: connect, then actuate **one at a time**, annotating the log:
 brake pedal → clutch → cruise on/off → A/C request → transfer box high/low.
-**Decision rule.** A bit that flips exactly with one actuation is that switch (`belagt`).
+**Decision rule.** A bit that flips exactly with one actuation is that switch (`proven`).
 A bit that flips with two different actuations is not identified — repeat.
 
 #### T-09 `[tool]` — `21 3D` feature/config block
@@ -210,7 +210,7 @@ does a baseline → change one input → re-read and prints which LIDs' bytes **
 **Decision rule.**
 - A LID in **DATA**, stable across both passes, whose bytes **move** under `--stimulus`
   = real live data readable without auth → add it to the BCU source (`web/sources.py`)
-  and map the field as `kandidat`. This is the win condition.
+  and map the field as `candidate`. This is the win condition.
 - **DATA** but constant even under stimulus = a static/placeholder positive; record the
   bytes, do not map a live field yet.
 - **DENIED** = genuinely auth-gated; note it and move on (we cannot unlock).
@@ -286,8 +286,8 @@ came back inconclusive, so we do not re-run them blind.
   unresolved in general. See `references/td5_externa_fynd.md`.)
 - **2026-08-21/22 — `1D`@15 EGR modulator and `1D`@17 wastegate modulator** confirmed
   across four drives as behaviour (not scale). `1D`@16 is a constant-0 dead byte.
-  Scale still `kandidat` → T-02.
-- **2026-08-21 — `1D`@6 = injection quantity (mg/stroke), `belagt`,** via deliberate
+  Scale still `candidate` → T-02.
+- **2026-08-21 — `1D`@6 = injection quantity (mg/stroke), `proven`,** via deliberate
   overrun lifts: idle 11.1 → load 23.9 → overrun 4.7 (below idle = fuel cut).
 - **2026-08-20 — `21 21` = idle-governor error (s16),** ≈0 at idle, grows with engine
   speed. Not a fault.

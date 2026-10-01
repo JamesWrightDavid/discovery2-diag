@@ -41,7 +41,7 @@ and muki01. Purpose: find what we do NOT already have. We turned out to be in go
     **`1D@16` is a constant-0 dead/reserved byte across all four drives** — NOT EGR inlet (a
     first mis-map by page order; removed). **EGR Inlet % not yet located** (1D@14 varies but
     unidentified). Scaling 100/255 not cross-checked vs a factory tool. In the store as
-    `kandidat`.
+    `candidate`.
   - **Injector classification codes** (Injector 1-5, five-char each, a Settings-block read):
     the dashboard never polls the identifier/Settings blocks, so these are in NO raw log —
     needs a targeted read on the car.
@@ -108,7 +108,7 @@ is `main/KLine.cpp`, ~300 lines, with the LID→field mapping in plain sight.
 
 ## The MAF question — this is the interesting part
 This is not a new offset for us: `1C`@4 was in the signal store as `maf_raw`
-(`kandidat`, unscaled) until commit `bba77a9` remapped `maf` to `1D`@4 u16 with a
+(`candidate`, unscaled) until commit `bba77a9` remapped `maf` to `1D`@4 u16 with a
 provisional 2-point calibration, justified by r=+0.95 vs rpm×MAP over a WOT pull.
 What BinOwl adds is the **name and scale** for `1C`@4 (MAF, u16/10 kg/h) — i.e. an
 independent claim that this is where a *working* Td5 reports measured air mass.

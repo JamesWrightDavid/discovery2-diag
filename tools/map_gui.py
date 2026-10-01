@@ -3,7 +3,7 @@
 Host-driven (per references/input_mapper_design.md): the host holds the module session and serves
 a page showing every polled bit as a red/green square. Toggle a physical input (open a door, turn
 the key) and the bit that moves lights up — click it, name it (with documented-name suggestions),
-and it's written to the signal store as `kandidat`. Read-only: only `21 xx` reads, never a write.
+and it's written to the signal store as `candidate`. Read-only: only `21 xx` reads, never a write.
 
     PYTHONPATH=src python3 tools/map_gui.py bcu /dev/cu.usbserial-0001 --esp
     PYTHONPATH=src python3 tools/map_gui.py bcu --mock          # offline, no car
@@ -282,7 +282,7 @@ class Handler(BaseHTTPRequestHandler):
             if name:                                     # empty name = clear (remove only)
                 upsert_field(m.module, {
                     "name": name, "lid": lid, "offset": off, "kind": "bit", "bit": bit,
-                    "scale": 1.0, "bias": 0.0, "unit": "", "confidence": "kandidat",
+                    "scale": 1.0, "bias": 0.0, "unit": "", "confidence": "candidate",
                     "states": {"0": "off", "1": "on"},
                     "source": f"differential map (GUI) — {m.module} 21 {lid.upper()} b{off}.{bit}",
                 })

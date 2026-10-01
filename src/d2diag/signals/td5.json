@@ -7,7 +7,7 @@
     "scale": 1.0,
     "bias": 0.0,
     "unit": "rpm",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": [
       0,
       4800
@@ -22,7 +22,7 @@
     "scale": 1.0,
     "bias": 0.0,
     "unit": "km/h",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": [
       0,
       200
@@ -37,7 +37,7 @@
     "scale": 0.001,
     "bias": 0.0,
     "unit": "V",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": [
       11.5,
       15.5
@@ -52,7 +52,7 @@
     "scale": 0.1,
     "bias": -273.2,
     "unit": "°C",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": [
       -40,
       105
@@ -67,7 +67,7 @@
     "scale": 0.1,
     "bias": -273.2,
     "unit": "°C",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": [
       -30,
       80
@@ -82,7 +82,7 @@
     "scale": 0.1,
     "bias": -273.2,
     "unit": "°C",
-    "confidence": "kandidat",
+    "confidence": "candidate",
     "limits": [
       -40,
       50
@@ -97,7 +97,7 @@
     "scale": 0.1,
     "bias": -273.2,
     "unit": "°C",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": [
       -30,
       90
@@ -112,7 +112,7 @@
     "scale": 0.001,
     "bias": 0.0,
     "unit": "V",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": [
       0.0,
       5.1
@@ -127,7 +127,7 @@
     "scale": 0.001,
     "bias": 0.0,
     "unit": "V",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": [
       0.0,
       5.1
@@ -142,7 +142,7 @@
     "scale": 0.001,
     "bias": 0.0,
     "unit": "V",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": [
       0.0,
       5.1
@@ -157,7 +157,7 @@
     "scale": 0.001,
     "bias": 0.0,
     "unit": "V",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": [
       4.9,
       5.1
@@ -172,7 +172,7 @@
     "scale": 0.0001,
     "bias": 0.0,
     "unit": "bar",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": [
       0.8,
       2.6
@@ -187,7 +187,7 @@
     "scale": 1.0,
     "bias": 0.0,
     "unit": "rpm",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": [
       -300,
       300
@@ -202,7 +202,7 @@
     "scale": 0.0001,
     "bias": 0.0,
     "unit": "bar",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": [
       0.8,
       1.1
@@ -217,7 +217,7 @@
     "scale": 0.0001,
     "bias": 0.0,
     "unit": "bar",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": [
       0.8,
       1.1
@@ -232,7 +232,7 @@
     "scale": 1.0,
     "bias": 0.0,
     "unit": "",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": [
       -12,
       12
@@ -247,7 +247,7 @@
     "scale": 1.0,
     "bias": 0.0,
     "unit": "",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": [
       -12,
       12
@@ -262,7 +262,7 @@
     "scale": 1.0,
     "bias": 0.0,
     "unit": "",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": [
       -12,
       12
@@ -277,7 +277,7 @@
     "scale": 1.0,
     "bias": 0.0,
     "unit": "",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": [
       -12,
       12
@@ -292,7 +292,7 @@
     "scale": 1.0,
     "bias": 0.0,
     "unit": "",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": [
       -12,
       12
@@ -307,7 +307,7 @@
     "scale": 0.01,
     "bias": 0.0,
     "unit": "mg/stroke",
-    "confidence": "belagt",
+    "confidence": "proven",
     "limits": [
       0,
       90
@@ -322,7 +322,7 @@
     "scale": 0.39215686274509803,
     "bias": 0.0,
     "unit": "%",
-    "confidence": "kandidat",
+    "confidence": "candidate",
     "limits": [
       0,
       100
@@ -337,7 +337,7 @@
     "scale": 0.39215686274509803,
     "bias": 0.0,
     "unit": "%",
-    "confidence": "kandidat",
+    "confidence": "candidate",
     "limits": [
       0,
       100
@@ -352,7 +352,7 @@
     "scale": 0.1,
     "bias": -515.0,
     "unit": "kg/hr",
-    "confidence": "kandidat",
+    "confidence": "candidate",
     "limits": [
       0,
       700
@@ -367,7 +367,7 @@
     "scale": 1.0,
     "bias": 0.0,
     "unit": "raw",
-    "confidence": "kandidat",
+    "confidence": "candidate",
     "source": "21 1C@4 = PHYSICAL MAF sensor (hot-film, 3-wire). Faulted on RDL016 (reads 0/stuck) — logged RAW to confirm whether it EVER responds to airflow, vs the 1D@4 MODELLED air mass. Separate upstream IAT feeds the model. 2026-08-29."
   }
 ]
