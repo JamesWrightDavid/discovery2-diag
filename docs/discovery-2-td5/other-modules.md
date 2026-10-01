@@ -128,7 +128,7 @@ rather than discrete LID reads.
 
 | Property | Value | Confidence |
 |---|---|---|
-| Diagnostic address | asserted "known" in `portabilitet_andra_bilar.md` | 🟡 Assumed — the concrete address byte is **not recorded** in these sources |
+| Diagnostic address | asserted "known" in `portability-other-vehicles.md` | 🟡 Assumed — the concrete address byte is **not recorded** in these sources |
 | Init type / framing | — | 🔴 Not established (ACE not yet cleanly sniffed by us) |
 | Fault block | one-shot bulk block, then keepalive polling | 🟡 Assumed (structure seen, not decoded field-by-field) |
 | Live inputs | single streamed bulk block (~1 Hz) | 🔴 Offset/bit mapping open |
@@ -172,4 +172,4 @@ ACE has not been cleanly sniffed).
 | ACE (Lucas) | 🟡 "known", byte not recorded | 🔴 not established | Fault-set mapping (via tool) 🟡 | Address, framing, bulk-block decode, byte-doubling 🔴 |
 
 See also `references/protocol_state_handoff.md` (proven/candidate/open per module)
-and `references/portabilitet_andra_bilar.md`.
+and `references/portability-other-vehicles.md`.

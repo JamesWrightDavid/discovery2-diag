@@ -1,58 +1,18 @@
 ---
-title: "Wabco SLABS — complete K-line protocol (sniffed from reference tool 1)"
+title: "SLABS init timing and addressing — evidence"
 area: references
 status: stable
 version: 1.0
-updated: 2026-09-30
+updated: 2026-10-01
+depends_on: [references/slabs/overview.md]
 summary: >
-  Complete SLABS K-line protocol as sniffed from a reference tool: init, services, LIDs and routines, proven from real traffic.
+  Measured evidence behind SLABS connection reliability: the silent period before init, the 25 ms init pulse fix (2026-08-19), P4/W5 timing, and the functional-vs-physical addressing trial.
 ---
 
-# Wabco SLABS — complete K-line protocol (sniffed from reference tool 1)
+# SLABS init timing and addressing — evidence
 
-Captured 2026-08-07 via a passive ESP32 tap (RX-only, GPIO16) on pin 7, while a borrowed
-**reference tool 1** ran the full function set. Raw log + markers:
-`logs/session.log` (decoded with `tools/decode_session.py`). This is **proven from
-real traffic**, not guessed.
+Part of the [SLABS protocol evidence](overview.md). The canonical, curated SLABS page is [docs/discovery-2-td5/slabs.md](../../docs/discovery-2-td5/slabs.md).
 
-> The raw capture files (`slabs_session_20260807` etc.) are kept **local-only** —
-> gitignored under the `captures/` / `*.log` policy, since a full session may carry
-> VIN/EKA. This document is the distilled, redacted evidence; the protocol facts below
-> are what the captures showed.
-
-## Basics
-- **Address `0x29`, FAST init:** `81 29 F7 81 22` → response `C1 57 8F` (KWP2000, KW2=8F).
-  ✅ **Init works since 2026-08-19** — see "The init pulse" below. That it previously
-  took many attempts was OUR fault (TiniH ~32 ms instead of 25), not the module's.
-- **Session:** unaddressed, length-prefixed frames `<len> <SID> <data…> <cs>`
-  (checksum = byte sum & 0xFF), same style as the Td5 session.
-- **Keepalive:** `01 3E` → `7E` (TesterPresent), ~1 s. **NOTE: bare `3E` without
-  sub-byte** (frame `01 3e 3f`). `3E 01` gets no response and tears down the session.
-- Requires **ignition ON** (ignition-fed module). Comms die >8–20 km/h.
-- **⭐ Diagnostics are STANDSTILL-ONLY — proven RDL016 2026-08-29.** The ESP node sampled SLABS
-  every ~30 s while driving 0–71 km/h and logged whether `81 29 F7 81` got a reply: SLABS answered
-  (`C1`) at a **standstill right after an ignition cycle**, then went **silent the moment the car
-  moved** (StartComm just echoes back — `sb=81 29 F7 81 22`, no `C1`, no `7F 81 10`) and **did not
-  recover when stopped** — it stays dead until the next **ignition cycle**. So the "8–20 km/h"
-  figure is really "once you move at all". This is SLABS deliberately suspending diagnostics while
-  the ABS is active, not our polling or a stale link. **Consequence:** live ABS-sensor data *while
-  driving* is unreachable over K-line — only an analog tap on the sensor wires can get that. The
-  node's SLABS excursion is therefore gated to `speed < 5 km/h`.
-
-### ⚠️ SLABS must be polled LIGHTLY (proven 2026-08-07)
-The reference tool ran ~**1 Hz keepalive + occasional reads** — not continuous
-block polling. Our driver must do the same:
-- **Read few LIDs, rarely.** The dashboard's `SlabsDataSource.poll` reads only
-  heights (`21 54`). An earlier store-driven block read of 5 LIDs + fault codes on
-  **every** 0.5 s cycle (~7× the bus traffic) connected but **killed the session
-  after ~15 s**.
-- **The RATE matters as much as the number of LIDs (the car 2026-08-18).** Just reading
-  `21 54` wasn't enough: with the server's 0.5 s cycle it became `3E` + `21 54` = **4
-  frames/s**, whereas the reference tool ran ~1 Hz (keepalive `01 3e 3f` was every ~1048 ms
-  in the sniff). The session died after 21 s (connected 20:54:28, dead 20:54:49).
-  Traffic is therefore throttled on the **clock, not the poll cycle**: `_SLABS_BUS_PERIOD =
-  1.0 s` and fault codes on their own cadence `_SLABS_FAULT_PERIOD = 30 s`. Extra polls
-  return cached values without touching the bus.
 ### ⚠️ Init requires a SILENT PERIOD — not more attempts (measured 2026-08-18)
 All reference tool sniffs were re-measured (`slabs_session_20260807`,
 `td5_slabs_session_20260808`, `faultread-20260809-4`). The time with no traffic to
@@ -123,7 +83,6 @@ but is unvalidated against the car.
 First measurement with mixed order (32 attempts, 2026-08-19 16:03–16:07):
 **P4 = 0 ms gave 1/17, P4 = 5 ms gave 2/15.** Too small to say anything —
 the difference is well within chance. The hypothesis survives but is unconfirmed.
-
 
 The muki01 reference sends **one byte at a time with 5 ms between**
 (`writeRawData`: `K_Serial.write(b); delay(WRITE_DELAY)`), and the comment cites
@@ -302,138 +261,3 @@ the muki01 reference uses. `Slabs._init_variants` therefore now alternates: odd
 attempts physical/F7, even functional/F1. Test systematically with
 `tools/slabs_probe.py`, which runs the whole matrix with silent periods between and
 logs raw TX/RX.
-
-## ReadEcuIdentification — `1A xx`
-| Req | Response | Content |
-|---|---|---|
-| `1A 8A` | 28 bytes `00 37 44 60 44 03 10 ff 31 90 10 86 40 ff 06 29 …` | hardware/config ID |
-| `1A 8B` | ASCII | **software modules:** `KRTE49B0 HDTE16A0 EBTE87A0 CDTE91A0 KWTP11A0` |
-| `1A 8D` | ASCII | **VIN:** `SALLXXXXXXXXXXXXX` ✅ (confirms the decoding) |
-
-## Fault codes
-- **`21 11`** → 16-byte block = **LOGGED faults** (bit-per-fault). Before clear: bits set
-  in byte 3 (`0x10`) + byte 10 (`0x10`) = **two faults = baseline's `020` RF sensor +
-  `027` shuttle valve**. After clear: all `00`. ⇒ `21 11` IS the logged-fault block.
-- **`21 47`** → 16-byte block = **CURRENT faults** (was `00` = none current now).
-- **`14 FF FF`** → `54` = **ClearFaults** (safe write; reset `21 11`).
-- Byte↔number mapping: 2 bits (byte3.bit4, byte10.bit4) = faults 020+027. More
-  anchor points come from the "induce a known fault" technique.
-
-## Live data — ReadDataByLocalIdentifier `21 xx`
-Grouped by reference tool screen (values = examples):
-- **SLS inputs:** `21 53`=`d2 d2 0f 0f` · `21 54`=`91 9c 0f 0f` (heights, changed live) ·
-  `21 55`=`00 00 00 02` · `21 45`=`7f` · `21 46`=`78 76` · `21 49`=`00 00 01` ·
-  `21 59`=`00 0f 0f 0f`
-- **ABS inputs:** `21 43`=`7c 00 7c 00 7c 00 7c 00` (**4 wheel speeds**) ·
-  `21 44`=`00 80 01 02 01 01 02 01 02 02 03 04 …` · `21 50`=`72 73 73 72`
-  (**sensor voltages?**) · `21 57`=`06 0f 0f 0f` · `21 49`=`00 00 01`
-- **ABS-SLS switch:** `21 42`=`82` · `21 48`=`94 61` · `21 56`=`01 0f 0f 0f` ·
-  `21 58`=`32 0f 0f 0f`
-
-## Actuators / tests — StartRoutine `31 xx` → response `71 xx 20`
-**This is the write/control protocol.** All respond `71 <rid> 20`.
-| Command | Function |
-|---|---|
-| `31 25 <p>` | **ABS pump relay** (`31 25 08 fa 5c`=on, `31 25 02 fa 56`) |
-| `31 2F 28` | **SLS bleed valve** (exhaust valve) |
-| `31 30 28` | **SLS compressor** |
-| `31 31 0a` | **SLS buzzer** |
-| `31 33 28` | **raise left** |
-| `31 34 28` | **raise right** |
-| `31 35 28` | **lower left** |
-| `31 36 28` | **lower right** |
-| `31 22 <sub> <p…>` | **ABS bleed + wheel tests** (12-byte param) |
-
-**`31 22` subcommands** (the byte after `22` selects the circuit, then `<flags> c1 f4 …`):
-| sub | function (from markers) |
-|---|---|
-| `04` | ABS power bleed (`31 22 04 00 49 c4 …`) |
-| `11` | front left / module bleed step 1 (`31 22 11 0c c1 f4` = FL test; `…11 00 c0 7d 00 bb` = bleed) |
-| `10` | front right (`31 22 10 03 c1 f4`) |
-| `13` | rear left (`31 22 13 c0 c1 f4`) |
-| `12` | rear right (`31 22 12 30 c1 f4`) |
-| `14` | module bleed step 4 |
-**The flag byte = a 2-bit mask per wheel (decoded 2026-08-07):** `03`=FR (bits 0–1),
-`0c`=FL (bits 2–3), `30`=RR (bits 4–5), `c0`=RL (bits 6–7) — i.e. 2 bits (in/out valve)
-per wheel in the order FR, FL, RR, RL. `sub` = `0x10 + wheel index` (FR=0…RL=3). `c1 f4`
-constant (likely duration/timeout). Live data is also per-wheel: `21 43`=4
-wheel speeds, `21 50`=4 sensor voltages → fits a wheel-oriented UI perfectly.
-
-**NOTE — lamp tests missing cleanly:** the instrument-lamp tests (TC/ABS/HDC/brake/SLS lamps)
-were only run in the FIRST session (baud clash → garbage). The bytes are unusable; the function
-exists but must be **re-logged** (list the reference tool order at the same time, please).
-
-## To build in d2diag (all the material exists now)
-`Slabs(KWP2000(KLine(...)))`: establish() via fast init 0x29 → C1 57 8F; keepalive 3E;
-`read_faults()` = `21 11`/`21 47` (bit-per-fault, map in `slabs_fault_codes.md`);
-`clear_faults()` = `14 FF FF`; live via `21 xx`; actuators via `31 xx`. Reuse
-the Td5 layer's tolerant read + the same session pattern.
-
-## Input LIDs (sniffed 2026-08-08, full per-input sweep)
-The reference tool polls a fixed LID set per screen; the operator stepped through
-the entries. All input LIDs are now identified (offset/scale per entry still to be isolated
-with targeted captures):
-
-| Screen | LIDs | Entries |
-|---|---|---|
-| SLS inputs | `21 53`, `21 54`, `21 55` | L/R sensor value (**`21 54` b0/b1 decoded**), sensor supply, value (V), exhaust valve (V), compressor relay (V) |
-| ABS inputs | `21 43`, `21 44`, `21 49`, `21 50`, `21 57` | wheel speed (`21 43`), ABS sensor V (`21 50`), inlet/outlet valves, pump relay/monitor, battery, ECU supply, ground ref, HDC brake, engine speed/torque/throttle (via CAN) |
-| Switches | `21 42`, `21 48`, `21 56`, `21 58` | neutral, low range, diff lock, reverse, HDC, shuttle, **any-door (`21 56` byte0 bit0 — PROVEN: 00 closed/01 open)**, plip |
-| Settings | `21 45`, `21 46`, `21 49`, `21 59` | **Stable raw bytes proven (RDL 016):** `45`=`7f`, `46`=`78 76`, `49`=`00 00 01`, `59`=`00 0f 0f 0f`. ⚠️ **LID→setting UNSOLVED** — two order-based labelings contradict each other (card order unstable). Solve with DIFFERENTIAL: change ONE setting → see which raw byte changes. |
-
-## Byte variance from session.log (`analyze_capture.py --variance`)
-Which bytes **moved** during the capture = ready-made differential candidates. Narrows
-down what should be correlated against reference tool values:
-
-| LID | Byte structure (proven from variance) |
-|---|---|
-| `21 54` | **byte0 = left height, byte1 = right height** (both vary = live). Confirmed. |
-| `21 50` | 4 bytes, **one ABS sensor voltage per wheel** (~`0x72`); byte1/2 varied (two wheels). |
-| `21 43` | constant `7c 00 ×4` stationary = wheel-speed **baseline** (≠0). |
-| `21 53` | byte0 ~`d1/d2` varies (supply candidate); byte1 const, byte2/3 = `0f 0f`. |
-| `21 55` | byte3 varies (small value 00/02/03); the rest `00`. |
-| `21 57` | byte0 varies (`05/06/08`); the rest `0f 0f 0f`. |
-| `21 44` | **rich block** — offsets 2,3,4,6,8–13 vary (valves/pump/battery/supply). Requires labels. |
-| `21 49` | constant `00 00 01`. |
-
-**TD5 switches (session.log):** `21 1E` byte1 = switch bitfield (toggled `CA`→`EA`
-= bit `0x20`; byte0 const); `21 36` constant `00 0D` (fixed switches). So we know
-*which byte* but not *which switch* — requires an annotated toggle.
-
-## Field identity from reference tool screen reading 2026-08 (structure proven, scale candidate)
-Values read off the screen, correlated against old raw bytes (not the same
-moment → scale = candidate). **Structure (which LID = which screen section) is proven** via
-display order + value range:
-
-| LID | Field | Candidate |
-|---|---|---|
-| `21 43` | **4× wheel speed** (2 bytes/wheel) | stationary `7c 00` = 1.7 km/h (baseline) |
-| `21 50` | **4× ABS sensor voltage** (1 byte/wheel) | FR byte0 `0x72`=114 → 2.17 V (≈×0.019); FL blank in reference tool |
-| `21 44` | **large analog block (14 bytes):** 8 valve voltages + pump relay/monitor + battery + ECU supply | valves `0x01–03`→ ×0.01 V (0.01–0.03); **byte12/13 = battery/ECU supply** (~`0xb3/b1`→ ×1/16 ≈ 11.3–11.5 V; VARIES = matches) |
-| `21 53` | **L/R sensor supply** (byte0/1) | `0xd1`=209 → ~5 V (≈×0.024); byte2/3 `0f 0f` |
-| `21 54` | **L/R height** (byte0=left, byte1=right) | **proven** (149/162) |
-| `21 55` | compressor relay | byte3 `0x02` → 0.13 V (candidate) |
-| `21 49`/`21 57` | CAN-derived: engine speed (noise 195–235 engine off), torque, throttle | throttle 0–86 on throttle application |
-
-⚠️ **The exact byte↔valve order and scales require ONE fresh sniff capture** (raw +
-reference tool value at the same moment) of the ABS/SLS inputs screens. Without it this is
-the ceiling. Battery/ECU supply (21 44 byte12/13) is strongest — they vary and match.
-
-**Next step for full decoding:** targeted differential captures — change ONE thing
-(open a switch, lift a corner, measure a voltage) and compare the raw bytes before/after.
-Run `analyze_capture.py --variance <log>` for the candidates directly.
-
-### ABS bleed — complete frames (proven from the sniff 2026-08-07, coded)
-Two procedures under `31 22`, distinct from the wheel-valve test (`31 22 <sub> <mask> c1 f4`):
-
-| Command | Frame (data after `31 22`) | Code |
-|---|---|---|
-| Power bleed START | `04 00 49 c4` + 8×00 | `Slabs.abs_power_bleed(True)` |
-| Power bleed STOP | `04 00 40 00` + 8×00 | `Slabs.abs_power_bleed(False)` |
-| Module bleed step 1 | `11 00 c0 7d 00 bb` + 6×00 | `abs_module_bleed_step(1)` |
-| Module bleed step 2 | `12 00 c0 7d 00 bb` + 6×00 | `abs_module_bleed_step(2)` |
-| Module bleed step 3 | `13 00 c0 7d 00 bb` + 6×00 | `abs_module_bleed_step(3)` |
-| Module bleed step 4 | `14 00 c0 7d 00 bb` + 6×00 | `abs_module_bleed_step(4)` |
-
-`abs_module_bleed()` runs all four in sequence with ~2.3 s between (the reference tool's
-cadence). All respond `71 22 20`. ⚠️ Brake system — stationary only, ignition on.

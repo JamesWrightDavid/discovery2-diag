@@ -1,6 +1,7 @@
 """BCU reference tool menu + our coverage — drives the dashboard's Map tab for BCU.
 
-Extracted from ``references/reference_tool_master_menu.md`` (AI-processed reference tool emulator
+Extracted from ``references/menus/`` (``bcu-inputs.md``, ``bcu-settings.md``,
+``bcu-outputs-utilities.md``; AI-processed reference tool emulator
 reading; newer product but same menu structure). The order = reference tool order
 (important for byte/bit mapping). Everything "todo" until we have sniffed the BCU. `ref` = hints from
 the doc's analysis notes. Prioritised for a BCU sniff: **EKA option, Market, Daytime

@@ -1,0 +1,51 @@
+---
+title: "Test backlog — resolved items"
+area: references
+status: stable
+version: 1.0
+updated: 2026-10-01
+depends_on: [references/test_plan.md]
+summary: >
+  Append-only log of settled car and tool tests, newest first, with the date and what
+  settled each one (inconclusive outcomes included) so nothing is re-run blind.
+---
+
+# Test backlog — resolved items
+
+Companion to [test_plan.md](test_plan.md). When an open test is settled, move it here
+with the date and the outcome. Newest first.
+
+- **2026-10-01 — Merged the Td5 verification backlog** (`docs/discovery-2-td5/verification-todo.md`,
+  now removed) into this file. Its items map as follows: fuel consumption → resolved 2026-08-21
+  (`injection_qty`, plus the derived `fuel_rate`/`economy`); MAF scale → T-01; EGR/wastegate
+  `21 37/38` → T-02; switch bits `21 1E/36` → T-08; VIN/ECU identity → T-06; remaining
+  fuelling bytes → T-03/T-05; wastegate modulator `30 BE` → T-23.
+- **2026-08-29 — SLABS diagnostics are STANDSTILL-ONLY (does it really die at speed?).** The ESP
+  node sampled SLABS while driving 0–71 km/h, logging whether `81 29 F7 81` got a reply. SLABS
+  answered `C1` at a standstill right after an ignition cycle, then went **silent the instant the
+  car moved** (StartComm only echoed — no `C1`, no `7F 81 10`) and **did not recover when stopped**
+  — dead until the next ignition cycle. So it's SLABS suspending diagnostics while the ABS is
+  active, not our polling. Live ABS-sensor data while driving is therefore **unreachable over
+  K-line** (analog tap needed). The node's SLABS excursion is now gated to `speed < 5 km/h`. See
+  `references/slabs/overview.md`.
+- **2026-08-23 — ESP32 K-line node talks to the Td5.** Wiring proven: L9637D VS on pin 7,
+  pull-up 510 Ω–1 k is critical, common ground required.
+- **2026-08-21 — `accel_way3` moves (0 → 2.23 V).** Pedal track 3 is live; `1B` mapping
+  confirmed against the car. (Note: BinOwl's frame-length heuristic labels our 12-byte
+  `1B` the "MSB" variant, which disagrees with the Euro-3/NNN reading — harmless for us,
+  unresolved in general. See `references/td5-external-findings.md`.)
+- **2026-08-21/22 — `1D`@15 EGR modulator and `1D`@17 wastegate modulator** confirmed
+  across four drives as behaviour (not scale). `1D`@16 is a constant-0 dead byte.
+  Scale still `candidate` → T-02.
+- **2026-08-21 — `1D`@6 = injection quantity (mg/stroke), `proven`,** via deliberate
+  overrun lifts: idle 11.1 → load 23.9 → overrun 4.7 (below idle = fuel cut).
+- **2026-08-20 — `21 21` = idle-governor error (s16),** ≈0 at idle, grows with engine
+  speed. Not a fault.
+- **2026-08-19 — SLABS init pulse corrected** (TiniH was ~32 ms instead of 25 ± 1); both
+  modules connect reliably. Follow-up on repeatability → T-10.
+- **2026-08-18 — the communication link outlives the process.** A run that only talks to
+  SLABS is still rejected if a previous run died with the link open — hence the
+  best-effort `82` before every init attempt.
+- **2026-08-03 — `1A` temperatures and `1C`@0 boost** verified against the car
+  (coolant 59.2 °C; boost 1.0 → 1.2 bar). `1A`@8 "ext_temp" is a phantom: the sensor is
+  not fitted, so it reads a constant 150.0 °C.

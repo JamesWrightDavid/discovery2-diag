@@ -57,7 +57,7 @@ cluster sensor via the BCU, not the engine ECU. The field has been given limits 
   future correlation. `1D` is now polled automatically because `maf` exists in the store
   (`LIDS` is derived from the store).
 - **SLABS** (must be polled LIGHTLY — block reading kills the session, see
-  `slabs_protocol.md`): the whole reference tool input block (`11,3B,42–59`) is rotated **ONE
+  `references/slabs/services-and-lids.md`): the whole reference tool input block (`11,3B,42–59`) is rotated **ONE
   LID per cycle**; the 0x54 heights are read every cycle. Traffic stays ~1 Hz.
 
 ## Open / next steps

@@ -46,6 +46,5 @@ so raw ↔ display must be sniff-mapped, not assumed. See
 
 ## Verification backlog
 
-What's being actively confirmed (and how you can help) is in
-[verification-todo.md](verification-todo.md) — including the path to live fuel
-consumption.
+What's being actively confirmed (and how you can help) is in the project's single
+test backlog, [references/test_plan.md](../../references/test_plan.md).

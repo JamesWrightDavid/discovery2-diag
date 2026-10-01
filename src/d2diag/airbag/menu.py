@@ -1,7 +1,7 @@
 """Airbag (TRW SPS Type 2A) reference tool menu + our coverage — drives the Map tab.
 
 status: "ok" (confirmed in our code), "maybe" (reference known but raw not captured), "todo".
-Menu order preserved exactly from the reference tool (see `references/reference_tool_master_menu.md`,
+Menu order preserved exactly from the reference tool (see `references/menus/airbag.md`,
 Airbag section). The ECU is limited: Read/Clear Faults + Settings (ID/config) —
 **no** live Inputs or Outputs page is assumed.
 

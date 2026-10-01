@@ -1,7 +1,7 @@
 """Auto Gearbox GS8.87.0 (Bosch, ZF4HP22-24) reference tool menu + our coverage.
 
 status: "ok" (confirmed in our code), "maybe" (reference known but raw not captured), "todo".
-Menu order preserved exactly from the reference tool (see `references/reference_tool_master_menu.md`,
+Menu order preserved exactly from the reference tool (see `references/menus/autobox.md`,
 Auto Gearbox section). **Own protocol (`72`-framed)** — sniffed 2026-08-10:
 the reference tool said "unable to perform the function" BUT the ECU RESPONDS with a data block.
 Function IDs proven (below); content interpretation awaits a successful session.

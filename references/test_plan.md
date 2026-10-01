@@ -2,8 +2,8 @@
 title: "Test backlog — the living plan for what to do next in the car"
 area: references
 status: stable
-version: 1.0
-updated: 2026-09-30
+version: 1.1
+updated: 2026-10-01
 summary: >
   Living backlog of what to test next in the car or with a borrowed tool, each item with context tag, procedure and pre-written decision rule; Resolved log.
 ---
@@ -16,7 +16,7 @@ After the session, route each result to its permanent home (table below), then m
 item down to **Resolved** with the date and the outcome. Nothing else in the repo is a
 to-do list for car work — `TODO.md` covers code and infrastructure only.
 
-Updated 2026-08-25.
+Updated 2026-10-01.
 
 ## How to use it
 
@@ -35,17 +35,24 @@ Updated 2026-08-25.
 | --- | --- |
 | LID → field mapping, scaling, confidence | `src/d2diag/signals/*.json` via `upsert_field` — never hand-edited |
 | Protocol facts (framing, init, services, timing) | `references/<module>_*.md` + the summary in `references/protocol_state_handoff.md` |
-| Verdicts on external repos/claims | `references/td5_externa_fynd.md` |
+| Verdicts on external repos/claims | `references/td5-external-findings.md` |
 | Fault codes and the car's actual condition | the sister project `../Discovery 2/` — **not** here |
 | Raw captures | `logs/` (gitignored; scrub VIN/EKA before anything is published) |
 
 ### Standing rules
 
 - K-line is a shared bus: **one module at a time**, always ending with `release()` (`82`).
-- SLABS must be polled lightly — see `references/slabs_protocol.md`.
+- SLABS must be polled lightly — see `references/slabs/overview.md`.
 - Airbag/SRS is **read-only**. No outputs, ever.
 - macOS: `/dev/cu.*`, never `/dev/tty.*`.
 - Anything that moves the car or actuates brakes: handbrake on, nobody underneath.
+
+### Contributing a result from another car
+
+Run a test and note the car (reg, variant, year), the raw values and how you confirmed
+them. Then open a PR or issue that updates the item here and the matching module page in
+`docs/`. A result from a *different* Td5 is especially valuable: it tells us what is
+model-general and what is specific to RDL 016.
 
 ---
 
@@ -61,7 +68,7 @@ BinOwl_Td5Gauge names `1C`@4 as MAF, u16/10 kg/h. In our logs `1C`@4 is zero in
 RDL 016 has `air flow circuit (Current)` live, so a dead sensor reading zero with
 occasional garbage is exactly what we would expect. That would make `1D`@4 a
 *modelled* air mass shown under a measured name. Background:
-`references/td5_externa_fynd.md`.
+`references/td5-external-findings.md`.
 
 **Setup.** Td5 session, CSV logging + raw log on. Read the **whole** `21 1C` block
 (8 data bytes), not just @0 — and log `1D`@4 in the same cycle.
@@ -116,6 +123,17 @@ Nanocom page order misleads here. `1D`@14 is now claimed as idle fuel demand (T-
 the remaining unknown bytes in `1D` need a differential drive. Low priority until T-01/02
 are settled.
 
+#### T-23 `[key-on]` — Confirm the wastegate modulator output `30 BE`
+We have the EGR modulator output (`30 BD`) proven. The wastegate modulator
+(`30 BE FF 00 0A 13 88`) comes from Ekaitza captures and has never been run from our code.
+
+**Procedure.** Engine off, behind the explicit actuator confirmation. Run `30 BE` and
+listen/observe at the wastegate actuator.
+
+**Decision rule.** An audible/visible actuation that stops when the routine ends
+promotes it to proven in `engine-td5.md`. No movement, with `30 BD` still working as a
+control in the same session, means the frame is wrong for this ECU: record it and stop.
+
 ### P2 — Td5 read-only additions (cheap, no risk)
 
 #### T-06 `[key-on]` — ECU identification `1A xx`
@@ -164,7 +182,7 @@ measurement predates the exact wait, so it measured the wrong thing. Re-measure 
 the flags — do not leave them as dead options.
 
 #### T-13 `[idle]` — Scale the remaining SLABS analog LIDs
-Open per `references/slabs_protocol.md`: `21 53/55` (supplies), `44/49/57`
+Open per `references/slabs/services-and-lids.md`: `21 53/55` (supplies), `44/49/57`
 (valves/voltages), `50` (ABS-sensor V). Read within the 1 Hz budget. For the settings
 LIDs where LID→function is unsolved, the only method is differential: change **one**
 setting, see which raw byte moves.
@@ -267,47 +285,15 @@ rows with a `comms_glitch` marker and classify in the analysis. Detail in `TODO.
 
 ## Resolved
 
-Move items here with the date and what actually settled them — including the ones that
-came back inconclusive, so we do not re-run them blind.
-
-- **2026-08-29 — SLABS diagnostics are STANDSTILL-ONLY (does it really die at speed?).** The ESP
-  node sampled SLABS while driving 0–71 km/h, logging whether `81 29 F7 81` got a reply. SLABS
-  answered `C1` at a standstill right after an ignition cycle, then went **silent the instant the
-  car moved** (StartComm only echoed — no `C1`, no `7F 81 10`) and **did not recover when stopped**
-  — dead until the next ignition cycle. So it's SLABS suspending diagnostics while the ABS is
-  active, not our polling. Live ABS-sensor data while driving is therefore **unreachable over
-  K-line** (analog tap needed). The node's SLABS excursion is now gated to `speed < 5 km/h`. See
-  `references/slabs_protocol.md`.
-- **2026-08-23 — ESP32 K-line node talks to the Td5.** Wiring proven: L9637D VS on pin 7,
-  pull-up 510 Ω–1 k is critical, common ground required.
-- **2026-08-21 — `accel_way3` moves (0 → 2.23 V).** Pedal track 3 is live; `1B` mapping
-  confirmed against the car. (Note: BinOwl's frame-length heuristic labels our 12-byte
-  `1B` the "MSB" variant, which disagrees with the Euro-3/NNN reading — harmless for us,
-  unresolved in general. See `references/td5_externa_fynd.md`.)
-- **2026-08-21/22 — `1D`@15 EGR modulator and `1D`@17 wastegate modulator** confirmed
-  across four drives as behaviour (not scale). `1D`@16 is a constant-0 dead byte.
-  Scale still `candidate` → T-02.
-- **2026-08-21 — `1D`@6 = injection quantity (mg/stroke), `proven`,** via deliberate
-  overrun lifts: idle 11.1 → load 23.9 → overrun 4.7 (below idle = fuel cut).
-- **2026-08-20 — `21 21` = idle-governor error (s16),** ≈0 at idle, grows with engine
-  speed. Not a fault.
-- **2026-08-19 — SLABS init pulse corrected** (TiniH was ~32 ms instead of 25 ± 1); both
-  modules connect reliably. Follow-up on repeatability → T-10.
-- **2026-08-18 — the communication link outlives the process.** A run that only talks to
-  SLABS is still rejected if a previous run died with the link open — hence the
-  best-effort `82` before every init attempt.
-- **2026-08-03 — `1A` temperatures and `1C`@0 boost** verified against the car
-  (coolant 59.2 °C; boost 1.0 → 1.2 bar). `1A`@8 "ext_temp" is a phantom: the sensor is
-  not fitted, so it reads a constant 150.0 °C.
-
----
+Settled items, with the date and what settled them (inconclusive results included, so
+they are not re-run blind), live in [test-plan-resolved.md](test-plan-resolved.md).
 
 ## Detailed procedures kept elsewhere
 
 These predate this file and hold step-by-step detail worth keeping. This backlog is the
 index; they are the appendices.
 
-- `references/biltest_plan_slabs_bcu.md` — SLABS signals, ABS bleed, BCU probe (full commands)
+- `references/car-test-slabs-bcu.md` — SLABS signals, ABS bleed, BCU probe (full commands)
 - `references/fault_read_checklist.md` — per-module fault reading with a reference tool
 - `references/final_session_plan.md` — the prioritized reference-tool session
 - `references/reference_tool_sniff_plan.md` — sniffing the reference tool

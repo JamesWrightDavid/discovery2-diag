@@ -52,7 +52,7 @@ ZF4HP22/24. Sniff = passive ESP32 (RX-only) on K-line pin 7, while the reference
   `air flow circuit (Current)` live, i.e. plausibly a dead sensor, not a wrong offset —
   which would make our `1D`@4 `maf` a *modelled* air mass instead. Also unread:
   **`21 38` = wastegate modulator (u16/1000 %)**, `21 1D`@0 = driver fuel demand,
-  `21 1D`@14 = idle fuel demand. Details + test plan in `references/td5_externa_fynd.md`.
+  `21 1D`@14 = idle fuel demand. Details + test plan in `references/td5-external-findings.md`.
 
 ## SLABS (Wabco) — KWP2000, base protocol solved
 - **Fast init addr `0x29`** → `C1 57 8F`. Faults: `21 11`=logged / `21 47`=current (bit block),
