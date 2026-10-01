@@ -12,7 +12,10 @@
       0,
       4800
     ],
-    "source": "fuelling verified against the car (RDL 016)"
+    "source": "fuelling verified against the car (RDL 016)",
+    "label": "RPM",
+    "group": "Engine",
+    "description": "Engine speed."
   },
   {
     "name": "speed",
@@ -27,7 +30,10 @@
       0,
       200
     ],
-    "source": "fuelling verified against the car"
+    "source": "fuelling verified against the car",
+    "label": "Speed",
+    "group": "Engine",
+    "description": "Road speed from the ECU."
   },
   {
     "name": "battery",
@@ -42,7 +48,10 @@
       11.5,
       15.5
     ],
-    "source": "u16/1000 V, verified against the car"
+    "source": "u16/1000 V, verified against the car",
+    "label": "Battery",
+    "group": "Electrical",
+    "description": "System voltage. 13.8–14.4 V running; below 13 = charging fault."
   },
   {
     "name": "coolant_temp",
@@ -57,7 +66,10 @@
       -40,
       105
     ],
-    "source": "21 1A@0 u16/10−273.2; verified 2026-08-03 (59.2 °C)"
+    "source": "21 1A@0 u16/10−273.2; verified 2026-08-03 (59.2 °C)",
+    "label": "Coolant",
+    "group": "Temperatures",
+    "description": "Coolant temperature. Normal 86–95 °C; above 105 = overheating."
   },
   {
     "name": "air_temp",
@@ -72,7 +84,10 @@
       -30,
       80
     ],
-    "source": "21 1A@4, same temperature scale"
+    "source": "21 1A@4, same temperature scale",
+    "label": "Intake air",
+    "group": "Temperatures",
+    "description": "Intake air temperature."
   },
   {
     "name": "ext_temp",
@@ -87,7 +102,10 @@
       -40,
       50
     ],
-    "source": "21 1A@8; external temperature sensor. The sensor is NOT present on the Td5 ECU (RDL016) → constant 0x1088 = 150.0 °C, a phantom reading. Confirmed in the car 2026-08-21: actual outside temp ~17 °C (the car's own cluster sensor via BCU), so 150 = false. Limits [-40,50] set so 150 is flagged suspect/struck-through. The value means nothing."
+    "source": "21 1A@8; external temperature sensor. The sensor is NOT present on the Td5 ECU (RDL016) → constant 0x1088 = 150.0 °C, a phantom reading. Confirmed in the car 2026-08-21: actual outside temp ~17 °C (the car's own cluster sensor via BCU), so 150 = false. Limits [-40,50] set so 150 is flagged suspect/struck-through. The value means nothing.",
+    "label": "External temp",
+    "group": "Temperatures",
+    "description": "External temp sensor — not fitted; phantom constant. Ignore."
   },
   {
     "name": "fuel_temp",
@@ -102,7 +120,10 @@
       -30,
       90
     ],
-    "source": "21 1A@12, same temperature scale"
+    "source": "21 1A@12, same temperature scale",
+    "label": "Fuel",
+    "group": "Temperatures",
+    "description": "Fuel temperature — ~70–80 °C warm, 10–15 below coolant."
   },
   {
     "name": "accel_way1",
@@ -117,7 +138,10 @@
       0.0,
       5.1
     ],
-    "source": "21 1B@0 u16/1000 V. Track 1: ~0.3–0.5 V at rest → ~4.7 V full throttle. Confirmed against the car."
+    "source": "21 1B@0 u16/1000 V. Track 1: ~0.3–0.5 V at rest → ~4.7 V full throttle. Confirmed against the car.",
+    "label": "Pedal track 1",
+    "group": "Accelerator",
+    "description": "Pedal track 1: ~0.3 V idle → ~4.7 V full."
   },
   {
     "name": "accel_way2",
@@ -132,7 +156,10 @@
       0.0,
       5.1
     ],
-    "source": "21 1B@2 u16/1000 V. Track 2 moves MIRRORED to track 1: ~4.7 V at rest → 0.3 V at full throttle. Confirmed against the car (way1 low while way2 high)."
+    "source": "21 1B@2 u16/1000 V. Track 2 moves MIRRORED to track 1: ~4.7 V at rest → 0.3 V at full throttle. Confirmed against the car (way1 low while way2 high).",
+    "label": "Pedal track 2",
+    "group": "Accelerator",
+    "description": "Pedal track 2: mirror of track 1 — ~4.7 V idle → ~0.3 V full."
   },
   {
     "name": "accel_way3",
@@ -147,7 +174,10 @@
       0.0,
       5.1
     ],
-    "source": "21 1B@4 u16/1000 V; accelerator pedal track 3. PROVEN in the car 2026-08-20: moves 0→2.23 V on application → the car is Euro 3 (NNN). Mirrors way1/way2."
+    "source": "21 1B@4 u16/1000 V; accelerator pedal track 3. PROVEN in the car 2026-08-20: moves 0→2.23 V on application → the car is Euro 3 (NNN). Mirrors way1/way2.",
+    "label": "Pedal track 3",
+    "group": "Accelerator",
+    "description": "Pedal track 3 — Euro 3 only; reads 0 on Euro 2."
   },
   {
     "name": "accel_supply",
@@ -162,7 +192,10 @@
       4.9,
       5.1
     ],
-    "source": "21 1B@6 u16/1000 V (5V reference). Should sit rock-solid at 5.0 V ±0.1; a dip = short in the pedal wiring. Verified 5.01 V."
+    "source": "21 1B@6 u16/1000 V (5V reference). Should sit rock-solid at 5.0 V ±0.1; a dip = short in the pedal wiring. Verified 5.01 V.",
+    "label": "Pedal supply",
+    "group": "Accelerator",
+    "description": "5 V reference — rock-solid 5.0 V ±0.1."
   },
   {
     "name": "manifold_press",
@@ -177,7 +210,10 @@
       0.8,
       2.6
     ],
-    "source": "21 1C@0 u16/10000 bar = TURBO/boost pressure (reference tool 'Turbo Pressure'). Idle ~1.0 bar (atmospheric); full load 2.0–2.2 bar absolute; the ECU's overboost cut > 2.42 bar. CONFIRMED 2026-08-03 (1.0→1.2 bar)."
+    "source": "21 1C@0 u16/10000 bar = TURBO/boost pressure (reference tool 'Turbo Pressure'). Idle ~1.0 bar (atmospheric); full load 2.0–2.2 bar absolute; the ECU's overboost cut > 2.42 bar. CONFIRMED 2026-08-03 (1.0→1.2 bar).",
+    "label": "Turbo pressure",
+    "group": "Pressures",
+    "description": "Turbo / boost pressure. Idle ~1.0 bar; full load 2.0–2.2; overboost-cut >2.42."
   },
   {
     "name": "rpm_error",
@@ -192,7 +228,10 @@
       -300,
       300
     ],
-    "source": "21 21@0 s16; idle governor deviation (target − actual). PROVEN: ≈0 at idle (car 2026-08-20: average −4 at 700–900 rpm), grows with engine speed under load (~2150 at 3000 rpm) — expected, only meaningful at IDLE. Not a fault."
+    "source": "21 21@0 s16; idle governor deviation (target − actual). PROVEN: ≈0 at idle (car 2026-08-20: average −4 at 700–900 rpm), grows with engine speed under load (~2150 at 3000 rpm) — expected, only meaningful at IDLE. Not a fault.",
+    "label": "RPM error",
+    "group": "Engine",
+    "description": "Idle-speed error: target minus actual idle rpm."
   },
   {
     "name": "ambient_press_1",
@@ -207,7 +246,10 @@
       0.8,
       1.1
     ],
-    "source": "21 23@0 u16/10000 bar"
+    "source": "21 23@0 u16/10000 bar",
+    "label": "Ambient pressure",
+    "group": "Pressures",
+    "description": "Atmospheric pressure — ~1.0 bar at sea level."
   },
   {
     "name": "ambient_press_2",
@@ -222,7 +264,10 @@
       0.8,
       1.1
     ],
-    "source": "21 23@2 u16/10000 bar"
+    "source": "21 23@2 u16/10000 bar",
+    "label": "Ambient pressure 2",
+    "group": "Pressures",
+    "description": "Atmospheric pressure (second reading)."
   },
   {
     "name": "balance_1",
@@ -237,7 +282,10 @@
       -12,
       12
     ],
-    "source": "21 40@0 s16; cylinder balance 1. PROVEN (labeled_captures 40='correct'); values −6…+2 across captures."
+    "source": "21 40@0 s16; cylinder balance 1. PROVEN (labeled_captures 40='correct'); values −6…+2 across captures.",
+    "label": "Injector 1",
+    "group": "Fuelling",
+    "description": "Cylinder 1 fuelling correction. ±4 healthy; +6…+15 = weak cylinder."
   },
   {
     "name": "balance_2",
@@ -252,7 +300,10 @@
       -12,
       12
     ],
-    "source": "21 40@2 s16; cylinder balance 2. PROVEN (labeled_captures 40='correct'); values −6…+2 across captures."
+    "source": "21 40@2 s16; cylinder balance 2. PROVEN (labeled_captures 40='correct'); values −6…+2 across captures.",
+    "label": "Injector 2",
+    "group": "Fuelling",
+    "description": "Cylinder 2 fuelling correction. ±4 healthy."
   },
   {
     "name": "balance_3",
@@ -267,7 +318,10 @@
       -12,
       12
     ],
-    "source": "21 40@4 s16; cylinder balance 3. PROVEN (labeled_captures 40='correct'); values −6…+2 across captures."
+    "source": "21 40@4 s16; cylinder balance 3. PROVEN (labeled_captures 40='correct'); values −6…+2 across captures.",
+    "label": "Injector 3",
+    "group": "Fuelling",
+    "description": "Cylinder 3 fuelling correction. ±4 healthy."
   },
   {
     "name": "balance_4",
@@ -282,7 +336,10 @@
       -12,
       12
     ],
-    "source": "21 40@6 s16; cylinder balance 4. PROVEN (labeled_captures 40='correct'); values −6…+2 across captures."
+    "source": "21 40@6 s16; cylinder balance 4. PROVEN (labeled_captures 40='correct'); values −6…+2 across captures.",
+    "label": "Injector 4",
+    "group": "Fuelling",
+    "description": "Cylinder 4 fuelling correction. ±4 healthy."
   },
   {
     "name": "balance_5",
@@ -297,7 +354,10 @@
       -12,
       12
     ],
-    "source": "21 40@8 s16; cylinder balance 5. PROVEN (labeled_captures 40='correct'); values −6…+2 across captures."
+    "source": "21 40@8 s16; cylinder balance 5. PROVEN (labeled_captures 40='correct'); values −6…+2 across captures.",
+    "label": "Injector 5",
+    "group": "Fuelling",
+    "description": "Cylinder 5 fuelling correction. ±4 healthy."
   },
   {
     "name": "injection_qty",
@@ -312,7 +372,10 @@
       0,
       90
     ],
-    "source": "21 1D@6 u16 x0.01 mg/stroke = INJECTION QUANTITY. PROVEN (field) via car test 2026-08-21 with deliberate overrun lifts: idle 11.1, load 23.9, OVERRUN 4.7 mg/stroke (falls below idle = fuel cut) = unambiguous fuelling signature. Gives a plausible live economy ~7.6 L/100km. Ekaitza calls 21 1D 'fuel-usage'. NOTE: the exact SCALE (x0.01) is matched against the SimonRafferty reference, not cross-checked against a factory tool on RDL016 — plausible but fine-tunable. Drives the trip computer (fuel_rate/economy, candidate)."
+    "source": "21 1D@6 u16 x0.01 mg/stroke = INJECTION QUANTITY. PROVEN (field) via car test 2026-08-21 with deliberate overrun lifts: idle 11.1, load 23.9, OVERRUN 4.7 mg/stroke (falls below idle = fuel cut) = unambiguous fuelling signature. Gives a plausible live economy ~7.6 L/100km. Ekaitza calls 21 1D 'fuel-usage'. NOTE: the exact SCALE (x0.01) is matched against the SimonRafferty reference, not cross-checked against a factory tool on RDL016 — plausible but fine-tunable. Drives the trip computer (fuel_rate/economy, candidate).",
+    "label": "Injection",
+    "group": "Fuelling",
+    "description": "Injection quantity (mg/stroke). Idle ~6–10; rises with load."
   },
   {
     "name": "egr_modulator",
@@ -327,7 +390,10 @@
       0,
       100
     ],
-    "source": "21 1D byte15 u8 x(100/255) = EGR Modulator % (duty). Confirmed across FOUR drives 2026-08-21/22: high at light load, falls to 0 under load/boost = textbook EGR (open light-load, closes under load). Idle duty varies by conditions (~13-62%). Identified via the Nanocom fuelling-page field order. NOTE: the adjacent 1D@16 (which the page order would put as 'EGR Inlet') reads a CONSTANT 0 across all four drives = a dead/reserved byte, so EGR Inlet is NOT @16 and is not yet located. Scale 100/255 is a candidate byte->% mapping, not cross-checked vs a factory tool. EGR was modulating (not stuck) - relevant to the intermittent 001-07."
+    "source": "21 1D byte15 u8 x(100/255) = EGR Modulator % (duty). Confirmed across FOUR drives 2026-08-21/22: high at light load, falls to 0 under load/boost = textbook EGR (open light-load, closes under load). Idle duty varies by conditions (~13-62%). Identified via the Nanocom fuelling-page field order. NOTE: the adjacent 1D@16 (which the page order would put as 'EGR Inlet') reads a CONSTANT 0 across all four drives = a dead/reserved byte, so EGR Inlet is NOT @16 and is not yet located. Scale 100/255 is a candidate byte->% mapping, not cross-checked vs a factory tool. EGR was modulating (not stuck) - relevant to the intermittent 001-07.",
+    "label": "EGR",
+    "group": "Engine",
+    "description": "EGR modulator duty % (1D@15, candidate)."
   },
   {
     "name": "wastegate_modulator",
@@ -342,7 +408,10 @@
       0,
       100
     ],
-    "source": "21 1D byte17 u8 x(100/255) = Wastegate Modulator % (boost-control duty). Confirmed across four drives 2026-08-21/22: rises with boost (r=0.85 vs MAP) but is NOT MAP itself (1D@4 is MAP, r=0.995). Baseline ~15 raw (~6%), tops 25-82 raw (~10-32%) scaling with drive intensity - matches the published band (0% idle, 20-40% boost, max ~40%). Position matches the Nanocom fuelling-page order. Candidate scaling (100/255)."
+    "source": "21 1D byte17 u8 x(100/255) = Wastegate Modulator % (boost-control duty). Confirmed across four drives 2026-08-21/22: rises with boost (r=0.85 vs MAP) but is NOT MAP itself (1D@4 is MAP, r=0.995). Baseline ~15 raw (~6%), tops 25-82 raw (~10-32%) scaling with drive intensity - matches the published band (0% idle, 20-40% boost, max ~40%). Position matches the Nanocom fuelling-page order. Candidate scaling (100/255).",
+    "label": "Wastegate",
+    "group": "Engine",
+    "description": "Wastegate modulator duty % (1D@17, candidate)."
   },
   {
     "name": "maf",
@@ -357,7 +426,10 @@
       0,
       700
     ],
-    "source": "21 1D u16@4 (big-endian) = the ECU's air-mass value. FIELD proven (r=+0.95 vs rpm*MAP over a full WOT pull, raw log 2026-08-21). BUT this is almost certainly a MODELLED (speed-density) air mass, NOT the physical MAF sensor: RDL016 has 'air flow circuit (Current)' as a live fault and the MEASURED MAF (1C@4) reads 0 = dead sensor. The high rpm*MAP correlation is exactly what a modelled substitute looks like. So a plausible value here (idle ~53 kg/h) is NOT evidence the sensor is healthy - the dashboard shows a modelled value under a 'maf' name. scale/bias = provisional 2-point fit (idle ~60, 2000 rpm ~190 kg/h), never solid. T-01 in references/test_plan.md confirms 1C@4=measured on a healthy MAF and will then rename this field to a modelled air mass."
+    "source": "21 1D u16@4 (big-endian) = the ECU's air-mass value. FIELD proven (r=+0.95 vs rpm*MAP over a full WOT pull, raw log 2026-08-21). BUT this is almost certainly a MODELLED (speed-density) air mass, NOT the physical MAF sensor: RDL016 has 'air flow circuit (Current)' as a live fault and the MEASURED MAF (1C@4) reads 0 = dead sensor. The high rpm*MAP correlation is exactly what a modelled substitute looks like. So a plausible value here (idle ~53 kg/h) is NOT evidence the sensor is healthy - the dashboard shows a modelled value under a 'maf' name. scale/bias = provisional 2-point fit (idle ~60, 2000 rpm ~190 kg/h), never solid. T-01 in references/test_plan.md confirms 1C@4=measured on a healthy MAF and will then rename this field to a modelled air mass.",
+    "label": "Air flow",
+    "group": "Engine",
+    "description": "Air mass (1D u16@4) — likely a MODELLED value, not the sensor. RDL016's physical MAF (1C@4) reads 0 (air-flow-circuit fault), so this is the ECU's speed-density estimate. Candidate scale; see test T-01."
   },
   {
     "name": "maf_sensor",
@@ -368,6 +440,9 @@
     "bias": 0.0,
     "unit": "raw",
     "confidence": "candidate",
-    "source": "21 1C@4 = PHYSICAL MAF sensor (hot-film, 3-wire). Faulted on RDL016 (reads 0/stuck) — logged RAW to confirm whether it EVER responds to airflow, vs the 1D@4 MODELLED air mass. Separate upstream IAT feeds the model. 2026-08-29."
+    "source": "21 1C@4 = PHYSICAL MAF sensor (hot-film, 3-wire). Faulted on RDL016 (reads 0/stuck) — logged RAW to confirm whether it EVER responds to airflow, vs the 1D@4 MODELLED air mass. Separate upstream IAT feeds the model. 2026-08-29.",
+    "label": "Air flow sensor (raw)",
+    "group": "Engine",
+    "description": "Physical MAF sensor, raw (1C@4). Faulted on RDL016 — logged to see whether it ever responds to airflow. See test T-01."
   }
 ]

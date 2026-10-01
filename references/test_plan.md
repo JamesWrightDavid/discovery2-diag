@@ -268,6 +268,11 @@ order**:
 Per-module checklist with the exact wording to note down:
 `references/fault_read_checklist.md`. Codes go to the sister project.
 
+#### T-24 `[key-on]` `[idle]` — React dashboard parity in the car
+Run the new app (`/`) next to `/legacy/v2` on TD5 then SLABS. **Decision rule:** if every
+Drive/Inputs value, fault, output and capture matches, delete the legacy pages; any gap
+becomes an issue first (`specs/2026-10-01-web-ui-design.md`).
+
 ### P6 — Offline `[offline]`
 
 #### T-21 — Decode `21 0E` / `21 32` (homologation / map variant)
@@ -283,18 +288,10 @@ rows with a `comms_glitch` marker and classify in the analysis. Detail in `TODO.
 
 ---
 
-## Resolved
+## Resolved and appendices
 
-Settled items, with the date and what settled them (inconclusive results included, so
-they are not re-run blind), live in [test-plan-resolved.md](test-plan-resolved.md).
-
-## Detailed procedures kept elsewhere
-
-These predate this file and hold step-by-step detail worth keeping. This backlog is the
-index; they are the appendices.
-
-- `references/car-test-slabs-bcu.md` — SLABS signals, ABS bleed, BCU probe (full commands)
-- `references/fault_read_checklist.md` — per-module fault reading with a reference tool
-- `references/final_session_plan.md` — the prioritized reference-tool session
-- `references/reference_tool_sniff_plan.md` — sniffing the reference tool
-- `references/bcu_sniff_plan.md` — BCU-specific sniffing
+Settled items (dated, inconclusive ones included) live in
+[test-plan-resolved.md](test-plan-resolved.md). Step-by-step appendices this backlog
+indexes: `car-test-slabs-bcu.md` (SLABS signals, ABS bleed, BCU probe),
+`fault_read_checklist.md` (per-module fault reading), `final_session_plan.md` and
+`reference_tool_sniff_plan.md` (reference-tool sessions), `bcu_sniff_plan.md` (BCU).

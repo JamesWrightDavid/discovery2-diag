@@ -9,7 +9,10 @@
     "unit": "",
     "confidence": "proven",
     "limits": null,
-    "source": "21 54 byte0 = left height; proven via variance session.log 2026-08-08 reference tool reference: normal ~110–135 (calibration-dependent); L and R should sit close to each other on level ground; fixed 0/255 = broken arm/sensor."
+    "source": "21 54 byte0 = left height; proven via variance session.log 2026-08-08 reference tool reference: normal ~110–135 (calibration-dependent); L and R should sit close to each other on level ground; fixed 0/255 = broken arm/sensor.",
+    "label": "Height left (raw)",
+    "group": "Ride height",
+    "description": "Left ride-height sensor (raw 0–255). Normal ~110–135; L≈R on level ground."
   },
   {
     "name": "height_right",
@@ -21,7 +24,10 @@
     "unit": "",
     "confidence": "proven",
     "limits": null,
-    "source": "21 54 byte1 = right height; proven via variance session.log 2026-08-08 reference tool reference: normal ~110–135 (calibration-dependent); L and R should sit close to each other on level ground; fixed 0/255 = broken arm/sensor."
+    "source": "21 54 byte1 = right height; proven via variance session.log 2026-08-08 reference tool reference: normal ~110–135 (calibration-dependent); L and R should sit close to each other on level ground; fixed 0/255 = broken arm/sensor.",
+    "label": "Height right (raw)",
+    "group": "Ride height",
+    "description": "Right ride-height sensor (raw 0–255). Normal ~110–135."
   },
   {
     "name": "any_door",
@@ -38,7 +44,10 @@
       "0": "closed",
       "1": "open"
     },
-    "source": "21 56 byte0 bit0 = any-door; PROVEN via differential 2026-08-08 (00 closed/01 open)"
+    "source": "21 56 byte0 bit0 = any-door; PROVEN via differential 2026-08-08 (00 closed/01 open)",
+    "label": "Door open",
+    "group": "Inputs",
+    "description": "Any door open. SLABS won't adjust suspension with a door open. Normal: closed."
   },
   {
     "name": "battery",
@@ -53,7 +62,10 @@
       11.5,
       15.0
     ],
-    "source": "21 44 byte12 u8×0.0625 V. PROVEN in the car 2026-08-20: 13.5 V with the engine running (charging), 12.0 V with the engine off — tracks system voltage correctly."
+    "source": "21 44 byte12 u8×0.0625 V. PROVEN in the car 2026-08-20: 13.5 V with the engine running (charging), 12.0 V with the engine off — tracks system voltage correctly.",
+    "label": "Battery",
+    "group": "Electrical",
+    "description": "System voltage. 13.8–14.4 V running; below 13 = charging fault."
   },
   {
     "name": "ecu_supply",
@@ -68,7 +80,10 @@
       11.5,
       15.0
     ],
-    "source": "21 44 byte13 u8×0.0625 V. PROVEN 2026-08-20: same as battery (13.5 V engine on, 12.0 V off)."
+    "source": "21 44 byte13 u8×0.0625 V. PROVEN 2026-08-20: same as battery (13.5 V engine on, 12.0 V off).",
+    "label": "ECU supply",
+    "group": "Electrical",
+    "description": "Internal SLABS ECU supply voltage."
   },
   {
     "name": "wheel_speed_fl",
@@ -80,7 +95,10 @@
     "unit": "",
     "confidence": "candidate",
     "limits": null,
-    "source": "21 43@0 u16le. Decoding PROVEN in the car 2026-08-20 (all four read 124 stationary, ≠ km/h). ⚠ WHEEL order (which offset = which wheel) not confirmed — all equally stationary cannot be told apart. Requires a spin-ONE-wheel test. CANDIDATE until then."
+    "source": "21 43@0 u16le. Decoding PROVEN in the car 2026-08-20 (all four read 124 stationary, ≠ km/h). ⚠ WHEEL order (which offset = which wheel) not confirmed — all equally stationary cannot be told apart. Requires a spin-ONE-wheel test. CANDIDATE until then.",
+    "label": "Wheel speed FL",
+    "group": "Wheels",
+    "description": "Front-left wheel speed (raw ~124 stationary). ⚠ Wheel order unconfirmed."
   },
   {
     "name": "wheel_speed_fr",
@@ -92,7 +110,10 @@
     "unit": "",
     "confidence": "candidate",
     "limits": null,
-    "source": "21 43@2 u16le. Decoding PROVEN in the car 2026-08-20 (all four read 124 stationary, ≠ km/h). ⚠ WHEEL order (which offset = which wheel) not confirmed — all equally stationary cannot be told apart. Requires a spin-ONE-wheel test. CANDIDATE until then."
+    "source": "21 43@2 u16le. Decoding PROVEN in the car 2026-08-20 (all four read 124 stationary, ≠ km/h). ⚠ WHEEL order (which offset = which wheel) not confirmed — all equally stationary cannot be told apart. Requires a spin-ONE-wheel test. CANDIDATE until then.",
+    "label": "Wheel speed FR",
+    "group": "Wheels",
+    "description": "Front-right wheel speed (raw ~124 stationary). ⚠ Wheel order unconfirmed."
   },
   {
     "name": "wheel_speed_rl",
@@ -104,7 +125,10 @@
     "unit": "",
     "confidence": "candidate",
     "limits": null,
-    "source": "21 43@4 u16le. Decoding PROVEN in the car 2026-08-20 (all four read 124 stationary, ≠ km/h). ⚠ WHEEL order (which offset = which wheel) not confirmed — all equally stationary cannot be told apart. Requires a spin-ONE-wheel test. CANDIDATE until then."
+    "source": "21 43@4 u16le. Decoding PROVEN in the car 2026-08-20 (all four read 124 stationary, ≠ km/h). ⚠ WHEEL order (which offset = which wheel) not confirmed — all equally stationary cannot be told apart. Requires a spin-ONE-wheel test. CANDIDATE until then.",
+    "label": "Wheel speed RL",
+    "group": "Wheels",
+    "description": "Rear-left wheel speed. ⚠ Wheel order unconfirmed."
   },
   {
     "name": "wheel_speed_rr",
@@ -116,7 +140,10 @@
     "unit": "",
     "confidence": "candidate",
     "limits": null,
-    "source": "21 43@6 u16le. Decoding PROVEN in the car 2026-08-20 (all four read 124 stationary, ≠ km/h). ⚠ WHEEL order (which offset = which wheel) not confirmed — all equally stationary cannot be told apart. Requires a spin-ONE-wheel test. CANDIDATE until then."
+    "source": "21 43@6 u16le. Decoding PROVEN in the car 2026-08-20 (all four read 124 stationary, ≠ km/h). ⚠ WHEEL order (which offset = which wheel) not confirmed — all equally stationary cannot be told apart. Requires a spin-ONE-wheel test. CANDIDATE until then.",
+    "label": "Wheel speed RR",
+    "group": "Wheels",
+    "description": "Rear-right wheel speed. ⚠ Wheel order unconfirmed."
   },
   {
     "name": "abs_sensor_fl",
@@ -131,7 +158,10 @@
       1.5,
       3.0
     ],
-    "source": "21 50@0 u8×0.02 V. Decoding PROVEN 2026-08-20 (all ~2.3 V steady). ⚠ WHEEL order not confirmed. CANDIDATE."
+    "source": "21 50@0 u8×0.02 V. Decoding PROVEN 2026-08-20 (all ~2.3 V steady). ⚠ WHEEL order not confirmed. CANDIDATE.",
+    "label": "ABS sensor FL",
+    "group": "Wheels",
+    "description": "Front-left ABS sensor voltage (~2.3 V). ⚠ Order unconfirmed."
   },
   {
     "name": "abs_sensor_fr",
@@ -146,7 +176,10 @@
       1.5,
       3.0
     ],
-    "source": "21 50@1 u8×0.02 V. Decoding PROVEN 2026-08-20 (all ~2.3 V steady). ⚠ WHEEL order not confirmed. CANDIDATE."
+    "source": "21 50@1 u8×0.02 V. Decoding PROVEN 2026-08-20 (all ~2.3 V steady). ⚠ WHEEL order not confirmed. CANDIDATE.",
+    "label": "ABS sensor FR",
+    "group": "Wheels",
+    "description": "Front-right ABS sensor voltage (~2.3 V). ⚠ Order unconfirmed."
   },
   {
     "name": "abs_sensor_rl",
@@ -161,7 +194,10 @@
       1.5,
       3.0
     ],
-    "source": "21 50@2 u8×0.02 V. Decoding PROVEN 2026-08-20 (all ~2.3 V steady). ⚠ WHEEL order not confirmed. CANDIDATE."
+    "source": "21 50@2 u8×0.02 V. Decoding PROVEN 2026-08-20 (all ~2.3 V steady). ⚠ WHEEL order not confirmed. CANDIDATE.",
+    "label": "ABS sensor RL",
+    "group": "Wheels",
+    "description": "Rear-left ABS sensor voltage. ⚠ Order unconfirmed."
   },
   {
     "name": "abs_sensor_rr",
@@ -176,6 +212,9 @@
       1.5,
       3.0
     ],
-    "source": "21 50@3 u8×0.02 V. Decoding PROVEN 2026-08-20 (all ~2.3 V steady). ⚠ WHEEL order not confirmed. CANDIDATE."
+    "source": "21 50@3 u8×0.02 V. Decoding PROVEN 2026-08-20 (all ~2.3 V steady). ⚠ WHEEL order not confirmed. CANDIDATE.",
+    "label": "ABS sensor RR",
+    "group": "Wheels",
+    "description": "Rear-right ABS sensor voltage. ⚠ Order unconfirmed."
   }
 ]
