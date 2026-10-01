@@ -1,7 +1,7 @@
 """Wabco SLABS (ABS + self-levelling air suspension) module layer.
 
 The protocol is **proven from sniffed reference tool traffic 2026-08-07** (see
-``references/slabs_protocol.md`` + raw log ``references/captures/``). Unlike
+``references/slabs/overview.md`` + raw log ``references/captures/``). Unlike
 Td5, **no StartDiagnosticSession and no SecurityAccess** is required — after
 fast init you go straight to the services.
 
@@ -51,7 +51,7 @@ ABS_SUB_REAR_RIGHT = 0x12
 ABS_SUB_REAR_LEFT = 0x13
 
 _DEFAULT_IDLE = 0.3    # proven stable value (sniff 2026-08-07)
-# MEASURED from the reference tool sniffs (2026-08-07/08/09, see slabs_protocol.md): EVERY
+# MEASURED from the reference tool sniffs (2026-08-07/08/09, see references/slabs/init-timing.md): EVERY
 # successful SLABS init came on the first attempt after 25–28 s with no traffic to the module —
 # 24.9, 26.5, 27.8, 28.0, 41.0, 51.5 s. The tool NEVER made a fast retry.
 # The module thus needs a quiet period to release its link, and every init we

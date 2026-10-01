@@ -1,3 +1,13 @@
+---
+title: "Short reference tool session — capture exactly this (prioritized)"
+area: references
+status: draft
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Prioritised capture list for a short reference-tool session: plaintext values needed to correlate against raw bytes already logged.
+---
+
 # Short reference tool session — capture exactly this (prioritized)
 
 > **Appendix.** The living backlog of what to test next is `references/test_plan.md`;

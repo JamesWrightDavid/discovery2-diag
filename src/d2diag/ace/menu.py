@@ -2,7 +2,7 @@
 
 status: "ok" (confirmed in our code/decoding), "maybe" (reference/text known but raw not
 captured by us), "todo" (not mapped yet). `ref` = LID/routine/command or next step.
-Menu order preserved exactly from the reference tool (see `references/reference_tool_master_menu.md`,
+Menu order preserved exactly from the reference tool (see `references/menus/ace.md`,
 ACE section). Nothing is "ok" yet — ACE has not been sniffed yet.
 
 ⚠️ ACE caveat: the reference tool's valve codes are unreliable (pressure sensor faults show up as

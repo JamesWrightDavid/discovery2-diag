@@ -1,3 +1,13 @@
+---
+title: "Discovery 2 SLABS (Wabco) — fault code list"
+area: references
+status: stable
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Numbered SLABS fault types (self-levelling and ABS) from a public source; up to 47 per the vendor guide.
+---
+
 # Discovery 2 SLABS (Wabco) — fault code list
 
 Numbered fault types for the SLABS ECU (self-levelling + ABS). Source:

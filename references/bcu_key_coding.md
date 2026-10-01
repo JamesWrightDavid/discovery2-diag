@@ -1,3 +1,13 @@
+---
+title: "BCU — EKA code (read/set) + key coding (goal & research)"
+area: references
+status: draft
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Goal and research plan for reading the BCU EKA code (low risk) and key coding (higher risk); not yet sniffed.
+---
+
 # BCU — EKA code (read/set) + key coding (goal & research)
 
 Valeo BCU (immobiliser/body electronics). Slow init, permanently powered. Not yet

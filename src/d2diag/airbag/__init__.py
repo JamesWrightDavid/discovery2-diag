@@ -1,6 +1,6 @@
 """Airbag layer (TRW SPS Type 2A, SRS) — menu data first.
 
-🔴 Read-only domain (pyrotechnics). See `references/reference_tool_master_menu.md` (Airbag)
+🔴 Read-only domain (pyrotechnics). See `references/menus/airbag.md` (Airbag)
 and the dictionary (Airbag position=display code, 1–65).
 """
 from .airbag import AIRBAG_ADDRESS, Airbag

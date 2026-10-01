@@ -10,7 +10,7 @@ the automotive environment: voltage spikes / load dump, reverse polarity, brown-
 > from a **current-limited** 12 V supply (~200 mA) before plugging into the car.
 
 This documents the design and BOM. Firmware bring-up reuses
-[`esp32/kline_test.ino`](../esp32/kline_test.ino); the transceiver circuit follows
+[`esp32/kline_test.ino`](../esp32/kline_test/kline_test.ino); the transceiver circuit follows
 the ST reference used in
 [`references/muki01_OBD2_K-line_Reader/Schematics/L9637D.png`](../references/muki01_OBD2_K-line_Reader/Schematics/L9637D.png).
 
@@ -151,7 +151,7 @@ Follows the muki01 `L9637D.png` reference. Pinout (SO-8):
 
 ## Firmware
 
-- **Bring-up now:** [`esp32/kline_test.ino`](../esp32/kline_test.ino). Sequence:
+- **Bring-up now:** [`esp32/kline_test.ino`](../esp32/kline_test/kline_test.ino). Sequence:
   `klineLineDiag()` (confirm non-inversion with the L9637D → set `KLINE_INVERT=false`)
   → `0xA5` self-test (needs 12 V + pull-up present) → fast init → Td5
   StartCommunication `81 13 F7 81 0C` → expect **`C1 57 8F`**.

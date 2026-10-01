@@ -1,3 +1,13 @@
+---
+title: "Discovery 2 TD5 (Lucas engine ECU) — fault codes"
+area: references
+status: stable
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Td5 engine ECU fault memory: already raw-mapped, 210 named fault bits decoded in code.
+---
+
 # Discovery 2 TD5 (Lucas engine ECU) — fault codes
 
 The engine ECU's fault memory. **Unlike the other modules, TD5 is already

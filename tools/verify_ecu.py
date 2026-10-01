@@ -73,7 +73,7 @@ def verify_slabs(port: str, buzzer: bool = False, esp: bool = False) -> int:
         print("\nFault codes:")
         print("  logged:", f["loggade"] or "(none)")
         print("  current:", f["aktuella"] or "(none)")
-        print("\nLive data (raw — for scale verification against slabs_protocol.md):")
+        print("\nLive data (raw — for scale verification against references/slabs/services-and-lids.md):")
         names = {0x54: "height L/R", 0x53: "sensor supply L/R", 0x55: "compressor?",
                  0x43: "wheel speed ×4", 0x44: "analog block (valves/battery)",
                  0x49: "?", 0x50: "ABS sensor V ×4", 0x57: "CAN-derived"}

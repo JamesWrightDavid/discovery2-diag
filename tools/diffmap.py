@@ -48,7 +48,7 @@ def solve_label(samples, lids, name="signal", unit=""):
     return automap.solve(samples, lids, name, unit)
 
 
-def build_record(res, name, unit="", confidence="kandidat", source=""):
+def build_record(res, name, unit="", confidence="candidate", source=""):
     """Build a signal-store record from an ``automap.solve`` result."""
     rec = {"name": name, "lid": res["lid"], "offset": int(res["offset"]),
            "unit": unit, "confidence": confidence, "source": source}
@@ -157,7 +157,7 @@ def run(module: str, port: str, lids, baselines: int) -> int:
             else:
                 print(f"  → {name}: {res.get('rule', '')}")
             if input("  Save as a candidate in the store? [y/n]: ").strip().lower() in ("y", "yes", "j", "ja"):
-                rec = build_record(res, name, unit, "kandidat",
+                rec = build_record(res, name, unit, "candidate",
                                    source=f"diffmap {module}: differential, {len(samples)} readings")
                 upsert_field(module, rec)
                 print(f"  ✓ saved to signals/{module}.json\n")

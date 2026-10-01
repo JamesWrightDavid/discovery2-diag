@@ -1,3 +1,13 @@
+---
+title: "Discovery 2 — diagnostic module landscape"
+area: references
+status: stable
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Landscape of the Discovery 2 control units on the diagnostic side, with physical connection proven from the factory schematic.
+---
+
 # Discovery 2 — diagnostic module landscape
 
 Overview of the D2's control units on the diagnostic side, to broaden the platform

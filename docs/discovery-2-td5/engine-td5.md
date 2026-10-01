@@ -1,3 +1,13 @@
+---
+title: "Td5 Engine ECU (Lucas / Motorola)"
+area: docs
+status: stable
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Td5 Lucas engine ECU at 0x13: live data, faults, immobiliser status and actuator tests; the best-understood module.
+---
+
 # Td5 Engine ECU (Lucas / Motorola)
 
 The Td5's engine management is a **Lucas (Motorola-based) ECU** on the K-line at

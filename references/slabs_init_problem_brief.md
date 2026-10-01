@@ -1,3 +1,13 @@
+---
+title: "SLABS connection: problem brief for external review"
+area: references
+status: stable
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Standalone problem brief on the SLABS connection failure and init timing, written for external review (2026-08-19).
+---
+
 # SLABS connection: problem brief for external review
 
 _Written 2026-08-19. Standalone — assumes no knowledge of our codebase._

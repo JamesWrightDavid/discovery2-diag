@@ -1,3 +1,13 @@
+---
+title: "Wabco SLABS (Discovery 2) — diagnostic capabilities"
+area: references
+status: stable
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Functional reference for what the Wabco SLABS exposes diagnostically: signals, expected values and tests.
+---
+
 # Wabco SLABS (Discovery 2) — diagnostic capabilities
 
 Functional reference for the future **SLABS layer** in d2diag. Describes *what*

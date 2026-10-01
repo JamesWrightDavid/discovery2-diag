@@ -13,7 +13,7 @@ Design principles:
 - **Anonymous install ID** (a random UUID the app generates on opt-in) lets us count
   unique installs and separate *registered* from *contributing* — without identity.
 - Contributions land in SQLite for the maintainer to review and (manually) promote
-  ``kandidat → belagt`` in the app's signal store. Nothing is auto-published.
+  ``candidate → proven`` in the app's signal store. Nothing is auto-published.
 
 Run: ``python3 server/endpoint.py --db data/d2diag.sqlite --port 8090``
 Admin auth: put Caddy ``basic_auth`` on ``/d2diag/admin`` (recommended). As
@@ -40,6 +40,9 @@ _PII_KEYS = {
 }
 _INSTALL_RE = re.compile(r"^[A-Za-z0-9._-]{8,64}$")   # UUID-ish, anonymous
 
+
+# Older app versions send the pre-ADR-0006 Swedish values; store the English ones.
+_LEGACY_CONFIDENCE = {"belagt": "proven", "kandidat": "candidate"}
 
 def _now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
@@ -105,7 +108,8 @@ def validate_contribution(p: dict) -> dict:
         "raw": str(p.get("raw", ""))[:200],
         "our_name": str(p.get("our_name", ""))[:64],
         "our_value": None if ov is None else str(ov)[:64],
-        "our_confidence": str(p.get("our_confidence", ""))[:16],
+        "our_confidence": _LEGACY_CONFIDENCE.get(
+            str(p.get("our_confidence", ""))[:16], str(p.get("our_confidence", ""))[:16]),
         "answer_type": str(ans.get("type", ""))[:16],     # confirm / correct / unknown
         "answer_value": None if av is None else str(av)[:64],
         "answer_unit": str(ans.get("unit", ""))[:16],

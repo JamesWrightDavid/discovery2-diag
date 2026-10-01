@@ -1,3 +1,13 @@
+---
+title: "BCU — Valeo Body Control Unit / Immobiliser"
+area: docs
+status: stable
+version: 1.0
+updated: 2026-09-30
+summary: >
+  Valeo BCU / immobiliser: 5-baud init, immobiliser status (proven), EKA behind SecurityAccess, output banks and what remains open.
+---
+
 # BCU — Valeo Body Control Unit / Immobiliser
 
 The BCU is the Discovery 2's central body electronics module: **lighting,
