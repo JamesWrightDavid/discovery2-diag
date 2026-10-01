@@ -608,5 +608,97 @@
     "label": "Air flow sensor (raw)",
     "group": "Engine",
     "description": "Physical MAF sensor, raw (1C@4). Faulted on RDL016 — logged to see whether it ever responds to airflow. See test T-01."
+  },
+  {
+    "name": "wastegate_pos",
+    "lid": "38",
+    "offset": 0,
+    "kind": "u16",
+    "scale": 0.01,
+    "bias": 0.0,
+    "unit": "%",
+    "confidence": "candidate",
+    "limits": [
+      0,
+      100
+    ],
+    "source": "21 38@0 u16 (big-endian) = wastegate modulator %, the NATIVE-LID alternative to our 1D@17 duty candidate. Ported from SimonRafferty (TD5_PROTOCOL_REFERENCE.md, raw/100) and corroborated by BinOwl (names 0x38 wastegate). 0x38 responds on RDL016 (our 2026-08-08 idle capture: 04 61 38 00 00 = 0.0%). SCALE UNVERIFIED: Simon says /100, BinOwl says /1000 — a 10x disagreement; stored at /100 pending a boost-pull read. Resolver: test T-02.",
+    "label": "Wastegate (0x38)",
+    "group": "Engine",
+    "description": "Wastegate modulator % from native LID 0x38 (candidate; scale unverified, /100 vs /1000 — see T-02). Alternative to the 1D@17 candidate.",
+    "span": [
+      0,
+      100
+    ]
+  },
+  {
+    "name": "egr_pos",
+    "lid": "37",
+    "offset": 0,
+    "kind": "u16",
+    "scale": 0.01,
+    "bias": 0.0,
+    "unit": "%",
+    "confidence": "candidate",
+    "limits": [
+      0,
+      100
+    ],
+    "source": "21 37@0 u16 (big-endian) = EGR modulator %, the NATIVE-LID alternative to our 1D@15 duty candidate. Ported from SimonRafferty (TD5_PROTOCOL_REFERENCE.md, raw/100); single strong source (BinOwl focuses on 0x38). 0x37 responds on RDL016 (our 2026-08-08 idle capture: 04 61 37 00 00 = 0.0%). SCALE UNVERIFIED — stored at /100 pending car data. Resolver: test T-02.",
+    "label": "EGR (0x37)",
+    "group": "Engine",
+    "description": "EGR modulator % from native LID 0x37 (candidate; scale unverified — see T-02). Alternative to the 1D@15 candidate.",
+    "span": [
+      0,
+      100
+    ]
+  },
+  {
+    "name": "reference_voltage",
+    "lid": "10",
+    "offset": 2,
+    "kind": "u16",
+    "scale": 0.001,
+    "bias": 0.0,
+    "unit": "V",
+    "confidence": "candidate",
+    "limits": [
+      4.5,
+      5.5
+    ],
+    "source": "21 10@2 u16/1000 V = sensor reference voltage. The 0x10 block is battery (@0, proven) + reference voltage (@2). Ported from SimonRafferty (TD5_PROTOCOL_REFERENCE.md: 0x10 bytes 5-6 = reference voltage, raw/1000). Read-only; unverified on RDL016 (should sit ~5.0 V).",
+    "label": "Reference voltage",
+    "group": "Electrical",
+    "description": "Sensor reference voltage (0x10@2, candidate) — expected ~5.0 V.",
+    "span": [
+      4.5,
+      5.5
+    ],
+    "normal": [
+      4.9,
+      5.1
+    ]
+  },
+  {
+    "name": "driver_demand",
+    "lid": "1D",
+    "offset": 0,
+    "kind": "u16",
+    "scale": 0.01,
+    "bias": 0.0,
+    "unit": "mg/stroke",
+    "confidence": "candidate",
+    "limits": [
+      0,
+      90
+    ],
+    "source": "21 1D@0 u16 x0.01 mg/stroke = driver's fuel demand (the pedal-derived request, vs injection_qty@6 = what is actually delivered). Ported from BinOwl (21 1D@0 'driver fuel demand', same x0.01 scale as the proven injection_qty). Should follow the pedal and drop to ~0 on overrun. Unverified on RDL016. Resolver: test T-03.",
+    "label": "Driver demand",
+    "group": "Fuelling",
+    "description": "Driver's fuel demand (1D@0, candidate) — pedal request; drops to ~0 on overrun. See T-03.",
+    "span": [
+      0,
+      80
+    ]
   }
 ]

@@ -13,6 +13,10 @@ summary: >
 Review of EA2EGA/Ekaitza_Itzali (Python, real sniff logs), SimonRafferty
 and muki01. Purpose: find what we do NOT already have. We turned out to be in good shape.
 
+> The full field-by-field comparison across all sources is
+> [td5-cross-reference.md](td5-cross-reference.md). A second research pass (2026-10-01)
+> adding hairyone/TD5Tester and td5opencom is at the end of this file.
+
 ## Already implemented on our side (confirmed by Ekaitza's real sniffs)
 - **Immobiliser/security status** — `security_status()` = `31 C0` + `33 C0`,
   RDL016 = **0x03 (not immobilised), proven**. NOTE: Ekaitza's README lists this
@@ -146,3 +150,46 @@ belongs in the denominator (kg/h → L/h is ÷0.832), so theirs reads ~45 % low.
 `web/sources.py::_FuelComputer` already divides. Their `21 10` voltage decode
 (`data[3] | data[2]<<8 | data[4]`) is also visibly wrong; ours (`10`@0 u16/1000) is
 verified against the car.
+
+---
+
+# Second pass 2026-10-01 — hairyone, td5opencom, SimonRafferty refresh
+
+Private-use project, permissions obtained, so we may port directly (no facts-only
+limit). The field-by-field result is in [td5-cross-reference.md](td5-cross-reference.md);
+this records what the three not-previously-folded sources add.
+
+## hairyone/TD5Tester (Apache-2.0, Android/Java)
+A **5th independent** implementation. Its 20+ logged parameters and conversion formulas
+(coolant `(raw−2732)/10`, battery `/1000`, the pressure and pedal scalings) **match ours
+and Ekaitza exactly** — a clean fourth/fifth confirmation of the core LID map and of the
+big-endian, Kelvin×10 conventions. It embeds no new LID we lack (it cites discotd5.com and
+other community sources for seed-key/faults). Value: corroboration and a permissive source
+we can quote; nothing unique to port.
+
+## BennehBoy/td5opencomstm32 (STM32 C++, td5opencom lineage)
+A port of Luca Veronesi's **td5opencom** — the same canonical codebase Ekaitza credits
+(Luca72). Its live-data and DTC tables therefore mirror what Ekaitza already gave us; no
+field here contradicts the store. Treated as a cross-check on the fault table and the
+output frames. Its `td5defs.h` is HMI/pin config, not the LID table (that logic is in the
+`td5comm`/`td5ecuemu` units); we did not need to extract it given Ekaitza already covers
+the lineage.
+
+## SimonRafferty — refreshed (now MIT, big-endian self-corrected 2026-09)
+Previously marked "lower trust / partly reconstructed". The repo has since (a) adopted an
+**MIT licence** (© 2025 Simon Rafferty), and (b) **self-corrected to big-endian** ("all
+multi-byte values are big-endian, no exceptions"), which removes the earlier clash with
+our car-verified scheme and triply-confirms our automap's BE preference. Its
+`TD5_PROTOCOL_REFERENCE.md` gives concrete, usable mappings — and note its own `.h` file
+still uses different PID numbers (`0x2B/0x2C/0x17`) than the `.md` (`0x37/0x38/0x10`); the
+`.md` numbers win because BinOwl and our own idle capture both confirm `0x37/0x38` respond.
+
+## Ported to the store this pass (all `candidate`, see the matrix)
+- `wastegate_pos` `0x38`@0 u16 (SR + BO on the LID; scale `/100` vs `/1000` disputed → T-02).
+- `egr_pos` `0x37`@0 u16 (SR; `0x37` responds on RDL016 → T-02).
+- `reference_voltage` `0x10`@2 u16 ×0.001 V (SR: `0x10` = battery + ref V).
+- `driver_demand` `0x1D`@0 u16 ×0.01 mg/stroke (BO; pedal request vs delivered → T-03).
+
+Not ported: SimonRafferty's seed-key variant (ours is proven over all 65536 seeds — see
+the matrix), and the `0x1E` switch bits (concrete SR hypotheses folded into T-08, not
+stored blind). Injector classification codes remain a gap (a Settings-block read, T-07).

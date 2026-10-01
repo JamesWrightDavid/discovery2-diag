@@ -87,19 +87,25 @@ Best case: do it on a Td5 with a healthy MAF, or after the air-flow fault is fix
 - Fastest possible answer: **T-19** — one MAF reading off a reference tool screen
   settles it without any of the above.
 
-#### T-02 `[drive]` — Cross-check the two wastegate mappings
-**Question.** We have `1D`@17 (u8 ×100/255 %, `candidate`). BinOwl and SimonRafferty
-independently claim `21 38` = wastegate modulator (u16/1000 %). Our idle capture has
-`04 61 38 00 00` = 0.0 %, which is compatible but does not discriminate.
+#### T-02 `[drive]` — Pin the wastegate/EGR LID and settle the scale
+**Question.** We now carry **two representations** of each, both `candidate` in the store:
+the `1D` duty bytes (`wastegate_modulator` `1D`@17, `egr_modulator` `1D`@15, u8 ×100/255)
+and the **native LIDs** ported 2026-10-01 (`wastegate_pos` `0x38`, `egr_pos` `0x37`, u16).
+The scale on `0x38` is **disputed**: SimonRafferty says raw/100, BinOwl says raw/1000 — a
+10× difference ([td5-cross-reference.md](td5-cross-reference.md)). `0x37`/`0x38` both
+respond on RDL016 but read 0 at idle, so idle can't discriminate.
 
-**Procedure.** Same drive as T-01. Add `21 38` (and `21 37`) to the read set and log a
-boost pull: steady cruise → full-load pull to ~3500 rpm → overrun.
+**Procedure.** Same drive as T-01. Read `21 38`, `21 37`, `21 1D` together and log a boost
+pull: steady cruise → full-load pull to ~3500 rpm → overrun.
 
-**Decision rule.** If `38`/1000 and `1D`@17 ×100/255 agree within a few percent across
-the pull, **both** are confirmed and `38` becomes the preferred (natively scaled) source.
-If they diverge, the one matching the published band (0 % idle, 20–40 % on boost, max
-~40 %) wins; the other gets demoted. If `37` moves too, it is the EGR counterpart —
-compare against `1D`@15.
+**Decision rule.**
+- **Scale:** whichever of `0x38`/100 or `0x38`/1000 lands in the published band (0% idle,
+  20–40% boost, max ~40%) is correct; fix `wastegate_pos`'s scale to it and drop the other.
+  Same logic sets `egr_pos` (`0x37`).
+- **Preferred source:** if the native `0x38`/`0x37` agree with the `1D`@17/@15 duty within
+  a few percent across the pull, promote the native LID to `proven` and demote the `1D`
+  duty candidate (one physical quantity, keep the natively-scaled one). If they diverge,
+  the band-matching one wins; record the loser as not-that-signal.
 
 #### T-03 `[drive]` — Name the `21 1D` fuelling fields
 **Question.** BinOwl maps `1D`@0 = driver's fuel demand and `1D`@14 = idle fuel demand
@@ -148,11 +154,22 @@ polls, so they are in **no** raw log we have. Needs a targeted read. Useful for 
 register (injector matching), not for live data.
 
 #### T-08 `[key-on]` — TD5 switch bit fields `21 1E` / `21 36`
-Still open. `1E` toggles `00 CA`↔`00 EA` (bit `0x20`); `36` sat constant `00 0D`.
-Differential procedure: connect, then actuate **one at a time**, annotating the log:
-brake pedal → clutch → cruise on/off → A/C request → transfer box high/low.
-**Decision rule.** A bit that flips exactly with one actuation is that switch (`proven`).
-A bit that flips with two different actuations is not identified — repeat.
+Still open. `1E` toggles `00 CA`↔`00 EA` (bit `0x20` = byte0 bit5); `36` sat constant
+`00 0D`. Differential procedure: connect, then actuate **one at a time**, annotating the
+log: brake pedal → clutch → cruise on/off → A/C request → transfer box high/low.
+
+**Hypotheses to test against** (SimonRafferty's concrete bit map, two marked *confirmed*
+there — [td5-cross-reference.md](td5-cross-reference.md)); treat as candidates to confirm,
+not facts:
+- byte0 (DB1): bit1 = clutch (0 = pressed), bit0 = brake-2, bits2/3/4 = cruise master/set/resume.
+- byte1 (DB2): bit2 = A/C fan req, bit3 = A/C clutch req, bit6 = transfer box (1 = LOW), bit7 = brake-main (0 = pressed).
+- ⚠️ the one bit WE have seen move is byte0 **bit5**, which is NOT in Simon's map — so
+  either our byte indexing differs or it is a switch he didn't list. Resolve by actuation.
+
+**Decision rule.** A bit that flips with exactly one actuation, matching a hypothesis
+above, is that switch → store it as `candidate` (then `proven` only after a second,
+independent confirmation). A bit that flips with two different actuations is not
+identified — repeat. Ekaitza's ECU-pin map is background, not a byte.bit claim.
 
 #### T-09 `[tool]` — `21 3D` feature/config block
 14-byte status block, read in bulk with `21 3D 20 0E 32 24`. To decode it we need the
