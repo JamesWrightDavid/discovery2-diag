@@ -52,4 +52,6 @@ so raw ↔ display must be sniff-mapped, not assumed. See
 What's being actively confirmed (and how you can help) is in the project's single
 test backlog, [references/test_plan.md](../../references/test_plan.md). How our Td5
 mappings line up against the external community repos (and what we ported from them) is
-in [references/td5-cross-reference.md](../../references/td5-cross-reference.md).
+in [references/td5-cross-reference.md](../../references/td5-cross-reference.md); the full map
+of every project, tool and document is
+[references/td5-d2-ecosystem.md](../../references/td5-d2-ecosystem.md).

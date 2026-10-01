@@ -193,3 +193,25 @@ still uses different PID numbers (`0x2B/0x2C/0x17`) than the `.md` (`0x37/0x38/0
 Not ported: SimonRafferty's seed-key variant (ours is proven over all 65536 seeds — see
 the matrix), and the `0x1E` switch bits (concrete SR hypotheses folded into T-08, not
 stored blind). Injector classification codes remain a gap (a Settings-block read, T-07).
+
+---
+
+# Third pass 2026-10-01 — ecosystem sweep + SimonRafferty/Td5-Diagnostic-App
+
+A wider sweep for anything missed produced [td5-d2-ecosystem.md](td5-d2-ecosystem.md) (the
+map of every project, pro tool, vendor/RAVE doc and forum) and found one real open-source
+miss: **SimonRafferty/Td5-Diagnostic-App** (MIT) — a newer ESP32-S3 + Android + PCB project
+whose firmware (`td5_provider.cpp`, `td5_dtc_table.h`) carries the most-corrected Td5 decode
+found anywhere. Mined this pass:
+
+- **Scale resolved:** `0x37`/`0x38` are `/100` (explicitly "not /1000") → strengthened
+  `egr_pos`/`wastegate_pos`; BinOwl's `/1000` is the outlier.
+- **Correction:** `0x10`@2 is a 2nd battery reading ("Battery Direct"), not a sensor
+  reference → renamed `reference_voltage` → `battery_direct`.
+- **New candidates:** `egr_inlet` (`0x45`), `smoke_limit`/`torque_limit` (`1D`@10/@12),
+  `coolant/intake/fuel_sensor_v` (`1A`@2/@6/@14).
+- **Conflict for the car:** SR-App puts EGR/wastegate ONLY at native `0x37`/`0x38` (nothing
+  in `1D`), against our `1D`@15/@17 drive-derived candidates → T-02.
+- **Reframe:** `0x1E` = driver switches, `0x36` = relay/output status (not "both switch
+  fields") → T-08. Plus the injector-code 5-digit format → T-07, and a DTC→P-code table
+  (future enhancement). Full detail in [td5-cross-reference.md](td5-cross-reference.md).

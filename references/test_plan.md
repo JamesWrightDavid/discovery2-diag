@@ -91,33 +91,44 @@ Best case: do it on a Td5 with a healthy MAF, or after the air-flow fault is fix
 **Question.** We now carry **two representations** of each, both `candidate` in the store:
 the `1D` duty bytes (`wastegate_modulator` `1D`@17, `egr_modulator` `1D`@15, u8 ×100/255)
 and the **native LIDs** ported 2026-10-01 (`wastegate_pos` `0x38`, `egr_pos` `0x37`, u16).
-The scale on `0x38` is **disputed**: SimonRafferty says raw/100, BinOwl says raw/1000 — a
-10× difference ([td5-cross-reference.md](td5-cross-reference.md)). `0x37`/`0x38` both
-respond on RDL016 but read 0 at idle, so idle can't discriminate.
+**Two Simon sources (the `.md` and the newer Td5-Diagnostic-App) both scale `0x37`/`0x38`
+at `/100`**, the app explicitly "not /1000"; BinOwl's `/1000` is the outlier. The real open
+question is now **where the signal lives**: the Simon app puts EGR/wastegate ONLY at native
+`0x37`/`0x38` and has nothing at `1D`@15/@17, yet our four 2026-08 drives saw `1D`@15 fall
+under load (EGR-like) and `1D`@17 rise with boost. Both can't be the live source.
+`0x37`/`0x38` respond on RDL016 but read 0 at idle, so idle can't discriminate. (EGR inlet
+is separately at `0x45` → `egr_inlet`.)
 
-**Procedure.** Same drive as T-01. Read `21 38`, `21 37`, `21 1D` together and log a boost
-pull: steady cruise → full-load pull to ~3500 rpm → overrun.
+**Procedure.** Same drive as T-01. Read `21 37`, `21 38`, `21 45`, `21 1D` together and log a
+boost pull: steady cruise → full-load pull to ~3500 rpm → overrun.
 
 **Decision rule.**
-- **Scale:** whichever of `0x38`/100 or `0x38`/1000 lands in the published band (0% idle,
-  20–40% boost, max ~40%) is correct; fix `wastegate_pos`'s scale to it and drop the other.
-  Same logic sets `egr_pos` (`0x37`).
-- **Preferred source:** if the native `0x38`/`0x37` agree with the `1D`@17/@15 duty within
-  a few percent across the pull, promote the native LID to `proven` and demote the `1D`
-  duty candidate (one physical quantity, keep the natively-scaled one). If they diverge,
-  the band-matching one wins; record the loser as not-that-signal.
+- **Which LID:** whichever of the native `0x38`/`0x37` or the `1D`@17/@15 bytes actually
+  moves with boost/load across the pull is the live source → promote it to `proven`, demote
+  the other (record it as not-that-signal). If both move identically, keep the natively
+  scaled `0x38`/`0x37` as preferred.
+- **Scale:** confirm `/100` puts the mover in the published band (0% idle, 20–40% boost,
+  max ~40%); if not, correct it. Same logic sets `egr_inlet` (`0x45`).
 
 #### T-03 `[drive]` — Name the `21 1D` fuelling fields
-**Question.** BinOwl maps `1D`@0 = driver's fuel demand and `1D`@14 = idle fuel demand
-(both u16 ×0.01, same scale as our proven `injection_qty` at @6). @14 was previously
-"varies but unidentified".
+**Question.** The `1D` block carries several fuelling fields. Stored as candidates:
+`driver_demand`@0, `injection_qty`@6 (proven), `smoke_limit`@10, `torque_limit`@12 (the last
+two from the Simon app). **Unit conflict on @0:** BinOwl reads it as fuel demand mg/stroke,
+the Simon app as pedal position % (i16/100). **Not stored:** `1D`@14 = idle demand (BinOwl +
+Simon app) because it overlaps our `egr_modulator`@15 candidate — part of the T-02 conflict.
 
 **Procedure.** In the same log: idle (no pedal) → steady pedal → **overrun** (lift off in
 gear) → idle again.
 
-**Decision rule.** @0 should follow the pedal and drop to ~0 on overrun; @14 should be
-roughly constant and only meaningful at idle (it is the governor's demand). If they
-behave that way, write both to the store as `candidate` with this test as the source.
+**Decision rule.**
+- `driver_demand`@0 should follow the pedal and drop to ~0 on overrun. Its **unit** is set
+  by whether the full-throttle value reads like a percentage (~100) or a fuelling mass
+  (tens of mg/stroke); fix the store unit/scale accordingly.
+- `smoke_limit`@10 / `torque_limit`@12 should sit at or above `injection_qty` and cap it
+  under load; confirm they behave as ceilings, else demote.
+- `1D`@14 vs `egr_modulator`@15: if @14 behaves as an idle-only demand AND the EGR signal is
+  shown by T-02 to live at native `0x37` (not `1D`@15), store `idle_demand`@14 and drop
+  `egr_modulator`@15. Resolve jointly with T-02 — do not map both over byte 15.
 
 #### T-04 `[idle]` — What is `21 1C`@6?
 Constant `0x009C` (156) in every capture we have. Watch it across cold start, warm idle,
@@ -149,27 +160,39 @@ IDs. Read all four once, note the framing and lengths.
 anywhere public (`references/hex-PII` rule: hex-encoded VIN survives text scans).
 
 #### T-07 `[key-on]` — Injector classification codes
-Five-character codes per injector, in a Settings/identifier block the dashboard never
-polls, so they are in **no** raw log we have. Needs a targeted read. Useful for the car
-register (injector matching), not for live data.
+Five-digit code per injector, in a Settings/identifier block the dashboard never polls, so
+they are in **no** raw log we have. Needs a targeted read. Useful for the car register
+(injector matching), not for live data.
 
-#### T-08 `[key-on]` — TD5 switch bit fields `21 1E` / `21 36`
-Still open. `1E` toggles `00 CA`↔`00 EA` (bit `0x20` = byte0 bit5); `36` sat constant
-`00 0D`. Differential procedure: connect, then actuate **one at a time**, annotating the
-log: brake pedal → clutch → cruise on/off → A/C request → transfer box high/low.
+**Format (community-documented, 2026-10-01):** the 5 digits are — digits **1-2** = start-of-
+injection offset from nominal (range ±0.000127 s), **3-4** = the same for end-of-injection,
+**5** = a measured idle-performance variance. Baseline on RDL016 noted as `ABNFE` in
+`references/menus/td5.md`. When read, record the raw Settings bytes AND the tool's displayed
+5-digit codes so the byte↔digit encoding can be mapped (as with the EKA code).
 
-**Hypotheses to test against** (SimonRafferty's concrete bit map, two marked *confirmed*
-there — [td5-cross-reference.md](td5-cross-reference.md)); treat as candidates to confirm,
-not facts:
-- byte0 (DB1): bit1 = clutch (0 = pressed), bit0 = brake-2, bits2/3/4 = cruise master/set/resume.
-- byte1 (DB2): bit2 = A/C fan req, bit3 = A/C clutch req, bit6 = transfer box (1 = LOW), bit7 = brake-main (0 = pressed).
-- ⚠️ the one bit WE have seen move is byte0 **bit5**, which is NOT in Simon's map — so
-  either our byte indexing differs or it is a switch he didn't list. Resolve by actuation.
+#### T-08 `[key-on]` — `21 1E` driver switches / `21 36` relay-output status
+**Reframe (Simon app, 2026-10-01):** `0x1E` is the **driver switch** bitfield and `0x36` is
+the **relay / output status** bitfield (NOT "both switch fields" as previously assumed).
+`1E` toggles `00 CA`↔`00 EA` (bit `0x20` = byte0 bit5); `36` sat constant `00 0D`.
+Differential procedure: connect, then actuate **one at a time**, annotating the log.
 
-**Decision rule.** A bit that flips with exactly one actuation, matching a hypothesis
-above, is that switch → store it as `candidate` (then `proven` only after a second,
-independent confirmation). A bit that flips with two different actuations is not
-identified — repeat. Ekaitza's ECU-pin map is background, not a byte.bit claim.
+**`0x1E` hypotheses** (SimonRafferty, `.md` + Td5-Diagnostic-App; two marked *confirmed* —
+[td5-cross-reference.md](td5-cross-reference.md)); candidates to confirm, not facts:
+- byte0 (DB1): bit1 = clutch (0 = pressed), bits2/3/4 = cruise master/set/resume.
+- byte1 (DB2): bit7 = brake-main (0 = pressed), bit3 = A/C request, bit6 = transfer box
+  (1 = LOW), bit1 = ignition, bit5 = security link.
+- ⚠️ the one bit WE have seen move is byte0 **bit5**, NOT in Simon's map — resolve by actuation.
+- Actuate: brake → clutch → cruise on/set/resume → A/C request → transfer high/low.
+
+**`0x36` hypotheses** (Simon app — these are OUTPUTS/relays, observe don't actuate): byte0
+bit1 = rad-fan drive; byte1 bit0 = main relay, bit2 = fuel pump, bit3 = A/C clutch,
+bit4 = MIL (active-high), bit5 = glow-plug light, bit6 = glow-plug relay.
+
+**Decision rule.** A `1E` bit that flips with exactly one actuation, matching a hypothesis,
+is that switch → store `candidate` (then `proven` after a second, independent confirmation).
+For `0x36`, correlate each bit against a known output state (glow light on cold start, fuel
+pump prime, rad fan, MIL) rather than a driver action. A bit that flips with two different
+actions is unidentified — repeat. Ekaitza's ECU-pin map is background, not a byte.bit claim.
 
 #### T-09 `[tool]` — `21 3D` feature/config block
 14-byte status block, read in bulk with `21 3D 20 0E 32 24`. To decode it we need the
