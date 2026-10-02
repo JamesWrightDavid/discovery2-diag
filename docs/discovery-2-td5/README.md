@@ -17,7 +17,9 @@ module blocks the others with a `7F 81 10` generalReject. This is why every modu
 must be released cleanly. The details, framing, init timing and services are in
 [kline-protocol.md](kline-protocol.md).
 
-Each module answers at its own address and init style:
+The full list — every module, address, what the NanoCom exposes and the access goal — is
+the [system map](system-map.md). In brief, each module answers at its own address and init
+style:
 
 | Module | Address | Init | Session/unlock | Doc |
 |---|---|---|---|---|
@@ -25,6 +27,7 @@ Each module answers at its own address and init style:
 | **SLABS** (Wabco ABS + rear SLS) | 0x29 | fast | none (services work right after init) | [slabs.md](slabs.md) |
 | **BCU** (Valeo body/immobiliser) | 0x40 | 5-baud slow | keepalive `3E 01`; EKA gated | [bcu.md](bcu.md) |
 | **ACE / EAT / Airbag** | see doc | mixed | Airbag addressed @ 0x5B, read-only | [other-modules.md](other-modules.md) |
+| **Cruise (Hella)** | asserted | TBD | unconfirmed | [cruise-control.md](cruise-control.md) |
 
 ## Module status
 
@@ -47,4 +50,8 @@ so raw ↔ display must be sniff-mapped, not assumed. See
 ## Verification backlog
 
 What's being actively confirmed (and how you can help) is in the project's single
-test backlog, [references/test_plan.md](../../references/test_plan.md).
+test backlog, [references/test_plan.md](../../references/test_plan.md). How our Td5
+mappings line up against the external community repos (and what we ported from them) is
+in [references/td5-cross-reference.md](../../references/td5-cross-reference.md); the full map
+of every project, tool and document is
+[references/td5-d2-ecosystem.md](../../references/td5-d2-ecosystem.md).

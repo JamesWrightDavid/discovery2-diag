@@ -25,6 +25,14 @@ where unmapped signals hide. Two parts:
 
 ## MAF found: `21 1D` byte 5 (u8, kg/hr) — PROVEN
 
+> **SUPERSEDED (2026-10-01).** This "`1D` byte5 u8 = MAF, sensor HEALTHY" claim did not
+> survive. The signal store and the BinOwl review ([td5-external-findings.md](td5-external-findings.md),
+> [td5-cross-reference.md](td5-cross-reference.md)) now hold: the **measured** MAF is
+> `1C`@4 (u16) and reads 0/faulted on RDL016 (`air flow circuit` is a live fault), while
+> `1D`@4 (u16) is a **modelled** air mass the dashboard shows under the `maf` name. The
+> byte5-u8 reading was an early mis-bin. Kept below for history; trust the store. Resolver:
+> test T-01.
+
 **The method that cracked it:** raw data from a run with the rpm in motion
 (`tools/lid_sweep.py --seconds 75`, idle→2000→2500), then **byte-level binning
 against rpm** — not just u16. MAF turned out to be **ONE byte**, not u16.

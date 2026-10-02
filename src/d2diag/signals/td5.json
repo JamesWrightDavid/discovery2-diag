@@ -608,5 +608,229 @@
     "label": "Air flow sensor (raw)",
     "group": "Engine",
     "description": "Physical MAF sensor, raw (1C@4). Faulted on RDL016 — logged to see whether it ever responds to airflow. See test T-01."
+  },
+  {
+    "name": "wastegate_pos",
+    "lid": "38",
+    "offset": 0,
+    "kind": "u16",
+    "scale": 0.01,
+    "bias": 0.0,
+    "unit": "%",
+    "confidence": "candidate",
+    "limits": [
+      0,
+      100
+    ],
+    "source": "21 38@0 u16 (big-endian) = wastegate modulator %, the NATIVE-LID alternative to our 1D@17 duty candidate. Ported from SimonRafferty (TD5_PROTOCOL_REFERENCE.md) and his newer SimonRafferty/Td5-Diagnostic-App (td5_provider.cpp), both raw/100, the latter commenting explicitly 'not /1000'; BinOwl's /1000 is now the outlier. 0x38 responds on RDL016 (our 2026-08-08 idle capture: 04 61 38 00 00 = 0.0%). The Simon app places EGR/wastegate ONLY at native 0x37/0x38 (nothing in 1D), which conflicts with our 1D@17 candidate — resolver: test T-02.",
+    "label": "Wastegate (0x38)",
+    "group": "Engine",
+    "description": "Wastegate modulator % from native LID 0x38 (candidate, /100 per two Simon sources). Native-vs-1D@17 conflict — see T-02.",
+    "span": [
+      0,
+      100
+    ]
+  },
+  {
+    "name": "egr_pos",
+    "lid": "37",
+    "offset": 0,
+    "kind": "u16",
+    "scale": 0.01,
+    "bias": 0.0,
+    "unit": "%",
+    "confidence": "candidate",
+    "limits": [
+      0,
+      100
+    ],
+    "source": "21 37@0 u16 (big-endian) = EGR modulator %, the NATIVE-LID alternative to our 1D@15 duty candidate. Ported from SimonRafferty (TD5_PROTOCOL_REFERENCE.md) and SimonRafferty/Td5-Diagnostic-App (td5_provider.cpp), both raw/100. 0x37 responds on RDL016 (our 2026-08-08 idle capture: 04 61 37 00 00 = 0.0%). The Simon app places EGR at native 0x37 (nothing in 1D), conflicting with our 1D@15 candidate — resolver: test T-02. (The EGR INLET is separately at 0x45, see egr_inlet.)",
+    "label": "EGR (0x37)",
+    "group": "Engine",
+    "description": "EGR modulator % from native LID 0x37 (candidate, /100 per two Simon sources). Native-vs-1D@15 conflict — see T-02.",
+    "span": [
+      0,
+      100
+    ]
+  },
+  {
+    "name": "battery_direct",
+    "lid": "10",
+    "offset": 2,
+    "kind": "u16",
+    "scale": 0.001,
+    "bias": 0.0,
+    "unit": "V",
+    "confidence": "candidate",
+    "limits": [
+      11.0,
+      15.5
+    ],
+    "source": "21 10@2 u16/1000 V = a SECOND battery reading ('Battery Direct'). CORRECTION 2026-10-01: the older SimonRafferty .md called 0x10@2 'reference voltage', but the newer SimonRafferty/Td5-Diagnostic-App (td5_provider.cpp) decodes 0x10 as battery@0 + 'Battery Direct'@2 (both mV), and puts the 5V sensor reference in 0x1B (@8 NNN / @6 MSB = our accel_supply). So this is a battery reading, not a sensor ref. Was briefly stored as reference_voltage. Unverified on RDL016.",
+    "label": "Battery (direct)",
+    "group": "Electrical",
+    "description": "Second battery reading, 'Battery Direct' (0x10@2, candidate). The 5V sensor reference is accel_supply (1B@6), not here.",
+    "span": [
+      10,
+      16
+    ],
+    "normal": [
+      12.4,
+      14.8
+    ]
+  },
+  {
+    "name": "driver_demand",
+    "lid": "1D",
+    "offset": 0,
+    "kind": "u16",
+    "scale": 0.01,
+    "bias": 0.0,
+    "unit": "mg/stroke",
+    "confidence": "candidate",
+    "limits": [
+      0,
+      90
+    ],
+    "source": "21 1D@0 = driver's demand (pedal-derived request, vs injection_qty@6 = delivered). CONFLICT: BinOwl reads it as fuel demand mg/stroke (u16 x0.01); SimonRafferty/Td5-Diagnostic-App reads it as pedal position % (i16 /100). Stored as mg/stroke pending the car; either way it tracks the pedal and drops to ~0 on overrun. Resolver: test T-03.",
+    "label": "Driver demand",
+    "group": "Fuelling",
+    "description": "Driver's demand (1D@0, candidate) — pedal request; mg/stroke (BinOwl) vs % (Simon app), drops to ~0 on overrun. See T-03.",
+    "span": [
+      0,
+      80
+    ]
+  },
+  {
+    "name": "smoke_limit",
+    "lid": "1D",
+    "offset": 10,
+    "kind": "u16",
+    "scale": 0.01,
+    "bias": 0.0,
+    "unit": "mg/stroke",
+    "confidence": "candidate",
+    "limits": [
+      0,
+      90
+    ],
+    "source": "21 1D@10 u16 x0.01 mg/stroke = smoke-limit fuelling (the smoke-map ceiling the ECU applies). Ported from SimonRafferty/Td5-Diagnostic-App (td5_provider.cpp: 1D 'Smoke Limit' frame@13-14). Unverified on RDL016.",
+    "label": "Smoke limit",
+    "group": "Fuelling",
+    "description": "Smoke-map fuelling limit (1D@10, candidate).",
+    "span": [
+      0,
+      80
+    ]
+  },
+  {
+    "name": "torque_limit",
+    "lid": "1D",
+    "offset": 12,
+    "kind": "u16",
+    "scale": 0.01,
+    "bias": 0.0,
+    "unit": "mg/stroke",
+    "confidence": "candidate",
+    "limits": [
+      0,
+      90
+    ],
+    "source": "21 1D@12 u16 x0.01 mg/stroke = torque-limiter fuelling ceiling. Ported from SimonRafferty/Td5-Diagnostic-App (td5_provider.cpp: 1D 'Torque Limit' frame@15-16). Unverified on RDL016. NOTE: the Simon app also reads 1D@14 as 'idle demand' (u16) — not stored here because it overlaps our egr_modulator@15 candidate; that native-vs-1D conflict is resolved by T-02/T-03.",
+    "label": "Torque limit",
+    "group": "Fuelling",
+    "description": "Torque-limiter fuelling ceiling (1D@12, candidate).",
+    "span": [
+      0,
+      80
+    ]
+  },
+  {
+    "name": "egr_inlet",
+    "lid": "45",
+    "offset": 0,
+    "kind": "u16",
+    "scale": 0.01,
+    "bias": 0.0,
+    "unit": "%",
+    "confidence": "candidate",
+    "limits": [
+      0,
+      100
+    ],
+    "source": "21 45@0 u16 x0.01 % = EGR inlet position. Ported from SimonRafferty/Td5-Diagnostic-App (td5_provider.cpp: 0x45 'EGR Inlet', raw/100 %). This LOCATES the EGR-inlet value we previously lost (it was mis-mapped to 1D@16, which proved to be a dead/reserved byte). Unverified on RDL016.",
+    "label": "EGR inlet",
+    "group": "Engine",
+    "description": "EGR inlet position % from native LID 0x45 (candidate). Replaces the abandoned 1D@16 mis-map.",
+    "span": [
+      0,
+      100
+    ]
+  },
+  {
+    "name": "coolant_sensor_v",
+    "lid": "1A",
+    "offset": 2,
+    "kind": "u16",
+    "scale": 0.001,
+    "bias": 0.0,
+    "unit": "V",
+    "confidence": "candidate",
+    "limits": [
+      0.0,
+      5.1
+    ],
+    "source": "21 1A@2 u16/1000 V = coolant-temp sensor supply/signal voltage. Ported from SimonRafferty/Td5-Diagnostic-App (td5_provider.cpp: 1A interleaves temp + sensor voltage — coolant@0, coolant-V@2, IAT@4, IAT-V@6, fuel@12, fuel-V@14). Unverified on RDL016.",
+    "label": "Coolant sensor V",
+    "group": "Temperatures",
+    "description": "Coolant-sensor voltage (1A@2, candidate).",
+    "span": [
+      0,
+      5
+    ]
+  },
+  {
+    "name": "intake_sensor_v",
+    "lid": "1A",
+    "offset": 6,
+    "kind": "u16",
+    "scale": 0.001,
+    "bias": 0.0,
+    "unit": "V",
+    "confidence": "candidate",
+    "limits": [
+      0.0,
+      5.1
+    ],
+    "source": "21 1A@6 u16/1000 V = intake-air-temp sensor voltage. Ported from SimonRafferty/Td5-Diagnostic-App (td5_provider.cpp). Unverified on RDL016.",
+    "label": "Intake sensor V",
+    "group": "Temperatures",
+    "description": "Intake-air-sensor voltage (1A@6, candidate).",
+    "span": [
+      0,
+      5
+    ]
+  },
+  {
+    "name": "fuel_sensor_v",
+    "lid": "1A",
+    "offset": 14,
+    "kind": "u16",
+    "scale": 0.001,
+    "bias": 0.0,
+    "unit": "V",
+    "confidence": "candidate",
+    "limits": [
+      0.0,
+      5.1
+    ],
+    "source": "21 1A@14 u16/1000 V = fuel-temp sensor voltage. Ported from SimonRafferty/Td5-Diagnostic-App (td5_provider.cpp). Unverified on RDL016.",
+    "label": "Fuel sensor V",
+    "group": "Temperatures",
+    "description": "Fuel-sensor voltage (1A@14, candidate).",
+    "span": [
+      0,
+      5
+    ]
   }
 ]

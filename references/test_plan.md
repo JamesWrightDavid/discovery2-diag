@@ -87,31 +87,48 @@ Best case: do it on a Td5 with a healthy MAF, or after the air-flow fault is fix
 - Fastest possible answer: **T-19** — one MAF reading off a reference tool screen
   settles it without any of the above.
 
-#### T-02 `[drive]` — Cross-check the two wastegate mappings
-**Question.** We have `1D`@17 (u8 ×100/255 %, `candidate`). BinOwl and SimonRafferty
-independently claim `21 38` = wastegate modulator (u16/1000 %). Our idle capture has
-`04 61 38 00 00` = 0.0 %, which is compatible but does not discriminate.
+#### T-02 `[drive]` — Pin the wastegate/EGR LID and settle the scale
+**Question.** We now carry **two representations** of each, both `candidate` in the store:
+the `1D` duty bytes (`wastegate_modulator` `1D`@17, `egr_modulator` `1D`@15, u8 ×100/255)
+and the **native LIDs** ported 2026-10-01 (`wastegate_pos` `0x38`, `egr_pos` `0x37`, u16).
+**Two Simon sources (the `.md` and the newer Td5-Diagnostic-App) both scale `0x37`/`0x38`
+at `/100`**, the app explicitly "not /1000"; BinOwl's `/1000` is the outlier. The real open
+question is now **where the signal lives**: the Simon app puts EGR/wastegate ONLY at native
+`0x37`/`0x38` and has nothing at `1D`@15/@17, yet our four 2026-08 drives saw `1D`@15 fall
+under load (EGR-like) and `1D`@17 rise with boost. Both can't be the live source.
+`0x37`/`0x38` respond on RDL016 but read 0 at idle, so idle can't discriminate. (EGR inlet
+is separately at `0x45` → `egr_inlet`.)
 
-**Procedure.** Same drive as T-01. Add `21 38` (and `21 37`) to the read set and log a
+**Procedure.** Same drive as T-01. Read `21 37`, `21 38`, `21 45`, `21 1D` together and log a
 boost pull: steady cruise → full-load pull to ~3500 rpm → overrun.
 
-**Decision rule.** If `38`/1000 and `1D`@17 ×100/255 agree within a few percent across
-the pull, **both** are confirmed and `38` becomes the preferred (natively scaled) source.
-If they diverge, the one matching the published band (0 % idle, 20–40 % on boost, max
-~40 %) wins; the other gets demoted. If `37` moves too, it is the EGR counterpart —
-compare against `1D`@15.
+**Decision rule.**
+- **Which LID:** whichever of the native `0x38`/`0x37` or the `1D`@17/@15 bytes actually
+  moves with boost/load across the pull is the live source → promote it to `proven`, demote
+  the other (record it as not-that-signal). If both move identically, keep the natively
+  scaled `0x38`/`0x37` as preferred.
+- **Scale:** confirm `/100` puts the mover in the published band (0% idle, 20–40% boost,
+  max ~40%); if not, correct it. Same logic sets `egr_inlet` (`0x45`).
 
 #### T-03 `[drive]` — Name the `21 1D` fuelling fields
-**Question.** BinOwl maps `1D`@0 = driver's fuel demand and `1D`@14 = idle fuel demand
-(both u16 ×0.01, same scale as our proven `injection_qty` at @6). @14 was previously
-"varies but unidentified".
+**Question.** The `1D` block carries several fuelling fields. Stored as candidates:
+`driver_demand`@0, `injection_qty`@6 (proven), `smoke_limit`@10, `torque_limit`@12 (the last
+two from the Simon app). **Unit conflict on @0:** BinOwl reads it as fuel demand mg/stroke,
+the Simon app as pedal position % (i16/100). **Not stored:** `1D`@14 = idle demand (BinOwl +
+Simon app) because it overlaps our `egr_modulator`@15 candidate — part of the T-02 conflict.
 
 **Procedure.** In the same log: idle (no pedal) → steady pedal → **overrun** (lift off in
 gear) → idle again.
 
-**Decision rule.** @0 should follow the pedal and drop to ~0 on overrun; @14 should be
-roughly constant and only meaningful at idle (it is the governor's demand). If they
-behave that way, write both to the store as `candidate` with this test as the source.
+**Decision rule.**
+- `driver_demand`@0 should follow the pedal and drop to ~0 on overrun. Its **unit** is set
+  by whether the full-throttle value reads like a percentage (~100) or a fuelling mass
+  (tens of mg/stroke); fix the store unit/scale accordingly.
+- `smoke_limit`@10 / `torque_limit`@12 should sit at or above `injection_qty` and cap it
+  under load; confirm they behave as ceilings, else demote.
+- `1D`@14 vs `egr_modulator`@15: if @14 behaves as an idle-only demand AND the EGR signal is
+  shown by T-02 to live at native `0x37` (not `1D`@15), store `idle_demand`@14 and drop
+  `egr_modulator`@15. Resolve jointly with T-02 — do not map both over byte 15.
 
 #### T-04 `[idle]` — What is `21 1C`@6?
 Constant `0x009C` (156) in every capture we have. Watch it across cold start, warm idle,
@@ -143,16 +160,39 @@ IDs. Read all four once, note the framing and lengths.
 anywhere public (`references/hex-PII` rule: hex-encoded VIN survives text scans).
 
 #### T-07 `[key-on]` — Injector classification codes
-Five-character codes per injector, in a Settings/identifier block the dashboard never
-polls, so they are in **no** raw log we have. Needs a targeted read. Useful for the car
-register (injector matching), not for live data.
+Five-digit code per injector, in a Settings/identifier block the dashboard never polls, so
+they are in **no** raw log we have. Needs a targeted read. Useful for the car register
+(injector matching), not for live data.
 
-#### T-08 `[key-on]` — TD5 switch bit fields `21 1E` / `21 36`
-Still open. `1E` toggles `00 CA`↔`00 EA` (bit `0x20`); `36` sat constant `00 0D`.
-Differential procedure: connect, then actuate **one at a time**, annotating the log:
-brake pedal → clutch → cruise on/off → A/C request → transfer box high/low.
-**Decision rule.** A bit that flips exactly with one actuation is that switch (`proven`).
-A bit that flips with two different actuations is not identified — repeat.
+**Format (community-documented, 2026-10-01):** the 5 digits are — digits **1-2** = start-of-
+injection offset from nominal (range ±0.000127 s), **3-4** = the same for end-of-injection,
+**5** = a measured idle-performance variance. Baseline on RDL016 noted as `ABNFE` in
+`references/menus/td5.md`. When read, record the raw Settings bytes AND the tool's displayed
+5-digit codes so the byte↔digit encoding can be mapped (as with the EKA code).
+
+#### T-08 `[key-on]` — `21 1E` driver switches / `21 36` relay-output status
+**Reframe (Simon app, 2026-10-01):** `0x1E` is the **driver switch** bitfield and `0x36` is
+the **relay / output status** bitfield (NOT "both switch fields" as previously assumed).
+`1E` toggles `00 CA`↔`00 EA` (bit `0x20` = byte0 bit5); `36` sat constant `00 0D`.
+Differential procedure: connect, then actuate **one at a time**, annotating the log.
+
+**`0x1E` hypotheses** (SimonRafferty, `.md` + Td5-Diagnostic-App; two marked *confirmed* —
+[td5-cross-reference.md](td5-cross-reference.md)); candidates to confirm, not facts:
+- byte0 (DB1): bit1 = clutch (0 = pressed), bits2/3/4 = cruise master/set/resume.
+- byte1 (DB2): bit7 = brake-main (0 = pressed), bit3 = A/C request, bit6 = transfer box
+  (1 = LOW), bit1 = ignition, bit5 = security link.
+- ⚠️ the one bit WE have seen move is byte0 **bit5**, NOT in Simon's map — resolve by actuation.
+- Actuate: brake → clutch → cruise on/set/resume → A/C request → transfer high/low.
+
+**`0x36` hypotheses** (Simon app — these are OUTPUTS/relays, observe don't actuate): byte0
+bit1 = rad-fan drive; byte1 bit0 = main relay, bit2 = fuel pump, bit3 = A/C clutch,
+bit4 = MIL (active-high), bit5 = glow-plug light, bit6 = glow-plug relay.
+
+**Decision rule.** A `1E` bit that flips with exactly one actuation, matching a hypothesis,
+is that switch → store `candidate` (then `proven` after a second, independent confirmation).
+For `0x36`, correlate each bit against a known output state (glow light on cold start, fuel
+pump prime, rad fan, MIL) rather than a driver action. A bit that flips with two different
+actions is unidentified — repeat. Ekaitza's ECU-pin map is background, not a byte.bit claim.
 
 #### T-09 `[tool]` — `21 3D` feature/config block
 14-byte status block, read in bulk with `21 3D 20 0E 32 24`. To decode it we need the
@@ -240,6 +280,12 @@ does a baseline → change one input → re-read and prints which LIDs' bytes **
 **Route results** to `references/valeo_bcu_capabilities.md` (the auth-boundary table) and,
 for any live field found, the signal store + a BCU `DataSource`. Never the EKA code.
 
+> **Update (2026-10-01, ADR-0007).** The "stopped chasing EKA" note above still holds for
+> *our* old pairs (rolling seed, no clean keys). A rented NanoCom changes it: it computes
+> the correct key per rolled seed, giving clean pairs for an **offline** seed→key
+> derivation (`bcu/keygen.py`). See T-27/T-28 and
+> [bcu_security_research.md](bcu_security_research.md). Live unlock stays gated.
+
 #### T-17 `[idle]` — Autobox (EAT) read faults
 The one module we have never got fault codes out of. Engine **running**, selector in
 **P/N**. Framing is solved (`72 <len> <data> <XOR-cs>`) and `72 05 04 00 73` →
@@ -285,6 +331,49 @@ Signals sharing a LID are read in one request, so a bad read corrupts them toget
 Whole-LID corrupt = comms glitch (~1 % baseline); one signal bad while its LID-mates are
 valid = a real sensor/circuit fault, corroborated by the ECU's own DTC. Tag CSV/snapshot
 rows with a `comms_glitch` marker and classify in the analysis. Detail in `TODO.md`.
+
+### P7 — NanoCom rental readiness `[tool]` `[offline]`
+
+The rental plan and tooling are specced in
+[`specs/2026-10-01-nanocom-capture-design.md`](../specs/2026-10-01-nanocom-capture-design.md)
+and ADR-0005. The session runbook is
+[nanocom_capture_protocol.md](nanocom_capture_protocol.md).
+
+#### T-25 `[tool]` — Capture every module against the NanoCom screen
+Passive ESP32 tap; log with `tools/esp32_read.py` and the structured markers
+(`s <module>/<page>`, `v <name>=<text>`). Work the per-module screen order and budget in
+[nanocom_capture_protocol.md](nanocom_capture_protocol.md): hold each screen ~10 s, change
+one input at a time, and record (never replay) every write/security/coding frame.
+**Decision rule.** After the session, `tools/nanocom_import.py --write` must reproduce the
+already-proven Td5 mappings (rpm/coolant/battery) from the labelled capture before any new
+mapping is trusted; a new mapping enters the store as `candidate` with the capture as
+provenance, promoted only by a later on-car confirmation.
+
+#### T-26 `[key-on]` — Read-only address scan to confirm/rule out the asserted modules
+Run `tools/module_scan.py auto` (ignition on, stationary). It walks fast-init and 5-baud
+addresses and records who answers, sending only init + StopCommunication.
+**Decision rule.** An address that responds and is not an already-known module is a
+candidate — tag it by key bytes and plan a capture (e.g. cruise). An address silent across
+the scan is ruled out for this car; note it and stop guessing. The `0x18` responder: record
+its key bytes to characterise it. Route results to the module pages and the system map.
+
+#### T-27 `[tool]` — Capture clean BCU `(seed, key)` pairs
+During the BCU security session (NanoCom READ-SET EKA + key programming, run several
+times), record every `27 01`/`27 02` exchange with valid checksums. The high-impedance tap
+must not corrupt the frames (unlike the old KKL tap — see
+[valeo_bcu_capabilities.md](valeo_bcu_capabilities.md)).
+**Decision rule.** Feed the clean pairs to `src/d2diag/bcu/keygen.py`. A family that fits
+every pair with evidence to spare → commit the **algorithm** (never the pairs or any EKA).
+No fit → widen the search or plan a bench EEPROM read
+([bcu_security_research.md](bcu_security_research.md)). Offline only; no live byte here.
+
+#### T-28 `[key-on]` — Verify a derived BCU key on-car (GATED)
+⚠️ **Security/write action — behind ADR-0007 and an explicit confirmation gate, never
+automatic, never part of a default path.** Only after T-27 yields a confirmed algorithm:
+our own `27 01` → compute key → `27 02`, expecting `67 02`.
+**Decision rule.** A positive `67 02` proves the derived keygen; record that the algorithm
+is verified (not the key). An `invalidKey` (`7F 27 35`) means the derivation is wrong —
+back to T-27 with more pairs. Do not retry blindly (likely attempt counter/lockout).
 
 ---
 
