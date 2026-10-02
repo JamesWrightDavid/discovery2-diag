@@ -8,6 +8,7 @@ drive the `*_MENU` coverage maps in `src/d2diag/*/menu.py`.
 - `overview.md` — provenance, the capture workflow and the session template.
 - `bcu-inputs.md`, `bcu-settings.md`, `bcu-outputs-utilities.md` — DCU/BCU.
 - `ace.md`, `autobox.md`, `airbag.md`, `td5.md` — the other modules.
+- `cruise.md` — Hella cruise control (from the emulator; V8 branch, Td5 cruise unconfirmed).
 
 ## Editing rules
 
