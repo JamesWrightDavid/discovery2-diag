@@ -30,8 +30,11 @@ confidence tag is raised without car evidence — see [../test_plan.md](../test_
 - [`td5_menu_tree.md`](td5_menu_tree.md) — **generated** menu tree: every module and its
   faults/inputs/outputs/settings/utility functions, with each leaf's emulator page and
   screen image. Regenerate with `tools/parse_nanocom_emulator.py`; never hand-edit.
-- Per-module feature maps (added as each is transcribed from the screens):
-  - `bcu.md`, `autogb.md`, `ace.md`, `airbag.md`, `cruise.md`, `td5_engine.md`, `slabs.md`.
+- [`feature_map.md`](feature_map.md) — **the cross-reference**: every function → data
+  exposed → current coverage → sniff priority → dashboard tab → safety class. This is the
+  answer to "what to sniff / what to build in the UI / what data becomes available".
+- Per-module field lists live in [`../menus/`](../menus/overview.md) (BCU, SLABS, TD5, ACE,
+  autobox, airbag, cruise) — the feature map links them rather than repeating them.
 
 ## Module coverage at a glance (emulator page counts)
 

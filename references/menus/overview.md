@@ -26,6 +26,7 @@ and give decoding hints. The original one-cell-per-line paste is in git history 
 | Auto gearbox (EAT) | [autobox.md](autobox.md) |
 | Airbag (SRS) | [airbag.md](airbag.md) |
 | Td5 engine ECU | [td5.md](td5.md) |
+| Hella cruise control (V8 branch) | [cruise.md](cruise.md) |
 
 ## Capture workflow
 
