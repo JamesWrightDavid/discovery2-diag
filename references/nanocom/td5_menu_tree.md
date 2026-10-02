@@ -1,0 +1,229 @@
+---
+title: "NanoCom emulator — Discovery 2 Td5 menu tree (generated)"
+area: references
+status: stable
+version: 1.0
+updated: 2026-10-02
+summary: >
+  Generated menu tree of the NanoCom Evolution emulator for the Discovery 2 Td5:
+  every module and its faults/inputs/outputs/settings/utility functions, with the
+  emulator page path and screen image for each leaf. Regenerate with
+  tools/parse_nanocom_emulator.py; do not hand-edit.
+---
+
+# NanoCom emulator — Discovery 2 Td5 menu tree (generated)
+
+Source: the NanoCom Evolution online emulator export (Black Box Solutions),
+kept out of git under `captures/nanocom/`. This is the authoritative list of **what
+functions the tool exposes per module**; the per-leaf field lists are transcribed in
+the per-module feature maps. Generated — do not hand-edit.
+
+- **td5** — 150 page(s)
+  - `td5/page1` · disco_td5_list.jpg
+  - `td5/page2` · disco_td5_list_page_2.jpg
+  - **Hella cruise control (shared with V8 variant)** — 9 page(s)
+    - `motronic/hella_cc/page1` · becm_list.jpg
+    - **faults** — 2 page(s)
+      - `motronic/hella_cc/faults/page1` · faults.gif
+      - `motronic/hella_cc/faults/page2` · faultsclear.gif
+    - **inputs** — 2 page(s)
+      - `motronic/hella_cc/inputs/page1` · hellacc_inputs.jpg
+      - `motronic/hella_cc/inputs/page2` · hellacc_inputs_page_2.jpg
+    - **settings** — 3 page(s)
+      - `motronic/hella_cc/settings/page1` · settings.jpg
+      - `motronic/hella_cc/settings/page2` · settings_page_2.jpg
+      - `motronic/hella_cc/settings/page3` · settings_page_3.jpg
+    - **utility** — 1 page(s)
+      - `motronic/hella_cc/utility/page1` · utility.jpg
+  - **ace** — 9 page(s)
+    - `td5/ace/page1` · disco_td5_ace.jpg
+    - **faults** — 2 page(s)
+      - `td5/ace/faults/page1` · faults.gif
+      - `td5/ace/faults/page2` · faultsclear.gif
+    - **inputs** — 3 page(s)
+      - `td5/ace/inputs/page1` · ace_inputs.jpg
+      - `td5/ace/inputs/page2` · ace_inputs_page_2.jpg
+      - `td5/ace/inputs/page3` · ace_inputs_page_3.jpg
+    - **outputs** — 1 page(s)
+      - `td5/ace/outputs/page1` · outputs.jpg
+    - **utility** — 2 page(s)
+      - `td5/ace/utility/page1` · ace_utility.jpg
+      - `td5/ace/utility/page2` · ace_utility_page_2.jpg
+  - **d2 airbag** — 7 page(s)
+    - `td5/d2_airbag/page1` · fault_settings.jpg
+    - **faults** — 2 page(s)
+      - `td5/d2_airbag/faults/page1` · faults.gif
+      - `td5/d2_airbag/faults/page2` · faultsclear.gif
+    - **settings** — 4 page(s)
+      - `td5/d2_airbag/settings/page1` · d2_settings.jpg
+      - `td5/d2_airbag/settings/page2` · d2_settings_page_2.jpg
+      - `td5/d2_airbag/settings/page3` · d2_settings_page_3.jpg
+      - `td5/d2_airbag/settings/page4` · d2_settings_page_4.jpg
+  - **d2 autogb** — 16 page(s)
+    - `td5/d2_autogb/page1` · d2_autogb.jpg
+    - **faults** — 2 page(s)
+      - `td5/d2_autogb/faults/page1` · faults.gif
+      - `td5/d2_autogb/faults/page2` · faultsclear.gif
+    - **inputs** — 10 page(s)
+      - `td5/d2_autogb/inputs/page1` · inputs.jpg
+      - **general** — 5 page(s)
+        - `td5/d2_autogb/inputs/general/page1` · general.jpg
+        - `td5/d2_autogb/inputs/general/page2` · general_page_2.jpg
+        - `td5/d2_autogb/inputs/general/page3` · general_page_3.jpg
+        - `td5/d2_autogb/inputs/general/page4` · general_page_4.jpg
+        - `td5/d2_autogb/inputs/general/page5` · general_page_5.jpg
+      - **pressures** — 4 page(s)
+        - `td5/d2_autogb/inputs/pressures/page1` · pressures.jpg
+        - `td5/d2_autogb/inputs/pressures/page2` · pressures_page_2.jpg
+        - `td5/d2_autogb/inputs/pressures/page3` · pressures_page_3.jpg
+        - `td5/d2_autogb/inputs/pressures/page4` · pressures_page_4.jpg
+    - **settings** — 2 page(s)
+      - `td5/d2_autogb/settings/page1` · d2_settings.jpg
+      - `td5/d2_autogb/settings/page2` · d2_settings_page_2.jpg
+    - **utility** — 1 page(s)
+      - `td5/d2_autogb/utility/page1` · reset.jpg
+  - **slabs** — 29 page(s)
+    - `td5/slabs/page1` · slabs.jpg
+    - `td5/slabs/page2` · slabs_page_2.jpg
+    - **faults** — 2 page(s)
+      - `td5/slabs/faults/page1` · faults.gif
+      - `td5/slabs/faults/page2` · faultsclear.gif
+    - **inputs** — 11 page(s)
+      - `td5/slabs/inputs/page1` · inputs.jpg
+      - **input abs** — 6 page(s)
+        - `td5/slabs/inputs/input_abs/page1` · td5_inputs.jpg
+        - `td5/slabs/inputs/input_abs/page2` · td5_inputs_page_2.jpg
+        - `td5/slabs/inputs/input_abs/page3` · td5_inputs_page_3.jpg
+        - `td5/slabs/inputs/input_abs/page4` · td5_inputs_page_4.jpg
+        - `td5/slabs/inputs/input_abs/page5` · td5_inputs_page_5.jpg
+        - `td5/slabs/inputs/input_abs/page6` · td5_inputs_page_6.jpg
+      - **input sls** — 2 page(s)
+        - `td5/slabs/inputs/input_sls/page1` · input_sls.jpg
+        - `td5/slabs/inputs/input_sls/page2` · input_sls_page_2.jpg
+      - **input switch** — 2 page(s)
+        - `td5/slabs/inputs/input_switch/page1` · inputs_switch_data.jpg
+        - `td5/slabs/inputs/input_switch/page2` · inputs_switch_page_2.jpg
+    - **outputs** — 6 page(s)
+      - `td5/slabs/outputs/page1` · outputs.jpg
+      - `td5/slabs/outputs/page2` · outputs_page_2.jpg
+      - `td5/slabs/outputs/page3` · outputs_page_3.jpg
+      - `td5/slabs/outputs/page4` · outputs_page_4.jpg
+      - `td5/slabs/outputs/page5` · outputs_page_5.jpg
+      - `td5/slabs/outputs/page6` · outputs_page_6.jpg
+    - **settings** — 5 page(s)
+      - `td5/slabs/settings/page1` · settings.jpg
+      - `td5/slabs/settings/page2` · settings_page_2.jpg
+      - `td5/slabs/settings/page3` · settings_page_3.jpg
+      - `td5/slabs/settings/page4` · settingscoil.jpg
+      - `td5/slabs/settings/page5` · settings.jpg
+    - **utility** — 3 page(s)
+      - `td5/slabs/utility/page1` · abs_sls.jpg
+      - **bleed** — 1 page(s)
+        - `td5/slabs/utility/bleed/page1` · utility.jpg
+      - **height** — 1 page(s)
+        - `td5/slabs/utility/height/page1` · sls_height.jpg
+  - **td5 engine** — 23 page(s)
+    - `td5/td5_engine/page1` · td5list.jpg
+    - `td5/td5_engine/page2` · outputs_utility.jpg
+    - **faults** — 2 page(s)
+      - `td5/td5_engine/faults/page1` · faults.gif
+      - `td5/td5_engine/faults/page2` · faultsclear.gif
+    - **inputs fuelling** — 5 page(s)
+      - `td5/td5_engine/inputs_fuelling/page1` · td5_inputs_fuelling.jpg
+      - `td5/td5_engine/inputs_fuelling/page2` · td5_inputs_fuelling_page_2.jpg
+      - `td5/td5_engine/inputs_fuelling/page3` · td5_inputs_fuelling_page_3.jpg
+      - `td5/td5_engine/inputs_fuelling/page4` · td5_inputs_fuelling_page_4.jpg
+      - `td5/td5_engine/inputs_fuelling/page5` · td5_inputs_fuelling_page_5.jpg
+    - **inputs switch** — 2 page(s)
+      - `td5/td5_engine/inputs_switch/page1` · td5_inputs_switch.jpg
+      - `td5/td5_engine/inputs_switch/page2` · td5_inputs_switch_page_2.jpg
+    - **outputs** — 3 page(s)
+      - `td5/td5_engine/outputs/page1` · outputs.jpg
+      - `td5/td5_engine/outputs/page2` · outputs_page_2.jpg
+      - `td5/td5_engine/outputs/page3` · outputs_page_3.jpg
+    - **settings** — 8 page(s)
+      - `td5/td5_engine/settings/page1` · settings.jpg
+      - **info** — 5 page(s)
+        - `td5/td5_engine/settings/info/page1` · td5_settings_info_data.jpg
+        - `td5/td5_engine/settings/info/page2` · td5_settings_info_page_2_data.jpg
+        - `td5/td5_engine/settings/info/page3` · td5_settings_info_page_3.jpg
+        - `td5/td5_engine/settings/info/page4` · td5_settings_info_page_4.jpg
+        - `td5/td5_engine/settings/info/page5` · td5_settings_info_page_5.jpg
+      - **injectors** — 2 page(s)
+        - `td5/td5_engine/settings/injectors/page1` · td5_settings_injector_throttledata.jpg
+        - `td5/td5_engine/settings/injectors/page2` · td5_settings_injector_throttle_page_2.jpg
+    - **utility** — 1 page(s)
+      - `td5/td5_engine/utility/page1` · utility.jpg
+  - **td5 map** — 1 page(s)
+    - `td5/td5_map/page1` · td5_map.jpg
+  - **valeo bcu** — 54 page(s)
+    - `td5/valeo_bcu/page1` · veleo_bcu_list.jpg
+    - `td5/valeo_bcu/page2` · veleo_bcu_list_page_2.jpg
+    - **key programming** — 3 page(s)
+      - `td5/valeo_bcu/key_programming/page1` · key.jpg
+      - `td5/valeo_bcu/key_programming/page2` · key_page_2.jpg
+      - `td5/valeo_bcu/key_programming/page3` · key_page_3.jpg
+    - **outputs body** — 6 page(s)
+      - `td5/valeo_bcu/outputs_body/page1` · outputs_body.jpg
+      - `td5/valeo_bcu/outputs_body/page2` · outputs_body_page_2.jpg
+      - `td5/valeo_bcu/outputs_body/page3` · outputs_body_page_3.jpg
+      - `td5/valeo_bcu/outputs_body/page4` · outputs_body_page_4.jpg
+      - `td5/valeo_bcu/outputs_body/page5` · outputs_body_page_5.jpg
+      - `td5/valeo_bcu/outputs_body/page6` · outputs_body_page_6.jpg
+    - **outputs security** — 3 page(s)
+      - `td5/valeo_bcu/outputs_security/page1` · security.jpg
+      - `td5/valeo_bcu/outputs_security/page2` · security_page_2.jpg
+      - `td5/valeo_bcu/outputs_security/page3` · security_page_3.jpg
+    - **read inputs** — 18 page(s)
+      - `td5/valeo_bcu/read_inputs/page1` · read_inputs.jpg
+      - **body 1** — 4 page(s)
+        - `td5/valeo_bcu/read_inputs/body_1/page1` · body_1.jpg
+        - `td5/valeo_bcu/read_inputs/body_1/page2` · body_1_page_2.jpg
+        - `td5/valeo_bcu/read_inputs/body_1/page3` · body_1_page_3.jpg
+        - `td5/valeo_bcu/read_inputs/body_1/page4` · body_1_page_4.jpg
+      - **body 2** — 6 page(s)
+        - `td5/valeo_bcu/read_inputs/body_2/page1` · body_2.jpg
+        - `td5/valeo_bcu/read_inputs/body_2/page2` · body_2_page_2.jpg
+        - `td5/valeo_bcu/read_inputs/body_2/page3` · body_2_page_3.jpg
+        - `td5/valeo_bcu/read_inputs/body_2/page4` · body_2_page_4.jpg
+        - `td5/valeo_bcu/read_inputs/body_2/page5` · body_2_page_5.jpg
+        - `td5/valeo_bcu/read_inputs/body_2/page6` · body_2_page_6.jpg
+      - **instrument** — 5 page(s)
+        - `td5/valeo_bcu/read_inputs/instrument/page1` · instrument.jpg
+        - `td5/valeo_bcu/read_inputs/instrument/page2` · instrument_page_2.jpg
+        - `td5/valeo_bcu/read_inputs/instrument/page3` · instrument_page_3.jpg
+        - `td5/valeo_bcu/read_inputs/instrument/page4` · instrument_page_4.jpg
+        - `td5/valeo_bcu/read_inputs/instrument/page5` · instrument_page_5.jpg
+      - **power distibution** — 2 page(s)
+        - `td5/valeo_bcu/read_inputs/power_distibution/page1` · power.jpg
+        - `td5/valeo_bcu/read_inputs/power_distibution/page2` · power_page_2.jpg
+    - **settings** — 19 page(s)
+      - `td5/valeo_bcu/settings/page1` · settings.jpg
+      - **alarm other** — 5 page(s)
+        - `td5/valeo_bcu/settings/alarm_other/page1` · alarm.jpg
+        - `td5/valeo_bcu/settings/alarm_other/page2` · alarm_page_2.jpg
+        - `td5/valeo_bcu/settings/alarm_other/page3` · alarm_page_3.jpg
+        - `td5/valeo_bcu/settings/alarm_other/page4` · alarm_page_4.jpg
+        - `td5/valeo_bcu/settings/alarm_other/page5` · alarm_page_5.jpg
+      - **info** — 2 page(s)
+        - `td5/valeo_bcu/settings/info/page1` · info.jpg
+        - `td5/valeo_bcu/settings/info/page2` · info_page_2.jpg
+      - **instrument pack** — 2 page(s)
+        - `td5/valeo_bcu/settings/instrument_pack/page1` · instrument.jpg
+        - `td5/valeo_bcu/settings/instrument_pack/page2` · instrument_page_2.jpg
+      - **lights win seat** — 3 page(s)
+        - `td5/valeo_bcu/settings/lights_win_seat/page1` · lws.jpg
+        - `td5/valeo_bcu/settings/lights_win_seat/page2` · lws_page_2.jpg
+        - `td5/valeo_bcu/settings/lights_win_seat/page3` · lws_page_3.jpg
+      - **transm lock warn** — 4 page(s)
+        - `td5/valeo_bcu/settings/transm_lock_warn/page1` · transmission.jpg
+        - `td5/valeo_bcu/settings/transm_lock_warn/page2` · transmission_page_2.jpg
+        - `td5/valeo_bcu/settings/transm_lock_warn/page3` · transmission_page_3.jpg
+        - `td5/valeo_bcu/settings/transm_lock_warn/page4` · transmission_page_4.jpg
+      - **write settings** — 2 page(s)
+        - `td5/valeo_bcu/settings/write_settings/page1` · setting.jpg
+        - `td5/valeo_bcu/settings/write_settings/page2` · writing.gif
+    - **utility** — 3 page(s)
+      - `td5/valeo_bcu/utility/page1` · utility.jpg
+      - `td5/valeo_bcu/utility/page2` · utility_page_2.jpg
+      - `td5/valeo_bcu/utility/page3` · utility_page_3.jpg
