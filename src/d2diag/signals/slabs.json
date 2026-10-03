@@ -318,5 +318,24 @@
     "label": "Neutral gear",
     "group": "Inputs",
     "description": "Neutral selected (automatic gearbox selector). Park also reads 0 here."
+  },
+  {
+    "name": "diff_lock",
+    "lid": "42",
+    "offset": 0,
+    "kind": "bit",
+    "bit": 4,
+    "scale": 1.0,
+    "bias": 0.0,
+    "unit": "",
+    "confidence": "proven",
+    "states": {
+      "0": "disengaged",
+      "1": "engaged"
+    },
+    "source": "21 42 byte0 bit4; differential 2026-10-04 on RDL016 (automatic, engine off, ign on, stationary): OFF=82 28 / ON=92 38, OFF-ON-OFF-ON, stable, 56/58 unchanged. Dash frozen in diag mode so engagement not seen visually; identity rests on the diff lock control toggling the bit. byte1 = byte0 - 0x5A in every sample (P/N/R/diff lock), a redundancy byte, not a field; re-read through the decoder on the car 2026-10-04 (engaged=1, disengaged=0, steady) -> proven",
+    "label": "Centre diff lock",
+    "group": "Inputs",
+    "description": "Centre differential lock engaged."
   }
 ]

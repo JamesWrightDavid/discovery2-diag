@@ -25,8 +25,16 @@ with the date and the outcome. Newest first.
   switch). Bonnet switch: no change in `21 56/42/48/58` held vs released -> expect it on the BCU.
   Neutral added the same night: `21 42` byte0 bit0 = neutral (N `83 29`, seen in two separate
   periods with P between), `neutral_gear` re-read through the decoder (N=1, P=0) -> `proven`.
-  `42` byte1 reads `28`/`29`/`30` for P/N/R, so it is probably a selector position value
-  (hypothesis, not stored). Not done: diff lock, HDC (`21 42/48/58`), A/C request (`21 1E` byte1 bit3).
+  Diff lock added: `21 42` byte0 bit4 (OFF `82 28` / ON `92 38`, OFF-ON-OFF-ON), `diff_lock`
+  re-read through the decoder (engaged=1, disengaged=0) -> `proven`. The dash is frozen in diag mode,
+  so engagement was never seen visually; identity rests on the diff lock control toggling the bit.
+  **`42` byte1 is a check byte, not a field:** `byte0 - byte1 = 0x5A` in every sample (P `82 28`,
+  N `83 29`, R `8A 30`, diff lock `92 38`, lever `86 2C`). Only byte0 carries information.
+  **Unidentified (set aside):** an earlier lever movement, thought to be the diff lock, set `42`
+  byte0 bit2 (`86 2C`, OFF-ON-OFF-ON, reproducible). The user then judged it may have been the
+  transfer box neutral lever. It is NOT stored; the identity is open. To settle it: move the
+  transfer box lever (high / neutral / low) one position at a time and watch bit2 vs the
+  gearbox/transfer inputs. Not done: HDC (`21 42/48/58`), A/C request (`21 1E` byte1 bit3).
 - **2026-10-03 — T-08 partial: brake switches mapped (first on-car run of the Part A pipeline).**
   Rig validated on the Pi (Linux, FTDI KKL, `send_break`): `81 13 F7 81` -> `C1 57 8F`, session
   and SecurityAccess OK. Differential on `21 1E` (3x released `00 82`, 2x pressed `01 02`):
