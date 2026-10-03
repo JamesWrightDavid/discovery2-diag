@@ -15,6 +15,12 @@ summary: >
 Companion to [test_plan.md](test_plan.md). When an open test is settled, move it here
 with the date and the outcome. Newest first.
 
+- **2026-10-03 — T-08 partial: brake switches mapped (first on-car run of the Part A pipeline).**
+  Rig validated on the Pi (Linux, FTDI KKL, `send_break`): `81 13 F7 81` -> `C1 57 8F`, session
+  and SecurityAccess OK. Differential on `21 1E` (3x released `00 82`, 2x pressed `01 02`):
+  byte1 bit7 = brake main (active-low), byte0 bit0 = second brake switch (active-high). Saved via
+  capture -> automap -> `upsert_field`, then re-read through the decoder (held 0/1, released
+  1/0) -> `proven`. `21 36` unchanged. T-08 stays open for the other switches.
 - **2026-10-01 — Merged the Td5 verification backlog** (`docs/discovery-2-td5/verification-todo.md`,
   now removed) into this file. Its items map as follows: fuel consumption → resolved 2026-08-21
   (`injection_qty`, plus the derived `fuel_rate`/`economy`); MAF scale → T-01; EGR/wastegate

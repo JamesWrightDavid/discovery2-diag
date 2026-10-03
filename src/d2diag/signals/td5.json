@@ -832,5 +832,43 @@
       0,
       5
     ]
+  },
+  {
+    "name": "brake_switch_2",
+    "lid": "1E",
+    "offset": 0,
+    "kind": "bit",
+    "bit": 0,
+    "scale": 1.0,
+    "bias": 0.0,
+    "unit": "",
+    "confidence": "proven",
+    "states": {
+      "0": "released",
+      "1": "pressed"
+    },
+    "source": "21 1E byte0 bit0, active-high; differential 2026-10-03 on RDL016 (00 82 released / 01 02 pressed, 3x off 2x on, automap state solve). Second brake switch: identity vs brake-main by inference (flips together with byte1 bit7); re-read through the decoder on the car 2026-10-03 (held=0/1, released=1/0) -> proven",
+    "label": "Brake switch (2nd)",
+    "group": "Inputs",
+    "description": "Second brake pedal switch (active-high)."
+  },
+  {
+    "name": "brake_main",
+    "lid": "1E",
+    "offset": 1,
+    "kind": "bit",
+    "bit": 7,
+    "scale": 1.0,
+    "bias": 0.0,
+    "unit": "",
+    "confidence": "proven",
+    "states": {
+      "0": "pressed",
+      "1": "released"
+    },
+    "source": "21 1E byte1 bit7, active-low; differential 2026-10-03 on RDL016 (00 82 released / 01 02 pressed, 3x off 2x on). Matches SimonRafferty brake-main (0 = pressed); re-read through the decoder on the car 2026-10-03 (held=0/1, released=1/0) -> proven",
+    "label": "Brake switch (main)",
+    "group": "Inputs",
+    "description": "Main brake pedal switch (active-low: 0 = pressed)."
   }
 ]
