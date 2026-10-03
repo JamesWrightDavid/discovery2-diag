@@ -299,5 +299,24 @@
     "label": "Reverse gear",
     "group": "Inputs",
     "description": "Reverse gear selected (automatic gearbox selector)."
+  },
+  {
+    "name": "neutral_gear",
+    "lid": "42",
+    "offset": 0,
+    "kind": "bit",
+    "bit": 0,
+    "scale": 1.0,
+    "bias": 0.0,
+    "unit": "",
+    "confidence": "proven",
+    "states": {
+      "0": "not neutral",
+      "1": "neutral"
+    },
+    "source": "21 42 byte0 bit0; differential 2026-10-04 on RDL016 (automatic, engine off, ign on): P=82 28 / N=83 29 / R=8A 30, N seen in two separate periods with P between. byte1 28/29/30 also tracks the gear (unidentified, not stored); re-read through the decoder on the car 2026-10-04 (N=1, P=0, steady) -> proven",
+    "label": "Neutral gear",
+    "group": "Inputs",
+    "description": "Neutral selected (automatic gearbox selector). Park also reads 0 here."
   }
 ]
