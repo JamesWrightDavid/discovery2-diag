@@ -280,5 +280,24 @@
       2.0,
       2.4
     ]
+  },
+  {
+    "name": "reverse_gear",
+    "lid": "42",
+    "offset": 0,
+    "kind": "bit",
+    "bit": 3,
+    "scale": 1.0,
+    "bias": 0.0,
+    "unit": "",
+    "confidence": "proven",
+    "states": {
+      "0": "not reverse",
+      "1": "reverse"
+    },
+    "source": "21 42 byte0 bit3; differential 2026-10-04 on RDL016 (automatic, engine off, ign on): P=82 28 / R=8A 30, 3x P and 3x R across P-R-P-R-P-R, automap state solve. byte1 also shifts 28<->30 in step (unidentified, not stored); re-read through the decoder on the car 2026-10-04 (R=1, P=0, steady) -> proven",
+    "label": "Reverse gear",
+    "group": "Inputs",
+    "description": "Reverse gear selected (automatic gearbox selector)."
   }
 ]

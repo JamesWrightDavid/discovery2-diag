@@ -15,6 +15,15 @@ summary: >
 Companion to [test_plan.md](test_plan.md). When an open test is settled, move it here
 with the date and the outcome. Newest first.
 
+- **2026-10-04 — SLABS reverse gear mapped; handbrake, bonnet and A/C not on the Td5/SLABS reads.**
+  Automatic, engine off, ignition on. `21 42` byte0 bit3 = reverse (P `82 28` / R `8A 30`, 3x each
+  across P-R-P-R-P-R); `reverse_gear` re-read through the decoder (R=1, P=0) -> `proven`. `42`
+  byte1 shifts `28`<->`30` in step with the gear (unidentified, not stored). `21 58` did not move
+  with P/R, `21 56` stayed `00` (door closed), and `21 48` wanders on its own (analog, not a
+  switch). Door `56` re-confirmed (00 closed / 01 open). Handbrake: no polled Td5 LID responds
+  (`21 36` flat; `21 1E` byte1 bit5 flickers by itself with the handbrake held, so it is not a
+  switch). Bonnet switch: no change in `21 56/42/48/58` held vs released -> expect it on the BCU.
+  Not done: neutral, diff lock, HDC (`21 42/48/58`), A/C request (`21 1E` byte1 bit3).
 - **2026-10-03 — T-08 partial: brake switches mapped (first on-car run of the Part A pipeline).**
   Rig validated on the Pi (Linux, FTDI KKL, `send_break`): `81 13 F7 81` -> `C1 57 8F`, session
   and SecurityAccess OK. Differential on `21 1E` (3x released `00 82`, 2x pressed `01 02`):
