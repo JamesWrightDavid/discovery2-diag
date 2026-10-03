@@ -15,6 +15,17 @@ summary: >
 Companion to [test_plan.md](test_plan.md). When an open test is settled, move it here
 with the date and the outcome. Newest first.
 
+- **2026-10-04 — T-18 airbag read verified (no SecurityAccess needed); T-26 default scan; T-06 lengths.**
+  Key-on, engine off, read-only. **Airbag:** 5-baud `0x5B` -> keybytes `E9 8F`, `10 81` -> `50 81`,
+  `21 02` -> `61 02 90 04 90 00 00 00 00 00 00 00`, release `82` -> `C2`. The reference tool's
+  SecurityAccess before the read is NOT required. Records as `[status][number]`: `90 04` = fault 004
+  (warning lamp, matches the existing baseline); `90 00` (number 0) is unresolved, likely padding or
+  a format detail, not a second fault. **Address scan** (`tools/module_scan.py`, defaults):
+  `0x13`/`0x29` fast `C1 57 8F`; `0x40` `E5 8F`; `0x5B` `E9 8F`; **`0x18` responded with `08 08`**
+  (ISO 9141-2 keybytes, not KWP2000; identity open); `0x5A` silent (ruled out for this car). The
+  full 0x01-0xEF sweep for cruise/HEVAC/IP/IDM was not run. **Td5 `1A`:** `1A 87` -> 48 bytes
+  (contains the VIN; raw kept only in the gitignored log), `1A 9A` -> 8 bytes, `1A 9B`/`9C` -> 3 bytes
+  each; field layout not decoded yet (T-06 stays open).
 - **2026-10-04 — SLABS reverse gear mapped; handbrake, bonnet and A/C not on the Td5/SLABS reads.**
   Automatic, engine off, ignition on. `21 42` byte0 bit3 = reverse (P `82 28` / R `8A 30`, 3x each
   across P-R-P-R-P-R); `reverse_gear` re-read through the decoder (R=1, P=0) -> `proven`. `42`
