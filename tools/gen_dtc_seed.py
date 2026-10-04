@@ -61,9 +61,9 @@ _TD5_PCODES = {
     "8.2": "P0480", "8.4": "P0244", "8.5": "P0404", "8.6": "P0409",
     "9.1": "P0230", "9.6": "P0380", "9.7": "P0380",
     "10.2": "P0480", "10.4": "P0245", "10.5": "P0405", "10.6": "P0409",
-    "11.1": "P0230", "11.6": "P0380", "11.7": "P0380",
+    "11.1": "P0230", "11.6": "P0380", "11.7": "P0380",  # 11.6 suspect, see faults.py
     "12.2": "P0480", "12.4": "P0245", "12.5": "P0405", "12.6": "P0409",
-    "13.1": "P0230", "13.6": "P0380", "13.7": "P0380",
+    "13.1": "P0230", "13.7": "P0380",  # 13.6 is the glow-plug LAMP, not the plug circuit
     "14.1": "P0335", "15.1": "P0335", "16.1": "P0335",
     "18.1": "U0001", "18.2": "U0001", "18.5": "P0335", "18.7": "U0001",
     "19.0": "P0299", "19.1": "P0234", "19.3": "P0402", "19.4": "P0401",
@@ -75,6 +75,14 @@ _TD5_PCODES = {
     "23.6": "P0700",
     "24.3": "P0121", "24.4": "P0221", "24.5": "P0120", "24.6": "P2135", "24.7": "P1633",
     "25.0": "P0500",
+}
+# Candidate Td5 bits whose evidence is not the forum X-Y list (see td5_fault_codes.md).
+_TD5_CANDIDATE_SOURCES = {
+    "13.6": "NanoCom TD5ENG.APP screen '(14,7) GLOWPLUG LAMP DRIVE OPEN LOAD, (CURRENT)', "
+            "https://www.defender2.net/forum/post594365.html; the Ekaitza/TD5SPY name "
+            "('glow plug relay', repeated at 13.7) was a copy error; templated meaning",
+    "11.6": "td5/faults.py (Ekaitza + ref tool v1.12) — SUSPECT: same 'relay' repeat as 13.6, "
+            "whose twin a NanoCom screen shows as the glow-plug lamp; templated meaning",
 }
 _INJECTOR_OFFSETS = {26, 27, 28, 29, 30, 31, 32, 33, 34}  # bit 0..5 → cylinders 1..6
 
@@ -195,6 +203,8 @@ def build_td5() -> "list[dict]":
         if f.confidence == "proven":
             src = ("td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; "
                    "P-code ex SimonRafferty/Td5-Diagnostic-App")
+        elif key in _TD5_CANDIDATE_SOURCES:
+            src = _TD5_CANDIDATE_SOURCES[key]
         else:
             src = (f"forum X-Y list {f.offset + 1}-{bit + 1} → offset.bit {key} "
                    f"(https://www.td5spy.co.za/td5_faults; mapping verified in "
@@ -243,8 +253,10 @@ def build_slabs() -> "list[dict]":
     for (off, bit), (code, text) in sorted(SLABS_FAULT_BITS.items(), key=lambda kv: kv[1][0]):
         name = text[:1].upper() + text[1:]
         out.append({"key": code, "name": name,
-                    "description": f"{name} (SLABS reference-tool fault {code}; raw "
-                                   f"byte {off} bit {bit} of the 21 11 / 21 47 block).",
+                    "description": f"{name} (raw byte {off} bit {bit} of the 21 11 / "
+                                   f"21 47 block; shown as {code}-05 on the reference tool, "
+                                   f"where the first field is probably an occurrence count, "
+                                   f"not a fault number — see references/slabs_fault_codes.md).",
                     "cause": _slabs_cause(text), "system": "brakes & suspension (SLABS)",
                     "source": "slabs/faults.py sniff 2026-08-07 (RDL016), tool screen ↔ raw bit",
                     "confidence": "proven"})

@@ -108,7 +108,7 @@ _Generated from the fault-meaning store (`src/d2diag/dtc/td5.json`) — do not e
 | `11.3` | gearbox/abs drive open load (Current) | proven | — | current | Gearbox/abs drive: output driver sees no load (open). | Open circuit — check the actuator and its wiring/connector. |
 | `11.4` | air conditioning clutch open load (Current) | proven | — | current | Air conditioning clutch: output driver sees no load (open). | Open circuit — check the actuator and its wiring/connector. |
 | `11.5` | mil lamp drive open load (Current) | proven | — | current | Mil lamp drive: output driver sees no load (open). | Open circuit — check the actuator and its wiring/connector. |
-| `11.6` | glow plug relay drive open load (Current) | proven | P0380 | current | Glow plug relay drive: output driver sees no load (open). | Open circuit — check the actuator and its wiring/connector. |
+| `11.6` | glow plug relay drive open load (Current) | candidate | P0380 | current | Glow plug relay drive: output driver sees no load (open). | Open circuit — check the actuator and its wiring/connector. |
 | `11.7` | glowplug relay drive open load (Current) | proven | P0380 | current | Glowplug relay drive: output driver sees no load (open). | Open circuit — check the actuator and its wiring/connector. |
 | `12.0` | cruise control lamp drive over temp. (Current) | proven | — | current | Cruise control lamp drive: output driver stage over-temperature (overload protection). | Driver overloaded — check the circuit for a short or excessive current. |
 | `12.1` | fuel used output drive over temp. (Current) | proven | — | current | Fuel used output drive: output driver stage over-temperature (overload protection). | Driver overloaded — check the circuit for a short or excessive current. |
@@ -124,7 +124,7 @@ _Generated from the fault-meaning store (`src/d2diag/dtc/td5.json`) — do not e
 | `13.3` | gearbox/abs drive open load (Current) | proven | — | current | Gearbox/abs drive: output driver sees no load (open). | Open circuit — check the actuator and its wiring/connector. |
 | `13.4` | air conditioning clutch open load (Current) | proven | — | current | Air conditioning clutch: output driver sees no load (open). | Open circuit — check the actuator and its wiring/connector. |
 | `13.5` | mil lamp drive open load (Current) | proven | — | current | Mil lamp drive: output driver sees no load (open). | Open circuit — check the actuator and its wiring/connector. |
-| `13.6` | glow plug relay drive open load (Current) | proven | P0380 | current | Glow plug relay drive: output driver sees no load (open). | Open circuit — check the actuator and its wiring/connector. |
+| `13.6` | glowplug lamp drive open load (Current) | candidate | — | current | Glowplug lamp drive: output driver sees no load (open). | Open circuit — check the actuator and its wiring/connector. |
 | `13.7` | glowplug relay drive open load (Current) | proven | P0380 | current | Glowplug relay drive: output driver sees no load (open). | Open circuit — check the actuator and its wiring/connector. |
 | `14.1` | high speed crank (Logged) | proven | P0335 | logged | High speed crank. | Crankshaft sensor signal issue — check the sensor and reluctor. |
 | `15.1` | high speed crank (Logged) | proven | P0335 | logged | High speed crank. | Crankshaft sensor signal issue — check the sensor and reluctor. |

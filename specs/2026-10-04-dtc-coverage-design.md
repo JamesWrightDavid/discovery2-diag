@@ -2,7 +2,7 @@
 title: "DTC coverage — every documented fault code in the store, honestly — design"
 area: specs
 status: stable
-version: 1.1
+version: 1.2
 updated: 2026-10-04
 depends_on: [../CONSTITUTION.md, ../decisions/adr-0006-english-confidence-vocabulary.md]
 summary: >
@@ -103,3 +103,7 @@ SLABS anchors resolve, and that `/faults?module=autobox|ace|eat` serves the new 
 - 2026-10-04: v1.1. A second research pass (one agent per gap) found this car's ACE
   NanoCom family, so plain ACE keys now mean that family and the earlier flat-list codes
   move to `flat-XX-YY`. The fault dictionary index gains a total-per-module column.
+- 2026-10-04: v1.2. A third pass with exact-phrase queries built from known tool wording.
+  A NanoCom screen corrects the Td5 decoder name at `13.6` (glow-plug lamp, not a second
+  "relay"); `13.6` and the identical `11.6` become candidate. The NanoCom SLABS first field
+  is shown to be an occurrence count. ACE gains `flat-41-07`.

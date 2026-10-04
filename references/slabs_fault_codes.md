@@ -2,7 +2,7 @@
 title: "Discovery 2 SLABS (Wabco) — fault code list"
 area: references
 status: stable
-version: 1.2
+version: 1.3
 updated: 2026-10-04
 summary: >
   Numbered SLABS fault types (self-levelling and ABS) from rswsolutions; its numbering is NOT the reference tool's (both car anchors disagree), so the store keys these rsw-NNN as candidate.
@@ -50,7 +50,22 @@ Owners' NanoCom screens on other Discovery 2s show a two-field `NN-MM` display w
 
 Sources: landyzone threads 360005, 379966, 351211 and 321133.
 
-In the first three, the first field matches the occurrence count. That would make it a
+**Update (third research pass): the first field is an occurrence count.** Two more
+first-hand screens settle it:
+- "11-05 shuttle valve electrical fail 011 times", the same after every clear
+  (https://www.landyzone.co.uk/land-rover/shuttle-valve-switch-11-05-from-nanocom.373296/);
+- one front-left "output too low" fault that read `20-07` and later `16-07`
+  (https://www.landyzone.co.uk/land-rover/nsf-abs-sensor-output-too-low.262396/).
+
+The second field is not a unique fault ID either:
+- `-05` is both "front right output too low" (this car's `020-05`) and "shuttle valve
+  electrical fail" (`11-05`, `23-05`, this car's `027-05`);
+- `-06`, `-07` and `-08` follow the rear-left, front-left and rear-right sensors.
+
+So on NanoCom's SLABS screen the **text** identifies the fault. This car's `020`/`027` were
+the counts that day.
+
+Earlier reading of the same evidence: in the first three, the first field matches the occurrence count. That would make it a
 count, not a code, and would make this car's `020-05` "20 times, code 05". But the second
 field doesn't behave like a fault code either: `03-06` is a valve fault, yet a sensor fault
 also ends in `06`.

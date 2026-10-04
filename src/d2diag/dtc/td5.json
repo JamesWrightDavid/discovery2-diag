@@ -999,8 +999,8 @@
     "cause": "Open circuit — check the actuator and its wiring/connector.",
     "severity": "current",
     "system": "electrical",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
-    "confidence": "proven",
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12) — SUSPECT: same 'relay' repeat as 13.6, whose twin a NanoCom screen shows as the glow-plug lamp; templated meaning",
+    "confidence": "candidate",
     "pcode": "P0380"
   },
   {
@@ -1161,14 +1161,13 @@
   },
   {
     "key": "13.6",
-    "name": "glow plug relay drive open load (Current)",
-    "description": "Glow plug relay drive: output driver sees no load (open).",
+    "name": "glowplug lamp drive open load (Current)",
+    "description": "Glowplug lamp drive: output driver sees no load (open).",
     "cause": "Open circuit — check the actuator and its wiring/connector.",
     "severity": "current",
     "system": "electrical",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
-    "confidence": "proven",
-    "pcode": "P0380"
+    "source": "NanoCom TD5ENG.APP screen '(14,7) GLOWPLUG LAMP DRIVE OPEN LOAD, (CURRENT)', https://www.defender2.net/forum/post594365.html; the Ekaitza/TD5SPY name ('glow plug relay', repeated at 13.7) was a copy error; templated meaning",
+    "confidence": "candidate"
   },
   {
     "key": "13.7",

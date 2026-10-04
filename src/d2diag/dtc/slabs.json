@@ -2,7 +2,7 @@
   {
     "key": "020",
     "name": "Right front wheel speed sensor — output too low",
-    "description": "Right front wheel speed sensor — output too low (SLABS reference-tool fault 020; raw byte 3 bit 4 of the 21 11 / 21 47 block).",
+    "description": "Right front wheel speed sensor — output too low (raw byte 3 bit 4 of the 21 11 / 21 47 block; shown as 020-05 on the reference tool, where the first field is probably an occurrence count, not a fault number — see references/slabs_fault_codes.md).",
     "cause": "Wheel-speed signal low — check the sensor air gap, reluctor ring and wiring.",
     "system": "brakes & suspension (SLABS)",
     "source": "slabs/faults.py sniff 2026-08-07 (RDL016), tool screen ↔ raw bit",
@@ -11,7 +11,7 @@
   {
     "key": "027",
     "name": "Shuttle valve switch — electrical failure",
-    "description": "Shuttle valve switch — electrical failure (SLABS reference-tool fault 027; raw byte 10 bit 4 of the 21 11 / 21 47 block).",
+    "description": "Shuttle valve switch — electrical failure (raw byte 10 bit 4 of the 21 11 / 21 47 block; shown as 027-05 on the reference tool, where the first field is probably an occurrence count, not a fault number — see references/slabs_fault_codes.md).",
     "cause": "Switch circuit electrical failure — check the switch, connector and wiring.",
     "system": "brakes & suspension (SLABS)",
     "source": "slabs/faults.py sniff 2026-08-07 (RDL016), tool screen ↔ raw bit",

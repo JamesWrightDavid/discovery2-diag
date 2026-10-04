@@ -36,7 +36,7 @@ ZF4HP22/24. Sniff = passive ESP32 (RX-only) on K-line pin 7, while the reference
   `27 02`(key)→`67`. **Keygen proven** (seed `d3 e6`→key `ad 87`).
 - **Services:** 21→61 (ReadLocalId), 30→70 (IOControl), 31→71 (StartRoutine),
   33→73 (RoutineResults), 3E→7E (TesterPresent), 1A→5A (ReadEcuId), 14→54 (Clear), 18→58 (ReadDTC).
-- **Fault codes:** `21 3B` = 35-byte bit block (index = offset·8+bit). Decoded in `td5/faults.py` (210 proven + 1 candidate bit; forum X-Y = offset X-1, bit Y-1, verified in `td5_fault_codes.md`).
+- **Fault codes:** `21 3B` = 35-byte bit block (index = offset·8+bit). Decoded in `td5/faults.py` (208 proven + 3 candidate bits; forum X-Y = offset X-1, bit Y-1, verified in `td5_fault_codes.md`).
 - **Fuelling (PROVEN against the car, see labeled_captures):** `09`=rpm, `0D`=road speed,
   `10`=battery(u16/1000), `1A`=temp×4 (u16/10−273.2; ext_temp@8 = unconnected 150°C),
   `1B`=accel way1/2/3+supply (4×u16/1000 V), `1C`@0=MAP, `21`=idle err(s16), `23`=ambient×2,

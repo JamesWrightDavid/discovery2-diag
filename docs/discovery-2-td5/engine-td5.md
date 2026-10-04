@@ -120,7 +120,7 @@ cylinders 1–5, response `0x71`. 🟢 (implemented as `injector_pulse`).
 
 ## Fault codes
 
-Read with `21 3B` — **211 raw-mapped bits** (210 proven, `20.7` candidate), indexed `byte×8 + bit`; forum/NanoCom `X-Y` = offset `X-1`, bit `Y-1` ([td5_fault_codes.md](../../references/td5_fault_codes.md)). Clear with
+Read with `21 3B` — **211 raw-mapped bits** (208 proven; `20.7`, `13.6` and `11.6` candidate), indexed `byte×8 + bit`; forum/NanoCom `X-Y` = offset `X-1`, bit `Y-1` ([td5_fault_codes.md](../../references/td5_fault_codes.md)). Clear with
 StartRoutine `0xDD` + 18×`00` (expect a delayed ~300 ms `54` ack). See
 [fault-codes.md](fault-codes.md) for the table and the RDL 016 baseline (the real
 faults were `001-07` and `004-01` inlet-air-temp circuit; `001-07` is bit `0.6` air flow by number, so its transcribed "EGR vacuum module" text is suspect — T-29).

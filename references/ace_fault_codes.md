@@ -2,7 +2,7 @@
 title: "Discovery 2 ACE — fault codes"
 area: references
 status: draft
-version: 1.1
+version: 1.2
 updated: 2026-10-04
 summary: >
   ACE fault codes in three display schemes (NanoCom component-grouped XX-YY as on this car, NanoCom flat list keyed flat-XX-YY, Hawkeye/Testbook DTC nn), compiled from first-hand forum pages as candidate; raw block offsets not yet mapped, and NanoCom ACE texts are known to mislead.
@@ -25,8 +25,14 @@ to be settled before any offset is trusted, so no bit is mapped here.
 
 ## Three display schemes, kept apart
 
-NanoCom shows ACE codes in two different families. Which one you get likely depends on
-firmware or ECU version; no source says which.
+NanoCom shows ACE codes in two different families. One owner saw both at once:
+- the NanoCom screen showed "Fault 18-04";
+- the saved TXT file of the same read said "Fault 04-02" (DCV2 current out of range).
+
+Source: https://www.landyzone.co.uk/land-rover/fault-04-02-dcv2-current-out-of-range-and-red-light.373132/
+
+So the families may be the screen and the export of one tool, rather than two firmwares.
+That one report does not give the screen's text, so it cannot link any code pair.
 
 - **Component-grouped `XX-YY`** (stored as plain `XX-YY`): `01` accelerometers, `03` pressure
   control valve, `04` direction control valves, `06` hydraulic pressure. **This is what this
@@ -73,6 +79,7 @@ numbers, but they are not linked to anything either.
 | `flat-22-04` | Hydraulic pressure too high | candidate | https://www.landyzone.co.uk/land-rover/ace-red-warning-intermittent.377103/ |
 | `flat-23-04` | Pressure signal out of range | candidate | https://www.landyzone.co.uk/land-rover/ace-red-warning-intermittent.377103/ |
 | `flat-33-06` | Direction control valve fault | candidate | https://www.landyzone.co.uk/land-rover/ace-red-warning-intermittent.377103/ |
+| `flat-41-07` | Sensor supply voltage out of range | candidate | https://www.landyzone.co.uk/land-rover/ace-fault-41-07.370993/ |
 | `flat-42-07` | Hydraulic pressure too low | candidate | https://www.landyzone.co.uk/land-rover/ace-red-warning-intermittent.377103/ |
 | `flat-45-07` | Battery voltage too low | candidate | https://www.landyzone.co.uk/land-rover/ace-red-warning-intermittent.377103/ |
 | `flat-47-07` | Main relay test failed | candidate | https://www.landyzone.co.uk/land-rover/ace-red-warning-intermittent.377103/ |
@@ -87,7 +94,9 @@ numbers, but they are not linked to anything either.
 
 - `04-04`: seen on RDL 016, no text anywhere. Read it off the screen next session (T-29).
 - `01-05`, `03-01`, `03-05`, `02-02`: texts only in search snippets.
-- Hawkeye DTC 22, 23 and 42: texts only in snippets. Some Hawkeye texts are known with no
+- Hawkeye DTC 22, 23 and 42: texts only in snippets. Hawkeye texts seen with no number
+  (landyzone 383549): "the latest page of data was corrupt at the last power up" and
+  "pressure signal stuck at a value". Some Hawkeye texts are known with no
   number: "invalid pressure signal received", "hit current direction valve 1/2 not achieved",
   "direction valve hold current not achieved", "upper/lower lateral accelerometer difference
   too high while stationary".

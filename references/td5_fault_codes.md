@@ -5,7 +5,7 @@ status: stable
 version: 1.1
 updated: 2026-10-04
 summary: >
-  Td5 engine ECU fault memory: raw-mapped, 210 proven + 1 candidate named fault bits decoded in code; the forum X-Y to offset.bit mapping verified 210/210; 69 bits still unnamed (backlog).
+  Td5 engine ECU fault memory: raw-mapped, 208 proven + 3 candidate named fault bits (13.6 renamed from a NanoCom screen); the forum X-Y to offset.bit mapping verified 210/210; 69 bits still unnamed (backlog).
 ---
 
 # Discovery 2 TD5 (Lucas engine ECU) — fault codes
@@ -13,7 +13,7 @@ summary: >
 The engine ECU's fault memory. **Unlike the other modules, TD5 is already
 raw-mapped** — we read the faults directly on K-line and decode them bit-by-bit in code.
 
-- **Raw decoder (code):** `src/d2diag/td5/faults.py` — 210 proven + 1 candidate named fault bits
+- **Raw decoder (code):** `src/d2diag/td5/faults.py` — 208 proven + 3 candidate named fault bits
 - **Reference (display codes + causes):** the fault-code dictionary (register repo),
   the TD5 section incl. Kelvin's complete forum list (`X-Y` format)
 - **Live signals:** `src/d2diag/td5/identifiers.py` (LIDs `21 xx`)
@@ -90,6 +90,42 @@ bit `Y-1`**. Three independent checks support this:
 twin `25-8` is already our proven `24.7`, and SimonRafferty's DTC table also gives `20.7`
 (P1633). It is added as **candidate**: `Fault(..., "candidate")` in `faults.py`, listed
 under `candidate` in `faultmap.json`, with `confidence: candidate` in `dtc/td5.json`.
+
+## A NanoCom screen corrects one name (2026-10-04)
+
+A NanoCom engine screen (`TD5ENG.APP`) posted by a Td5 owner shows seven faults with the
+tool's own numbers (https://www.defender2.net/forum/post594365.html):
+
+| NanoCom line | Our bit | Our name | Verdict |
+|---|---|---|---|
+| `(3,5) DRIVER DEMAND PROBLEM 1, (LOGGED HIGH)` | `2.4` | driver demand problem 1 (Logged High) | matches |
+| `(10,4) GEARBOX / ABS DRIVE OPEN LOAD, (LOGGED)` | `9.3` | gearbox/abs drive open load (Logged) | matches |
+| `(14,4) GEARBOX / ABS DRIVE OPEN LOAD, (CURRENT)` | `13.3` | gearbox/abs drive open load (Current) | matches |
+| `(20,2) TURBOCHARGER OVERBOOSTING, (LOGGED)` | `19.1` | turbocharger over boosting (Logged) | matches |
+| `(14,6) MIL LAMP DRIVE OPEN LOAD, (CURRENT)` | `13.5` | mil lamp drive open load (Current) | matches |
+| `(14,7) GLOWPLUG LAMP DRIVE OPEN LOAD, (CURRENT)` | `13.6` | ~~glow plug relay drive open load (Current)~~ | **corrected** |
+| `(10,3) TACHOMETER DRIVE OPEN LOAD, (CURRENT)` | `9.2` | tachometer open load (Logged) | state word differs |
+
+**`13.6` is renamed** "glowplug lamp drive open load (Current)", now **candidate**. Three
+things point the same way:
+- the tool's own screen says lamp;
+- the source list repeats "relay" at `13.6` and `13.7`, a visible copy error;
+- the logged twin `9.6` is "glow plug lamp drive open load".
+
+**`11.6` shows the same repeat** ("relay" at `11.6` and `11.7`). Its name is kept, because
+no screen shows that bit, but it is downgraded to **candidate** as suspect.
+
+**`(10,3)` tachometer** shows "(CURRENT)" in a row whose other entry on the same screen
+reads "(LOGGED)". This is one screen and may be a NanoCom quirk, so `9.2` is unchanged and
+the bit goes on T-29.
+
+The P-code P0380 (glow-plug circuit) was removed from `13.6`, because a lamp driver is not
+the plug circuit.
+
+> Side effect worth knowing: bytes 10/12 and 11/13 carry identical names in the source
+> list (for example `11.0` and `13.0` are both "air conditioning fan drive open load
+> (Current)"). A decoded fault string therefore does not tell those two bits apart, and a
+> name lookup resolves to one of them. This was not changed here.
 
 ## Unnamed bits — backlog for on-car / NanoCom confirmation
 

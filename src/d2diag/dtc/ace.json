@@ -108,6 +108,15 @@
     "confidence": "candidate"
   },
   {
+    "key": "flat-41-07",
+    "name": "Sensor supply voltage out of range",
+    "description": "ACE fault flat-41-07: Sensor supply voltage out of range.",
+    "cause": "ACE codes are known to be misleading on some tools: confirm with live pressure and valve currents (pressure transducer first) before replacing parts.",
+    "system": "suspension (ACE)",
+    "source": "references/ace_fault_codes.md; https://www.landyzone.co.uk/land-rover/ace-fault-41-07.370993/",
+    "confidence": "candidate"
+  },
+  {
     "key": "flat-42-07",
     "name": "Hydraulic pressure too low",
     "description": "ACE fault flat-42-07: Hydraulic pressure too low.",

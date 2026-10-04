@@ -111,7 +111,7 @@
     "13.3": "gearbox/abs drive open load (Current)",
     "13.4": "air conditioning clutch open load (Current)",
     "13.5": "mil lamp drive open load (Current)",
-    "13.6": "glow plug relay drive open load (Current)",
+    "13.6": "glowplug lamp drive open load (Current)",
     "13.7": "glowplug relay drive open load (Current)",
     "14.1": "high speed crank (Logged)",
     "15.1": "high speed crank (Logged)",
@@ -215,6 +215,8 @@
     "34.5": "inj. 6 partial short circuit (Logged)"
   },
   "candidate": [
+    "11.6",
+    "13.6",
     "20.7"
   ]
 }
