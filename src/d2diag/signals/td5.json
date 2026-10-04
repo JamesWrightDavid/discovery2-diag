@@ -234,7 +234,7 @@
       0.0,
       5.1
     ],
-    "source": "21 1B@4 u16/1000 V; accelerator pedal track 3. PROVEN in the car 2026-08-20: moves 0→2.23 V on application → the car is Euro 3 (NNN). Mirrors way1/way2. CORRECTED 2026-10-04 (T-31 pedal sweep, long 21 1B form): @4 = track 3, falls 4.63 -> 3.50 -> 1.37 V (rest/half/full), mirroring track 2. The 2026-08 '0 -> 2.23 V' reading was the pedal PERCENT (now @6) in the short form, which carries no track 3.",
+    "source": "21 1B@4 u16/1000 V; accelerator pedal track 3. PROVEN in the car 2026-08-20: moves 0→2.23 V on application → the car is Euro 3 (NNN). Mirrors way1/way2. CORRECTED 2026-10-04 (T-31 pedal sweep, long 21 1B form): @4 = track 3, falls 4.63 -> 3.50 -> 1.37 V (rest/half/full), mirroring track 2. The 2026-08 '0 -> 2.23 V' reading (RDL 016, short form, no track 3) was the pedal PERCENT.",
     "label": "Pedal track 3",
     "group": "Accelerator",
     "description": "Pedal track 3 — Euro 3 only; reads 0 on Euro 2.",
@@ -578,7 +578,7 @@
     "bias": 0.0,
     "unit": "kg/hr",
     "confidence": "proven",
-    "source": "21 1C@4 = PHYSICAL MAF sensor (hot-film, 3-wire). Faulted on RDL016 (reads 0/stuck) — logged RAW to confirm whether it EVER responds to airflow, vs the 1D@4 MODELLED air mass. Separate upstream IAT feeds the model. 2026-08-29. UPDATE 2026-10-04: after the Td5 fault clear the sensor came alive. Stationary revs in P: idle 760rpm/1.04bar -> 478, 1575/1.09 -> 1143, 2600/1.29 -> 2154 (repeat 2119-2147): proportional to rpm x MAP (ratio 0.61/0.67/0.64). Scale x0.1 kg/h (BinOwl_Td5Gauge) gives 48/114/215 kg/h, physically plausible for 2.5 L (theoretical ~62/~260 at VE 0.9). Earlier zeros = sensor faulted. Field identity strong; scale from the reference + physics. Re-read through the decoder on the car 2026-10-04 after a dashboard restart: idle 47.5 kg/h (1.76 V), 2560 rpm 207-210 kg/h (3.41-3.43 V) vs modelled 213-218 -> proven (field identity; x0.1 scale per the reference + physics).",
+    "source": "21 1C@4 = PHYSICAL MAF sensor (hot-film, 3-wire). Faulted on RDL016 (reads 0/stuck) — logged RAW to confirm whether it EVER responds to airflow, vs the 1D@4 MODELLED air mass. Separate upstream IAT feeds the model. 2026-08-29. UPDATE 2026-10-04 on D2-JW (this fork's car, ECU NNN000130), whose sensor WORKS — non-zero at idle before and after the 15:46 fault clear; the dead/zero readings above were RDL 016's faulted sensor. Stationary revs in P: idle 760rpm/1.04bar -> 478, 1575/1.09 -> 1143, 2600/1.29 -> 2154 (repeat 2119-2147): proportional to rpm x MAP (ratio 0.61/0.67/0.64). Scale x0.1 kg/h (BinOwl_Td5Gauge) gives 48/114/215 kg/h, physically plausible for 2.5 L (theoretical ~62/~260 at VE 0.9). The zeros in older logs are RDL 016 (faulted MAF), a different car. Field identity strong; scale from the reference + physics. Re-read through the decoder on the car 2026-10-04 after a dashboard restart: idle 47.5 kg/h (1.76 V), 2560 rpm 207-210 kg/h (3.41-3.43 V) vs modelled 213-218 -> proven (field identity; x0.1 scale per the reference + physics).",
     "label": "Air flow (measured)",
     "group": "Engine",
     "description": "Physical MAF sensor (1C@4), u16 x0.1 kg/h. Live once the 'air flow circuit' fault was cleared (2026-10-04).",
@@ -825,7 +825,7 @@
       "0": "released",
       "1": "pressed"
     },
-    "source": "21 1E byte0 bit0, active-high; differential 2026-10-03 on RDL016 (00 82 released / 01 02 pressed, 3x off 2x on, automap state solve). Second brake switch: identity vs brake-main by inference (flips together with byte1 bit7); re-read through the decoder on the car 2026-10-03 (held=0/1, released=1/0) -> proven",
+    "source": "21 1E byte0 bit0, active-high; differential 2026-10-03 on D2-JW (00 82 released / 01 02 pressed, 3x off 2x on, automap state solve). Second brake switch: identity vs brake-main by inference (flips together with byte1 bit7); re-read through the decoder on the car 2026-10-03 (held=0/1, released=1/0) -> proven",
     "label": "Brake switch (2nd)",
     "group": "Inputs",
     "description": "Second brake pedal switch (active-high)."
@@ -844,7 +844,7 @@
       "0": "pressed",
       "1": "released"
     },
-    "source": "21 1E byte1 bit7, active-low; differential 2026-10-03 on RDL016 (00 82 released / 01 02 pressed, 3x off 2x on). Matches SimonRafferty brake-main (0 = pressed); re-read through the decoder on the car 2026-10-03 (held=0/1, released=1/0) -> proven",
+    "source": "21 1E byte1 bit7, active-low; differential 2026-10-03 on D2-JW (00 82 released / 01 02 pressed, 3x off 2x on). Matches SimonRafferty brake-main (0 = pressed); re-read through the decoder on the car 2026-10-03 (held=0/1, released=1/0) -> proven",
     "label": "Brake switch (main)",
     "group": "Inputs",
     "description": "Main brake pedal switch (active-low: 0 = pressed)."
@@ -863,7 +863,7 @@
       "0": "off",
       "1": "on"
     },
-    "source": "21 1E byte0 bit2, active-high; differential 2026-10-04 on RDL016, engine off (master off 00 / on 04 / +SET 0C / +RESUME 14; each 3-4x on, released back to the prior state); re-read through the decoder on the car 2026-10-04 (master on=1 / off=0) -> proven",
+    "source": "21 1E byte0 bit2, active-high; differential 2026-10-04 on D2-JW, engine off (master off 00 / on 04 / +SET 0C / +RESUME 14; each 3-4x on, released back to the prior state); re-read through the decoder on the car 2026-10-04 (master on=1 / off=0) -> proven",
     "label": "Cruise master switch",
     "group": "Inputs",
     "description": "Cruise control master switch on the dash (latching)."
@@ -882,7 +882,7 @@
       "0": "released",
       "1": "pressed"
     },
-    "source": "21 1E byte0 bit3, active-high; differential 2026-10-04 on RDL016, engine off (master off 00 / on 04 / +SET 0C / +RESUME 14; each 3-4x on, released back to the prior state); re-read through the decoder on the car 2026-10-04 (SET held=1, released=0) -> proven",
+    "source": "21 1E byte0 bit3, active-high; differential 2026-10-04 on D2-JW, engine off (master off 00 / on 04 / +SET 0C / +RESUME 14; each 3-4x on, released back to the prior state); re-read through the decoder on the car 2026-10-04 (SET held=1, released=0) -> proven",
     "label": "Cruise SET",
     "group": "Inputs",
     "description": "Cruise SET button on the steering wheel (momentary)."
@@ -901,7 +901,7 @@
       "0": "released",
       "1": "pressed"
     },
-    "source": "21 1E byte0 bit4, active-high; differential 2026-10-04 on RDL016, engine off (master off 00 / on 04 / +SET 0C / +RESUME 14; each 3-4x on, released back to the prior state); re-read through the decoder on the car 2026-10-04 (RESUME held=1, released=0) -> proven",
+    "source": "21 1E byte0 bit4, active-high; differential 2026-10-04 on D2-JW, engine off (master off 00 / on 04 / +SET 0C / +RESUME 14; each 3-4x on, released back to the prior state); re-read through the decoder on the car 2026-10-04 (RESUME held=1, released=0) -> proven",
     "label": "Cruise RESUME",
     "group": "Inputs",
     "description": "Cruise RESUME button on the steering wheel (momentary)."
@@ -922,7 +922,7 @@
     "label": "Air flow sensor voltage",
     "group": "Engine",
     "description": "MAF sensor signal voltage (1C@6, mV). Candidate.",
-    "source": "21 1C@6 u16, 2026-10-04 stationary revs: idle 1800, 1500rpm 2700, 2600rpm 3440 -> 1.8/2.7/3.4 V, the non-linear curve of a hot-film MAF output, tracking 1C@4. Earlier captures read a constant 0x009C (0.156 V) while 'air flow circuit' was active = dead/open signal. Unit (mV) inferred from range and shape, not from a reference. Closes T-04 (not a reserved byte)."
+    "source": "21 1C@6 u16, 2026-10-04 stationary revs on D2-JW: idle 1800, 1500rpm 2700, 2600rpm 3440 -> 1.8/2.7/3.4 V, the non-linear curve of a hot-film MAF output, tracking 1C@4. RDL 016's captures read a constant 0x009C (0.156 V) with its 'air flow circuit' fault active = dead/open signal on that car. Unit (mV) inferred from range and shape, not from a reference. Closes T-04 (not a reserved byte)."
   },
   {
     "name": "accel_supply",
@@ -937,7 +937,7 @@
       4.9,
       5.1
     ],
-    "source": "21 1B@6 u16/1000 V (5V reference). Should sit rock-solid at 5.0 V ±0.1; a dip = short in the pedal wiring. Verified 5.01 V. MOVED 2026-10-04: the ECU now returns the LONG 21 1B form (0C 61 1B, 10 data bytes) in all 1929 replies since 2026-10-03; @6 reads 0 (spikes to 7.7 = not a voltage) while @8 sits at 4.94-5.02 V (median 4.978) through engine-off, idle and revs = the 5 V reference. The old @6 value (5.01 V, 2026-08) came from the short 12-byte form. Re-read through the decoder after a restart 2026-10-04 (engine idling): 4.98 V, status ok -> proven.",
+    "source": "21 1B@6 u16/1000 V (5V reference). Should sit rock-solid at 5.0 V ±0.1; a dip = short in the pedal wiring. Verified 5.01 V. MOVED 2026-10-04: the ECU now returns the LONG 21 1B form (0C 61 1B, 10 data bytes) in all 1929 replies since 2026-10-03; @6 reads 0 (spikes to 7.7 = not a voltage) while @8 sits at 4.94-5.02 V (median 4.978) through engine-off, idle and revs = the 5 V reference. The old @6 value (5.01 V, 2026-08) came from RDL 016's short 12-byte form — a different car/ECU, not a change in this ECU. D2-JW (NNN000130) sends the long form. Re-read through the decoder after a restart 2026-10-04 (engine idling): 4.98 V, status ok -> proven.",
     "label": "Pedal supply",
     "group": "Accelerator",
     "description": "5 V reference — rock-solid 5.0 V ±0.1.",
@@ -985,6 +985,6 @@
     "label": "Accelerator pedal",
     "group": "Engine",
     "description": "Accelerator pedal position as computed by the ECU, 0-100 % (21 1B@6 in the long form).",
-    "source": "21 1B@6 u16 x0.01 %, T-31 2026-10-04 (engine off, ign on): rest 0, half 4590 (45.9 %), full 10000 (100.0 %), 3 reads each; rev holds earlier peaked 7746 (77.5 %). Not a voltage (10.000 at full). In the short 2026-08 form this value sat at @4 (recorded then as 'way3 0 -> 2.23 V'). Re-read through the decoder after a restart: rest 0.0 %, full 100.0 % (3 reads) -> proven."
+    "source": "21 1B@6 u16 x0.01 %, T-31 2026-10-04 (engine off, ign on): rest 0, half 4590 (45.9 %), full 10000 (100.0 %), 3 reads each; rev holds earlier peaked 7746 (77.5 %). Not a voltage (10.000 at full). In RDL 016's short form (2026-08, a different ECU) this value sat at @4 (recorded then as 'way3 0 -> 2.23 V'). Re-read through the decoder after a restart: rest 0.0 %, full 100.0 % (3 reads) -> proven."
   }
 ]

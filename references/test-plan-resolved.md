@@ -20,8 +20,9 @@ with the date and the outcome. Newest first.
   (track 1), `@2` 4.33/2.85/1.33 V (track 2), `@4` 4.63/3.50/1.37 V (**track 3**), `@6`
   0/4590/10000 = **pedal position x0.01 %** (0 / 45.9 / 100.0), `@8` 4.98 V steady (**supply**).
   `accel_supply` moved to `@8` (it read 0 V at `@6`; 1929 replies 4.94-5.02 V), new `accel_pedal_pct`,
-  both re-read through the decoder -> proven. The 2026-08 SHORT form had no track 3: its `@4`
-  "track 3, 0 -> 2.23 V" was the pedal percent. Why the ECU switched to the long form is open.
+  both re-read through the decoder -> proven. The SHORT form is RDL 016's (2026-08, a different
+  car and ECU variant — MSB per BinOwl's heuristic); it has no track 3, and its `@4` "track 3, 0 -> 2.23 V"
+  was the pedal percent. D2-JW's NNN000130 sends the long (NNN) form: nothing switched.
   Also: `fuel_pump_relay` (`21 36` byte1 bit2) proven when the ignition-on prime ended exactly as
   the owner heard the pump stop; `25.3` is Current again alongside `25.5` after a power cycle.
 - **2026-10-04 (afternoon) — `21 36` does not show forced outputs; fuel pump relay bit candidate.**
@@ -44,13 +45,13 @@ with the date and the outcome. Newest first.
   13155, released 42449) -> **proven** as a brake signal; physical meaning/scale open. This replaces the earlier "`48` wanders,
   analog, not a switch" reading, which had been taken with the brake held.
 - **2026-10-04 (afternoon) — T-01/T-04: the measured MAF is `21 1C`@4; `1C`@6 is its voltage.**
-  Engine idling, P, handbrake on, after the Td5 fault memory was cleared at 16:46 (dashboard). The
-  long-dead sensor came alive: stationary holds idle / 1500 / 2600 rpm gave `1C`@4 = 478 / 1143 /
+  Engine idling, P, handbrake on, on D2-JW (this fork's car). Its sensor works — non-zero at idle
+  before and after the 16:46 fault clear; the old dead-MAF readings were RDL 016's (another car): stationary holds idle / 1500 / 2600 rpm gave `1C`@4 = 478 / 1143 /
   2154 (repeat 2119-2147), proportional to rpm x MAP (ratio 0.61/0.67/0.64), and `1C`@6 = 1800 /
   2700 / 3440. `maf_sensor` rescaled to u16 x0.1 kg/h (BinOwl; 48/114/215 kg/h, plausible for 2.5 L)
   and re-read through the decoder after a restart (47.5 kg/h idle, 207-210 kg/h at 2560 rpm) ->
-  `proven`. `maf_sensor_v` = `1C`@6 mV added as candidate (1.8/2.7/3.4 V hot-film curve; the old
-  constant `0x009C` = 0.16 V was the faulted signal) — so `1C`@6 is not reserved. The modelled
+  `proven`. `maf_sensor_v` = `1C`@6 mV added as candidate (1.8/2.7/3.4 V hot-film curve; RDL 016's
+  constant `0x009C` = 0.16 V was its faulted signal) — so `1C`@6 is not reserved. The modelled
   `maf` (`1D`@4, calibrated) agrees above idle (113/225 vs 114/215) but overstates idle (84 vs 48).
   The faults: only `25.5` (Current) came back after the clear; the logged `21.3`/`21.5` did not.
   **A/C at idle:** temperature LO, fan 1 on a cool day — no request (`1E` byte1 bit3 steady,
@@ -84,7 +85,7 @@ with the date and the outcome. Newest first.
   From the 2026-10-04 read (raw log gitignored). Text is ASCII and numbers are **packed BCD**, which
   matches the part-number form `NNN000120` in the factory tool's menu ([menus/td5.md](menus/td5.md)).
   Offsets are into the data after `5A <opt>`; frame checksums verify.
-  - `1A 9A` (6 bytes): `4E 4E 4E` "NNN" + BCD `00 01 30` -> **ECU part number `NNN000130`** (RDL 016).
+  - `1A 9A` (6 bytes): `4E 4E 4E` "NNN" + BCD `00 01 30` -> **ECU part number `NNN000130`** (D2-JW).
   - `1A 87` (46 bytes): @0-10 ASCII = first 11 VIN characters; @11-13 = 3 BCD bytes, most likely the
     6-digit VIN serial (**candidate** — check against the VIN plate before trusting); @14 `00`;
     @15-18 BCD `14 11 20 02` = **14/11/2002** (candidate: build or programming date, consistent with
