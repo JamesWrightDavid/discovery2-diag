@@ -5,7 +5,7 @@ status: draft
 version: 1.2
 updated: 2026-10-04
 summary: >
-  ACE fault codes in three display schemes (NanoCom component-grouped XX-YY as on this car, NanoCom flat list keyed flat-XX-YY, Hawkeye/Testbook DTC nn), compiled from first-hand forum pages as candidate; raw block offsets not yet mapped, and NanoCom ACE texts are known to mislead.
+  ACE fault codes in three display schemes (NanoCom component-grouped XX-YY as on RDL 016's read, NanoCom flat list keyed flat-XX-YY, Hawkeye/Testbook DTC nn), compiled from first-hand forum pages as candidate; raw block offsets not yet mapped, and NanoCom ACE texts are known to mislead.
 ---
 
 # Discovery 2 ACE — fault codes
@@ -19,7 +19,9 @@ capture.
 
 **Display codes documented; raw block offsets not yet mapped.** A one-shot fault block was
 captured (`67 67 11 e0 e0 f0 f0 00 00 00 1a 00 00 08 09 80 92 00 00`) while the reference
-tool showed `04-02`, `04-04`, `04-05` and `06-01` on this car. See
+tool showed `04-02`, `04-04`, `04-05` and `06-01` on RDL 016 (the original author's car).
+On **D2-JW** (this fork's car) no ACE module answered the 2026-10-04 address sweep, so
+whether it has ACE fitted is open. See
 [other-modules.md](../docs/discovery-2-td5/other-modules.md). The byte-doubling question has
 to be settled before any offset is trusted, so no bit is mapped here.
 
@@ -35,8 +37,8 @@ So the families may be the screen and the export of one tool, rather than two fi
 That one report does not give the screen's text, so it cannot link any code pair.
 
 - **Component-grouped `XX-YY`** (stored as plain `XX-YY`): `01` accelerometers, `03` pressure
-  control valve, `04` direction control valves, `06` hydraulic pressure. **This is what this
-  car's NanoCom showed** (`04-02`, `04-04`, `04-05`, `06-01`), so it owns the plain keys. Our
+  control valve, `04` direction control valves, `06` hydraulic pressure. **This is what RDL
+  016's NanoCom showed** (`04-02`, `04-04`, `04-05`, `06-01`), so it owns the plain keys. Our
   repo writes these as `004-02`; the store uses the two-digit form.
 - **Flat list `XX-YY`** (stored as `flat-XX-YY`, for example `flat-20-04`). In it, `XX` looks
   like the Hawkeye DTC number:

@@ -78,7 +78,7 @@ bit `Y-1`**. Three independent checks support this:
      (https://www.landyzone.co.uk/land-rover/nanocom-fault-code-17-2.338410/);
    - `(25,8)` injector trim data corrupted (Current) → `24.7`
      (https://www.defender2.net/forum/post967555.html).
-3. **This car.**
+3. **RDL 016 (the original author's car).**
    - The 2026-08-07 baseline read showed `001-07` and `004-01` on the reference tool, and
      the 2026-08-08 raw sniff decoded bits `0.6` (air flow, Logged Low) and `3.0` (IAT,
      Logged High). Those are exactly `(1-1).(7-1)` and `(4-1).(1-1)`.
@@ -170,9 +170,16 @@ from NanoCom's word alone.
 | 26–29 | 7 (after the topside-switch bit) |
 | 30–34 | 6, 7 |
 
-Seen set on this car with no name:
-- `byte18.bit6` (raw sniff 2026-08-08, below);
-- `byte15.bit7`, reported by the owner.
+Seen set with no name. Two cars; keep their evidence apart (see `docs/README.md`):
+- **D2-JW** (this fork's car, 2026-10-04): `25.3` and `25.5` (Current) persist across power
+  cycles, with their Logged copies `21.3` and `21.5`. Their named neighbours in bytes 21/25
+  are all cruise faults, so these are probably cruise-group faults. The forum `X-Y` codes
+  are `(22,4)`, `(22,6)`, `(26,4)` and `(26,6)`. `14.4`, `15.5` and `15.6` were set before
+  the 16:46 fault clear and have not returned
+  ([test-plan-resolved.md](test-plan-resolved.md)).
+- **RDL 016:** `18.6` (raw sniff 2026-08-08, below).
+- `15.7` was named in the owner's brief for this work, but no session note records it. It may
+  have been one of D2-JW's pre-clear bits; check before relying on it.
 
 A second research pass (2026-10-04) searched for each gap separately and found no name for
 any of them. Ekaitza's own table marks every one of these slots `fault_code_void`

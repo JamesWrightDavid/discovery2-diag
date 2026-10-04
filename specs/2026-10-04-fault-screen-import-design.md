@@ -14,7 +14,7 @@ summary: >
 ## Context
 
 The fault stores (`src/d2diag/dtc/`) hold many `candidate` entries from forum lists. Only a
-NanoCom screen read against the raw reply on this car can promote them (T-30). Today
+NanoCom screen read against the raw reply on the car being captured can promote them (T-30). Today
 `tools/nanocom_import.py` handles live-data `value` markers only. A fault screen would have
 to be matched to its raw frame by hand. This design adds that pairing. The owner approved
 the approach on 2026-10-04 ("agree, continue").

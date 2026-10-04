@@ -5,7 +5,7 @@
     "description": "Airbag (TRW SPS) fault 004: Airbag warning lamp circuit, open circuit.",
     "cause": "Read-only module: investigate the named circuit (connectors, rotary coupler, under-seat plugs); never actuate.",
     "system": "airbag (SRS)",
-    "source": "references/airbag_fault_codes.md; RDL 016 baseline read 2026-08-07 (docs/discovery-2-td5/fault-codes.md) showed \"warning lamp open circuit\" and \"LH pretensioner open circuit\"; raw re-read 2026-08-10 gave 004 + 022. Pairing by elimination, since 022 is the LH pretensioner. A P38 thread shows 004 with no circuit named: https://www.landyzone.co.uk/land-rover/srs-error-004-open-circuit.383085/",
+    "source": "references/airbag_fault_codes.md; RDL 016 baseline read 2026-08-07 (docs/discovery-2-td5/fault-codes.md) showed \"warning lamp open circuit\" and \"LH pretensioner open circuit\"; raw re-read 2026-08-10 gave 004 + 022. Pairing by elimination, since 022 is the LH pretensioner. A P38 thread shows 004 with no circuit named: https://www.landyzone.co.uk/land-rover/srs-error-004-open-circuit.383085/ ; also set on D2-JW (read 2026-10-04, `61 02 90 04 90 00`)",
     "confidence": "candidate"
   },
   {

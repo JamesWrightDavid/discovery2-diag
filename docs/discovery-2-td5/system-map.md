@@ -29,7 +29,7 @@ gateway — one module at a time, each released cleanly. Framing and init live i
 | Airbag | TRW SPS | `0x5B` addressed | 🟢 proven | 37 faults, settings | fault read (addressed framing) | verify decode on the car; stays **read-only** — [other-modules.md](other-modules.md) |
 | Gearbox | Bosch EAT (GS8.87) | `72`-framed | 🟢 proven | faults, limited live data | read/clear faults (payload unknown) | fault + payload decode, inputs — [other-modules.md](other-modules.md) |
 | Active roll | Lucas ACE | unresolved | 🟡 asserted | faults, live data, outputs, bleed | fault block isolated | address/init, faults, inputs (needs ACE enabled) — [other-modules.md](other-modules.md) |
-| Cruise | in the Td5 ECU (Hella is V8 only) | — | 🟡 vendor doc: no separate module on the Td5 | via Td5 faults, inputs, settings | Td5 cruise faults decoded | confirm nothing extra answers (T-26) — [cruise-control.md](cruise-control.md) |
+| Cruise | in the Td5 ECU (Hella is V8 only) | — | 🟢 no separate module: vendor doc + D2-JW address sweep (T-26) | via Td5 faults, inputs, settings | Td5 cruise faults decoded, cruise switches proven | decode the cruise-group bits `21.3/21.5/25.3/25.5` — [cruise-control.md](cruise-control.md) |
 | HEVAC, instrument pack, IDM | — | asserted only | 🔴 unconfirmed | not in the Td5 kit | nothing | address scan (T-26) to confirm or rule out; else read via BCU inputs |
 | Engine (petrol) | Bosch Motronic V8 | n/a on a Td5 | — | separate kit (NCOM04) | out of scope | roadmap — [rover-v8](../rover-v8/) |
 
