@@ -22,7 +22,8 @@ with the date and the outcome. Newest first.
   L=1, H/N=0 -> `transfer_low` **proven**, states `0 = high or neutral`, `1 = low range`. The crawl
   part of T-29 is no longer needed. **`21 48`:** brake released `0x96xx-0xA6xx` (P or N), pressed
   firmly `0x3A3A-0x401F`, back at once on release; the selector alone does not move it -> new
-  candidate `brake_analog` (raw u16, physical meaning open). This replaces the earlier "`48` wanders,
+  `brake_analog` (raw u16): re-read through the decoder after a restart (released 40519, pressed
+  13155, released 42449) -> **proven** as a brake signal; physical meaning/scale open. This replaces the earlier "`48` wanders,
   analog, not a switch" reading, which had been taken with the brake held.
 - **2026-10-04 (afternoon) — T-01/T-04: the measured MAF is `21 1C`@4; `1C`@6 is its voltage.**
   Engine idling, P, handbrake on, after the Td5 fault memory was cleared at 16:46 (dashboard). The

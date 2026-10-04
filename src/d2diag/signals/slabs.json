@@ -365,10 +365,10 @@
     "scale": 1.0,
     "bias": 0.0,
     "unit": "raw",
-    "confidence": "candidate",
+    "confidence": "proven",
     "label": "Brake signal (raw)",
     "group": "Inputs",
     "description": "Analogue brake-pedal signal on SLABS 21 48 (raw u16; falls when the pedal is pressed). Candidate, unscaled.",
-    "source": "21 48 u16, 2026-10-04 engine idling, stationary: brake released 0x96xx-0xA6xx (P and N alike), pressed firmly 0x3A3A-0x401F (sliding while held), back to 0x98xx-0x9Bxx immediately on release. Selector P/N alone does not move it. Analogue, not a switch; physical meaning (pressure vs travel) open, so unscaled. Earlier 'wanders on its own' = reads taken with the brake held."
+    "source": "21 48 u16, 2026-10-04 engine idling, stationary: brake released 0x96xx-0xA6xx (P and N alike), pressed firmly 0x3A3A-0x401F (sliding while held), back to 0x98xx-0x9Bxx immediately on release. Selector P/N alone does not move it. Analogue, not a switch; physical meaning (pressure vs travel) open, so unscaled. Earlier 'wanders on its own' = reads taken with the brake held. Re-read through the decoder on the car 2026-10-04 after a dashboard restart: released 40519, pressed 13155 (sliding to 15252 while held), released 42449 -> proven as a brake-pedal signal (raw; physical scale still open)."
   }
 ]
