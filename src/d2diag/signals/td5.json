@@ -234,7 +234,7 @@
       0.0,
       5.1
     ],
-    "source": "21 1B@4 u16/1000 V; accelerator pedal track 3. PROVEN in the car 2026-08-20: moves 0→2.23 V on application → the car is Euro 3 (NNN). Mirrors way1/way2.",
+    "source": "21 1B@4 u16/1000 V; accelerator pedal track 3. PROVEN in the car 2026-08-20: moves 0→2.23 V on application → the car is Euro 3 (NNN). Mirrors way1/way2. CAUTION 2026-10-04: in the LONG 21 1B form @4 is a NEW value (4.63 V at rest, falls with the pedal) and the old track 3 (0 V at rest) appears to sit at @6 — unconfirmed, see test_plan T-31.",
     "label": "Pedal track 3",
     "group": "Accelerator",
     "description": "Pedal track 3 — Euro 3 only; reads 0 on Euro 2.",
@@ -245,32 +245,6 @@
     "normal": [
       0.0,
       4.8
-    ]
-  },
-  {
-    "name": "accel_supply",
-    "lid": "1B",
-    "offset": 6,
-    "kind": "u16",
-    "scale": 0.001,
-    "bias": 0.0,
-    "unit": "V",
-    "confidence": "proven",
-    "limits": [
-      4.9,
-      5.1
-    ],
-    "source": "21 1B@6 u16/1000 V (5V reference). Should sit rock-solid at 5.0 V ±0.1; a dip = short in the pedal wiring. Verified 5.01 V.",
-    "label": "Pedal supply",
-    "group": "Accelerator",
-    "description": "5 V reference — rock-solid 5.0 V ±0.1.",
-    "span": [
-      4.8,
-      5.2
-    ],
-    "normal": [
-      4.9,
-      5.1
     ]
   },
   {
@@ -949,5 +923,31 @@
     "group": "Engine",
     "description": "MAF sensor signal voltage (1C@6, mV). Candidate.",
     "source": "21 1C@6 u16, 2026-10-04 stationary revs: idle 1800, 1500rpm 2700, 2600rpm 3440 -> 1.8/2.7/3.4 V, the non-linear curve of a hot-film MAF output, tracking 1C@4. Earlier captures read a constant 0x009C (0.156 V) while 'air flow circuit' was active = dead/open signal. Unit (mV) inferred from range and shape, not from a reference. Closes T-04 (not a reserved byte)."
+  },
+  {
+    "name": "accel_supply",
+    "lid": "1B",
+    "offset": 8,
+    "kind": "u16",
+    "scale": 0.001,
+    "bias": 0.0,
+    "unit": "V",
+    "confidence": "proven",
+    "limits": [
+      4.9,
+      5.1
+    ],
+    "source": "21 1B@6 u16/1000 V (5V reference). Should sit rock-solid at 5.0 V ±0.1; a dip = short in the pedal wiring. Verified 5.01 V. MOVED 2026-10-04: the ECU now returns the LONG 21 1B form (0C 61 1B, 10 data bytes) in all 1929 replies since 2026-10-03; @6 reads 0 (spikes to 7.7 = not a voltage) while @8 sits at 4.94-5.02 V (median 4.978) through engine-off, idle and revs = the 5 V reference. The old @6 value (5.01 V, 2026-08) came from the short 12-byte form. Re-read through the decoder after a restart 2026-10-04 (engine idling): 4.98 V, status ok -> proven.",
+    "label": "Pedal supply",
+    "group": "Accelerator",
+    "description": "5 V reference — rock-solid 5.0 V ±0.1.",
+    "span": [
+      4.8,
+      5.2
+    ],
+    "normal": [
+      4.9,
+      5.1
+    ]
   }
 ]

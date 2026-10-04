@@ -212,6 +212,11 @@ reference tool's **Settings → Feature/config** screen: all 21 ENABLED/DISABLED
 displayed order plus ECU Status. Read them off the screen; no sniff needed.
 
 #### T-31 `[key-on]` — `21 1B` pedal block changed layout: which slot is track 3 / supply? (NEXT parked test)
+**Supply settled 2026-10-04:** `accel_supply` moved to `@8` (4.94-5.02 V over 1929 replies,
+decoder re-read 4.98 V -> proven). The August short frame (`02 86 11 1C 00 00 13 92`) shows the long
+form inserts a value at `@4`: short @4 = track 3 (0 V at rest) now sits at `@6`. Remaining: confirm
+with the pedal sweep below which of `@4`/`@6` is "Way 3", and make the decoder pick the layout by
+reply length (needs a spec).
 **Why.** Every `21 1B` reply since 2026-10-03 is the LONG form `0C 61 1B` (10 data bytes); the
 store was built on the SHORT form (`0A 61 1B`, 8 bytes) from 2026-08. Today at rest (engine
 idling): `@0` 0.68 V, `@2` 4.32 V, `@4` 4.63 V, `@6` **0.00 V**, `@8` 4.98 V. The store reads
