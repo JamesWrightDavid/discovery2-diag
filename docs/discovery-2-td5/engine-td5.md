@@ -3,7 +3,7 @@ title: "Td5 Engine ECU (Lucas / Motorola)"
 area: docs
 status: stable
 version: 1.0
-updated: 2026-09-30
+updated: 2026-10-04
 summary: >
   Td5 Lucas engine ECU at 0x13: live data, faults, immobiliser status and actuator tests; the best-understood module.
 ---
@@ -140,6 +140,6 @@ an ordinary drive log with `tools/raw_analyze.py`.
 | ~~Injection quantity~~ **(resolved 🟢)** | `21 1D@6` u16 ÷100 → mg/stroke, **proven** by deliberate overrun lift-offs (2026-08-21): 11 idle / 24 load / **4.7 overrun** (fuel cut). Drives a live **fuel computer** (fuel_rate L/h, momentary/trip/lifetime economy); validated ~7.6 L/100 km. Only the ×0.01 *scale* stays 🟡 (forum-matched, not factory-cross-read). | — |
 | ~~EGR / wastegate position 37/38~~ **(resolved 🔴)** | `21 37 / 21 38` do **not** respond on RDL 016 — SimonRafferty's LIDs don't apply here. `21 20` is a constant too (not injection, contra SimonRafferty). | — |
 | Digital inputs / switches **(partial 🟡)** | `21 1E` confirmed to carry switch bits; **`1E` byte0 bit0 = brake pedal** (proven — activated at every stop, 2026-08-21). `21 36` now polled too (second switch block per Ekaitza). A/C / handbrake / clutch not yet pinned. | A **dedicated stationary capture** (one switch at a time, no driving) to map each remaining bit cleanly. |
-| VIN / ECU identity | `1A 87` VIN, `1A 9A` ECU type (from Ekaitza). | Add the read; confirm the format. |
+| VIN / ECU identity **(partial 🟡)** | Read 2026-10-04: `1A 9A` = ECU part number (ASCII `NNN` + BCD, RDL 016 `NNN000130`); `1A 87` = VIN text + BCD serial, a BCD date and `NNW` software number (layout in [test-plan-resolved](../../references/test-plan-resolved.md)). | Add a stack method + decoder; identify `1A 87`@26-31 and `9B`/`9C`. |
 | Other `1D` / `1E` / `1F` / `20` bytes | Respond and some move with rpm. | Map against known values. |
 | `maf_raw` (1C@4) meaning | Constant ~48 off / 0 running. | Identify what this status field actually is. |

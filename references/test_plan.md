@@ -3,7 +3,7 @@ title: "Test backlog — the living plan for what to do next in the car"
 area: references
 status: stable
 version: 1.1
-updated: 2026-10-01
+updated: 2026-10-04
 summary: >
   Living backlog of what to test next in the car or with a borrowed tool, each item with context tag, procedure and pre-written decision rule; Resolved log.
 ---
@@ -154,7 +154,9 @@ control in the same session, means the frame is wrong for this ECU: record it an
 ### P2 — Td5 read-only additions (cheap, no risk)
 
 #### T-06 `[key-on]` — ECU identification `1A xx`
-We never read `1A`. Ekaitza gives `1A 87` = VIN, `1A 9A` = ECU type, `1A 9B/9C` = further
+**Progress 2026-10-04:** read and largely decoded (see test-plan-resolved). Open: `1A 87`@26-31,
+`9B`/`9C` meaning, confirm the BCD serial against the VIN plate.
+Original note: we never read `1A`. Ekaitza gives `1A 87` = VIN, `1A 9A` = ECU type, `1A 9B/9C` = further
 IDs. Read all four once, note the framing and lengths.
 ⚠️ **The response contains the VIN** — the raw log must be scrubbed before it goes
 anywhere public (`references/hex-PII` rule: hex-encoded VIN survives text scans).
@@ -174,8 +176,9 @@ injection offset from nominal (range ±0.000127 s), **3-4** = the same for end-o
 **Progress 2026-10-03 (brake DONE, rest open).** Brake settled on RDL016: `21 1E` byte1 bit7
 = `brake_main` (active-low, 0 = pressed) and byte0 bit0 = `brake_switch_2` (active-high); both
 `proven` in the store. Byte0 bit5 (the bit seen moving earlier) is NOT the brake. `21 36` did not
-move with the brake. Still open: clutch, cruise master/set/resume, A/C request, transfer
-high/low, and the identity of byte0 bit5.
+move with the brake. Cruise master/set/resume done 2026-10-04 (byte0 bits 2/3/4, Simon's map
+confirmed; `proven`). Still open: clutch (n/a on this automatic), A/C request, transfer
+high/low, and the identity of byte1 bit5 (flickers on its own; Simon calls it the security link).
 **Reframe (Simon app, 2026-10-01):** `0x1E` is the **driver switch** bitfield and `0x36` is
 the **relay / output status** bitfield (NOT "both switch fields" as previously assumed).
 `1E` toggles `00 CA`↔`00 EA` (bit `0x20` = byte0 bit5); `36` sat constant `00 0D`.
@@ -271,6 +274,9 @@ Log Td5 `speed` alongside to see where SLABS drops and whether bit2 stays set wh
 ### P4 — Other modules
 
 #### T-16 `[key-on]` — BCU: map the read-only auth boundary
+**Done 2026-10-04 (inputs):** every input LID answers positive but all-zero and never moves
+(door, handbrake) — inputs are masked until SecurityAccess. See test-plan-resolved. The tool
+below exists (`tools/bcu_scan.py`) but deliberately omits the seed fetch and `21 CC`.
 **Question.** How much of the BCU is legible **without** SecurityAccess? First contact,
 address `0x40`, keybytes `E5 8F`, EKA-behind-SA and the rolling seed are all already
 settled (see Resolved and `references/valeo_bcu_capabilities.md`) — the seed→key is

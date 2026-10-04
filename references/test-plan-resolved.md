@@ -15,6 +15,39 @@ summary: >
 Companion to [test_plan.md](test_plan.md). When an open test is settled, move it here
 with the date and the outcome. Newest first.
 
+- **2026-10-04 — T-16 BCU inputs are blanked without SecurityAccess (read-only boundary mapped).**
+  Ignition off -> on, engine off. New `tools/bcu_scan.py` (logic `d2diag.bcu.scan`): 5-baud `0x40`
+  -> `E5 8F` first try, then `21 D8`..`E9`, `2C`, `2D` (20 LIDs) twice each in shuffled order,
+  keepalive `3E 01` between scans; no `27` and no `21 CC` (refused in code). Every LID answers a
+  **positive, checksum-valid** `61 <lid> 00 00 00 00` — not `7F 21 33` — and the payload never
+  moves: baseline (handbrake on, doors shut), driver door open, handbrake off all read identical
+  zeros. With the ignition on, a real input block cannot be all-zero, so the BCU **masks its inputs
+  with zeros until unlocked** (a silent gate, unlike an NRC). Conclusion: no free live body data
+  from the BCU; handbrake, bonnet and door inputs stay unreachable on our side without the Valeo
+  seed->key (T-27/T-28). Settings LIDs (`21 C6..EB`) were not read.
+- **2026-10-04 — T-06 Td5 identity `1A` blocks decoded (layout; VIN digits kept out).**
+  From the 2026-10-04 read (raw log gitignored). Text is ASCII and numbers are **packed BCD**, which
+  matches the part-number form `NNN000120` in the factory tool's menu ([menus/td5.md](menus/td5.md)).
+  Offsets are into the data after `5A <opt>`; frame checksums verify.
+  - `1A 9A` (6 bytes): `4E 4E 4E` "NNN" + BCD `00 01 30` -> **ECU part number `NNN000130`** (RDL 016).
+  - `1A 87` (46 bytes): @0-10 ASCII = first 11 VIN characters; @11-13 = 3 BCD bytes, most likely the
+    6-digit VIN serial (**candidate** — check against the VIN plate before trusting); @14 `00`;
+    @15-18 BCD `14 11 20 02` = **14/11/2002** (candidate: build or programming date, consistent with
+    the VIN's model-year code for 2003); @19 `00`; @20-25 "NNW" + BCD `50 01 40` -> **`NNW500140`**
+    (NNW = Td5 software/tune prefix; candidate meaning); @26-35 `00 00 00 00 41 90 00 58 00 40`
+    unknown; @36-45 `00 00 00 00 FF FF FF FF FF FF` padding.
+  - `1A 9B` -> `01`, `1A 9C` -> `01`: one byte each, meaning open.
+  Still open: the bytes at `1A 87`@26-31, the `9B`/`9C` meaning, and where the factory tool's
+  Config/Fuel Tune IDs and Homologation come from (not in these four blocks).
+- **2026-10-04 — Td5 cruise switches mapped on `21 1E` byte0 (T-08 partial).**
+  Key-on, engine off. Differential: master off `00` / on `04`; master + SET held `0C`; master +
+  RESUME held `14`; 3-4 reads each, and every release returned to the prior state. So bit2 =
+  `cruise_master`, bit3 = `cruise_set`, bit4 = `cruise_resume` (all active-high), confirming
+  SimonRafferty's hypothesis. Re-read through the decoder after a dashboard restart
+  (master/set/resume: SET held 1/1/0, RESUME held 1/0/1, master off 0/0/0, 3x each) -> `proven`.
+  The first SET hold did not register (press not fully home), so a no-change on a momentary
+  button is not a negative until repeated. `21 36` never moved. The checksum fix holds on the
+  car (`1E` now returns 2 bytes, `00 82`).
 - **2026-10-04 — `0x18` is a generic OBD-II (ISO 9141-2) responder, likely the EAT gearbox.**
   Key-on, engine off, read-only (`/home/admin/d2tools/probe18.py`; raw log gitignored). 5-baud
   `0x18` -> `55 08 08`, `~KW2` `F7` -> `~addr` `E7`. The EAT factory-tool frames (`72 05 04 00 73`
