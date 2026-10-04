@@ -234,7 +234,7 @@
       0.0,
       5.1
     ],
-    "source": "21 1B@4 u16/1000 V; accelerator pedal track 3. PROVEN in the car 2026-08-20: moves 0→2.23 V on application → the car is Euro 3 (NNN). Mirrors way1/way2. CAUTION 2026-10-04: in the LONG 21 1B form @4 is a NEW value (4.63 V at rest, falls with the pedal) and the old track 3 (0 V at rest) appears to sit at @6 — unconfirmed, see test_plan T-31.",
+    "source": "21 1B@4 u16/1000 V; accelerator pedal track 3. PROVEN in the car 2026-08-20: moves 0→2.23 V on application → the car is Euro 3 (NNN). Mirrors way1/way2. CORRECTED 2026-10-04 (T-31 pedal sweep, long 21 1B form): @4 = track 3, falls 4.63 -> 3.50 -> 1.37 V (rest/half/full), mirroring track 2. The 2026-08 '0 -> 2.23 V' reading was the pedal PERCENT (now @6) in the short form, which carries no track 3.",
     "label": "Pedal track 3",
     "group": "Accelerator",
     "description": "Pedal track 3 — Euro 3 only; reads 0 on Euro 2.",
@@ -968,5 +968,23 @@
     "group": "Outputs",
     "description": "Fuel pump relay status as commanded by the ECU (21 36 byte1 bit2). Candidate.",
     "source": "21 36 byte1 bit2: engine off/ign on 00 01 (2026-10-03/04, many reads) vs engine running 00 05 (2026-10-04, hundreds of reads) = SimonRafferty's fuel-pump bit. One state change observed (engine start), not an actuation; candidate. NB: 21 36 does NOT reflect IOControl output tests (A/C clutch/fan, MIL, gauges fired 2026-10-04; MIL lit ~1 s, a read 0.2 s into it still 00 05), so the bits can only be mapped from the ECU's own relay decisions. PROVEN 2026-10-04 through the decoder: ignition on (engine off) after a reboot read 1 while the pump primed, then 0 at ~17:53:30 exactly when the owner heard the pump stop (raw 00 05 -> 00 01); running engine reads 1."
+  },
+  {
+    "name": "accel_pedal_pct",
+    "lid": "1B",
+    "offset": 6,
+    "kind": "u16",
+    "scale": 0.01,
+    "bias": 0.0,
+    "unit": "%",
+    "confidence": "proven",
+    "limits": [
+      0,
+      100
+    ],
+    "label": "Accelerator pedal",
+    "group": "Engine",
+    "description": "Accelerator pedal position as computed by the ECU, 0-100 % (21 1B@6 in the long form).",
+    "source": "21 1B@6 u16 x0.01 %, T-31 2026-10-04 (engine off, ign on): rest 0, half 4590 (45.9 %), full 10000 (100.0 %), 3 reads each; rev holds earlier peaked 7746 (77.5 %). Not a voltage (10.000 at full). In the short 2026-08 form this value sat at @4 (recorded then as 'way3 0 -> 2.23 V'). Re-read through the decoder after a restart: rest 0.0 %, full 100.0 % (3 reads) -> proven."
   }
 ]

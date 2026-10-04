@@ -211,7 +211,10 @@ actions is unidentified — repeat. Ekaitza's ECU-pin map is background, not a b
 reference tool's **Settings → Feature/config** screen: all 21 ENABLED/DISABLED flags in
 displayed order plus ECU Status. Read them off the screen; no sniff needed.
 
-#### T-31 `[key-on]` — `21 1B` pedal block changed layout: which slot is track 3 / supply? (NEXT parked test)
+#### T-31 `[key-on]` — `21 1B` pedal block changed layout: which slot is track 3 / supply?
+**Answered 2026-10-04** (see test-plan-resolved): long form = way1 @0, way2 @2, way3 @4, pedal % @6,
+supply @8. Still open: why the ECU now sends the long form, and a decoder that picks the layout by
+reply length (needs a spec).
 **Supply settled 2026-10-04:** `accel_supply` moved to `@8` (4.94-5.02 V over 1929 replies,
 decoder re-read 4.98 V -> proven). The August short frame (`02 86 11 1C 00 00 13 92`) shows the long
 form inserts a value at `@4`: short @4 = track 3 (0 V at rest) now sits at `@6`. Remaining: confirm

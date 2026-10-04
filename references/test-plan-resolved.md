@@ -15,6 +15,15 @@ summary: >
 Companion to [test_plan.md](test_plan.md). When an open test is settled, move it here
 with the date and the outcome. Newest first.
 
+- **2026-10-04 (evening) — T-31: the long `21 1B` layout solved; pedal supply was a decode error.**
+  Engine off, ignition on, pedal swept rest / half / full (3 reads each): `@0` 0.68/2.21/3.77 V
+  (track 1), `@2` 4.33/2.85/1.33 V (track 2), `@4` 4.63/3.50/1.37 V (**track 3**), `@6`
+  0/4590/10000 = **pedal position x0.01 %** (0 / 45.9 / 100.0), `@8` 4.98 V steady (**supply**).
+  `accel_supply` moved to `@8` (it read 0 V at `@6`; 1929 replies 4.94-5.02 V), new `accel_pedal_pct`,
+  both re-read through the decoder -> proven. The 2026-08 SHORT form had no track 3: its `@4`
+  "track 3, 0 -> 2.23 V" was the pedal percent. Why the ECU switched to the long form is open.
+  Also: `fuel_pump_relay` (`21 36` byte1 bit2) proven when the ignition-on prime ended exactly as
+  the owner heard the pump stop; `25.3` is Current again alongside `25.5` after a power cycle.
 - **2026-10-04 (afternoon) — `21 36` does not show forced outputs; fuel pump relay bit candidate.**
   Engine idling. The owner fired the Td5 output tests A/C clutch (`30 A3`), A/C fan (`A4`), MIL (`A2`),
   rev counter (`B7`) and temp gauge (`BA`); every one acknowledged `70 xx`. The MIL lit for ~1 s, and a
