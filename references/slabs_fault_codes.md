@@ -2,10 +2,10 @@
 title: "Discovery 2 SLABS (Wabco) — fault code list"
 area: references
 status: stable
-version: 1.0
-updated: 2026-09-30
+version: 1.1
+updated: 2026-10-04
 summary: >
-  Numbered SLABS fault types (self-levelling and ABS) from a public source; up to 47 per the vendor guide.
+  Numbered SLABS fault types (self-levelling and ABS) from rswsolutions; its numbering is NOT the reference tool's (both car anchors disagree), so the store keys these rsw-NNN as candidate.
 ---
 
 # Discovery 2 SLABS (Wabco) — fault code list
@@ -19,6 +19,23 @@ rsw lists more numbered entries (012–114) — probably including link-/engine-
 > Just as for Td5, we must cross-validate **raw fault byte/bit ↔ number ↔ text**
 > by **sniffing the reference tool** while it reads SLABS fault codes (capture both the raw bytes
 > and the displayed code at the same time). Only then can the `d2diag` SLABS decoder be built.
+
+## ⚠️ rsw numbers are not the reference tool's numbers (2026-10-04)
+
+Both car-proven anchors contradict this list:
+
+| Reference tool on RDL 016 (raw bit proven) | rsw number for the same fault | rsw text at the tool's number |
+|---|---|---|
+| `020` right front wheel-speed sensor, output too low (byte 3 bit 4) | `044` | `020` = No Batt Supply Voltage |
+| `027` shuttle valve switch, electrical failure (byte 10 bit 4) | `114` | `027` = not in the list |
+
+So the store (`src/d2diag/dtc/slabs.json`) keys these entries `rsw-NNN`, as **candidate**.
+They keep the fault-type knowledge but can never be looked up by a tool number. Only the
+two anchors are keyed by tool number, as **proven**. Before this change, a live `020` was
+shown with the meaning "No Batt Supply Voltage", which was wrong.
+
+The four "Sensor — Bad Output" entries have no number in the rsw page text. "082" appears
+only in an image filename. They are not stored.
 
 ## Systematic structure (important clue)
 The codes are regular → the raw indices likely map systematically. Per **8 valves**

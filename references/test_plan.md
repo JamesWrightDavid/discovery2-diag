@@ -2,7 +2,7 @@
 title: "Test backlog — the living plan for what to do next in the car"
 area: references
 status: stable
-version: 1.1
+version: 1.2
 updated: 2026-10-04
 summary: >
   Living backlog of what to test next in the car or with a borrowed tool, each item with context tag, procedure and pre-written decision rule; Resolved log.
@@ -412,6 +412,30 @@ our own `27 01` → compute key → `27 02`, expecting `67 02`.
 **Decision rule.** A positive `67 02` proves the derived keygen; record that the algorithm
 is verified (not the key). An `invalidKey` (`7F 27 35`) means the derivation is wrong —
 back to T-27 with more pairs. Do not retry blindly (likely attempt counter/lockout).
+
+#### T-29 `[tool]` — Photograph every fault screen against its raw frame
+The fault stores hold forum-sourced codes as `candidate`. The sources are listed in
+[td5_fault_codes.md](td5_fault_codes.md), [slabs_fault_codes.md](slabs_fault_codes.md),
+[airbag_fault_codes.md](airbag_fault_codes.md),
+[autobox_fault_codes.md](autobox_fault_codes.md) and
+[ace_fault_codes.md](ace_fault_codes.md).
+
+During T-25, for each module's Faults – Read:
+- photograph the screen (code, text, state);
+- mark it `s <module>/faults`;
+- capture the raw reply: Td5 `61 3B`, SLABS `61 11`/`61 47`, airbag `61 02`, EAT `72 … 60`
+  and the ACE `67` block.
+
+Priorities:
+- Td5: the unnamed `byte15.bit7` and `byte18.bit6`, and re-read `001-07`, whose baseline
+  text contradicts its number.
+- Airbag: `004` and `022`.
+- ACE: `04-02`, `04-04`, `04-05` and `06-01`.
+
+**Decision rule.** A displayed code whose number and text match the raw bit or record
+promotes that store entry to `proven` (cite this test). A text that contradicts its stored
+entry is corrected and noted. An unnamed Td5 bit gets its name only from a screen that
+shows it.
 
 ---
 

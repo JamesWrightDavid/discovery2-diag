@@ -20,8 +20,8 @@ PARTIAL The fault record format is decoded. Settings/identification are document
 | **Function**     | **Hex**                                            | **Status / explanation**                                        |
 |------------------|----------------------------------------------------|-----------------------------------------------------------------|
 | Read fault class | 21 02 → 61 02 + \[status\]\[fault-number\] records | ESTABLISHED. Fault number matches the displayed value directly. |
-| Observed record  | 90 04                                              | Fault 004: Airbag warning lamp open circuit intermittent.       |
-| Observed record  | 90 16                                              | Fault 022: Left pretensioner open circuit intermittent.         |
+| Observed record  | 90 04                                              | Fault 004: Airbag warning lamp open circuit intermittent (candidate pairing — see references/airbag_fault_codes.md). |
+| Observed record  | 90 16                                              | Fault 022: Left pretensioner open circuit intermittent (candidate — see references/airbag_fault_codes.md). |
 | Other read class | 21 01                                              | Observed empty in the observation; exact class meaning open.    |
 | Clear faults     | 14 → 54                                            | ESTABLISHED; addressed KWP frame in the raw log.                |
 

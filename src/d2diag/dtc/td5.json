@@ -7,6 +7,7 @@
     "severity": "logged (low/short)",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0403"
   },
   {
@@ -17,6 +18,7 @@
     "severity": "logged (low/short)",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0243"
   },
   {
@@ -27,6 +29,7 @@
     "severity": "logged (low/short)",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0409"
   },
   {
@@ -36,7 +39,8 @@
     "cause": "Check the temperature gauge actuator, its vacuum/feedback and the wiring.",
     "severity": "logged (low/short)",
     "system": "cooling",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "0.4",
@@ -46,6 +50,7 @@
     "severity": "logged (low/short)",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0121"
   },
   {
@@ -56,6 +61,7 @@
     "severity": "logged (low/short)",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0221"
   },
   {
@@ -66,6 +72,7 @@
     "severity": "logged (low/short)",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0100"
   },
   {
@@ -76,6 +83,7 @@
     "severity": "logged (low/short)",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0105"
   },
   {
@@ -86,6 +94,7 @@
     "severity": "logged (low/short)",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0110"
   },
   {
@@ -96,6 +105,7 @@
     "severity": "logged (low/short)",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0180"
   },
   {
@@ -106,6 +116,7 @@
     "severity": "logged (low/short)",
     "system": "cooling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0115"
   },
   {
@@ -116,6 +127,7 @@
     "severity": "logged (low/short)",
     "system": "electrical",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0560"
   },
   {
@@ -126,6 +138,7 @@
     "severity": "logged (low/short)",
     "system": "electrical",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0641"
   },
   {
@@ -136,6 +149,7 @@
     "severity": "logged (low/short)",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0070"
   },
   {
@@ -146,6 +160,7 @@
     "severity": "logged (low/short)",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0641"
   },
   {
@@ -156,6 +171,7 @@
     "severity": "logged (low/short)",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P2227"
   },
   {
@@ -166,6 +182,7 @@
     "severity": "logged (high/open)",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0403"
   },
   {
@@ -176,6 +193,7 @@
     "severity": "logged (high/open)",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0243"
   },
   {
@@ -186,6 +204,7 @@
     "severity": "logged (high/open)",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0409"
   },
   {
@@ -195,7 +214,8 @@
     "cause": "Check the temperature gauge actuator, its vacuum/feedback and the wiring.",
     "severity": "logged (high/open)",
     "system": "cooling",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "2.4",
@@ -205,6 +225,7 @@
     "severity": "logged (high/open)",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0121"
   },
   {
@@ -215,6 +236,7 @@
     "severity": "logged (high/open)",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0221"
   },
   {
@@ -225,6 +247,7 @@
     "severity": "logged (high/open)",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0100"
   },
   {
@@ -235,6 +258,7 @@
     "severity": "logged (high/open)",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0105"
   },
   {
@@ -245,6 +269,7 @@
     "severity": "logged (high/open)",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0110"
   },
   {
@@ -255,6 +280,7 @@
     "severity": "logged (high/open)",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0180"
   },
   {
@@ -265,6 +291,7 @@
     "severity": "logged (high/open)",
     "system": "cooling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0115"
   },
   {
@@ -275,6 +302,7 @@
     "severity": "logged (high/open)",
     "system": "electrical",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0560"
   },
   {
@@ -285,6 +313,7 @@
     "severity": "logged (high/open)",
     "system": "electrical",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0641"
   },
   {
@@ -295,6 +324,7 @@
     "severity": "logged (high/open)",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0070"
   },
   {
@@ -305,6 +335,7 @@
     "severity": "logged (high/open)",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0641"
   },
   {
@@ -315,6 +346,7 @@
     "severity": "logged (high/open)",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P2227"
   },
   {
@@ -325,6 +357,7 @@
     "severity": "current",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0403"
   },
   {
@@ -335,6 +368,7 @@
     "severity": "current",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0243"
   },
   {
@@ -345,6 +379,7 @@
     "severity": "current",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0409"
   },
   {
@@ -354,7 +389,8 @@
     "cause": "Check the temperature gauge actuator, its vacuum/feedback and the wiring.",
     "severity": "current",
     "system": "cooling",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "4.4",
@@ -364,6 +400,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0121"
   },
   {
@@ -374,6 +411,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0221"
   },
   {
@@ -384,6 +422,7 @@
     "severity": "current",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0100"
   },
   {
@@ -394,6 +433,7 @@
     "severity": "current",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0105"
   },
   {
@@ -404,6 +444,7 @@
     "severity": "current",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0110"
   },
   {
@@ -414,6 +455,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0180"
   },
   {
@@ -424,6 +466,7 @@
     "severity": "current",
     "system": "cooling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0115"
   },
   {
@@ -434,6 +477,7 @@
     "severity": "current",
     "system": "electrical",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0560"
   },
   {
@@ -444,6 +488,7 @@
     "severity": "current",
     "system": "electrical",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0641"
   },
   {
@@ -454,6 +499,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0641"
   },
   {
@@ -464,6 +510,7 @@
     "severity": "current",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P2227"
   },
   {
@@ -473,7 +520,8 @@
     "cause": "Driver overloaded — check the circuit for a short or excessive current.",
     "severity": "logged",
     "system": "cruise control",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "6.1",
@@ -482,7 +530,8 @@
     "cause": "Driver overloaded — check the circuit for a short or excessive current.",
     "severity": "logged",
     "system": "fuelling",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "6.2",
@@ -492,6 +541,7 @@
     "severity": "logged",
     "system": "cooling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0480"
   },
   {
@@ -501,7 +551,8 @@
     "cause": "Driver overloaded — check the circuit for a short or excessive current.",
     "severity": "logged",
     "system": "engine",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "6.4",
@@ -511,6 +562,7 @@
     "severity": "logged",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0245"
   },
   {
@@ -521,6 +573,7 @@
     "severity": "logged",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0405"
   },
   {
@@ -531,6 +584,7 @@
     "severity": "logged",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0409"
   },
   {
@@ -540,7 +594,8 @@
     "cause": "Short in the actuator/injector or its harness — check wiring.",
     "severity": "logged",
     "system": "cooling",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "7.0",
@@ -549,7 +604,8 @@
     "cause": "Driver overloaded — check the circuit for a short or excessive current.",
     "severity": "logged",
     "system": "engine",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "7.1",
@@ -559,6 +615,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0230"
   },
   {
@@ -568,7 +625,8 @@
     "cause": "Driver overloaded — check the circuit for a short or excessive current.",
     "severity": "logged",
     "system": "engine",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "7.3",
@@ -577,7 +635,8 @@
     "cause": "Driver overloaded — check the circuit for a short or excessive current.",
     "severity": "logged",
     "system": "drivetrain",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "7.4",
@@ -586,7 +645,8 @@
     "cause": "Driver overloaded — check the circuit for a short or excessive current.",
     "severity": "logged",
     "system": "engine",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "7.5",
@@ -595,7 +655,8 @@
     "cause": "Driver overloaded — check the circuit for a short or excessive current.",
     "severity": "logged",
     "system": "electrical",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "7.6",
@@ -605,6 +666,7 @@
     "severity": "logged",
     "system": "electrical",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0380"
   },
   {
@@ -615,6 +677,7 @@
     "severity": "logged",
     "system": "electrical",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0380"
   },
   {
@@ -624,7 +687,8 @@
     "cause": "Open circuit — check the actuator and its wiring/connector.",
     "severity": "logged",
     "system": "fuelling",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "8.1",
@@ -633,7 +697,8 @@
     "cause": "Open circuit — check the actuator and its wiring/connector.",
     "severity": "logged",
     "system": "cruise control",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "8.2",
@@ -643,6 +708,7 @@
     "severity": "logged",
     "system": "cooling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0480"
   },
   {
@@ -652,7 +718,8 @@
     "cause": "Open circuit — check the actuator and its wiring/connector.",
     "severity": "logged",
     "system": "engine",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "8.4",
@@ -662,6 +729,7 @@
     "severity": "logged",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0244"
   },
   {
@@ -672,6 +740,7 @@
     "severity": "logged",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0404"
   },
   {
@@ -682,6 +751,7 @@
     "severity": "logged",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0409"
   },
   {
@@ -691,7 +761,8 @@
     "cause": "Open circuit — check the actuator and its wiring/connector.",
     "severity": "logged",
     "system": "cooling",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "9.0",
@@ -700,7 +771,8 @@
     "cause": "Open circuit — check the actuator and its wiring/connector.",
     "severity": "logged",
     "system": "engine",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "9.1",
@@ -710,6 +782,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0230"
   },
   {
@@ -719,7 +792,8 @@
     "cause": "Open circuit — check the actuator and its wiring/connector.",
     "severity": "logged",
     "system": "engine",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "9.3",
@@ -728,7 +802,8 @@
     "cause": "Open circuit — check the actuator and its wiring/connector.",
     "severity": "logged",
     "system": "drivetrain",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "9.4",
@@ -737,7 +812,8 @@
     "cause": "Open circuit — check the actuator and its wiring/connector.",
     "severity": "logged",
     "system": "engine",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "9.5",
@@ -746,7 +822,8 @@
     "cause": "Open circuit — check the actuator and its wiring/connector.",
     "severity": "logged",
     "system": "electrical",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "9.6",
@@ -756,6 +833,7 @@
     "severity": "logged",
     "system": "electrical",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0380"
   },
   {
@@ -766,6 +844,7 @@
     "severity": "logged",
     "system": "electrical",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0380"
   },
   {
@@ -775,7 +854,8 @@
     "cause": "Driver overloaded — check the circuit for a short or excessive current.",
     "severity": "current",
     "system": "cruise control",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "10.1",
@@ -784,7 +864,8 @@
     "cause": "Driver overloaded — check the circuit for a short or excessive current.",
     "severity": "current",
     "system": "fuelling",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "10.2",
@@ -794,6 +875,7 @@
     "severity": "current",
     "system": "cooling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0480"
   },
   {
@@ -803,7 +885,8 @@
     "cause": "Driver overloaded — check the circuit for a short or excessive current.",
     "severity": "current",
     "system": "engine",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "10.4",
@@ -813,6 +896,7 @@
     "severity": "current",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0245"
   },
   {
@@ -823,6 +907,7 @@
     "severity": "current",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0405"
   },
   {
@@ -833,6 +918,7 @@
     "severity": "current",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0409"
   },
   {
@@ -842,7 +928,8 @@
     "cause": "Short in the actuator/injector or its harness — check wiring.",
     "severity": "current",
     "system": "cooling",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "11.0",
@@ -851,7 +938,8 @@
     "cause": "Open circuit — check the actuator and its wiring/connector.",
     "severity": "current",
     "system": "engine",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "11.1",
@@ -861,6 +949,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0230"
   },
   {
@@ -870,7 +959,8 @@
     "cause": "Open circuit — check the actuator and its wiring/connector.",
     "severity": "current",
     "system": "engine",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "11.3",
@@ -879,7 +969,8 @@
     "cause": "Open circuit — check the actuator and its wiring/connector.",
     "severity": "current",
     "system": "drivetrain",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "11.4",
@@ -888,7 +979,8 @@
     "cause": "Open circuit — check the actuator and its wiring/connector.",
     "severity": "current",
     "system": "engine",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "11.5",
@@ -897,7 +989,8 @@
     "cause": "Open circuit — check the actuator and its wiring/connector.",
     "severity": "current",
     "system": "electrical",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "11.6",
@@ -907,6 +1000,7 @@
     "severity": "current",
     "system": "electrical",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0380"
   },
   {
@@ -917,6 +1011,7 @@
     "severity": "current",
     "system": "electrical",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0380"
   },
   {
@@ -926,7 +1021,8 @@
     "cause": "Driver overloaded — check the circuit for a short or excessive current.",
     "severity": "current",
     "system": "cruise control",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "12.1",
@@ -935,7 +1031,8 @@
     "cause": "Driver overloaded — check the circuit for a short or excessive current.",
     "severity": "current",
     "system": "fuelling",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "12.2",
@@ -945,6 +1042,7 @@
     "severity": "current",
     "system": "cooling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0480"
   },
   {
@@ -954,7 +1052,8 @@
     "cause": "Driver overloaded — check the circuit for a short or excessive current.",
     "severity": "current",
     "system": "engine",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "12.4",
@@ -964,6 +1063,7 @@
     "severity": "current",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0245"
   },
   {
@@ -974,6 +1074,7 @@
     "severity": "current",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0405"
   },
   {
@@ -984,6 +1085,7 @@
     "severity": "current",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0409"
   },
   {
@@ -993,7 +1095,8 @@
     "cause": "Short in the actuator/injector or its harness — check wiring.",
     "severity": "current",
     "system": "cooling",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "13.0",
@@ -1002,7 +1105,8 @@
     "cause": "Open circuit — check the actuator and its wiring/connector.",
     "severity": "current",
     "system": "engine",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "13.1",
@@ -1012,6 +1116,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0230"
   },
   {
@@ -1021,7 +1126,8 @@
     "cause": "Open circuit — check the actuator and its wiring/connector.",
     "severity": "current",
     "system": "engine",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "13.3",
@@ -1030,7 +1136,8 @@
     "cause": "Open circuit — check the actuator and its wiring/connector.",
     "severity": "current",
     "system": "drivetrain",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "13.4",
@@ -1039,7 +1146,8 @@
     "cause": "Open circuit — check the actuator and its wiring/connector.",
     "severity": "current",
     "system": "engine",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "13.5",
@@ -1048,7 +1156,8 @@
     "cause": "Open circuit — check the actuator and its wiring/connector.",
     "severity": "current",
     "system": "electrical",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "13.6",
@@ -1058,6 +1167,7 @@
     "severity": "current",
     "system": "electrical",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0380"
   },
   {
@@ -1068,6 +1178,7 @@
     "severity": "current",
     "system": "electrical",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0380"
   },
   {
@@ -1078,6 +1189,7 @@
     "severity": "logged",
     "system": "engine sensors",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0335"
   },
   {
@@ -1088,6 +1200,7 @@
     "severity": "logged",
     "system": "engine sensors",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0335"
   },
   {
@@ -1098,6 +1211,7 @@
     "severity": "current",
     "system": "engine sensors",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0335"
   },
   {
@@ -1108,6 +1222,7 @@
     "severity": "logged",
     "system": "comms (CAN)",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "U0001"
   },
   {
@@ -1118,6 +1233,7 @@
     "severity": "logged",
     "system": "comms (CAN)",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "U0001"
   },
   {
@@ -1128,6 +1244,7 @@
     "severity": "logged",
     "system": "engine sensors",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0335"
   },
   {
@@ -1138,6 +1255,7 @@
     "severity": "logged",
     "system": "comms (CAN)",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "U0001"
   },
   {
@@ -1148,6 +1266,7 @@
     "severity": "logged",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0299"
   },
   {
@@ -1158,6 +1277,7 @@
     "severity": "logged",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0234"
   },
   {
@@ -1168,6 +1288,7 @@
     "severity": "logged",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0402"
   },
   {
@@ -1178,6 +1299,7 @@
     "severity": "logged",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0401"
   },
   {
@@ -1188,6 +1310,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0121"
   },
   {
@@ -1198,6 +1321,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0221"
   },
   {
@@ -1208,6 +1332,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0120"
   },
   {
@@ -1218,7 +1343,19 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P2135"
+  },
+  {
+    "key": "20.7",
+    "name": "injector trim data corrupted (Logged)",
+    "description": "Injector trim data corrupted: stored injector classification codes are corrupt.",
+    "cause": "Re-enter the injector codes with a capable tool.",
+    "severity": "logged",
+    "system": "fuelling",
+    "source": "forum X-Y list 21-8 → offset.bit 20.7 (https://www.td5spy.co.za/td5_faults; mapping verified in references/td5_fault_codes.md); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "candidate",
+    "pcode": "P1633"
   },
   {
     "key": "21.0",
@@ -1228,6 +1365,7 @@
     "severity": "logged",
     "system": "engine sensors",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0500"
   },
   {
@@ -1237,7 +1375,8 @@
     "cause": "Cruise-control input/switch fault — check the stalk and brake/clutch switches.",
     "severity": "logged",
     "system": "cruise control",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "21.6",
@@ -1246,7 +1385,8 @@
     "cause": "Cruise-control input/switch fault — check the stalk and brake/clutch switches.",
     "severity": "logged",
     "system": "cruise control",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "21.7",
@@ -1255,7 +1395,8 @@
     "cause": "Cruise-control input/switch fault — check the stalk and brake/clutch switches.",
     "severity": "logged",
     "system": "cruise control",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "22.0",
@@ -1265,6 +1406,7 @@
     "severity": "current",
     "system": "comms (CAN)",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "U0001"
   },
   {
@@ -1275,6 +1417,7 @@
     "severity": "current",
     "system": "comms (CAN)",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "U0001"
   },
   {
@@ -1285,6 +1428,7 @@
     "severity": "current",
     "system": "comms (CAN)",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "U0001"
   },
   {
@@ -1295,6 +1439,7 @@
     "severity": "current",
     "system": "comms (CAN)",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "U0001"
   },
   {
@@ -1305,6 +1450,7 @@
     "severity": "current",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0299"
   },
   {
@@ -1315,6 +1461,7 @@
     "severity": "current",
     "system": "engine sensors",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0335"
   },
   {
@@ -1325,6 +1472,7 @@
     "severity": "current",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0299"
   },
   {
@@ -1335,6 +1483,7 @@
     "severity": "current",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0234"
   },
   {
@@ -1345,6 +1494,7 @@
     "severity": "current",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0234"
   },
   {
@@ -1355,6 +1505,7 @@
     "severity": "current",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0402"
   },
   {
@@ -1365,6 +1516,7 @@
     "severity": "current",
     "system": "engine air & boost",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0401"
   },
   {
@@ -1375,6 +1527,7 @@
     "severity": "current",
     "system": "drivetrain",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0700"
   },
   {
@@ -1385,6 +1538,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0121"
   },
   {
@@ -1395,6 +1549,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0221"
   },
   {
@@ -1405,6 +1560,7 @@
     "severity": "current",
     "system": "engine",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0120"
   },
   {
@@ -1415,6 +1571,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P2135"
   },
   {
@@ -1425,6 +1582,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P1633"
   },
   {
@@ -1435,6 +1593,7 @@
     "severity": "current",
     "system": "engine sensors",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0500"
   },
   {
@@ -1444,7 +1603,8 @@
     "cause": "Cruise-control input/switch fault — check the stalk and brake/clutch switches.",
     "severity": "current",
     "system": "cruise control",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "25.2",
@@ -1453,7 +1613,8 @@
     "cause": "Cruise-control input/switch fault — check the stalk and brake/clutch switches.",
     "severity": "current",
     "system": "cruise control",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "25.6",
@@ -1462,7 +1623,8 @@
     "cause": "Cruise-control input/switch fault — check the stalk and brake/clutch switches.",
     "severity": "current",
     "system": "cruise control",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "25.7",
@@ -1471,7 +1633,8 @@
     "cause": "Cruise-control input/switch fault — check the stalk and brake/clutch switches.",
     "severity": "current",
     "system": "cruise control",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "26.0",
@@ -1481,6 +1644,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0201"
   },
   {
@@ -1491,6 +1655,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0202"
   },
   {
@@ -1501,6 +1666,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0203"
   },
   {
@@ -1511,6 +1677,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0204"
   },
   {
@@ -1521,6 +1688,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0205"
   },
   {
@@ -1531,6 +1699,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0206"
   },
   {
@@ -1540,7 +1709,8 @@
     "cause": "See the workshop manual fault-finding for this circuit.",
     "severity": "logged",
     "system": "fuelling",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "27.0",
@@ -1550,6 +1720,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0201"
   },
   {
@@ -1560,6 +1731,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0202"
   },
   {
@@ -1570,6 +1742,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0203"
   },
   {
@@ -1580,6 +1753,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0204"
   },
   {
@@ -1590,6 +1764,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0205"
   },
   {
@@ -1600,6 +1775,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0206"
   },
   {
@@ -1609,7 +1785,8 @@
     "cause": "See the workshop manual fault-finding for this circuit.",
     "severity": "logged",
     "system": "fuelling",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "28.0",
@@ -1619,6 +1796,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0201"
   },
   {
@@ -1629,6 +1807,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0202"
   },
   {
@@ -1639,6 +1818,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0203"
   },
   {
@@ -1649,6 +1829,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0204"
   },
   {
@@ -1659,6 +1840,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0205"
   },
   {
@@ -1669,6 +1851,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0206"
   },
   {
@@ -1678,7 +1861,8 @@
     "cause": "See the workshop manual fault-finding for this circuit.",
     "severity": "current",
     "system": "fuelling",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "29.0",
@@ -1688,6 +1872,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0201"
   },
   {
@@ -1698,6 +1883,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0202"
   },
   {
@@ -1708,6 +1894,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0203"
   },
   {
@@ -1718,6 +1905,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0204"
   },
   {
@@ -1728,6 +1916,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0205"
   },
   {
@@ -1738,6 +1927,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0206"
   },
   {
@@ -1747,7 +1937,8 @@
     "cause": "See the workshop manual fault-finding for this circuit.",
     "severity": "current",
     "system": "fuelling",
-    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App"
+    "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven"
   },
   {
     "key": "30.0",
@@ -1757,6 +1948,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0201"
   },
   {
@@ -1767,6 +1959,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0202"
   },
   {
@@ -1777,6 +1970,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0203"
   },
   {
@@ -1787,6 +1981,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0204"
   },
   {
@@ -1797,6 +1992,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0205"
   },
   {
@@ -1807,6 +2003,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0206"
   },
   {
@@ -1817,6 +2014,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0201"
   },
   {
@@ -1827,6 +2025,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0202"
   },
   {
@@ -1837,6 +2036,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0203"
   },
   {
@@ -1847,6 +2047,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0204"
   },
   {
@@ -1857,6 +2058,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0205"
   },
   {
@@ -1867,6 +2069,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0206"
   },
   {
@@ -1877,6 +2080,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0201"
   },
   {
@@ -1887,6 +2091,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0202"
   },
   {
@@ -1897,6 +2102,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0203"
   },
   {
@@ -1907,6 +2113,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0204"
   },
   {
@@ -1917,6 +2124,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0205"
   },
   {
@@ -1927,6 +2135,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0206"
   },
   {
@@ -1937,6 +2146,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0201"
   },
   {
@@ -1947,6 +2157,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0202"
   },
   {
@@ -1957,6 +2168,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0203"
   },
   {
@@ -1967,6 +2179,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0204"
   },
   {
@@ -1977,6 +2190,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0205"
   },
   {
@@ -1987,6 +2201,7 @@
     "severity": "current",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0206"
   },
   {
@@ -1997,6 +2212,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0201"
   },
   {
@@ -2007,6 +2223,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0202"
   },
   {
@@ -2017,6 +2234,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0203"
   },
   {
@@ -2027,6 +2245,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0204"
   },
   {
@@ -2037,6 +2256,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0205"
   },
   {
@@ -2047,6 +2267,7 @@
     "severity": "logged",
     "system": "fuelling",
     "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; P-code ex SimonRafferty/Td5-Diagnostic-App",
+    "confidence": "proven",
     "pcode": "P0206"
   }
 ]

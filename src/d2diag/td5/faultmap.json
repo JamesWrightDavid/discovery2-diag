@@ -128,6 +128,7 @@
     "20.4": "driver demand 2 out of range (Logged)",
     "20.5": "problem detected with driver demand (Logged)",
     "20.6": "inconsistencies found with driver demand (Logged)",
+    "20.7": "injector trim data corrupted (Logged)",
     "21.0": "road speed missing (Logged)",
     "21.2": "vehicle accel. outside bounds of cruise control (Logged)",
     "21.6": "cruise control resume stuck closed (Logged)",
@@ -212,5 +213,8 @@
     "34.3": "inj. 4 partial short circuit (Logged)",
     "34.4": "inj. 5 partial short circuit (Logged)",
     "34.5": "inj. 6 partial short circuit (Logged)"
-  }
+  },
+  "candidate": [
+    "20.7"
+  ]
 }

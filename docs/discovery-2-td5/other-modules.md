@@ -111,7 +111,7 @@ blocks**, which is how we have anything at all.
   shape): settings `72 05 93 00 E4`, inputs-pressure `72 05 0B 00 7C`,
   inputs-general `72 05 0B 03 7F`, reset-adaptive `72 06 83 FF 07 08 FF`. All 🔴
   undecoded.
-- The fault dictionary side is better off: **39 RAVE P-codes** for this box are
+- The fault dictionary side is better off: the RAVE table (internal fault numbers 1–39) is now in `src/d2diag/dtc/autobox.json` as candidate, keyed `P-code-NN` — see [autobox_fault_codes.md](../../references/autobox_fault_codes.md). Originally **39 RAVE P-codes** for this box were
   compiled (official + forum-confirmed), ready to map once the payload structure
   is cracked.
 
@@ -142,7 +142,7 @@ rather than discrete LID reads.
 - Utility commands were seen: calibrate accelerometer 1 `15 15 FF`, accelerometer 2
   `16 16 FF`, set calibrated `10 10 00`. ⚠️ These **write calibration** — out of
   scope, listed only so they are recognised, never sent.
-- The fault-code dictionary side is compiled (ACE 0001–0048); `04-02/04/05` and
+- The fault-code dictionary side: first-hand NanoCom `XX-YY` and Hawkeye `DTC nn` codes are in `src/d2diag/dtc/ace.json` as candidate ([ace_fault_codes.md](../../references/ace_fault_codes.md)); the register holds ACE 0001–0048; `04-02/04/05` and
   `06-01` were seen on RDL 016 via the factory tool. Raw not yet sniffed by us.
 
 **Open questions:**
