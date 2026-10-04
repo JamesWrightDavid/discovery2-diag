@@ -1,88 +1,153 @@
-"""SLABS reference tool menu + our coverage — the single source for the reference/coverage page.
+"""SLABS NanoCom menu — what exists; the catalog derives how far we are.
 
-While sniffing: run → analyse → **update status/ref here** → repeat. The dashboard's
-"Map" tab renders this. status: "ok" (confirmed in code/decoding), "maybe"
-(likely, not verified), "todo" (not mapped yet). `ref` = LID/routine/command.
-Source of the menu: the owner's `Discovery 2/reference tool.txt`. See `references/reference_tool_menu_map.md`.
+Data model: see :mod:`d2diag.td5.menu` (ADR-0008). Items link a signal-store field
+(``sig``) or registry actions (``actions``); only unlinked items carry a hand ``status``.
+Keep item ``name`` strings and input group titles stable: the admin Map tab keys saved
+readings on ``module|cat|name``.
 
-Update 2026-08-08: full per-input sweep sniffed (session.log). **All input
-LIDs identified** — SLS analog `21 53/54/55`, ABS analog `21 43/44/49/50/57`,
-switches `21 42/48/56/58`. Hence `todo`→`maybe` for these (captured raw, offset/
-scale not isolated yet). `any-door` decoded (`21 56` byte0) via differential → `ok`.
+Sources: the owner's reference tool menu (``references/reference_tool_menu_map.md``), the
+vendor guide (``references/wabco_slabs_capabilities.md``) and the emulator tree
+(``references/nanocom/td5_menu_tree.md``). All input LIDs were identified by the
+2026-08-08 per-input sweep (SLS ``21 53/54/55``, ABS ``21 43/44/49/50/57``, switches
+``21 42/48/56/58``); offsets not isolated stay ``candidate``/``sniff`` by hand.
 """
 
 SLABS_MENU = [
-    {"cat": "Fault codes", "items": [
-        {"name": "Logged faults", "status": "ok", "ref": "21 11 (bit-per-fault)"},
-        {"name": "Current faults", "status": "ok", "ref": "21 47"},
-        {"name": "Clear faults", "status": "ok", "ref": "14 FF FF → 54"},
+    {"id": "faults", "page": "faults", "cat": "Fault codes", "nanocom": "slabs/faults", "items": [
+        {"id": "logged-faults", "name": "Logged faults", "status": "verified", "ref": "21 11 (bit-per-fault)"},
+        {"id": "current-faults", "name": "Current faults", "status": "verified", "ref": "21 47"},
+        {"id": "clear-faults", "name": "Clear faults", "status": "verified", "ref": "14 FF FF → 54"},
     ]},
-    {"cat": "Settings", "items": [
-        # 4 settings LIDs with STABLE raw bytes (RDL 016). ⚠️ Which LID = which
-        # setting (test status / transport / ECU calibrated / suspension) is NOT solved:
-        # two order-based labellings (2026-08-08 vs -09) contradict each other —
-        # the card order is not stable. Solution = DIFFERENTIAL: toggle ONE setting in
-        # the reference tool → see which of 45/46/49/59 has its raw byte change = that LID + the encoding.
-        {"name": "Settings 21 45 (1 byte)", "status": "maybe", "ref": "raw byte 7f — one of the 4 settings (pairing unsolved)", "lid": "45"},
-        {"name": "Settings 21 46 (2 byte)", "status": "maybe", "ref": "raw byte 78 76 — ditto", "lid": "46"},
-        {"name": "Settings 21 49 (3 byte)", "status": "maybe", "ref": "raw byte 00 00 01 — ditto", "lid": "49"},
-        {"name": "Settings 21 59 (4 byte)", "status": "maybe", "ref": "raw byte 00 0f 0f 0f — ditto", "lid": "59"},
-        {"name": "Left/Right stored height", "status": "todo",
-         "ref": "⚠️ 21 54 = LIVE height (149/161), NOT stored (149/149) — stored source not captured"},
+    {"id": "settings", "page": "settings", "cat": "Settings", "nanocom": "slabs/settings", "items": [
+        # 4 settings LIDs with STABLE raw bytes (RDL 016). Which LID = which setting (test
+        # status / transport / ECU calibrated / suspension) is NOT solved: two order-based
+        # labellings contradict each other. Solve by DIFFERENTIAL (toggle one setting).
+        {"id": "settings-45", "name": "Settings 21 45 (1 byte)", "status": "candidate",
+         "ref": "raw byte 7f — one of the 4 settings (pairing unsolved)", "lid": "45"},
+        {"id": "settings-46", "name": "Settings 21 46 (2 byte)", "status": "candidate",
+         "ref": "raw byte 78 76 — ditto", "lid": "46"},
+        {"id": "settings-49", "name": "Settings 21 49 (3 byte)", "status": "candidate",
+         "ref": "raw byte 00 00 01 — ditto", "lid": "49"},
+        {"id": "settings-59", "name": "Settings 21 59 (4 byte)", "status": "candidate",
+         "ref": "raw byte 00 0f 0f 0f — ditto", "lid": "59"},
+        {"id": "stored-height", "name": "Left/Right stored height", "status": "sniff",
+         "ref": "⚠️ 21 54 = LIVE height, NOT stored — the vendor guide: stored heights read as N/A"},
     ]},
-    {"cat": "Inputs — ABS", "items": [
-        {"name": "ABS sensor FR/FL/RR/RL (V)", "status": "maybe", "ref": "21 50 (4 byte ~×0.02 V)", "lid": "50"},
-        {"name": "Wheel speed FR/FL/RR/RL", "status": "maybe", "ref": "21 43", "lid": "43"},
-        {"name": "Inlet valve FR/FL/RR/RL (V)", "status": "maybe", "ref": "21 44/49/57 (offset not isolated)", "lid": "44 49 57"},
-        {"name": "Outlet valve FR/FL/RR/RL (V)", "status": "maybe", "ref": "21 44/49/57", "lid": "44 49 57"},
-        {"name": "Pump monitor (V)", "status": "maybe", "ref": "21 44/49/57", "lid": "44 49 57"},
-        {"name": "Pump relay (V)", "status": "maybe", "ref": "21 44/49/57", "lid": "44 49 57"},
-        {"name": "Battery (V)", "status": "maybe", "ref": "21 44/49/57", "lid": "44 49 57"},
-        {"name": "ECU internal supply (V)", "status": "maybe", "ref": "21 44/49/57", "lid": "44 49 57"},
-        {"name": "Ground Reference (V)", "status": "maybe", "ref": "21 44/49/57", "lid": "44 49 57"},
-        {"name": "Engine speed (rpm)", "status": "maybe", "ref": "21 44/49/57 (via CAN)", "lid": "44 49 57"},
-        {"name": "Engine Torque (Nm)", "status": "maybe", "ref": "21 44/49/57 (via CAN)", "lid": "44 49 57"},
-        {"name": "Throttle Position (%)", "status": "maybe", "ref": "21 44/49/57 (via CAN)", "lid": "44 49 57"},
-        {"name": "HDC Brake (V)", "status": "maybe", "ref": "21 44/49/57", "lid": "44 49 57"},
-        {"name": "Shuttle Switch", "status": "maybe", "ref": "21 42/48/56/58 (switch block)", "lid": "42 48 56 58"},
+    {"id": "settings-identity", "page": "settings", "cat": "Settings — identity (vendor guide)",
+     "nanocom": "slabs/settings", "items": [
+        {"id": "factory-code", "name": "Factory code", "status": "sniff", "ref": ""},
+        {"id": "bar-code", "name": "Bar code", "status": "sniff", "ref": ""},
+        {"id": "product-number", "name": "Product number / date", "status": "sniff", "ref": ""},
+        {"id": "module-codes", "name": "Module codes (Channel/Safety/Diagnostic/Measurement/ABS/EBD/HDC/Traction)",
+         "status": "sniff", "ref": ""},
+        {"id": "vin", "name": "VIN", "status": "sniff", "ref": "read only here"},
+        {"id": "engine-type", "name": "Engine type", "status": "sniff", "ref": "only with the engine running"},
+        {"id": "gearbox", "name": "Gearbox", "status": "sniff", "ref": "only with the engine running"},
+        {"id": "ecu-condition", "name": "ECU condition (new-born/used)", "status": "sniff",
+         "ref": "not reversible — read only"},
     ]},
-    {"cat": "Inputs — SLS", "items": [
-        {"name": "Left/Right Sensor Value (height)", "status": "ok", "ref": "21 54 b0/b1", "lid": "54"},
-        {"name": "Left/Right Sensor Supply (V)", "status": "maybe", "ref": "21 53/55 (sniffed 08-08)", "lid": "53 55"},
-        {"name": "Left/Right Value (V)", "status": "maybe", "ref": "21 53/55", "lid": "53 55"},
-        {"name": "Exhaust Valve (V)", "status": "maybe", "ref": "21 53/55", "lid": "53 55"},
-        {"name": "Compressor Relay (V)", "status": "maybe", "ref": "21 53/55", "lid": "53 55"},
+    {"id": "inputs-abs", "page": "inputs", "cat": "Inputs — ABS", "nanocom": "slabs/inputs/input_abs", "items": [
+        {"id": "abs-sensor-fr", "name": "ABS sensor FR/FL/RR/RL (V)", "ref": "21 50@1 (4 bytes ~×0.02 V)",
+         "lid": "50", "sig": "abs_sensor_fr", "note": "FR; FL/RR/RL follow. Corner order unconfirmed."},
+        {"id": "abs-sensor-fl", "name": "ABS sensor FL (V)", "ref": "21 50@0", "lid": "50", "sig": "abs_sensor_fl"},
+        {"id": "abs-sensor-rr", "name": "ABS sensor RR (V)", "ref": "21 50@3", "lid": "50", "sig": "abs_sensor_rr"},
+        {"id": "abs-sensor-rl", "name": "ABS sensor RL (V)", "ref": "21 50@2", "lid": "50", "sig": "abs_sensor_rl"},
+        {"id": "wheel-speed-fr", "name": "Wheel speed FR/FL/RR/RL", "ref": "21 43@2 (u16le)", "lid": "43",
+         "sig": "wheel_speed_fr", "note": "FR; FL/RR/RL follow. Corner order unconfirmed."},
+        {"id": "wheel-speed-fl", "name": "Wheel speed FL", "ref": "21 43@0", "lid": "43", "sig": "wheel_speed_fl"},
+        {"id": "wheel-speed-rr", "name": "Wheel speed RR", "ref": "21 43@6", "lid": "43", "sig": "wheel_speed_rr"},
+        {"id": "wheel-speed-rl", "name": "Wheel speed RL", "ref": "21 43@4", "lid": "43", "sig": "wheel_speed_rl"},
+        {"id": "inlet-valves", "name": "Inlet valve FR/FL/RR/RL (V)", "status": "candidate",
+         "ref": "21 44/49/57 (offset not isolated)", "lid": "44 49 57"},
+        {"id": "outlet-valves", "name": "Outlet valve FR/FL/RR/RL (V)", "status": "candidate",
+         "ref": "21 44/49/57", "lid": "44 49 57"},
+        {"id": "pump-monitor", "name": "Pump monitor (V)", "status": "candidate", "ref": "21 44/49/57",
+         "lid": "44 49 57"},
+        {"id": "pump-relay-v", "name": "Pump relay (V)", "status": "candidate", "ref": "21 44/49/57",
+         "lid": "44 49 57"},
+        {"id": "battery", "name": "Battery (V)", "ref": "21 44@12", "lid": "44", "sig": "battery"},
+        {"id": "ecu-supply", "name": "ECU internal supply (V)", "ref": "21 44@13", "lid": "44", "sig": "ecu_supply"},
+        {"id": "ground-reference", "name": "Ground Reference (V)", "status": "candidate", "ref": "21 44/49/57",
+         "lid": "44 49 57"},
+        {"id": "engine-speed", "name": "Engine speed (rpm)", "status": "candidate", "ref": "21 44/49/57 (via CAN)",
+         "lid": "44 49 57"},
+        {"id": "engine-torque", "name": "Engine Torque (Nm)", "status": "candidate", "ref": "21 44/49/57 (via CAN)",
+         "lid": "44 49 57"},
+        {"id": "throttle-position", "name": "Throttle Position (%)", "status": "candidate",
+         "ref": "21 44/49/57 (via CAN)", "lid": "44 49 57"},
+        {"id": "hdc-brake-v", "name": "HDC Brake (V)", "status": "candidate", "ref": "21 44/49/57",
+         "lid": "44 49 57"},
+        {"id": "shuttle-switch", "name": "Shuttle Switch", "status": "sniff",
+         "ref": "21 42/48/56/58 (switch block); states OPEN CIRCUIT/BOTH OPEN/ONE CLOSED/BOTH CLOSED/SHORT",
+         "lid": "42 48 56 58"},
     ]},
-    {"cat": "Inputs — Switches", "items": [
-        {"name": "Any Door (open/closed)", "status": "ok", "ref": "21 56 byte0 bit0 — PROVEN (00 closed/01 open)", "lid": "56", "sig": "any_door"},
-        {"name": "Neutral/LowRange/DiffLock/Reverse/HDC/Shuttle", "status": "maybe", "ref": "21 42/48/56/58 (bit not isolated)", "lid": "42 48 56 58"},
-        {"name": "Plip signal", "status": "maybe", "ref": "21 42/48/56/58", "lid": "42 48 56 58"},
+    {"id": "inputs-sls", "page": "inputs", "cat": "Inputs — SLS", "nanocom": "slabs/inputs/input_sls", "items": [
+        {"id": "height-left", "name": "Left/Right Sensor Value (height)", "ref": "21 54 b0", "lid": "54",
+         "sig": "height_left", "note": "Left; the right side is the next item."},
+        {"id": "height-right", "name": "Right Sensor Value (height)", "ref": "21 54 b1", "lid": "54",
+         "sig": "height_right"},
+        {"id": "sensor-supply", "name": "Left/Right Sensor Supply (V)", "status": "candidate",
+         "ref": "21 53/55 (sniffed 08-08)", "lid": "53 55"},
+        {"id": "sensor-value-v", "name": "Left/Right Value (V)", "status": "candidate", "ref": "21 53/55",
+         "lid": "53 55"},
+        {"id": "exhaust-valve-v", "name": "Exhaust Valve (V)", "status": "candidate", "ref": "21 53/55",
+         "lid": "53 55"},
+        {"id": "compressor-relay-v", "name": "Compressor Relay (V)", "status": "candidate", "ref": "21 53/55",
+         "lid": "53 55"},
     ]},
-    {"cat": "Outputs — valves/relays", "items": [
-        {"name": "FR/FL/RR/RL Inlet+Outlet Valve (8)", "status": "todo", "ref": ""},
-        {"name": "SLS Left/Right valve", "status": "todo", "ref": ""},
-        {"name": "SLS Exhaust valve", "status": "ok", "ref": "31 2F"},
-        {"name": "ABS Pump relay", "status": "ok", "ref": "31 25 08 fa / 02 fa"},
-        {"name": "Speedometer", "status": "todo", "ref": ""},
-        {"name": "SLS Compressor", "status": "ok", "ref": "31 30"},
-        {"name": "SLS Buzzer", "status": "ok", "ref": "31 31"},
+    {"id": "inputs-switches", "page": "inputs", "cat": "Inputs — Switches", "nanocom": "slabs/inputs/input_switch",
+     "items": [
+        {"id": "any-door", "name": "Any Door (open/closed)", "ref": "21 56 byte0 bit0 (00 closed/01 open)",
+         "lid": "56", "sig": "any_door"},
+        {"id": "neutral", "name": "Neutral/LowRange/DiffLock/Reverse/HDC/Shuttle", "ref": "21 42 byte0 bit0",
+         "lid": "42", "sig": "neutral_gear", "note": "Neutral; the other switches follow."},
+        {"id": "low-range", "name": "Low range switch", "ref": "21 42 byte0 bit2", "lid": "42", "sig": "transfer_low"},
+        {"id": "diff-lock", "name": "Diff lock switch", "ref": "21 42 byte0 bit4", "lid": "42", "sig": "diff_lock"},
+        {"id": "reverse", "name": "Reverse switch", "ref": "21 42 byte0 bit3", "lid": "42", "sig": "reverse_gear"},
+        {"id": "hdc-switch", "name": "HDC switch", "status": "sniff", "ref": "21 42/48/56/58 (bit not isolated)",
+         "lid": "42 48 56 58"},
+        {"id": "offroad-switch", "name": "Off-road switch", "status": "sniff",
+         "ref": "21 42/48/56/58 (bit not isolated)", "lid": "42 48 56 58"},
+        {"id": "brake-signal", "name": "Brake signal (raw)", "ref": "21 48@0 u16, falls when pressed", "lid": "48",
+         "sig": "brake_analog", "note": "Not a NanoCom field."},
+        {"id": "plip", "name": "Plip signal", "status": "sniff",
+         "ref": "21 42/48/56/58; states GROUND/LOWER/NEUTRAL/RAISE/OPEN CIRCUIT", "lid": "42 48 56 58"},
     ]},
-    {"cat": "Outputs — lamps", "items": [
-        {"name": "T.C. Lamp", "status": "todo", "ref": "re-log Outputs in menu order"},
-        {"name": "ABS Warning Light", "status": "todo", "ref": ""},
-        {"name": "HDC Warning Light", "status": "todo", "ref": ""},
-        {"name": "Brake Warning Light", "status": "todo", "ref": ""},
-        {"name": "SLS lamps", "status": "todo", "ref": ""},
-        {"name": "Offroad Lamp", "status": "todo", "ref": ""},
-        {"name": "HDC Fault lamps", "status": "todo", "ref": ""},
-        {"name": "HDC Brake lamps", "status": "todo", "ref": ""},
+    {"id": "outputs-valves", "page": "outputs", "cat": "Outputs — valves/relays", "nanocom": "slabs/outputs",
+     "items": [
+        {"id": "abs-valves", "name": "FR/FL/RR/RL Inlet+Outlet Valve (8)", "status": "sniff", "ref": ""},
+        {"id": "sls-valves", "name": "SLS Left/Right valve", "status": "sniff", "ref": ""},
+        {"id": "sls-exhaust", "name": "SLS Exhaust valve", "actions": ["exhaust"], "ref": "31 2F"},
+        {"id": "abs-pump", "name": "ABS Pump relay", "actions": ["pump_on", "pump_off"], "ref": "31 25 08 fa / 02 fa"},
+        {"id": "speedometer", "name": "Speedometer", "status": "sniff", "ref": "simulates 100 mph (vendor guide)"},
+        {"id": "sls-compressor", "name": "SLS Compressor", "actions": ["compressor"], "ref": "31 30"},
+        {"id": "sls-buzzer", "name": "SLS Buzzer", "actions": ["buzzer"], "ref": "31 31"},
+        {"id": "brake-light-relay", "name": "Brake-light relay", "status": "sniff", "ref": "vendor guide"},
     ]},
-    {"cat": "Utility", "items": [
-        {"name": "Power Bleed", "status": "ok", "ref": "31 22 04 …"},
-        {"name": "Modulator Bleed", "status": "ok", "ref": "31 22 11-14 …"},
-        {"name": "FR/FL/RR/RL Test", "status": "ok", "ref": "31 22 <sub> <mask> c1 f4"},
-        {"name": "Raise/Lower Left/Right", "status": "ok", "ref": "31 33-36"},
-        {"name": "SLS height calibration", "status": "todo", "ref": ""},
-        {"name": "Store heights", "status": "todo", "ref": "⚠️ writes calibration"},
+    {"id": "outputs-lamps", "page": "outputs", "cat": "Outputs — lamps", "nanocom": "slabs/outputs", "items": [
+        {"id": "tc-lamp", "name": "T.C. Lamp", "status": "sniff", "ref": "re-log Outputs in menu order"},
+        {"id": "abs-lamp", "name": "ABS Warning Light", "status": "sniff", "ref": ""},
+        {"id": "hdc-lamp", "name": "HDC Warning Light", "status": "sniff", "ref": ""},
+        {"id": "brake-lamp", "name": "Brake Warning Light", "status": "sniff", "ref": ""},
+        {"id": "sls-lamps", "name": "SLS lamps", "status": "sniff", "ref": ""},
+        {"id": "offroad-lamp", "name": "Offroad Lamp", "status": "sniff", "ref": ""},
+        {"id": "hdc-fault-lamps", "name": "HDC Fault lamps", "status": "sniff", "ref": ""},
+        {"id": "hdc-brake-lamps", "name": "HDC Brake lamps", "status": "sniff", "ref": ""},
+    ]},
+    {"id": "utilities-bleed", "page": "utilities", "cat": "Utility — Bleed ⚠️ brakes",
+     "nanocom": "slabs/utility/bleed", "items": [
+        {"id": "power-bleed", "name": "Power Bleed", "actions": ["bleed_power_on", "bleed_power_off"],
+         "ref": "31 22 04 …"},
+        {"id": "modulator-bleed", "name": "Modulator Bleed", "actions": ["bleed_module"], "ref": "31 22 11-14 …"},
+        {"id": "wheel-tests", "name": "FR/FL/RR/RL Test", "actions": ["wheel_fr", "wheel_fl", "wheel_rr", "wheel_rl"],
+         "ref": "31 22 <sub> <mask> c1 f4"},
+    ]},
+    {"id": "utilities-height", "page": "utilities", "cat": "Utility — Height", "nanocom": "slabs/utility/height",
+     "items": [
+        {"id": "raise-lower", "name": "Raise/Lower Left/Right",
+         "actions": ["raise_left", "raise_right", "lower_left", "lower_right"], "ref": "31 33-36"},
+        {"id": "height-calibration", "name": "SLS height calibration", "status": "sniff", "ref": ""},
+        {"id": "store-heights", "name": "Store heights", "actions": ["store_heights"],
+         "ref": "⚠️ writes calibration — gated"},
     ]},
 ]

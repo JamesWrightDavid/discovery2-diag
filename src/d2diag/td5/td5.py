@@ -38,8 +38,79 @@ _OUTPUTS: "dict[str, tuple[int, bytes]]" = {
     "egr_throttle": (0xBD, b"\xff\x00\xfa\x13\x88"),  # PWM parameters (duty/frequency)
     "wastegate":   (0xBE, b"\xff\x00\x0a\x13\x88"),
 }
+OUTPUT_NAMES: "tuple[str, ...]" = tuple(_OUTPUTS)  # the dashboard's `output_<name>` actions
 _INJECTOR_ROUTINE = 0xC2       # `31 C2 0<n>` — pulse injector n (1–5)
+INJECTOR_CYLINDERS = (1, 2, 3, 4, 5)
 _SECURITY_ROUTINE = 0xC0       # `31 C0` start, `33 C0` read status (03 = not immobilised)
+
+# ReadEcuIdentification `1A xx` — the four blocks read on D2-JW 2026-10-04 (T-06, see
+# references/test-plan-resolved.md). Text is ASCII, numbers are packed BCD.
+_READ_ECU_ID = 0x1A
+ID_VIN_BLOCK = 0x87            # VIN + build date + software number (46 bytes)
+ID_PART_BLOCK = 0x9A           # ECU part number "NNN" + BCD (6 bytes)
+IDENTITY_OPTIONS = (ID_VIN_BLOCK, ID_PART_BLOCK, 0x9B, 0x9C)
+
+
+def _bcd(data: bytes) -> "str | None":
+    """Packed BCD → digit string, or None if any nibble is not a decimal digit."""
+    out = []
+    for b in data:
+        hi, lo = b >> 4, b & 0x0F
+        if hi > 9 or lo > 9:
+            return None
+        out.append(f"{hi}{lo}")
+    return "".join(out)
+
+
+def _ascii(data: bytes) -> str:
+    return data.decode("ascii", "replace").strip("\x00 ").strip()
+
+
+def mask_vin(vin: str) -> str:
+    """Keep only the last 4 characters: ``*************1234``. The full VIN never leaves
+    :func:`decode_identity` (not logged, not in CSV, not in community uploads)."""
+    vin = vin.strip()
+    return "*" * max(len(vin) - 4, 0) + vin[-4:]
+
+
+def decode_identity(blocks: "dict[int, bytes]") -> "dict[str, object]":
+    """Decode the ``1A`` blocks (option → data after ``5A <opt>``) into identity fields.
+
+    Layout from references/test-plan-resolved.md (T-06, 2026-10-04):
+
+    * ``1A 9A``: ``"NNN"`` + 3 BCD bytes → ``part_no`` (e.g. ``NNN000130``) — matches the
+      factory tool's "ECU Part Number" form.
+    * ``1A 87``: @0-10 ASCII = first 11 VIN characters, @11-13 BCD = 6-digit serial
+      (candidate) → ``vin_masked`` only; @15-18 BCD ``DDMMYYYY`` → ``build_date``
+      (candidate: build or programming date); @20-25 ``"NNW"`` + BCD → ``software_no``
+      (candidate meaning).
+    * ``1A 9B`` / ``1A 9C``: one byte each, meaning open → hex ``id_9b`` / ``id_9c``.
+
+    The full VIN is assembled only to be masked; it is never returned.
+    """
+    ident: "dict[str, object]" = {"part_no": None, "vin_masked": None, "build_date": None,
+                                  "software_no": None, "id_9b": None, "id_9c": None}
+    part = blocks.get(ID_PART_BLOCK)
+    if part is not None and len(part) >= 6:
+        digits = _bcd(part[3:6])
+        ident["part_no"] = _ascii(part[:3]) + (digits if digits is not None else part[3:6].hex())
+    vin_blk = blocks.get(ID_VIN_BLOCK)
+    if vin_blk is not None and len(vin_blk) >= 11:
+        serial = _bcd(vin_blk[11:14]) if len(vin_blk) >= 14 else None
+        ident["vin_masked"] = mask_vin(_ascii(vin_blk[:11]) + (serial or ""))
+        if len(vin_blk) >= 19:
+            d = _bcd(vin_blk[15:19])
+            if d is not None:
+                ident["build_date"] = f"{d[4:8]}-{d[2:4]}-{d[0:2]}"   # DDMMYYYY → ISO
+        if len(vin_blk) >= 26:
+            sw = _bcd(vin_blk[23:26])
+            if sw is not None:
+                ident["software_no"] = _ascii(vin_blk[20:23]) + sw
+    for opt, key in ((0x9B, "id_9b"), (0x9C, "id_9c")):
+        if blocks.get(opt) is not None:
+            ident[key] = blocks[opt].hex(" ")
+    ident["candidate_fields"] = ["vin_masked", "build_date", "software_no"]
+    return ident
 
 # Defaults for establish(): bus idle before init and number of full retries.
 _DEFAULT_IDLE = 5.0
@@ -157,16 +228,44 @@ class Td5(EcuSession):
         self._kwp.start_routine(_INJECTOR_ROUTINE, bytes([cylinder]))
 
     # ---- immobiliser/security ----------------------------------------- #
+    def security_status_raw(self) -> bytes:
+        """`31 C0` start + `33 C0` read; returns the ``73`` reply data (echoed ``C0`` then the
+        status byte). Read-only (ADR-0008: the NanoCom's 'GET SECURITY STATUS')."""
+        self._kwp.start_routine(_SECURITY_ROUTINE)
+        return self._kwp.request_routine_results(_SECURITY_ROUTINE)
+
     def security_status(self) -> int:
         """Read immobiliser status (`31 C0` start + `33 C0` read). Returns
         the status byte — **0x03 = not immobilised** (proven RDL 016). Read-only.
 
         (Corresponds to the reference tool's 'GET SECURITY STATUS'. 'LEARN SECURITY CODE' is a
         different, state-changing routine and is deliberately not implemented.)"""
-        self._kwp.start_routine(_SECURITY_ROUTINE)
-        result = self._kwp.request_routine_results(_SECURITY_ROUTINE)
+        result = self.security_status_raw()
         # the response starts with the echoed routine id (C0), followed by the status byte
         return result[1] if len(result) >= 2 else -1
+
+    # ---- identity (1A xx) — read-only -------------------------------- #
+    def read_ecu_id(self, option: int) -> bytes:
+        """ReadEcuIdentification ``1A <option>``; the data after the echoed option byte."""
+        return self._kwp.request(_READ_ECU_ID, bytes([option]))[1:]
+
+    def read_identity(self) -> "dict[str, object]":
+        """Read the four ``1A`` blocks and decode them (:func:`decode_identity`).
+
+        A block that fails is skipped and named in ``errors`` by exception type only —
+        never the message, which could quote raw reply bytes (the VIN block)."""
+        blocks: "dict[int, bytes]" = {}
+        errors: "dict[str, str]" = {}
+        for opt in IDENTITY_OPTIONS:
+            try:
+                blocks[opt] = self.read_ecu_id(opt)
+            except Exception as exc:  # noqa: BLE001
+                errors[f"{opt:02x}"] = type(exc).__name__
+        ident = decode_identity(blocks)
+        del blocks  # drop the raw VIN block as early as possible
+        if errors:
+            ident["errors"] = errors
+        return ident
 
     # convenience
     def rpm(self) -> float:

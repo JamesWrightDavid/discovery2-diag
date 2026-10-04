@@ -2,8 +2,8 @@
 title: "Capture run-sheet — pipeline demo → BCU mapping session"
 area: references
 status: stable
-version: 1.0
-updated: 2026-10-02
+version: 1.1
+updated: 2026-10-05
 summary: >
   Printable field run-sheet for on-car mapping. Part A proves the capture→automap→store
   pipeline with the KKL cable alone (no NanoCom) on Td5/SLABS switch inputs; Part B is the
@@ -51,18 +51,18 @@ the log shows `81 13 F7 81 …` → `C1 57 8F`. If that's there, the rig + annot
 
 ## Part A — Pipeline demo (KKL only, NO NanoCom)
 
-Goal: watch one real field go grey → yellow → green in the Capabilities tab, proving the
+Goal: watch one real field go grey → yellow → green on the module's pages (Experimental mode, coverage bar), proving the
 loop, before spending on the rental. Uses inputs d2diag can already read directly.
 
 **Loop per field (differential):**
-1. Connect the module (Connect tab).
+1. Connect the module (header module dropdown; the connection pill opens the connection sheet).
 2. **Capture tab → "Read a LID directly"**: enter the LID, **Read** (baseline). Note the hex.
 3. **Change one physical thing** (below). Read the same LID again.
 4. The byte/bit that changed is that field. In the **label box** type what it is
    (e.g. `brake = ON`) → **Save capture** (appends to `logs/labeled_captures.jsonl`).
 5. Repeat the toggle a couple more times (on/off/on) for a clean anchor.
 6. **Map tab**: the field's live value shows; `automap` solves byte/offset/scale from your
-   labels → **save to store** (candidate). The **Capabilities** tab now shows it decoded.
+   labels → **save to store** (candidate). The module's page (Experimental mode) now shows it decoded.
 
 | Module | LID | Field to confirm | Change one thing | Expected |
 |---|---|---|---|---|
@@ -74,7 +74,7 @@ loop, before spending on the rental. Uses inputs d2diag can already read directl
 Notes: LIDs are the known switch blocks ([reference_tool_menu_map.md](reference_tool_menu_map.md));
 treat the exact bit as **candidate** until the toggle proves it. `read_block` is read-only.
 
-**Demo success = at least one field saved to the store and shown decoded in Capabilities.**
+**Demo success = at least one field saved to the store and shown decoded on its page.**
 That's the "we have a working mapping pipeline" milestone → then order the NanoCom.
 
 ---

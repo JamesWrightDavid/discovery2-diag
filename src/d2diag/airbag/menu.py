@@ -1,41 +1,36 @@
-"""Airbag (TRW SPS Type 2A) reference tool menu + our coverage — drives the Map tab.
+"""Airbag (TRW SPS Type 2A) NanoCom menu — the catalog derives how far we are.
 
-status: "ok" (confirmed in our code), "maybe" (reference known but raw not captured), "todo".
-Menu order preserved exactly from the reference tool (see `references/menus/airbag.md`,
-Airbag section). The ECU is limited: Read/Clear Faults + Settings (ID/config) —
-**no** live Inputs or Outputs page is assumed.
+Data model: see :mod:`d2diag.td5.menu` (ADR-0008). The ECU is limited: Read/Clear Faults +
+Settings (ID/config); the NanoCom has **no** live Inputs, Outputs or Utility page
+(``references/nanocom/td5_menu_tree.md``, ``d2_airbag``).
 
-🔴 SAFETY: SRS is pyrotechnics. **Read only** — NEVER activate any output/
-firing circuit. Our sniffer is RX-only. Only clear faults once the fault is fixed.
+🔴 SAFETY: SRS is pyrotechnics. **Read only by construction** (CONSTITUTION): no
+registry actions at all, every item is ``read`` or ``gated``. Never activate any output or
+firing circuit. Only clear faults once the fault is fixed.
 """
 
+_SETTINGS = [
+    ("1. Manufacturer", ""), ("2. Model", ""), ("3. Software version", ""), ("4. Hardware version", ""),
+    ("5. Serial number", ""), ("6. Date of build", ""), ("7. Part reference", ""), ("8. Part number", ""),
+    ("9. VIN", "the only documented writable one — read only here"),
+    ("10. Driver's airbag (present)", ""), ("11. Passenger's airbag (present)", ""),
+    ("12. Right hand Pretensioner", ""), ("13. Left hand Pretensioner", ""),
+    ("14. Driver's side airbag", ""), ("15. Passenger's side airbag", ""), ("16. Rolamites", "crash sensors"),
+]
+
 AIRBAG_MENU = [
-    {"cat": "Fault codes", "items": [
-        {"name": "Read faults (Faults - Read)", "status": "maybe",
+    {"id": "faults", "page": "faults", "cat": "Fault codes", "nanocom": "d2_airbag/faults", "items": [
+        {"id": "read-faults", "name": "Read faults (Faults - Read)", "status": "candidate",
          "ref": "dictionary: position=display code solved (1–65); 004 + 022 seen RDL 016 via reference tool; raw not sniffed"},
-        {"name": "Clear faults (Faults - Clear)", "status": "todo",
+        {"id": "clear-faults", "name": "Clear faults (Faults - Clear)", "status": "sniff",
          "ref": "⚠️ only after repair; sniff separately from Read"},
     ]},
-    {"cat": "Settings — ID/config (read)", "items": [
-        {"name": "1. Manufacturer", "status": "todo", "ref": ""},
-        {"name": "2. Model", "status": "todo", "ref": ""},
-        {"name": "3. Software version", "status": "todo", "ref": ""},
-        {"name": "4. Hardware version", "status": "todo", "ref": ""},
-        {"name": "5. Serial number", "status": "todo", "ref": ""},
-        {"name": "6. Date of build", "status": "todo", "ref": ""},
-        {"name": "7. Part reference", "status": "todo", "ref": ""},
-        {"name": "8. Part number", "status": "todo", "ref": ""},
-        {"name": "9. VIN", "status": "todo", "ref": "the only documented writable one — read only"},
-        {"name": "10. Driver's airbag (present)", "status": "todo", "ref": ""},
-        {"name": "11. Passenger's airbag (present)", "status": "todo", "ref": ""},
-        {"name": "12. Right hand Pretensioner", "status": "todo", "ref": ""},
-        {"name": "13. Left hand Pretensioner", "status": "todo", "ref": ""},
-        {"name": "14. Driver's side airbag", "status": "todo", "ref": ""},
-        {"name": "15. Passenger's side airbag", "status": "todo", "ref": ""},
-        {"name": "16. Rolamites", "status": "todo", "ref": "crash sensors"},
-    ]},
-    {"cat": "Outputs / Utility", "items": [
-        {"name": "No output/utility page 🔴", "status": "ok",
-         "ref": "proven: TRW SPS 2A has no output tests — never activate a firing circuit"},
+    {"id": "settings", "page": "settings", "cat": "Settings — ID/config (read)", "nanocom": "d2_airbag/settings",
+     "items": [{"id": f"setting-{name.split('.')[0]}", "name": name, "status": "sniff", "ref": ref}
+               for name, ref in _SETTINGS]},
+    {"id": "outputs-none", "page": "outputs", "cat": "Outputs / Utility", "items": [
+        {"id": "none-by-design", "name": "No output/utility page 🔴", "status": "sniff", "safety": "gated",
+         "ref": "TRW SPS 2A has no output tests — never activate a firing circuit",
+         "note": "None by design: airbag outputs are gated (pyrotechnics)."},
     ]},
 ]
