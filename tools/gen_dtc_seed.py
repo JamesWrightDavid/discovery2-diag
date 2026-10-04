@@ -14,7 +14,16 @@ Sources:
   folded in from SimonRafferty/Td5-Diagnostic-App ``td5_dtc_table.h`` (same ``{byte,bit}``
   indexing; see references/td5-cross-reference.md). The Td5 is not OBD2, so a P-code is an
   *inferred* cross-reference, not a code the ECU emits.
-- **slabs** — the numbered list in ``references/slabs_fault_codes.md`` (rswsolutions).
+- **slabs** — the two car-proven anchors in ``d2diag.slabs.faults.SLABS_FAULT_BITS`` (keyed by
+  the reference-tool number), plus the numbered list in ``references/slabs_fault_codes.md``
+  (rswsolutions) keyed ``rsw-NNN``: its numbering contradicts both anchors, so it must never
+  share keys with the tool numbers.
+- **airbag / autobox / ace** — the code tables in ``references/<module>_fault_codes.md``
+  (display codes from first-hand forum pages, each row with its source URL). No raw block
+  offsets are known for these yet.
+
+Every record carries ``confidence``: ``proven`` only for pairings seen on this car;
+anything from a forum or vendor list is ``candidate``.
 """
 from __future__ import annotations
 
@@ -27,6 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from d2diag import dtc  # noqa: E402
+from d2diag.slabs.faults import SLABS_FAULT_BITS  # noqa: E402
 from d2diag.td5.faults import FAULTS  # noqa: E402
 
 _ROOT = Path(__file__).resolve().parents[1]
@@ -182,10 +192,17 @@ def build_td5() -> "list[dict]":
         bit = _bit_of(f.mask)
         key = f"{f.offset}.{bit}"
         desc, cause, sev = _describe_td5(f.name)
+        if f.confidence == "proven":
+            src = ("td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; "
+                   "P-code ex SimonRafferty/Td5-Diagnostic-App")
+        else:
+            src = (f"forum X-Y list {f.offset + 1}-{bit + 1} → offset.bit {key} "
+                   f"(https://www.td5spy.co.za/td5_faults; mapping verified in "
+                   f"references/td5_fault_codes.md); templated meaning; "
+                   f"P-code ex SimonRafferty/Td5-Diagnostic-App")
         rec = {"key": key, "name": f.name, "description": desc, "cause": cause,
-               "severity": sev, "system": _system(f.name),
-               "source": "td5/faults.py (Ekaitza + ref tool v1.12); templated meaning; "
-                         "P-code ex SimonRafferty/Td5-Diagnostic-App"}
+               "severity": sev, "system": _system(f.name), "source": src,
+               "confidence": f.confidence}
         pc = _pcode(f.offset, bit)
         if pc:
             rec["pcode"] = pc
@@ -199,6 +216,8 @@ _SLABS_CAUSE = [
                               "short to supply."),
     ("short to supply", "Short to +12V — check the wiring for a short to supply."),
     ("short to gnd", "Short to ground — check the wiring for a short to chassis."),
+    ("output too low", "Wheel-speed signal low — check the sensor air gap, reluctor ring and wiring."),
+    ("electrical failure", "Switch circuit electrical failure — check the switch, connector and wiring."),
     ("output low", "Wheel-speed signal low — check the sensor air gap, reluctor ring and wiring."),
     ("electric fail", "Wheel-speed sensor electrical failure — check the sensor and wiring."),
     ("bad output", "Wheel-speed signal implausible — check the sensor, reluctor ring and gap."),
@@ -210,25 +229,100 @@ _SLABS_CAUSE = [
 ]
 
 
+def _slabs_cause(name: str) -> str:
+    low = name.lower()
+    for key, c in _SLABS_CAUSE:
+        if key in low:
+            return c
+    return "See the workshop manual fault-finding for this circuit."
+
+
 def build_slabs() -> "list[dict]":
-    text = (_ROOT / "references" / "slabs_fault_codes.md").read_text(encoding="utf-8")
     out = []
+    # Car-proven anchors: reference-tool number ↔ raw bit, sniffed 2026-08-07.
+    for (off, bit), (code, text) in sorted(SLABS_FAULT_BITS.items(), key=lambda kv: kv[1][0]):
+        name = text[:1].upper() + text[1:]
+        out.append({"key": code, "name": name,
+                    "description": f"{name} (SLABS reference-tool fault {code}; raw "
+                                   f"byte {off} bit {bit} of the 21 11 / 21 47 block).",
+                    "cause": _slabs_cause(text), "system": "brakes & suspension (SLABS)",
+                    "source": "slabs/faults.py sniff 2026-08-07 (RDL016), tool screen ↔ raw bit",
+                    "confidence": "proven"})
+    text = (_ROOT / "references" / "slabs_fault_codes.md").read_text(encoding="utf-8")
     for m in re.finditer(r"^\|\s*(\d{3})\s*\|\s*(.+?)\s*\|\s*$", text, flags=re.M):
         code, name = m.group(1), m.group(2).strip()
-        low = name.lower()
-        cause = "See the workshop manual fault-finding for this circuit."
-        for key, c in _SLABS_CAUSE:
-            if key in low:
-                cause = c
-                break
-        out.append({"key": code, "name": name,
-                    "description": f"{name} (SLABS ABS/SLS fault {code}).",
-                    "cause": cause, "system": "brakes & suspension (SLABS)",
-                    "source": "references/slabs_fault_codes.md (rswsolutions)"})
+        out.append({"key": f"rsw-{code}", "name": name,
+                    "description": f"{name} (rswsolutions SLABS list entry {code}; NOT the "
+                                   f"reference-tool number — see references/slabs_fault_codes.md).",
+                    "cause": _slabs_cause(name), "system": "brakes & suspension (SLABS)",
+                    "source": "references/slabs_fault_codes.md (rswsolutions)",
+                    "confidence": "candidate"})
     return out
 
 
-_BUILDERS = {"td5": build_td5, "slabs": build_slabs}
+# Code tables in references/<module>_fault_codes.md:
+#   | Code | Fault | Confidence | Source | [Effect] |
+# Only rows whose Code cell matches the module's key pattern are read.
+_TABLE_KEYS = {
+    "airbag": r"\d{3}",
+    "autobox": r"P[0-9A-F]{4}-\d{1,2}",
+    "ace": r"\d{2}-\d{2}|dtc\d{1,2}",
+}
+_TABLE_META = {
+    "airbag": ("airbag (SRS)", "Airbag (TRW SPS) fault {code}: {name}.",
+               "Read-only module: investigate the named circuit (connectors, rotary coupler, "
+               "under-seat plugs); never actuate."),
+    "autobox": ("auto gearbox (EAT)", "Auto gearbox (EAT) fault {code}: {name}.",
+                "Check the named circuit or CAN signal; for CAN-message faults read the "
+                "engine ECU faults too."),
+    "ace": ("suspension (ACE)", "ACE fault {code}: {name}.",
+            "ACE codes are known to be misleading on some tools: confirm with live pressure "
+            "and valve currents (pressure transducer first) before replacing parts."),
+}
+# Shorthand a doc defines once and uses in its Source cells → expanded to the URL here.
+_SOURCE_ALIASES = {
+    "RAVE table": "RAVE EAT fault table, "
+                  "https://www.landyzone.co.uk/land-rover/2002-disco-td5-auto-auto-problem-oil.102675/page-2",
+}
+
+
+def _build_table(module: str) -> "list[dict]":
+    path = _ROOT / "references" / f"{module}_fault_codes.md"
+    key_re = re.compile(rf"^`?({_TABLE_KEYS[module]})`?$")
+    system, desc_t, cause = _TABLE_META[module]
+    out = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.startswith("|"):
+            continue
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if len(cells) < 4 or not key_re.match(cells[0]) or cells[2] not in ("proven", "candidate"):
+            continue
+        code, name, conf, src = key_re.match(cells[0]).group(1), cells[1], cells[2], cells[3]
+        for alias, full in _SOURCE_ALIASES.items():
+            src = src.replace(alias, full)
+        desc = desc_t.format(code=code, name=name)
+        if len(cells) > 4 and cells[4]:
+            desc += f" Effect: {cells[4][:1].lower() + cells[4][1:]}."
+        out.append({"key": code, "name": name, "description": desc, "cause": cause,
+                    "system": system, "source": f"references/{module}_fault_codes.md; {src}",
+                    "confidence": conf})
+    return out
+
+
+def build_airbag() -> "list[dict]":
+    return _build_table("airbag")
+
+
+def build_autobox() -> "list[dict]":
+    return _build_table("autobox")
+
+
+def build_ace() -> "list[dict]":
+    return _build_table("ace")
+
+
+_BUILDERS = {"td5": build_td5, "slabs": build_slabs, "airbag": build_airbag,
+             "autobox": build_autobox, "ace": build_ace}
 
 
 def main() -> int:

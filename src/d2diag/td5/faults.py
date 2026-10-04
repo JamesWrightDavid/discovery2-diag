@@ -24,13 +24,18 @@ class Fault:
     offset: int  # byte offset in the block (0 = first byte after 61 3B)
     mask: int    # bitmask within that byte (bit 0 = 0x01 … bit 7 = 0x80)
     name: str
+    # "proven" = Ekaitza + reference tool v1.12 agree; "candidate" = named only by a
+    # public forum list (X-Y → offset X-1, bit Y-1), not yet seen on the car.
+    confidence: str = "proven"
 
 
 # The status block is 35 bytes (offset 0–34). The tolerant read may drag along
 # the frame's checksum/glitch after the block — those must NOT be decoded as faults.
 FAULT_BLOCK_LEN = 35
 
-# Fault map from Ekaitza + reference tool v1.12 (210 named bits, offset 0–34). PROVEN.
+# Fault map from Ekaitza + reference tool v1.12 (210 named bits, offset 0–34). PROVEN,
+# plus 1 candidate bit (20.7) named only by the public forum X-Y list — see
+# references/td5_fault_codes.md for the mapping check and the unnamed-bit backlog.
 FAULTS: "list[Fault]" = [
     Fault(0, 0x01, "egr inlet throttle diagnostics (Logged Low)"),
     Fault(0, 0x02, "turbocharger wastegate diagnostics (Logged Low)"),
@@ -158,6 +163,8 @@ FAULTS: "list[Fault]" = [
     Fault(20, 0x10, "driver demand 2 out of range (Logged)"),
     Fault(20, 0x20, "problem detected with driver demand (Logged)"),
     Fault(20, 0x40, "inconsistencies found with driver demand (Logged)"),
+    # forum X-Y 21-8 (L); Current twin 24.7 is proven. Candidate until seen on the car.
+    Fault(20, 0x80, "injector trim data corrupted (Logged)", "candidate"),
     Fault(21, 0x01, "road speed missing (Logged)"),
     Fault(21, 0x04, "vehicle accel. outside bounds of cruise control (Logged)"),
     Fault(21, 0x40, "cruise control resume stuck closed (Logged)"),

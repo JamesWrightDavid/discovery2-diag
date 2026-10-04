@@ -20,9 +20,13 @@ _DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src", "d2
 
 
 def build_td5() -> str:
-    """{block_len, bits:{"offset.bit": name}} keyed exactly like td5.decode_faults."""
-    bits = {f"{f.offset}.{f.mask.bit_length() - 1}": f.name for f in FAULTS}  # mask is a single bit
-    return json.dumps({"module": "td5", "block_len": TD5_LEN, "bits": bits}, ensure_ascii=False, indent=2) + "\n"
+    """{block_len, bits:{"offset.bit": name}, candidate:[keys]} keyed exactly like
+    td5.decode_faults. ``candidate`` lists the bits named only by a forum list."""
+    key = lambda f: f"{f.offset}.{f.mask.bit_length() - 1}"  # noqa: E731 — mask is a single bit
+    bits = {key(f): f.name for f in FAULTS}
+    candidate = [key(f) for f in FAULTS if f.confidence != "proven"]
+    return json.dumps({"module": "td5", "block_len": TD5_LEN, "bits": bits, "candidate": candidate},
+                      ensure_ascii=False, indent=2) + "\n"
 
 
 def build_slabs() -> str:
