@@ -485,6 +485,20 @@ promotes that store entry to `proven` (cite this test). A text that contradicts 
 entry is corrected and noted. An unnamed Td5 bit gets its name only from a screen that
 shows it.
 
+#### T-31 `[drive]` — USB GPS against the road (session logbook)
+Needs a u-blox USB receiver (M8/M9/M10; not bought yet). Session logbook design:
+[2026-10-05-session-logbook-design.md](../specs/2026-10-05-session-logbook-design.md),
+ADR-0009.
+
+1. Run `tools/dashboard.py --gps auto`. The snapshot `gps.src` must read `usb`, with `fix` true within about a minute.
+2. Drive a known loop. In the Logs tab, the replay trace must follow the road.
+3. Compare GPS speed with ECU `speed` at a steady 30, 50 and 70 mph.
+4. Note the fix rate: 1 Hz default, or 10 Hz once configured. Note the time to first fix.
+5. Check the K-line still auto-picks the KKL cable, not the GPS, with both plugged in.
+
+**Decision rule.** A trace on the road and speeds within ±2 km/h mark the GPS channels
+car-checked, which removes the candidate caveat in the spec. Record the receiver model.
+
 ---
 
 ## Resolved and appendices
