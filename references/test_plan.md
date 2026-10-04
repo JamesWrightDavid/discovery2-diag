@@ -171,6 +171,11 @@ injection offset from nominal (range ±0.000127 s), **3-4** = the same for end-o
 5-digit codes so the byte↔digit encoding can be mapped (as with the EKA code).
 
 #### T-08 `[key-on]` — `21 1E` driver switches / `21 36` relay-output status
+**Progress 2026-10-03 (brake DONE, rest open).** Brake settled on RDL016: `21 1E` byte1 bit7
+= `brake_main` (active-low, 0 = pressed) and byte0 bit0 = `brake_switch_2` (active-high); both
+`proven` in the store. Byte0 bit5 (the bit seen moving earlier) is NOT the brake. `21 36` did not
+move with the brake. Still open: clutch, cruise master/set/resume, A/C request, transfer
+high/low, and the identity of byte0 bit5.
 **Reframe (Simon app, 2026-10-01):** `0x1E` is the **driver switch** bitfield and `0x36` is
 the **relay / output status** bitfield (NOT "both switch fields" as previously assumed).
 `1E` toggles `00 CA`↔`00 EA` (bit `0x20` = byte0 bit5); `36` sat constant `00 0D`.
@@ -238,6 +243,30 @@ candidate — do not promote it on plausibility.
 `abs_module_bleed()` are proven from the sniff but have never been run from our code.
 Verify each replies `71 22 20`. If only verifying without bleeding: pulse power_bleed
 on→off, confirm the ack, and do **not** run the full module sequence.
+
+#### T-29 `[key-on]` `[drive]` — Is `21 42` byte0 bit2 low range, transfer neutral, or both?
+**Question.** Moving the transfer box lever set `21 42` byte0 bit2 (`82 28` -> `86 2C`),
+reproducibly (2026-10-04). The user then left it in what they believe is low range and it still
+reads `86 2C`. Staged as candidate `transfer_low` (slabs store). Not separated from neutral.
+
+**Progress 2026-10-04.** HIGH (end of travel) = `82 28`, LOW (end of travel) = `86 2C`; a lever
+position the user *felt* was neutral (unsure) = `82 28`. So bit2 looks like low range only, with neutral
+not yet confirmed (the user could not tell neutral by feel). Earlier "unidentified lever" rows were
+low range (user confirmed). Still open: a confirmed neutral, a decoder re-read, the crawl test.
+
+**Procedure.** (1) Stationary, handbrake on, ignition on, engine off, selector in P. Move the
+lever one position at a time and read `21 42` at each: H -> N -> L -> N -> H (two reads each,
+labelled). (2) Drive test: in low range crawl **under ~8 km/h** with SLABS polled lightly;
+SLABS comms die above ~8-20 km/h, so anything faster must be read from the Td5, not `21 42`.
+Log Td5 `speed` alongside to see where SLABS drops and whether bit2 stays set while it lives.
+
+**Decision rule.**
+- bit2 set in L only (clear in N and H) -> `transfer_low` = low range -> `proven` after a
+  decoder re-read (leading explanation so far; neutral is the unconfirmed part).
+- bit2 set in N and L, clear in H -> it is "not high range"; rename `transfer_not_high`.
+- bit2 set in N only -> it is transfer neutral, not low; rename and look for the low-range bit.
+- bit2 follows none of them -> the earlier toggles were something else; remove the candidate.
+- Do not move the lever while the car is rolling; do not force it.
 
 ### P4 — Other modules
 

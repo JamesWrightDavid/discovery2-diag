@@ -100,7 +100,8 @@ captured cleanly — re-log Outputs in menu order (sniff **1**).
 | Utility | service | one page (to transcribe) | OPEN | 3 | Utilities | write-coding |
 
 > **Cruise caveat:** the emulator exposes Hella cruise only under the V8/motronic branch; a
-> separate addressable Td5 cruise module is **unconfirmed** (address scan T-26).
+> separate addressable Td5 cruise module did **not** answer the full T-26 sweep (2026-10-04:
+> fast + 5-baud, `0x01`-`0xEF`; see [test-plan-resolved](../test-plan-resolved.md)).
 
 ## What this tells us
 
