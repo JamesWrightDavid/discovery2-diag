@@ -122,10 +122,11 @@ class Td5(EcuSession):
         return self._kwp.read_local_identifier(FAULT_LID)
 
     def read_faults(self) -> "list[str]":
-        """Read and decode active faults into a list of descriptions."""
-        from .faults import decode_faults
+        """Read and decode active faults into a list of descriptions (unknown bits tagged
+        (Current)/(Logged) by their byte, see :func:`~d2diag.td5.faults.tag_unknown`)."""
+        from .faults import decode_faults, tag_unknown
 
-        return decode_faults(self.read_faults_raw())
+        return tag_unknown(decode_faults(self.read_faults_raw()))
 
     def clear_faults(self) -> None:
         """Clear stored fault codes (StartRoutine 0xDD). Requires an unlocked session."""

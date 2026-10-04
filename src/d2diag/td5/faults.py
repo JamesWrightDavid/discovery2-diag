@@ -262,7 +262,8 @@ def decode_faults(block: bytes) -> "list[str]":
 
     Known bits (in :data:`FAULTS`) are given their name. Set bits without a known
     mapping are reported generically as ``byte<off>.bit<n>`` so an unknown fault bit
-    never disappears silently.
+    never disappears silently. (The ESP32 browser decodes the same JSON map, so this
+    output stays tag-free — :func:`tag_unknown` adds the group for the Python UI.)
     """
     block = block[:FAULT_BLOCK_LEN]  # trim off any checksum/glitch after the block
     active: "list[str]" = []
@@ -277,3 +278,22 @@ def decode_faults(block: bytes) -> "list[str]":
             if unknown & (1 << bit):
                 active.append(f"byte{off}.bit{bit}")
     return active
+
+
+def tag_unknown(names: "list[str]") -> "list[str]":
+    """Give each generic ``byte<off>.bit<n>`` its byte's (Current)/(Logged) tag.
+
+    Named faults carry the tag in their name; generic ones carried none, so the UI filed
+    them all under Logged (``byte25.bit5`` sat in Logged on 2026-10-04 although byte 25
+    holds only Current faults). Tagged only when every named bit at that offset agrees.
+    """
+    out = []
+    for n in names:
+        if n.startswith("byte") and ".bit" in n and "(" not in n:
+            off = int(n[4:n.index(".bit")])
+            tags = {t for f in FAULTS if f.offset == off
+                    for t in ("Current", "Logged") if f"({t})" in f.name}
+            if len(tags) == 1:
+                n = f"{n} ({tags.pop()})"
+        out.append(n)
+    return out

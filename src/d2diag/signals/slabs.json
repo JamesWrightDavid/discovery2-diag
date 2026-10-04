@@ -347,14 +347,28 @@
     "scale": 1.0,
     "bias": 0.0,
     "unit": "",
-    "confidence": "candidate",
+    "confidence": "proven",
     "states": {
-      "0": "not low",
+      "0": "high or neutral",
       "1": "low range"
     },
-    "source": "21 42 byte0 bit2; 2026-10-04 on RDL016 (engine off, ign on, stationary): lever at end of travel HIGH=82 28 (bit clear), LOW=86 2C (bit set), plus 8 earlier low-range reads. A lever position the user felt was NEUTRAL (unsure) also read 82 28. Stays candidate until neutral is confirmed separately and the decoder is re-read on the car (test_plan T-29). Correction 2026-10-04: the second byte quoted (28/29/30/2C/38) is the frame checksum, which leaked into reads before the kwp2000 trim fix; 21 42 returns ONE data byte.",
+    "source": "21 42 byte0 bit2; 2026-10-04 on RDL016 (engine off, ign on, stationary): lever at end of travel HIGH=82 28 (bit clear), LOW=86 2C (bit set), plus 8 earlier low-range reads. A lever position the user felt was NEUTRAL (unsure) also read 82 28. Stays candidate until neutral is confirmed separately and the decoder is re-read on the car (test_plan T-29). Correction 2026-10-04: the second byte quoted (28/29/30/2C/38) is the frame checksum, which leaked into reads before the kwp2000 trim fix; 21 42 returns ONE data byte. T-29 2026-10-04 (engine idling, selector N, stationary): lever H 83 / N 83 / L 87 / N 83 / H 83 (3 reads each) -> bit2 set only in LOW; transfer NEUTRAL reads like HIGH (not visible in 21 42/56/58). Decoder re-read: L=1, H/N=0 -> proven.",
     "label": "Transfer box low range",
     "group": "Inputs",
     "description": "Set when the transfer box is in low range."
+  },
+  {
+    "name": "brake_analog",
+    "lid": "48",
+    "offset": 0,
+    "kind": "u16",
+    "scale": 1.0,
+    "bias": 0.0,
+    "unit": "raw",
+    "confidence": "proven",
+    "label": "Brake signal (raw)",
+    "group": "Inputs",
+    "description": "Analogue brake-pedal signal on SLABS 21 48 (raw u16; falls when the pedal is pressed). Candidate, unscaled.",
+    "source": "21 48 u16, 2026-10-04 engine idling, stationary: brake released 0x96xx-0xA6xx (P and N alike), pressed firmly 0x3A3A-0x401F (sliding while held), back to 0x98xx-0x9Bxx immediately on release. Selector P/N alone does not move it. Analogue, not a switch; physical meaning (pressure vs travel) open, so unscaled. Earlier 'wanders on its own' = reads taken with the brake held. Re-read through the decoder on the car 2026-10-04 after a dashboard restart: released 40519, pressed 13155 (sliding to 15252 while held), released 42449 -> proven as a brake-pedal signal (raw; physical scale still open)."
   }
 ]

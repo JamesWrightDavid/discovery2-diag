@@ -15,6 +15,29 @@ summary: >
 Companion to [test_plan.md](test_plan.md). When an open test is settled, move it here
 with the date and the outcome. Newest first.
 
+- **2026-10-04 (afternoon) — T-29: `21 42` bit2 is low range only; SLABS `21 48` is an analogue brake signal.**
+  Engine idling, stationary, selector N. Transfer lever H -> N -> L -> N -> H: `42` = `83` / `83` /
+  **`87`** / `83` / `83` (3 reads each; `83` = `82` + bit0 for selector N). Bit2 is set only in LOW;
+  transfer NEUTRAL reads exactly like HIGH and nothing in `21 42/56/58` shows it. Decoder re-read
+  L=1, H/N=0 -> `transfer_low` **proven**, states `0 = high or neutral`, `1 = low range`. The crawl
+  part of T-29 is no longer needed. **`21 48`:** brake released `0x96xx-0xA6xx` (P or N), pressed
+  firmly `0x3A3A-0x401F`, back at once on release; the selector alone does not move it -> new
+  `brake_analog` (raw u16): re-read through the decoder after a restart (released 40519, pressed
+  13155, released 42449) -> **proven** as a brake signal; physical meaning/scale open. This replaces the earlier "`48` wanders,
+  analog, not a switch" reading, which had been taken with the brake held.
+- **2026-10-04 (afternoon) — T-01/T-04: the measured MAF is `21 1C`@4; `1C`@6 is its voltage.**
+  Engine idling, P, handbrake on, after the Td5 fault memory was cleared at 16:46 (dashboard). The
+  long-dead sensor came alive: stationary holds idle / 1500 / 2600 rpm gave `1C`@4 = 478 / 1143 /
+  2154 (repeat 2119-2147), proportional to rpm x MAP (ratio 0.61/0.67/0.64), and `1C`@6 = 1800 /
+  2700 / 3440. `maf_sensor` rescaled to u16 x0.1 kg/h (BinOwl; 48/114/215 kg/h, plausible for 2.5 L)
+  and re-read through the decoder after a restart (47.5 kg/h idle, 207-210 kg/h at 2560 rpm) ->
+  `proven`. `maf_sensor_v` = `1C`@6 mV added as candidate (1.8/2.7/3.4 V hot-film curve; the old
+  constant `0x009C` = 0.16 V was the faulted signal) — so `1C`@6 is not reserved. The modelled
+  `maf` (`1D`@4, calibrated) agrees above idle (113/225 vs 114/215) but overstates idle (84 vs 48).
+  The faults: only `25.5` (Current) came back after the clear; the logged `21.3`/`21.5` did not.
+  **A/C at idle:** temperature LO, fan 1 on a cool day — no request (`1E` byte1 bit3 steady,
+  `36` steady `00 05`); the climate unit is not calling for cooling. A Td5 A/C clutch output test
+  (`30 A3 FF` -> `70 A3`) worked, but its pulse fell between `36` polls (2.8 s apart). Retry on a warm day.
 - **2026-10-04 (late) — A/C request inconclusive engine-off; handbrake and brake not in SLABS `40..5B`; cruise-group faults.**
   Engine off, ignition on. **A/C:** the car has automatic climate control (no A/C button), so the
   request was provoked by setting the temperature 23 -> LO, fan 1: `21 1E` byte1 bit3 never moved in
