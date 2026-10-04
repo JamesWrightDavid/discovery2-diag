@@ -61,6 +61,9 @@ model-general and what is specific to RDL 016.
 ### P1 — Td5 air/boost mapping (the biggest open question)
 
 #### T-01 `[idle]` `[drive]` — Is `21 1C`@4 the measured MAF?
+**Answered 2026-10-04: yes** (`maf_sensor`, u16 x0.1 kg/h, proven) — once the air-flow fault was
+cleared the sensor came alive; see test-plan-resolved. Open: a loaded/WOT drive log to compare
+measured vs modelled (`1D`@4) across the range.
 **Question.** `1C`@4 sat in the store as the unscaled `maf_raw` candidate until commit
 `bba77a9` moved `maf` to `1D`@4 with a provisional 2-point calibration.
 BinOwl_Td5Gauge names `1C`@4 as MAF, u16/10 kg/h. In our logs `1C`@4 is zero in
@@ -131,6 +134,7 @@ gear) → idle again.
   `egr_modulator`@15. Resolve jointly with T-02 — do not map both over byte 15.
 
 #### T-04 `[idle]` — What is `21 1C`@6?
+**Answered 2026-10-04:** not reserved — tracks the MAF as a voltage (`maf_sensor_v`, mV, candidate).
 Constant `0x009C` (156) in every capture we have. Watch it across cold start, warm idle,
 load. If it never moves it is a reserved byte — record that and stop looking.
 
@@ -274,7 +278,7 @@ Log Td5 `speed` alongside to see where SLABS drops and whether bit2 stays set wh
 ### P4 — Other modules
 
 **Also on the drive day (2026-10-04 notes):** A/C request at idle (`21 1E` byte1 bit3, climate
-set to LO), and watch the current cruise-group faults `25.3`/`25.5` while cruise is used.
+set to LO — still no request at idle on a cool 2026-10-04, so it needs a warm day), and watch the current cruise-group faults `25.3`/`25.5` while cruise is used.
 
 #### T-16 `[key-on]` — BCU: map the read-only auth boundary
 **Done 2026-10-04 (inputs):** every input LID answers positive but all-zero and never moves

@@ -15,6 +15,19 @@ summary: >
 Companion to [test_plan.md](test_plan.md). When an open test is settled, move it here
 with the date and the outcome. Newest first.
 
+- **2026-10-04 (afternoon) — T-01/T-04: the measured MAF is `21 1C`@4; `1C`@6 is its voltage.**
+  Engine idling, P, handbrake on, after the Td5 fault memory was cleared at 16:46 (dashboard). The
+  long-dead sensor came alive: stationary holds idle / 1500 / 2600 rpm gave `1C`@4 = 478 / 1143 /
+  2154 (repeat 2119-2147), proportional to rpm x MAP (ratio 0.61/0.67/0.64), and `1C`@6 = 1800 /
+  2700 / 3440. `maf_sensor` rescaled to u16 x0.1 kg/h (BinOwl; 48/114/215 kg/h, plausible for 2.5 L)
+  and re-read through the decoder after a restart (47.5 kg/h idle, 207-210 kg/h at 2560 rpm) ->
+  `proven`. `maf_sensor_v` = `1C`@6 mV added as candidate (1.8/2.7/3.4 V hot-film curve; the old
+  constant `0x009C` = 0.16 V was the faulted signal) — so `1C`@6 is not reserved. The modelled
+  `maf` (`1D`@4, calibrated) agrees above idle (113/225 vs 114/215) but overstates idle (84 vs 48).
+  The faults: only `25.5` (Current) came back after the clear; the logged `21.3`/`21.5` did not.
+  **A/C at idle:** temperature LO, fan 1 on a cool day — no request (`1E` byte1 bit3 steady,
+  `36` steady `00 05`); the climate unit is not calling for cooling. A Td5 A/C clutch output test
+  (`30 A3 FF` -> `70 A3`) worked, but its pulse fell between `36` polls (2.8 s apart). Retry on a warm day.
 - **2026-10-04 (late) — A/C request inconclusive engine-off; handbrake and brake not in SLABS `40..5B`; cruise-group faults.**
   Engine off, ignition on. **A/C:** the car has automatic climate control (no A/C button), so the
   request was provoked by setting the temperature 23 -> LO, fan 1: `21 1E` byte1 bit3 never moved in
