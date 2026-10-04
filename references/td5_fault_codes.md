@@ -112,8 +112,9 @@ things point the same way:
 - the source list repeats "relay" at `13.6` and `13.7`, a visible copy error;
 - the logged twin `9.6` is "glow plug lamp drive open load".
 
-**`11.6` shows the same repeat** ("relay" at `11.6` and `11.7`). Its name is kept, because
-no screen shows that bit, but it is downgraded to **candidate** as suspect.
+**`11.6` is renamed too.** It shows the same repeat ("relay" at `11.6` and `11.7`), and a
+full NanoCom dump shows `(12,7) GLOWPLUG LAMP DRIVE OPEN LOAD, (CURRENT)`
+(https://www.defender2.net/forum/post840727.html). Now **candidate**, P-code dropped.
 
 **`(10,3)` tachometer** shows "(CURRENT)" in a row whose other entry on the same screen
 reads "(LOGGED)". This is one screen and may be a NanoCom quirk, so `9.2` is unchanged and
@@ -122,10 +123,31 @@ the bit goes on T-29.
 The P-code P0380 (glow-plug circuit) was removed from `13.6`, because a lamp driver is not
 the plug circuit.
 
-> Side effect worth knowing: bytes 10/12 and 11/13 carry identical names in the source
-> list (for example `11.0` and `13.0` are both "air conditioning fan drive open load
-> (Current)"). A decoded fault string therefore does not tell those two bits apart, and a
-> name lookup resolves to one of them. This was not changed here.
+### The duplicate names are real, not a transcription error
+
+Bytes 10/12 and 11/13 carry identical names in the source list. For example, `11.0` and
+`13.0` are both "air conditioning fan drive open load (Current)". A hit-count across every
+NanoCom screen we could fetch (2026-10-04) shows the tool itself prints them that way:
+
+| Slots (tool / ours) | What NanoCom prints | Hits | Verdict |
+|---|---|---|---|
+| `(12,1–8)` / `11.0–11.7` | the row-10 drivers, OPEN LOAD, (CURRENT) | 1 full dump (post840727) | same text as row 14: genuine duplicate |
+| `(14,1–8)` / `13.0–13.7` | the same eight texts, (CURRENT) | 1–3 per slot (post840727, post594365, landyzone 285327, defender2 topic43605) | genuine duplicate |
+| `(12,7)`, `(14,7)` / `11.6`, `13.6` | GLOWPLUG **LAMP** DRIVE OPEN LOAD | 1 and 2 | source's "relay" was wrong; renamed |
+| `(8,7)`, `(8,8)` / `7.6`, `7.7` | GLOWPLUG RELAY / GLOWPLUG LAMP DRIVE OVER TEMPERATURE (LOGGED) | 1 | matches our map |
+| `(10,7)`, `(10,8)` / `9.6`, `9.7` | GLOWPLUG LAMP / GLOWPLUG RELAY DRIVE OPEN LOAD (LOGGED) | 1 | matches our map |
+| `(13,6)` / `12.5` | EGR INLET THROTTLE SHORT CIRCUIT, (CURRENT) | 1 | matches; weak support that 10/12 also duplicate |
+| `(10,3)` / `9.2` | TACHOMETER DRIVE OPEN LOAD, **(CURRENT)** | 3 cars | the tool's own label; see below |
+
+**Conclusion:** both copies of each duplicate pair exist in the tool, and probably in the
+ECU (two "current" memories). So the decoder cannot say which of the two bits a name
+refers to, and a name lookup resolves to one of them. The bit key (`11.0` vs `13.0`) is
+always correct.
+
+**`(10,3)` tachometer** reads "(CURRENT)" on three different cars, while the rest of row 10
+reads "(LOGGED)". The tool's state word comes from a fixed per-slot text table, not from the
+row. Our `9.2` "(Logged)" follows the band and is unchanged. Don't infer logged/current
+from NanoCom's word alone.
 
 ## Unnamed bits — backlog for on-car / NanoCom confirmation
 

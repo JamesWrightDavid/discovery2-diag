@@ -128,7 +128,7 @@ Everything the tool actually decodes today, straight from
 
 | Name | LID / offset | Type · scale | Unit | Confidence | Evidence |
 |---|---|---|---|---|---|
-| `height_left` | `21 54` @0 | u8 | — | 🟢 Proven | `21 54` byte0 = left height; confirmed via variance vs reference tool reference, session.log 2026-08-08. Normal ~110–135 (calibration-dependent); L and R should sit close on level ground; a stuck 0/255 = broken arm/sensor. |
+| `height_left` | `21 54` @0 | u8 | — | 🟢 Proven | `21 54` byte0 = left height; confirmed via variance vs reference tool reference, session.log 2026-08-08. Typical ~135–165 raw, ≈1.4 mm per count (RDL 016 read 149/162; owners 138–157). Calibration-dependent, so L and R may differ on level ground; a stuck 0/255 = broken arm/sensor. |
 | `height_right` | `21 54` @1 | u8 | — | 🟢 Proven | `21 54` byte1 = right height; same evidence as left. |
 | `height_left_mm` | derived | `height_left × 1.4` | mm | 🟢 Proven (derived) | UI-only convenience field (SVG car), derived from the proven left height; not stored in `slabs.json` (`sources.py`). |
 | `height_right_mm` | derived | `height_right × 1.4` | mm | 🟢 Proven (derived) | As above, from the proven right height. |

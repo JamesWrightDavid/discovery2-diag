@@ -15,7 +15,8 @@ link there instead of repeating them. The dashboard's Documents tab serves both 
 - `nanocom_capture_protocol.md` — the NanoCom sniffing-session runbook (T-25).
 - `bcu_security_research.md` — the offline BCU seed→key path (ADR-0007).
 - `td5-d2-ecosystem.md` — map of every external project, tool and doc; `td5-cross-reference.md`
-  — per-LID comparison against them.
+  — per-LID comparison against them; `d2-tool-cross-reference.md` — every module checked
+  against the NanoCom vendor guides, owners' tool screens and open-source code.
 - `*_sniff_plan.md`, `*_checklist.md`, `final_session_plan.md`, `car-test-slabs-bcu.md`
   — step-by-step appendices to the test plan.
 - `bcu_capture_runsheet.md` — printable field run-sheet: Part A pipeline demo (KKL only),

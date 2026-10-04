@@ -428,13 +428,17 @@ During T-25, for each module's Faults – Read:
 
 Priorities:
 - Td5: the unnamed `byte15.bit7` and `byte18.bit6`, and re-read `001-07`, whose baseline
-  text contradicts its number. Also check `13.6`/`11.6` (glow-plug lamp vs relay) and
-  whether `9.2` tachometer reads LOGGED or CURRENT, if any of them is set.
+  text contradicts its number. If `11.6`/`13.6` (glow-plug lamp) or `9.2` (tachometer) is
+  set, photograph it.
 - Airbag: `004` and `022`.
 - ACE: `04-02`, `04-04` (no text found anywhere), `04-05` and `06-01`.
 - SLABS: photograph the whole fault screen including any "N times" line. Forum screens
   show the first field of `020-05` is an occurrence count
-  ([slabs_fault_codes.md](slabs_fault_codes.md)); confirm on this car.
+  ([slabs_fault_codes.md](slabs_fault_codes.md)); the vendor guide confirms it.
+- All modules: note the NanoCom firmware version. When mapping SLABS wheel channels, verify
+  each corner physically (unplug one sensor) rather than trusting NanoCom's label, which is
+  wrong on the P38's Wabco unit ([d2-tool-cross-reference.md](d2-tool-cross-reference.md)).
+  SLABS stops talking above ~8 km/h by design.
 
 **Decision rule.** A displayed code whose number and text match the raw bit or record
 promotes that store entry to `proven` (cite this test). A text that contradicts its stored

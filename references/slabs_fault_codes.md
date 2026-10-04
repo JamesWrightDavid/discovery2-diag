@@ -68,7 +68,13 @@ The second field is not a unique fault ID either:
 So on NanoCom's SLABS screen the **text** identifies the fault. This car's `020`/`027` were
 probably the counts that day.
 
-How sure this is: fairly, not fully.
+**The vendor guide confirms it.** The NanoCom SLABS guide says: "Faults are listed as
+Current or Intermittent, together with the number of times the system has detected the
+fault. The system can detect up too 47 different faults."
+(https://www.blackbox-solutions.com/site/support/download?id=18). The tool shows a count,
+and the number in front of the text is it.
+
+How sure this was before the guide: fairly, not fully.
 - Three independent forum screens fit it (two checked first-hand).
 - But this repo's baseline notes record "×254" next to both faults. If the first field were
   the count, those would have read 20 and 27, not 254.
