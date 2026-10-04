@@ -1,200 +1,167 @@
-"""BCU reference tool menu + our coverage — drives the dashboard's Map tab for BCU.
+"""BCU (Valeo body control unit) NanoCom menu — what exists; the catalog derives how far we are.
 
-Extracted from ``references/menus/`` (``bcu-inputs.md``, ``bcu-settings.md``,
-``bcu-outputs-utilities.md``; AI-processed reference tool emulator
-reading; newer product but same menu structure). The order = reference tool order
-(important for byte/bit mapping). Everything "todo" until we have sniffed the BCU. `ref` = hints from
-the doc's analysis notes. Prioritised for a BCU sniff: **EKA option, Market, Daytime
-run lights, immobiliser** (see ``references/bcu_sniff_plan.md`` + ``bcu_key_coding.md``).
-status: ok (confirmed) / maybe (likely) / todo. Update here after every sniff.
+Data model: see :mod:`d2diag.td5.menu` (ADR-0008). Nothing here is mapped yet: the BCU
+zero-masks its inputs until SecurityAccess (T-16), and every security function (EKA, key
+programming) is gated by ADR-0007, so items are hand ``sniff`` (transcribed, not mapped)
+and the security ones link only gated registry actions. Keep item ``name`` strings and
+group titles stable: the admin Map tab keys saved readings on ``module|cat|name``.
+
+Sources: ``references/menus/bcu-inputs.md``, ``bcu-settings.md`` and
+``bcu-outputs-utilities.md`` (reference tool order, important for byte/bit mapping),
+``references/valeo_bcu_capabilities.md`` and ``references/nanocom/td5_menu_tree.md``.
+Sniff priority: EKA option, Market, Daytime run lights, immobiliser
+(``references/bcu_sniff_plan.md``).
 """
 
+
+def _slug(s: str) -> str:
+    out = "".join(c if c.isalnum() else "-" for c in s.lower())
+    while "--" in out:
+        out = out.replace("--", "-")
+    return out.strip("-")
+
+
+def _sniff(prefix: str, rows: list, **extra) -> list:
+    """Hand-``sniff`` items from ``(name, ref)`` rows; ids are ``<prefix>-<slug(name)>``."""
+    return [{"id": f"{prefix}-{_slug(name)}", "name": name, "status": "sniff", "ref": ref, **extra}
+            for name, ref in rows]
+
+
+def _gated(prefix: str, rows: list) -> list:
+    return _sniff(prefix, rows, safety="gated")
+
+
 BCU_MENU = [
-    {"cat": "DCU Read Inputs — LIGHTS", "items": [
-        {"name": "Side lights", "status": "todo", "ref": ""},
-        {"name": "Main beam", "status": "todo", "ref": ""},
-        {"name": "Dipped", "status": "todo", "ref": ""},
-        {"name": "Front fog light", "status": "todo", "ref": ""},
-        {"name": "Rear fog light", "status": "todo", "ref": ""},
-        {"name": "Left indicator", "status": "todo", "ref": ""},
-        {"name": "Right indicator", "status": "todo", "ref": ""},
-        {"name": "Hazard", "status": "todo", "ref": ""},
-        {"name": "Daytime run light", "status": "todo", "ref": ""},
+    # ---- Inputs (NanoCom "read inputs": body 1/2, instrument, power distribution) ----
+    {"id": "inputs-lights", "page": "inputs", "cat": "DCU Read Inputs — LIGHTS",
+     "nanocom": "valeo_bcu/read_inputs/body_1", "items": _sniff("in-lights", [
+        ("Side lights", ""), ("Main beam", ""), ("Dipped", ""), ("Front fog light", ""),
+        ("Rear fog light", ""), ("Left indicator", ""), ("Right indicator", ""), ("Hazard", ""),
+        ("Daytime run light", "")])},
+    {"id": "inputs-doors", "page": "inputs", "cat": "DCU Read Inputs — DOORS / BODY INPUTS",
+     "nanocom": "valeo_bcu/read_inputs/body_1", "items": _sniff("in-doors", [
+        ("Passenger door switch", ""), ("Driver door switch", ""), ("Bonnet", ""), ("Key lock", ""),
+        ("Key unlock", ""), ("CDL Lock", ""), ("CDL unlock", ""),
+        ("Inertia", "verify live vs latched vs polarity"), ("Ignition key inserted", ""),
+        ("Transfer box neutral", "distinct from Transfer neutral switch"),
+        ("Park/neutral", "distinct from Park neutral switch")])},
+    {"id": "inputs-transmission", "page": "inputs", "cat": "DCU Read Inputs — TRANSMISSION",
+     "nanocom": "valeo_bcu/read_inputs/body_2", "items": _sniff("in-trans", [
+        ("Reverse idle", ""), ("Transfer neutral switch", ""), ("Autobox W switch", ""),
+        ("Autobox X switch", ""), ("Autobox Y switch", ""), ("Autobox Z switch", ""),
+        ("Park neutral switch", "")])},
+    {"id": "inputs-windows", "page": "inputs", "cat": "DCU Read Inputs — WINDOWS",
+     "nanocom": "valeo_bcu/read_inputs/body_2", "items": _sniff("in-windows", [
+        ("Front LEFT down", ""), ("Front LEFT up", ""), ("Front RIGHT down", ""), ("Front RIGHT up", "")])},
+    {"id": "inputs-wash-wipe", "page": "inputs", "cat": "DCU Read Inputs — WASH WIPE",
+     "nanocom": "valeo_bcu/read_inputs/body_2", "items": _sniff("in-wash", [
+        ("Front intermit", ""), ("Front wash", ""), ("Front wiper parked", ""),
+        ("Front wiper speed", "numeric; likely multi-bit/byte"), ("Rear wiper", ""), ("Rear wash", "")])},
+    {"id": "inputs-heated-engine", "page": "inputs", "cat": "DCU Read Inputs — HEATED SCREEN / ENGINE STATE",
+     "nanocom": "valeo_bcu/read_inputs/body_2", "items": _sniff("in-heated", [
+        ("Heated screen switch", ""), ("Ignition 2", ""), ("Engine speed signal", "")])},
+    {"id": "inputs-instruments", "page": "inputs", "cat": "BCU Instruments — DISCRETE INPUTS / WARNING STATES",
+     "nanocom": "valeo_bcu/read_inputs/instrument", "items": _sniff("in-instr", [
+        ("LH DI", ""), ("RH DI", ""), ("LH Tailor DI", ""), ("RH Tailor DI", ""), ("Seat belt", ""),
+        ("Diff lock", ""), ("Transfer neutral", ""), ("Autobox manual", ""), ("Autobox sport", ""),
+        ("Offroad level", ""), ("ABS", "warning lamp, not switch"), ("Traction control", ""),
+        ("SRS", "warning lamp"), ("HDC select", ""), ("Glow plug", ""), ("Brake", ""),
+        ("Oil pressure", ""), ("Alternator", ""), ("Check engine", "warning lamp"), ("Fuel filter", ""),
+        ("Transmission temp.", ""), ("Check ACE", "warning lamp"), ("Check HDC", "warning lamp"),
+        ("Check SLS", "warning lamp")])},
+    {"id": "inputs-mileage", "page": "inputs", "cat": "BCU Instruments — MILEAGE / TRIP",
+     "nanocom": "valeo_bcu/read_inputs/instrument", "items": _sniff("in-mileage", [
+        ("Instr. milage (km)", "instr-pack odometer reading; byte order/scale"),
+        ("BCU milage (km)", "BCU-stored odometer reading; byte order/scale"), ("IP trip switch", "")])},
+    {"id": "inputs-power", "page": "inputs", "cat": "BCU Power distribution — IGNITION / SUPPLY",
+     "nanocom": "valeo_bcu/read_inputs/power_distibution", "items": _sniff("in-power", [
+        ("BCU ignition pos. 1", "bitfield candidate (pos 1/2/3)"),
+        ("BCU ignition pos. 2", "bitfield candidate (pos 1/2/3)"),
+        ("BCU ignition pos. 3", "bitfield candidate (pos 1/2/3)"),
+        ("IP ignition pos. 2", "instrument-pack report"), ("IDM ignition pos. 2", "IDM report"),
+        ("IDM battery (V)", "voltage; scale TBD"), ("BCU switch power", "voltage; scale TBD"),
+        ("BCU relay power", "voltage; scale TBD")])},
+    # ---- Settings ----
+    {"id": "settings-info", "page": "settings", "cat": "BCU INFO", "nanocom": "valeo_bcu/settings/info",
+     "items": _sniff("info", [
+        ("Serial No", "screenshot '0'"), ("Date", "screenshot '11/02/02'"),
+        ("Hardware No", "screenshot '1.01'"), ("Software No", "screenshot '8.02'"),
+        ("Alarm Type", "screenshot '10'"), ("VIN", "shown as 'SAL' + 14 characters; read only")])},
+    {"id": "settings-lws", "page": "settings", "cat": "BCU Settings — LIGHTS-WINDOWS-SEATS",
+     "nanocom": "valeo_bcu/settings/lights_win_seat", "items": _sniff("set-lws", [
+        ("Front fog lamp", ""), ("Daytime run lights", "★ enum NONE/NO MAIN/NO HEADS"),
+        ("Courtest head lamps", ""), ("Headlamp power wash", ""), ("Electric window front", ""),
+        ("Rear windows sunroof", ""), ("Heated front screen", ""), ("Electric front seats", ""),
+        ("Programmed wash wip", "enum, not boolean"), ("Seat belt warning", "enum (TIMED/…)"),
+        ("Seat belt warning soun", ""), ("Autographics", "")])},
+    {"id": "settings-tlw", "page": "settings", "cat": "BCU Settings — TRANSM-LOCK-WARN",
+     "nanocom": "valeo_bcu/settings/transm_lock_warn", "items": _sniff("set-tlw", [
+        ("Transmission", "enum (AUTO/…)"), ("Shift Interlock", ""), ("HDC", ""), ("Superlock", ""),
+        ("Single point entry", ""), ("Speed lock option", ""), ("Mislock option", ""),
+        ("Bathrobe lock option", ""), ("Odometer error warn", ""), ("Key warning", ""),
+        ("Low battery warning", ""), ("Bulb failure", "")])},
+    {"id": "settings-instrument-pack", "page": "settings", "cat": "BCU Settings — INSTRUMENT PACK",
+     "nanocom": "valeo_bcu/settings/instrument_pack", "items": _sniff("set-ip", [
+        ("Transmission", "vehicle config"), ("Engine", "enum (PETROL/…)"), ("ACE", "feature flag"),
+        ("SLS", "feature flag"), ("Gulf", "feature flag"), ("Police", "feature flag"),
+        ("HDC", "feature flag"), ("TRC", "feature flag")])},
+    {"id": "settings-alarm-other", "page": "settings", "cat": "BCU Settings — ALARM-OTHER",
+     "nanocom": "valeo_bcu/settings/alarm_other", "items": [
+        *_sniff("set-alarm", [
+            ("Alarm", ""), ("Alarm option", ""), ("Alarm disarm", "enum field"),
+            ("Alarm sounder", "enum field"), ("Alarm tamper", ""), ("Engine immobil.", "★ enum (LED OFF/…)"),
+            ("Passive immobil.", "★ en/dis"), ("Inertia switch", "enum (NO HAZARD/…)"),
+            ("Hazard option", "enum field"), ("Volumetric sensor", ""),
+            ("Market", "★ enum; market code not mapped (controls DRL etc.)"),
+            ("EKA option", "★ en/dis; linked to the EKA code utility")]),
+        {"id": "set-alarm-settings-ids", "name": "BCU settings IDs", "status": "candidate",
+         "ref": "auto-extracted: 21 C6/C7/CA/CB/D3/D4-D7/EB (match against settings groups)"},
+        *_sniff("set-alarm", [
+            ("Cruise control", ""), ("Air conditioning", ""), ("Fuel burning heater", ""),
+            ("Passive coil", ""), ("Transit mode", "")]),
     ]},
-    {"cat": "DCU Read Inputs — DOORS / BODY INPUTS", "items": [
-        {"name": "Passenger door switch", "status": "todo", "ref": ""},
-        {"name": "Driver door switch", "status": "todo", "ref": ""},
-        {"name": "Bonnet", "status": "todo", "ref": ""},
-        {"name": "Key lock", "status": "todo", "ref": ""},
-        {"name": "Key unlock", "status": "todo", "ref": ""},
-        {"name": "CDL Lock", "status": "todo", "ref": ""},
-        {"name": "CDL unlock", "status": "todo", "ref": ""},
-        {"name": "Inertia", "status": "todo", "ref": "verify live vs latched vs polarity"},
-        {"name": "Ignition key inserted", "status": "todo", "ref": ""},
-        {"name": "Transfer box neutral", "status": "todo", "ref": "distinct from Transfer neutral switch"},
-        {"name": "Park/neutral", "status": "todo", "ref": "distinct from Park neutral switch"},
+    {"id": "settings-write", "page": "settings", "cat": "BCU Settings — WRITE",
+     "nanocom": "valeo_bcu/settings/write_settings", "items": _gated("set-write", [
+        ("Write settings", "writes the BCU coding — never sent by this project")])},
+    # ---- Outputs ----
+    {"id": "outputs-body", "page": "outputs", "cat": "BCU Outputs — BODY", "nanocom": "valeo_bcu/outputs_body",
+     "items": _sniff("out-body", [
+        ("Front fog lights", ""), ("Rear fog lights", ""), ("Daytime running lights", ""),
+        ("LH indicator enable", "seq 4; UI shows the label twice"),
+        ("LH indicator enable (2)", "seq 5; may turn out to be RH"), ("Front left window up", ""),
+        ("Front left window down", ""), ("Front right window up", ""),
+        ("Front right window down", "UI-truncated label"), ("Rear windows enable", ""),
+        ("Sunroof enable", ""), ("Front wiper enable", ""), ("Tail wiper enable", ""),
+        ("Head lamp power wash", ""), ("Heated screen", ""), ("Heat. rear screen lamp", ""),
+        ("Check engine lamp", "")])},
+    # Immobiliser/alarm/locking outputs: forbidden (references/nanocom/feature_map.md).
+    {"id": "outputs-security", "page": "outputs", "cat": "BCU Outputs — SECURITY/LOCKING",
+     "nanocom": "valeo_bcu/outputs_security", "items": _gated("out-sec", [
+        ("Horn", ""), ("BBUS ALL", ""), ("BBUS ST", ""), ("Fuel flap", ""), ("Alarm LED", ""),
+        ("Ignition interlock", ""), ("Crank Enable", ""), ("Volumetric power", ""), ("Robust immo.", ""),
+        ("Transponder Power", ""), ("Lock", ""), ("Unlock", ""), ("Superlock", ""),
+        ("Single point entry", "")])},
+    # ---- Utilities (all gated, ADR-0007) ----
+    {"id": "utilities-eka", "page": "utilities", "cat": "BCU Utilities — EKA CODE", "nanocom": "valeo_bcu/utility",
+     "items": [
+        {"id": "eka-read", "name": "EKA code — READ", "actions": ["eka_read"],
+         "ref": "21 CC behind SecurityAccess; without it the BCU returns the seed"},
+        {"id": "eka-set", "name": "EKA code — SET", "actions": ["eka_set"], "ref": "3B CC <4B> — never sent"},
     ]},
-    {"cat": "DCU Read Inputs — TRANSMISSION", "items": [
-        {"name": "Reverse idle", "status": "todo", "ref": ""},
-        {"name": "Transfer neutral switch", "status": "todo", "ref": ""},
-        {"name": "Autobox W switch", "status": "todo", "ref": ""},
-        {"name": "Autobox X switch", "status": "todo", "ref": ""},
-        {"name": "Autobox Y switch", "status": "todo", "ref": ""},
-        {"name": "Autobox Z switch", "status": "todo", "ref": ""},
-        {"name": "Park neutral switch", "status": "todo", "ref": ""},
+    {"id": "utilities-keys", "page": "utilities", "cat": "BCU Utilities — KEY PROGRAMMING",
+     "nanocom": "valeo_bcu/key_programming", "items": []},
+    {"id": "utilities-key-codes", "page": "utilities", "parent": "utilities-keys", "cat": "Key codes / UPDATE",
+     "nanocom": "valeo_bcu/key_programming", "items": [
+        *_gated("key-code", [("Key Code 1", "SET"), ("Key Code 2", "SET"), ("Key Code 3", "SET"),
+                             ("Key Code 4", "SET"), ("Susp", "SET")]),
+        {"id": "key-code-update", "name": "UPDATE", "actions": ["key_program"], "ref": "never sent"},
     ]},
-    {"cat": "DCU Read Inputs — WINDOWS", "items": [
-        {"name": "Front LEFT down", "status": "todo", "ref": ""},
-        {"name": "Front LEFT up", "status": "todo", "ref": ""},
-        {"name": "Front RIGHT down", "status": "todo", "ref": ""},
-        {"name": "Front RIGHT up", "status": "todo", "ref": ""},
-    ]},
-    {"cat": "DCU Read Inputs — WASH WIPE", "items": [
-        {"name": "Front intermit", "status": "todo", "ref": ""},
-        {"name": "Front wash", "status": "todo", "ref": ""},
-        {"name": "Front wiper parked", "status": "todo", "ref": ""},
-        {"name": "Front wiper speed", "status": "todo", "ref": "numeric; likely multi-bit/byte"},
-        {"name": "Rear wiper", "status": "todo", "ref": ""},
-        {"name": "Rear wash", "status": "todo", "ref": ""},
-    ]},
-    {"cat": "DCU Read Inputs — HEATED SCREEN / ENGINE STATE", "items": [
-        {"name": "Heated screen switch", "status": "todo", "ref": ""},
-        {"name": "Ignition 2", "status": "todo", "ref": ""},
-        {"name": "Engine speed signal", "status": "todo", "ref": ""},
-    ]},
-    {"cat": "BCU Instruments — DISCRETE INPUTS / WARNING STATES", "items": [
-        {"name": "LH DI", "status": "todo", "ref": ""},
-        {"name": "RH DI", "status": "todo", "ref": ""},
-        {"name": "LH Tailor DI", "status": "todo", "ref": ""},
-        {"name": "RH Tailor DI", "status": "todo", "ref": ""},
-        {"name": "Seat belt", "status": "todo", "ref": ""},
-        {"name": "Diff lock", "status": "todo", "ref": ""},
-        {"name": "Transfer neutral", "status": "todo", "ref": ""},
-        {"name": "Autobox manual", "status": "todo", "ref": ""},
-        {"name": "Autobox sport", "status": "todo", "ref": ""},
-        {"name": "Offroad level", "status": "todo", "ref": ""},
-        {"name": "ABS", "status": "todo", "ref": "warning lamp, not switch"},
-        {"name": "Traction control", "status": "todo", "ref": ""},
-        {"name": "SRS", "status": "todo", "ref": "warning lamp"},
-        {"name": "HDC select", "status": "todo", "ref": ""},
-        {"name": "Glow plug", "status": "todo", "ref": ""},
-        {"name": "Brake", "status": "todo", "ref": ""},
-        {"name": "Oil pressure", "status": "todo", "ref": ""},
-        {"name": "Alternator", "status": "todo", "ref": ""},
-        {"name": "Check engine", "status": "todo", "ref": "warning lamp"},
-        {"name": "Fuel filter", "status": "todo", "ref": ""},
-        {"name": "Transmission temp.", "status": "todo", "ref": ""},
-        {"name": "Check ACE", "status": "todo", "ref": "warning lamp"},
-        {"name": "Check HDC", "status": "todo", "ref": "warning lamp"},
-        {"name": "Check SLS", "status": "todo", "ref": "warning lamp"},
-    ]},
-    {"cat": "BCU Instruments — MILEAGE / TRIP", "items": [
-        {"name": "Instr. milage (km)", "status": "todo", "ref": "instr-pack odometer reading; byte order/scale"},
-        {"name": "BCU milage (km)", "status": "todo", "ref": "BCU-stored odometer reading; byte order/scale"},
-        {"name": "IP trip switch", "status": "todo", "ref": ""},
-    ]},
-    {"cat": "BCU Power distribution — IGNITION / SUPPLY", "items": [
-        {"name": "BCU ignition pos. 1", "status": "todo", "ref": "bitfield candidate (pos 1/2/3)"},
-        {"name": "BCU ignition pos. 2", "status": "todo", "ref": "bitfield candidate (pos 1/2/3)"},
-        {"name": "BCU ignition pos. 3", "status": "todo", "ref": "bitfield candidate (pos 1/2/3)"},
-        {"name": "IP ignition pos. 2", "status": "todo", "ref": "instrument-pack report"},
-        {"name": "IDM ignition pos. 2", "status": "todo", "ref": "IDM report"},
-        {"name": "IDM battery (V)", "status": "todo", "ref": "voltage; scale TBD"},
-        {"name": "BCU switch power", "status": "todo", "ref": "voltage; scale TBD"},
-        {"name": "BCU relay power", "status": "todo", "ref": "voltage; scale TBD"},
-    ]},
-    {"cat": "BCU Settings — LIGHTS-WINDOWS-SEATS", "items": [
-        {"name": "Front fog lamp", "status": "todo", "ref": ""},
-        {"name": "Daytime run lights", "status": "todo", "ref": "★ enum NONE/NO MAIN/NO HEADS"},
-        {"name": "Courtest head lamps", "status": "todo", "ref": ""},
-        {"name": "Headlamp power wash", "status": "todo", "ref": ""},
-        {"name": "Electric window front", "status": "todo", "ref": ""},
-        {"name": "Rear windows sunroof", "status": "todo", "ref": ""},
-        {"name": "Heated front screen", "status": "todo", "ref": ""},
-        {"name": "Electric front seats", "status": "todo", "ref": ""},
-        {"name": "Programmed wash wip", "status": "todo", "ref": "enum, not boolean"},
-        {"name": "Seat belt warning", "status": "todo", "ref": "enum (TIMED/…)"},
-        {"name": "Seat belt warning soun", "status": "todo", "ref": ""},
-        {"name": "Autographics", "status": "todo", "ref": ""},
-    ]},
-    {"cat": "BCU Settings — TRANSM-LOCK-WARN", "items": [
-        {"name": "Transmission", "status": "todo", "ref": "enum (AUTO/…)"},
-        {"name": "Shift Interlock", "status": "todo", "ref": ""},
-        {"name": "HDC", "status": "todo", "ref": ""},
-        {"name": "Superlock", "status": "todo", "ref": ""},
-        {"name": "Single point entry", "status": "todo", "ref": ""},
-        {"name": "Speed lock option", "status": "todo", "ref": ""},
-        {"name": "Mislock option", "status": "todo", "ref": ""},
-        {"name": "Bathrobe lock option", "status": "todo", "ref": ""},
-        {"name": "Odometer error warn", "status": "todo", "ref": ""},
-        {"name": "Key warning", "status": "todo", "ref": ""},
-        {"name": "Low battery warning", "status": "todo", "ref": ""},
-        {"name": "Bulb failure", "status": "todo", "ref": ""},
-    ]},
-    {"cat": "BCU Settings — INSTRUMENT PACK", "items": [
-        {"name": "Transmission", "status": "todo", "ref": "vehicle config"},
-        {"name": "Engine", "status": "todo", "ref": "enum (PETROL/…)"},
-        {"name": "ACE", "status": "todo", "ref": "feature flag"},
-        {"name": "SLS", "status": "todo", "ref": "feature flag"},
-        {"name": "Gulf", "status": "todo", "ref": "feature flag"},
-        {"name": "Police", "status": "todo", "ref": "feature flag"},
-        {"name": "HDC", "status": "todo", "ref": "feature flag"},
-        {"name": "TRC", "status": "todo", "ref": "feature flag"},
-    ]},
-    {"cat": "BCU Settings — ALARM-OTHER", "items": [
-        {"name": "Alarm", "status": "todo", "ref": ""},
-        {"name": "Alarm option", "status": "todo", "ref": ""},
-        {"name": "Alarm disarm", "status": "todo", "ref": "enum field"},
-        {"name": "Alarm sounder", "status": "todo", "ref": "enum field"},
-        {"name": "Alarm tamper", "status": "todo", "ref": ""},
-        {"name": "Engine immobil.", "status": "todo", "ref": "★ enum (LED OFF/…)"},
-        {"name": "Passive immobil.", "status": "todo", "ref": "★ en/dis"},
-        {"name": "Inertia switch", "status": "todo", "ref": "enum (NO HAZARD/…)"},
-        {"name": "Hazard option", "status": "todo", "ref": "enum field"},
-        {"name": "Volumetric sensor", "status": "todo", "ref": ""},
-        {"name": "Market", "status": "todo", "ref": "★ enum; market code not mapped (controls DRL etc.)"},
-        {"name": "EKA option", "status": "todo", "ref": "★ en/dis; linked to the EKA code utility"},
-        {"name": "EKA code (read/write)", "status": "maybe", "ref": "PROVEN: read 21 CC, write 3B CC <4B>. RDL 016 = XXXX (3b cc XX XX XX XX). ⚠️ never write blindly"},
-        {"name": "BCU settings IDs", "status": "maybe", "ref": "auto-extracted: 21 C6/C7/CA/CB/D3/D4-D7/EB (match against settings groups)"},
-        {"name": "Cruise control", "status": "todo", "ref": ""},
-        {"name": "Air conditioning", "status": "todo", "ref": ""},
-        {"name": "Fuel burning heater", "status": "todo", "ref": ""},
-        {"name": "Passive coil", "status": "todo", "ref": ""},
-        {"name": "Transit mode", "status": "todo", "ref": ""},
-    ]},
-    {"cat": "BCU Outputs — BODY", "items": [
-        {"name": "Front fog lights", "status": "todo", "ref": ""},
-        {"name": "Rear fog lights", "status": "todo", "ref": ""},
-        {"name": "Daytime running lights", "status": "todo", "ref": ""},
-        {"name": "LH indicator enable", "status": "todo", "ref": "seq 4; UI shows the label twice"},
-        {"name": "LH indicator enable (2)", "status": "todo", "ref": "seq 5; may turn out to be RH"},
-        {"name": "Front left window up", "status": "todo", "ref": ""},
-        {"name": "Front left window down", "status": "todo", "ref": ""},
-        {"name": "Front right window up", "status": "todo", "ref": ""},
-        {"name": "Front right window down", "status": "todo", "ref": "UI-truncated label"},
-        {"name": "Rear windows enable", "status": "todo", "ref": ""},
-        {"name": "Sunroof enable", "status": "todo", "ref": ""},
-        {"name": "Front wiper enable", "status": "todo", "ref": ""},
-        {"name": "Tail wiper enable", "status": "todo", "ref": ""},
-        {"name": "Head lamp power wash", "status": "todo", "ref": ""},
-        {"name": "Heated screen", "status": "todo", "ref": ""},
-        {"name": "Heat. rear screen lamp", "status": "todo", "ref": ""},
-        {"name": "Check engine lamp", "status": "todo", "ref": ""},
-    ]},
-    {"cat": "BCU Outputs — SECURITY/LOCKING", "items": [
-        {"name": "Horn", "status": "todo", "ref": ""},
-        {"name": "BBUS ALL", "status": "todo", "ref": ""},
-        {"name": "BBUS ST", "status": "todo", "ref": ""},
-        {"name": "Fuel flap", "status": "todo", "ref": ""},
-        {"name": "Alarm LED", "status": "todo", "ref": ""},
-        {"name": "Ignition interlock", "status": "todo", "ref": ""},
-        {"name": "Crank Enable", "status": "todo", "ref": ""},
-        {"name": "Volumetric power", "status": "todo", "ref": ""},
-        {"name": "Robust immo.", "status": "todo", "ref": ""},
-        {"name": "Transponder Power", "status": "todo", "ref": ""},
-        {"name": "Lock", "status": "todo", "ref": ""},
-        {"name": "Unlock", "status": "todo", "ref": ""},
-        {"name": "Superlock", "status": "todo", "ref": ""},
-        {"name": "Single point entry", "status": "todo", "ref": ""},
-    ]},
+    {"id": "utilities-key-detect", "page": "utilities", "parent": "utilities-keys",
+     "cat": "Key detection / synchronisation", "nanocom": "valeo_bcu/key_programming",
+     "items": _gated("key-detect", [("Key 1", "SYNC"), ("Key 2", "SYNC"), ("Key 3", "SYNC"), ("Key 4", "SYNC"),
+                                    ("SUSP", "SYNC"), ("KEY DETECT", "global key-detection button")])},
+    {"id": "utilities-plip", "page": "utilities", "parent": "utilities-keys", "cat": "Suspension plip BAR CODE",
+     "nanocom": "valeo_bcu/key_programming",
+     "items": _gated("plip", [("BAR CODE", "screenshot value; verify against a capture"),
+                              ("SET CODE 1", "button"), ("UPDATE", "")])},
 ]
