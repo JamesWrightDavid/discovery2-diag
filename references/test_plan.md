@@ -61,8 +61,8 @@ model-general and what is specific to RDL 016.
 ### P1 — Td5 air/boost mapping (the biggest open question)
 
 #### T-01 `[idle]` `[drive]` — Is `21 1C`@4 the measured MAF?
-**Answered 2026-10-04: yes** (`maf_sensor`, u16 x0.1 kg/h, proven) — once the air-flow fault was
-cleared the sensor came alive; see test-plan-resolved. Open: a loaded/WOT drive log to compare
+**Answered 2026-10-04: yes** (`maf_sensor`, u16 x0.1 kg/h, proven on D2-JW, whose sensor works;
+the zeros were RDL 016's faulted sensor); see test-plan-resolved. Open: a loaded/WOT drive log to compare
 measured vs modelled (`1D`@4) across the range.
 **Question.** `1C`@4 sat in the store as the unscaled `maf_raw` candidate until commit
 `bba77a9` moved `maf` to `1D`@4 with a provisional 2-point calibration.
@@ -177,7 +177,7 @@ injection offset from nominal (range ±0.000127 s), **3-4** = the same for end-o
 5-digit codes so the byte↔digit encoding can be mapped (as with the EKA code).
 
 #### T-08 `[key-on]` — `21 1E` driver switches / `21 36` relay-output status
-**Progress 2026-10-03 (brake DONE, rest open).** Brake settled on RDL016: `21 1E` byte1 bit7
+**Progress 2026-10-03 (brake DONE, rest open).** Brake settled on D2-JW: `21 1E` byte1 bit7
 = `brake_main` (active-low, 0 = pressed) and byte0 bit0 = `brake_switch_2` (active-high); both
 `proven` in the store. Byte0 bit5 (the bit seen moving earlier) is NOT the brake. `21 36` did not
 move with the brake. Cruise master/set/resume done 2026-10-04 (byte0 bits 2/3/4, Simon's map
@@ -211,14 +211,17 @@ actions is unidentified — repeat. Ekaitza's ECU-pin map is background, not a b
 reference tool's **Settings → Feature/config** screen: all 21 ENABLED/DISABLED flags in
 displayed order plus ECU Status. Read them off the screen; no sniff needed.
 
-#### T-31 `[key-on]` — `21 1B` pedal block changed layout: which slot is track 3 / supply? (NEXT parked test)
+#### T-31 `[key-on]` — `21 1B` pedal block changed layout: which slot is track 3 / supply?
+**Answered 2026-10-04** (see test-plan-resolved): long form = way1 @0, way2 @2, way3 @4, pedal % @6,
+supply @8. The short form was RDL 016's (another car/ECU variant), so nothing switched. Still open:
+a decoder that picks the layout by reply length, so both cars decode (needs a spec).
 **Supply settled 2026-10-04:** `accel_supply` moved to `@8` (4.94-5.02 V over 1929 replies,
 decoder re-read 4.98 V -> proven). The August short frame (`02 86 11 1C 00 00 13 92`) shows the long
 form inserts a value at `@4`: short @4 = track 3 (0 V at rest) now sits at `@6`. Remaining: confirm
 with the pedal sweep below which of `@4`/`@6` is "Way 3", and make the decoder pick the layout by
 reply length (needs a spec).
-**Why.** Every `21 1B` reply since 2026-10-03 is the LONG form `0C 61 1B` (10 data bytes); the
-store was built on the SHORT form (`0A 61 1B`, 8 bytes) from 2026-08. Today at rest (engine
+**Why.** Every `21 1B` reply from D2-JW is the LONG form `0C 61 1B` (10 data bytes); the
+store was built on RDL 016's SHORT form (`0A 61 1B`, 8 bytes) from 2026-08. Today at rest (engine
 idling): `@0` 0.68 V, `@2` 4.32 V, `@4` 4.63 V, `@6` **0.00 V**, `@8` 4.98 V. The store reads
 `accel_supply` at `@6`, so the dashboard shows **0 V supply — a decode error, not a wiring fault**
 (the real 5 V reference is almost certainly `@8` = 4.98 V; no pedal fault code is set). Open

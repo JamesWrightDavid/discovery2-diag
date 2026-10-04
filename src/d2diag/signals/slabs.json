@@ -295,7 +295,7 @@
       "0": "not reverse",
       "1": "reverse"
     },
-    "source": "21 42 byte0 bit3; differential 2026-10-04 on RDL016 (automatic, engine off, ign on): P=82 28 / R=8A 30, 3x P and 3x R across P-R-P-R-P-R, automap state solve. re-read through the decoder on the car 2026-10-04 (R=1, P=0, steady) -> proven. Correction 2026-10-04: the second byte quoted (28/29/30/2C/38) is the frame checksum, which leaked into reads before the kwp2000 trim fix; 21 42 returns ONE data byte.",
+    "source": "21 42 byte0 bit3; differential 2026-10-04 on D2-JW (automatic, engine off, ign on): P=82 28 / R=8A 30, 3x P and 3x R across P-R-P-R-P-R, automap state solve. re-read through the decoder on the car 2026-10-04 (R=1, P=0, steady) -> proven. Correction 2026-10-04: the second byte quoted (28/29/30/2C/38) is the frame checksum, which leaked into reads before the kwp2000 trim fix; 21 42 returns ONE data byte.",
     "label": "Reverse gear",
     "group": "Inputs",
     "description": "Reverse gear selected (automatic gearbox selector)."
@@ -314,7 +314,7 @@
       "0": "not neutral",
       "1": "neutral"
     },
-    "source": "21 42 byte0 bit0; differential 2026-10-04 on RDL016 (automatic, engine off, ign on): P=82 28 / N=83 29 / R=8A 30, N seen in two separate periods with P between. re-read through the decoder on the car 2026-10-04 (N=1, P=0, steady) -> proven. Correction 2026-10-04: the second byte quoted (28/29/30/2C/38) is the frame checksum, which leaked into reads before the kwp2000 trim fix; 21 42 returns ONE data byte.",
+    "source": "21 42 byte0 bit0; differential 2026-10-04 on D2-JW (automatic, engine off, ign on): P=82 28 / N=83 29 / R=8A 30, N seen in two separate periods with P between. re-read through the decoder on the car 2026-10-04 (N=1, P=0, steady) -> proven. Correction 2026-10-04: the second byte quoted (28/29/30/2C/38) is the frame checksum, which leaked into reads before the kwp2000 trim fix; 21 42 returns ONE data byte.",
     "label": "Neutral gear",
     "group": "Inputs",
     "description": "Neutral selected (automatic gearbox selector). Park also reads 0 here."
@@ -333,7 +333,7 @@
       "0": "disengaged",
       "1": "engaged"
     },
-    "source": "21 42 byte0 bit4; differential 2026-10-04 on RDL016 (automatic, engine off, ign on, stationary): OFF=82 28 / ON=92 38, OFF-ON-OFF-ON, stable, 56/58 unchanged. Dash frozen in diag mode so engagement not seen visually; identity rests on the diff lock control toggling the bit. re-read through the decoder on the car 2026-10-04 (engaged=1, disengaged=0, steady) -> proven. Correction 2026-10-04: the second byte quoted (28/29/30/2C/38) is the frame checksum, which leaked into reads before the kwp2000 trim fix; 21 42 returns ONE data byte.",
+    "source": "21 42 byte0 bit4; differential 2026-10-04 on D2-JW (automatic, engine off, ign on, stationary): OFF=82 28 / ON=92 38, OFF-ON-OFF-ON, stable, 56/58 unchanged. Dash frozen in diag mode so engagement not seen visually; identity rests on the diff lock control toggling the bit. re-read through the decoder on the car 2026-10-04 (engaged=1, disengaged=0, steady) -> proven. Correction 2026-10-04: the second byte quoted (28/29/30/2C/38) is the frame checksum, which leaked into reads before the kwp2000 trim fix; 21 42 returns ONE data byte.",
     "label": "Centre diff lock",
     "group": "Inputs",
     "description": "Centre differential lock engaged."
@@ -352,7 +352,7 @@
       "0": "high or neutral",
       "1": "low range"
     },
-    "source": "21 42 byte0 bit2; 2026-10-04 on RDL016 (engine off, ign on, stationary): lever at end of travel HIGH=82 28 (bit clear), LOW=86 2C (bit set), plus 8 earlier low-range reads. A lever position the user felt was NEUTRAL (unsure) also read 82 28. Stays candidate until neutral is confirmed separately and the decoder is re-read on the car (test_plan T-29). Correction 2026-10-04: the second byte quoted (28/29/30/2C/38) is the frame checksum, which leaked into reads before the kwp2000 trim fix; 21 42 returns ONE data byte. T-29 2026-10-04 (engine idling, selector N, stationary): lever H 83 / N 83 / L 87 / N 83 / H 83 (3 reads each) -> bit2 set only in LOW; transfer NEUTRAL reads like HIGH (not visible in 21 42/56/58). Decoder re-read: L=1, H/N=0 -> proven.",
+    "source": "21 42 byte0 bit2; 2026-10-04 on D2-JW (engine off, ign on, stationary): lever at end of travel HIGH=82 28 (bit clear), LOW=86 2C (bit set), plus 8 earlier low-range reads. A lever position the user felt was NEUTRAL (unsure) also read 82 28. Stays candidate until neutral is confirmed separately and the decoder is re-read on the car (test_plan T-29). Correction 2026-10-04: the second byte quoted (28/29/30/2C/38) is the frame checksum, which leaked into reads before the kwp2000 trim fix; 21 42 returns ONE data byte. T-29 2026-10-04 (engine idling, selector N, stationary): lever H 83 / N 83 / L 87 / N 83 / H 83 (3 reads each) -> bit2 set only in LOW; transfer NEUTRAL reads like HIGH (not visible in 21 42/56/58). Decoder re-read: L=1, H/N=0 -> proven.",
     "label": "Transfer box low range",
     "group": "Inputs",
     "description": "Set when the transfer box is in low range."
