@@ -154,7 +154,9 @@ control in the same session, means the frame is wrong for this ECU: record it an
 ### P2 — Td5 read-only additions (cheap, no risk)
 
 #### T-06 `[key-on]` — ECU identification `1A xx`
-We never read `1A`. Ekaitza gives `1A 87` = VIN, `1A 9A` = ECU type, `1A 9B/9C` = further
+**Progress 2026-10-04:** read and largely decoded (see test-plan-resolved). Open: `1A 87`@26-31,
+`9B`/`9C` meaning, confirm the BCD serial against the VIN plate.
+Original note: we never read `1A`. Ekaitza gives `1A 87` = VIN, `1A 9A` = ECU type, `1A 9B/9C` = further
 IDs. Read all four once, note the framing and lengths.
 ⚠️ **The response contains the VIN** — the raw log must be scrubbed before it goes
 anywhere public (`references/hex-PII` rule: hex-encoded VIN survives text scans).
