@@ -34,14 +34,20 @@ That is one observation, not a decoded status bit.
 
 | Code | Fault | Confidence | Source |
 |---|---|---|---|
-| `004` | Airbag warning lamp circuit, open circuit | candidate | RDL 016 baseline read 2026-08-07 (docs/discovery-2-td5/fault-codes.md) showed "warning lamp open circuit" and "LH pretensioner open circuit"; raw re-read 2026-08-10 gave 004 + 022. Pairing by elimination, since 022 is the LH pretensioner. A P38 thread shows 004 with no circuit named: https://www.landyzone.co.uk/land-rover/srs-error-004-open-circuit.383085/ |
+| `004` | Airbag warning lamp circuit, open circuit | candidate | RDL 016 baseline read 2026-08-07 (docs/discovery-2-td5/fault-codes.md) showed "warning lamp open circuit" and "LH pretensioner open circuit"; raw re-read 2026-08-10 gave 004 + 022. Pairing by elimination, since 022 is the LH pretensioner. A P38 thread shows 004 with no circuit named: https://www.landyzone.co.uk/land-rover/srs-error-004-open-circuit.383085/ ; also set on D2-JW (read 2026-10-04, `61 02 90 04 90 00`) |
 | `008` | Driver's airbag circuit, open circuit | candidate | NanoCom, 2003 Discovery 2: https://www.landyzone.co.uk/land-rover/srs-light.385858/ |
 | `022` | Left-hand seat-belt pretensioner circuit, open circuit | candidate | thread title, Discovery 2 forum: https://www.aulro.com/afvb/discovery-2-a/260850-code-022-left-hand-pretensioner-measures-open-circuit-permanent.html ; also the RDL 016 baseline read |
 | `023` | Right-hand seat-belt pretensioner circuit, short to ground | candidate | Discovery 2: https://www.landyzone.co.uk/land-rover/seat-belt-pretensioner-gone-off.294442/ |
 
-`004` and `022` are this car's own faults. They stay `candidate` until one session
-photographs the tool screen (number + text) while the raw `61 02` frame is captured. That
-promotes both to `proven` (test plan T-30).
+Which car had which fault:
+- `004` is set on both cars. RDL 016's raw read was `61 02 90 04 90 16`. **D2-JW** (this
+  fork's car) read `61 02 90 04 90 00 …` on 2026-10-04, without SecurityAccess. Its
+  `90 00` record is unresolved and is not shown as a fault number.
+- `022` is RDL 016's only.
+
+The "warning lamp" text for `004` comes from RDL 016's baseline. Both stay `candidate` until a
+session photographs the tool screen (number + text) while the raw `61 02` frame is captured
+(test plan T-30).
 
 ## Backlog (not stored)
 

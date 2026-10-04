@@ -61,11 +61,11 @@ first-hand screens settle it:
   (https://www.landyzone.co.uk/land-rover/nsf-abs-sensor-output-too-low.262396/).
 
 The second field is not a unique fault ID either:
-- `-05` is both "front right output too low" (this car's `020-05`) and "shuttle valve
-  electrical fail" (`11-05`, `23-05`, this car's `027-05`);
+- `-05` is both "front right output too low" (RDL 016's `020-05`) and "shuttle valve
+  electrical fail" (`11-05`, `23-05`, RDL 016's `027-05`);
 - `-06`, `-07` and `-08` follow the rear-left, front-left and rear-right sensors.
 
-So on NanoCom's SLABS screen the **text** identifies the fault. This car's `020`/`027` were
+So on NanoCom's SLABS screen the **text** identifies the fault. RDL 016's `020`/`027` were
 probably the counts that day.
 
 **The vendor guide confirms it.** The NanoCom SLABS guide says: "Faults are listed as
@@ -82,12 +82,12 @@ How sure this was before the guide: fairly, not fully.
   the question.
 
 Earlier reading of the same evidence: in the first three, the first field matches the occurrence count. That would make it a
-count, not a code, and would make this car's `020-05` "20 times, code 05". But the second
+count, not a code, and would make RDL 016's `020-05` "20 times, code 05". But the second
 field doesn't behave like a fault code either: `03-06` is a valve fault, yet a sensor fault
 also ends in `06`.
 
 So what the displayed numbers *mean* is open. What is proven is the raw bit → fault text
-pairing for this car's two faults (byte 3 bit 4, byte 10 bit 4). The store keys them by the
+pairing for RDL 016's two faults (byte 3 bit 4, byte 10 bit 4). The store keys them by the
 displayed `020` / `027` only because that is what the decoder emits. Next session, photograph
 the SLABS fault screen with its "times" line (T-30). Members also report NanoCom mixing up
 SLABS sensor positions.

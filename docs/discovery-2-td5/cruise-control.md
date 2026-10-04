@@ -18,7 +18,11 @@ module, with its 41 fault codes, is listed for the **petrol V8 Discovery II only
 NCOM04). That matches the NanoCom emulator showing cruise only under the V8 branch
 ([menus/cruise.md](../../references/menus/cruise.md)).
 
-So on this car, cruise lives in the Td5 engine ECU:
+**D2-JW confirms it (2026-10-04).** A full address sweep (fast and 5-baud init on every
+address `0x01`–`0xEF`) found only Td5, SLABS, BCU, airbag and a generic OBD responder at
+`0x18`. No cruise module answered ([test-plan-resolved.md](../../references/test-plan-resolved.md)).
+
+So on a Td5, cruise lives in the engine ECU:
 - **Faults:** in the Td5 fault block, for example `21.6`/`21.7` "cruise control
   resume/set stuck closed" and `25.1` "cruise control system problem"
   ([fault-dictionary-td5.md](fault-dictionary-td5.md)).

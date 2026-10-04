@@ -464,14 +464,17 @@ During T-25, for each module's Faults – Read:
   and the ACE `67` block.
 
 Priorities:
-- Td5: the unnamed `byte15.bit7` and `byte18.bit6`, and re-read `001-07`, whose baseline
-  text contradicts its number. If `11.6`/`13.6` (glow-plug lamp) or `9.2` (tachometer) is
-  set, photograph it.
-- Airbag: `004` and `022`.
-- ACE: `04-02`, `04-04` (no text found anywhere), `04-05` and `06-01`.
-- SLABS: photograph the whole fault screen including any "N times" line. Forum screens
-  show the first field of `020-05` is an occurrence count
-  ([slabs_fault_codes.md](slabs_fault_codes.md)); the vendor guide confirms it.
+Priorities on **D2-JW** (this fork's car; RDL 016's faults are a different car):
+- Td5: the persistent unnamed `25.3`/`25.5` (Current) and `21.3`/`21.5` (Logged), shown as
+  `(26,4)`, `(26,6)`, `(22,4)` and `(22,6)`, probably cruise-group. If `11.6`/`13.6`
+  (glow-plug lamp) or `9.2` (tachometer) is set, photograph it.
+- Airbag: `004` (D2-JW reads `61 02 90 04 90 00`). Note what the screen shows for the
+  `90 00` record.
+- SLABS: photograph the whole fault screen including any "N times" line
+  ([slabs_fault_codes.md](slabs_fault_codes.md); the vendor guide confirms the count).
+- ACE: D2-JW has ACE fitted but it did not answer the T-26 standard-init sweep, so capture
+  the NanoCom's ACE **init** (address, baud, wake-up) as well as the fault screen. RDL 016's
+  tool showed `04-02`, `04-04`, `04-05` and `06-01`; `04-04` has no text anywhere.
 - All modules: note the NanoCom firmware version. When mapping SLABS wheel channels, verify
   each corner physically (unplug one sensor) rather than trusting NanoCom's label, which is
   wrong on the P38's Wabco unit ([d2-tool-cross-reference.md](d2-tool-cross-reference.md)).
