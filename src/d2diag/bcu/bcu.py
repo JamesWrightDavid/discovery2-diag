@@ -113,7 +113,7 @@ class Bcu(EcuSession):
         * ``bytes`` — one digit per byte (the first four)
         * ``nibbles`` — two digits per byte (high/low nibble)
         """
-        raw = self.read_eka_raw()   # NOTE: the tolerant read includes the checksum
+        raw = self.read_eka_raw()
         as_bytes = [b for b in raw[:4]]
         nibbles = []
         for b in raw[:2]:
