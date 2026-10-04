@@ -30,18 +30,21 @@ _MODULES = [
 ]
 
 
-# How many codes each module can report, and how we know — from the register's capacities
-# (docs/discovery-2-td5/fault-codes.md) and the sources in references/<module>_fault_codes.md.
+# How many codes each module can report, and how we know.
 _TOTALS = {
-    "td5": ("280 bits", "Certain for the block size (35 bytes × 8). The register says >200 "
-                        "are used, so some unnamed bits are probably spare."),
-    "slabs": ("47", "Fairly sure: vendor guide and register agree. The rsw list (stored "
-                    "rsw-NNN) is a different numbering with ~67 fault types."),
-    "airbag": ("37", "Unsure: register capacity 37, but its string dump spans numbers 1–65."),
-    "autobox": ("39", "Fairly sure: the RAVE table uses internal numbers 1–39 (36 absent)."),
-    "ace": ("45–48", "Unsure: register says 45; Hawkeye DTC numbers run to 48. Store counts "
-                     "three display schemes."),
+    "td5": ("280 bits", "Vendor guide: \"over 200\" fault codes in a 35-byte (280-bit) block, so some "
+                        "unnamed bits are probably spare."),
+    "slabs": ("47", "Vendor guide: \"up to 47 different faults\". The rsw list (stored rsw-NNN) "
+                    "is a different numbering with ~67 fault types."),
+    "airbag": ("37", "Vendor guide: \"up to 37 faults\". The register's string dump spans "
+                     "numbers 1–65, so the numbering is not simply 1–37."),
+    "autobox": ("39", "Vendor guide: \"up to 39 different problems\"; RAVE table uses internal "
+                      "numbers 1–39 (36 absent)."),
+    "ace": ("45", "Vendor guide: \"up to 45 different problems\" (some shown as MASKED FAULT). "
+                  "Store counts three display schemes for the same faults."),
 }
+# Totals source: NanoCom vendor ECU guides, https://www.blackbox-solutions.com/site/support
+# (see references/d2-tool-cross-reference.md).
 
 
 def _fm(title: str, summary: str) -> str:

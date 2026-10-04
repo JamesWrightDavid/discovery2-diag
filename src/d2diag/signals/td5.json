@@ -286,10 +286,10 @@
       0.8,
       2.6
     ],
-    "source": "21 1C@0 u16/10000 bar = TURBO/boost pressure (reference tool 'Turbo Pressure'). Idle ~1.0 bar (atmospheric); full load 2.0–2.2 bar absolute; the ECU's overboost cut > 2.42 bar. CONFIRMED 2026-08-03 (1.0→1.2 bar).",
+    "source": "21 1C@0 u16/10000 bar = TURBO/boost pressure (reference tool 'Turbo Pressure'). Idle ~1.0 bar (atmospheric); full load 2.0–2.2 bar absolute; the ECU's overboost cut is relative to ambient: ≈ +142 kPa above atmospheric (defender2 topic65863), i.e. ~2.42 bar at sea level. CONFIRMED 2026-08-03 (1.0→1.2 bar).",
     "label": "Turbo pressure",
     "group": "Pressures",
-    "description": "Turbo / boost pressure. Idle ~1.0 bar; full load 2.0–2.2; overboost-cut >2.42.",
+    "description": "Turbo / boost pressure, absolute (bar). Idle ≈ ambient (~1.0); full load 2.0–2.2; overboost cut ≈ ambient + 1.42 bar.",
     "span": [
       0.8,
       2.6
@@ -393,7 +393,7 @@
     "source": "21 40@0 s16; cylinder balance 1. PROVEN (labeled_captures 40='correct'); values −6…+2 across captures.",
     "label": "Injector 1",
     "group": "Fuelling",
-    "description": "Cylinder 1 fuelling correction. ±4 healthy; +6…+15 = weak cylinder.",
+    "description": "Cylinder 1 fuelling correction. ±4 healthy (owners quote ±3). Larger values are worth checking but not proof of a bad injector: owners report cars running for years at double figures.",
     "span": [
       -15,
       15

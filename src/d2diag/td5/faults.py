@@ -34,8 +34,8 @@ class Fault:
 FAULT_BLOCK_LEN = 35
 
 # Fault map from Ekaitza + reference tool v1.12 (210 named bits, offset 0–34). PROVEN,
-# plus candidate bits: 20.7 named only by the public forum X-Y list, 13.6 renamed from a
-# NanoCom screen, 11.6 suspect (same copy error as 13.6) — see
+# plus candidate bits: 20.7 named only by the public forum X-Y list; 11.6 and 13.6 renamed
+# from NanoCom screens (glow-plug lamp, not a second "relay") — see
 # references/td5_fault_codes.md for the mapping check and the unnamed-bit backlog.
 FAULTS: "list[Fault]" = [
     Fault(0, 0x01, "egr inlet throttle diagnostics (Logged Low)"),
@@ -131,9 +131,9 @@ FAULTS: "list[Fault]" = [
     Fault(11, 0x08, "gearbox/abs drive open load (Current)"),
     Fault(11, 0x10, "air conditioning clutch open load (Current)"),
     Fault(11, 0x20, "mil lamp drive open load (Current)"),
-    # Suspect: the source repeats "relay" for 11.6 and 11.7, and the 13.6 twin reads
-    # "GLOWPLUG LAMP" on a NanoCom screen. Name kept until a screen shows this bit.
-    Fault(11, 0x40, "glow plug relay drive open load (Current)", "candidate"),
+    # NanoCom screens: "(12,7) GLOWPLUG LAMP DRIVE OPEN LOAD, (CURRENT)" — same copy error
+    # as 13.6 (the source list repeats "relay" at 11.6/11.7).
+    Fault(11, 0x40, "glowplug lamp drive open load (Current)", "candidate"),
     Fault(11, 0x80, "glowplug relay drive open load (Current)"),
     Fault(12, 0x01, "cruise control lamp drive over temp. (Current)"),
     Fault(12, 0x02, "fuel used output drive over temp. (Current)"),
