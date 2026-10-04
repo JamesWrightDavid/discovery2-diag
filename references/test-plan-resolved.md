@@ -15,6 +15,20 @@ summary: >
 Companion to [test_plan.md](test_plan.md). When an open test is settled, move it here
 with the date and the outcome. Newest first.
 
+- **2026-10-04 — T-06 Td5 identity `1A` blocks decoded (layout; VIN digits kept out).**
+  From the 2026-10-04 read (raw log gitignored). Text is ASCII and numbers are **packed BCD**, which
+  matches the part-number form `NNN000120` in the factory tool's menu ([menus/td5.md](menus/td5.md)).
+  Offsets are into the data after `5A <opt>`; frame checksums verify.
+  - `1A 9A` (6 bytes): `4E 4E 4E` "NNN" + BCD `00 01 30` -> **ECU part number `NNN000130`** (RDL 016).
+  - `1A 87` (46 bytes): @0-10 ASCII = first 11 VIN characters; @11-13 = 3 BCD bytes, most likely the
+    6-digit VIN serial (**candidate** — check against the VIN plate before trusting); @14 `00`;
+    @15-18 BCD `14 11 20 02` = **14/11/2002** (candidate: build or programming date, consistent with
+    the VIN's model-year code for 2003); @19 `00`; @20-25 "NNW" + BCD `50 01 40` -> **`NNW500140`**
+    (NNW = Td5 software/tune prefix; candidate meaning); @26-35 `00 00 00 00 41 90 00 58 00 40`
+    unknown; @36-45 `00 00 00 00 FF FF FF FF FF FF` padding.
+  - `1A 9B` -> `01`, `1A 9C` -> `01`: one byte each, meaning open.
+  Still open: the bytes at `1A 87`@26-31, the `9B`/`9C` meaning, and where the factory tool's
+  Config/Fuel Tune IDs and Homologation come from (not in these four blocks).
 - **2026-10-04 — `0x18` is a generic OBD-II (ISO 9141-2) responder, likely the EAT gearbox.**
   Key-on, engine off, read-only (`/home/admin/d2tools/probe18.py`; raw log gitignored). 5-baud
   `0x18` -> `55 08 08`, `~KW2` `F7` -> `~addr` `E7`. The EAT factory-tool frames (`72 05 04 00 73`
