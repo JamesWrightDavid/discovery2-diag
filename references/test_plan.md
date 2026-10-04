@@ -273,6 +273,9 @@ Log Td5 `speed` alongside to see where SLABS drops and whether bit2 stays set wh
 
 ### P4 — Other modules
 
+**Also on the drive day (2026-10-04 notes):** A/C request at idle (`21 1E` byte1 bit3, climate
+set to LO), and watch the current cruise-group faults `25.3`/`25.5` while cruise is used.
+
 #### T-16 `[key-on]` — BCU: map the read-only auth boundary
 **Done 2026-10-04 (inputs):** every input LID answers positive but all-zero and never moves
 (door, handbrake) — inputs are masked until SecurityAccess. See test-plan-resolved. The tool
