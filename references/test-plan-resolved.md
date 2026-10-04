@@ -15,6 +15,16 @@ summary: >
 Companion to [test_plan.md](test_plan.md). When an open test is settled, move it here
 with the date and the outcome. Newest first.
 
+- **2026-10-04 — T-26 full address sweep: only the four known modules plus `0x18` answer.**
+  Key-on, engine off, battery on a tender, unattended. `tools/module_scan.py auto` with fast init
+  AND 5-baud init on every address `0x01`-`0xEF` (474 probes, init + release only, 2 s settle).
+  Responders: fast `0x13` Td5 and `0x29` SLABS (`C1 57 8F`); 5-baud `0x13` Td5 (`57 8F` — the Td5
+  also answers a slow init), `0x18` (`08 08`, ISO 9141-2, identity still open), `0x40` BCU
+  (`E5 8F`), `0x5B` airbag (`E9 8F`). Every other address was silent on both inits. So no cruise,
+  HEVAC, instrument pack or IDM answers a standard fast or 5-baud init on pin 7 on this car; stop
+  guessing addresses for them. Caveat: a module needing a non-standard baud, tester address or a
+  running engine would not show here. `0x18` is the only unexplained responder — next step is a
+  plain read-only `21`/`1A` probe after its 5-baud init, with owner go-ahead.
 - **2026-10-04 — T-18 airbag read verified (no SecurityAccess needed); T-26 default scan; T-06 lengths.**
   Key-on, engine off, read-only. **Airbag:** 5-baud `0x5B` -> keybytes `E9 8F`, `10 81` -> `50 81`,
   `21 02` -> `61 02 90 04 90 00 00 00 00 00 00 00`, release `82` -> `C2`. The reference tool's
@@ -23,7 +33,7 @@ with the date and the outcome. Newest first.
   a format detail, not a second fault. **Address scan** (`tools/module_scan.py`, defaults):
   `0x13`/`0x29` fast `C1 57 8F`; `0x40` `E5 8F`; `0x5B` `E9 8F`; **`0x18` responded with `08 08`**
   (ISO 9141-2 keybytes, not KWP2000; identity open); `0x5A` silent (ruled out for this car). The
-  full 0x01-0xEF sweep for cruise/HEVAC/IP/IDM was not run. **Td5 `1A`:** `1A 87` -> 48 bytes
+  full 0x01-0xEF sweep followed later the same night (entry above). **Td5 `1A`:** `1A 87` -> 48 bytes
   (contains the VIN; raw kept only in the gitignored log), `1A 9A` -> 8 bytes, `1A 9B`/`9C` -> 3 bytes
   each; field layout not decoded yet (T-06 stays open).
 - **2026-10-04 — SLABS reverse gear mapped; handbrake, bonnet and A/C not on the Td5/SLABS reads.**
