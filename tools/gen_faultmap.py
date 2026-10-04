@@ -30,8 +30,8 @@ def build_td5() -> str:
 
 
 def build_slabs() -> str:
-    """{block_len, bits:{"offset.bit": "nr: text"}} keyed like slabs.decode_fault_block."""
-    bits = {f"{off}.{bit}": f"{nr}: {text}" for (off, bit), (nr, text) in SLABS_FAULT_BITS.items()}
+    """{block_len, bits:{"offset.bit": text}} keyed like slabs.decode_fault_block."""
+    bits = {f"{off}.{bit}": text for (off, bit), text in SLABS_FAULT_BITS.items()}
     return json.dumps({"module": "slabs", "block_len": SLABS_LEN, "bits": bits}, ensure_ascii=False, indent=2) + "\n"
 
 

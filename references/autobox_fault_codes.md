@@ -101,4 +101,13 @@ https://www.landyzone.co.uk/land-rover/2002-disco-td5-auto-auto-problem-oil.1026
 - NanoCom's P1884 sub-texts use German signal names. Only `MD_IND` (engine torque) and
   `WFPDK (DKI)` (throttle) were seen first-hand. Matching them to rows 33/34 and 18 is
   probable, not sourced.
+- More screens (third pass), consistent with the table but not stored separately:
+  - Hawkeye shows `P1884-33` as "Torque NOT in expected range"
+    (https://www.landyzone.co.uk/land-rover/auto-transmission-fault-code.343466/page-2);
+  - an owner quotes "CAN message throttle angle invalid", which fits row 18
+    (https://www.landyzone.co.uk/land-rover/p1884-code-any-ideas.348483/, tool not named);
+  - a 2000 D2 V8 owner quotes "V3 road speed invalid", which fits row 20 and supports
+    `V3` = road speed
+    (https://discoweb.org/index.php?threads/code-p1884-and-loss-of-power.28226/, tool
+    unclear).
 - Decoding the `72` read-faults payload against a car with a known EAT fault.

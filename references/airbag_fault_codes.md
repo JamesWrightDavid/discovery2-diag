@@ -41,13 +41,16 @@ That is one observation, not a decoded status bit.
 
 `004` and `022` are this car's own faults. They stay `candidate` until one session
 photographs the tool screen (number + text) while the raw `61 02` frame is captured. That
-promotes both to `proven` (test plan T-25).
+promotes both to `proven` (test plan T-29).
 
 ## Backlog (not stored)
 
 - Every other number, up to the 1–65 range the register's string dump covers. That
   register is not in this repository.
 - `032`: "right-hand pretensioner open circuit", found only in a search snippet.
-- `018`: a P38 page, wording doubtful.
+- `018`: a P38 page ("PAX airbag cleared open", the poster's wording). The P38 numbering
+  is not shown to match the D2's.
+- A second, per-range search (2026-10-04) found no Discovery 2 text for any other number in
+  001–065.
 - P38-only codes: the P38 also uses a TRW module and 008 reads the same on both, but no
   source says the tables are identical.

@@ -9,17 +9,17 @@
     "unit": "",
     "confidence": "proven",
     "limits": null,
-    "source": "21 54 byte0 = left height; proven via variance session.log 2026-08-08 reference tool reference: normal ~110–135 (calibration-dependent); L and R should sit close to each other on level ground; fixed 0/255 = broken arm/sensor.",
+    "source": "21 54 byte0 = left height; proven via variance session.log 2026-08-08. Normal band ~135–165 raw (≈1.4 mm per count): RDL 016 read 149/162; owners' NanoCom/Hawkeye logs 138–157 (landyzone 314170, 402791). Calibration-dependent: L and R may differ on level ground, so L≈R is not a health check. Fixed 0/255 = broken arm/sensor. See references/d2-tool-cross-reference.md.",
     "label": "Height left (raw)",
     "group": "Ride height",
-    "description": "Left ride-height sensor (raw 0–255). Normal ~110–135; L≈R on level ground.",
+    "description": "Left ride-height sensor (raw 0–255, ≈1.4 mm per count). Typical ~135–165; calibration-dependent.",
     "span": [
       0,
       255
     ],
     "normal": [
-      110,
-      135
+      135,
+      165
     ]
   },
   {
@@ -32,17 +32,17 @@
     "unit": "",
     "confidence": "proven",
     "limits": null,
-    "source": "21 54 byte1 = right height; proven via variance session.log 2026-08-08 reference tool reference: normal ~110–135 (calibration-dependent); L and R should sit close to each other on level ground; fixed 0/255 = broken arm/sensor.",
+    "source": "21 54 byte1 = right height; proven via variance session.log 2026-08-08. Normal band ~135–165 raw (≈1.4 mm per count): RDL 016 read 149/162; owners' NanoCom/Hawkeye logs 138–157 (landyzone 314170, 402791). Calibration-dependent: L and R may differ on level ground, so L≈R is not a health check. Fixed 0/255 = broken arm/sensor. See references/d2-tool-cross-reference.md.",
     "label": "Height right (raw)",
     "group": "Ride height",
-    "description": "Right ride-height sensor (raw 0–255). Normal ~110–135.",
+    "description": "Right ride-height sensor (raw 0–255, ≈1.4 mm per count). Typical ~135–165; calibration-dependent.",
     "span": [
       0,
       255
     ],
     "normal": [
-      110,
-      135
+      135,
+      165
     ]
   },
   {

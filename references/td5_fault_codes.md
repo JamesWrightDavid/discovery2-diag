@@ -5,7 +5,7 @@ status: stable
 version: 1.1
 updated: 2026-10-04
 summary: >
-  Td5 engine ECU fault memory: raw-mapped, 210 proven + 1 candidate named fault bits decoded in code; the forum X-Y to offset.bit mapping verified 210/210; 69 bits still unnamed (backlog).
+  Td5 engine ECU fault memory: raw-mapped, 208 proven + 3 candidate named fault bits (13.6 renamed from a NanoCom screen); the forum X-Y to offset.bit mapping verified 210/210; 69 bits still unnamed (backlog).
 ---
 
 # Discovery 2 TD5 (Lucas engine ECU) — fault codes
@@ -13,7 +13,7 @@ summary: >
 The engine ECU's fault memory. **Unlike the other modules, TD5 is already
 raw-mapped** — we read the faults directly on K-line and decode them bit-by-bit in code.
 
-- **Raw decoder (code):** `src/d2diag/td5/faults.py` — 210 proven + 1 candidate named fault bits
+- **Raw decoder (code):** `src/d2diag/td5/faults.py` — 208 proven + 3 candidate named fault bits
 - **Reference (display codes + causes):** the fault-code dictionary (register repo),
   the TD5 section incl. Kelvin's complete forum list (`X-Y` format)
 - **Live signals:** `src/d2diag/td5/identifiers.py` (LIDs `21 xx`)
@@ -71,7 +71,13 @@ bit `Y-1`**. Three independent checks support this:
    - `(20,2)` turbocharger overboosting (Logged) → `19.1`;
    - `(22,1)` road speed missing (Logged) → `21.0`.
 
-   All three match.
+   All three match. More NanoCom screens posted later agree too:
+   - `(15,2)` high speed crank (Logged) → `14.1`
+     (https://www.defender2.net/forum/topic79738.html);
+   - `17.2` high speed crank (current) → `16.1`
+     (https://www.landyzone.co.uk/land-rover/nanocom-fault-code-17-2.338410/);
+   - `(25,8)` injector trim data corrupted (Current) → `24.7`
+     (https://www.defender2.net/forum/post967555.html).
 3. **This car.**
    - The 2026-08-07 baseline read showed `001-07` and `004-01` on the reference tool, and
      the 2026-08-08 raw sniff decoded bits `0.6` (air flow, Logged Low) and `3.0` (IAT,
@@ -84,6 +90,64 @@ bit `Y-1`**. Three independent checks support this:
 twin `25-8` is already our proven `24.7`, and SimonRafferty's DTC table also gives `20.7`
 (P1633). It is added as **candidate**: `Fault(..., "candidate")` in `faults.py`, listed
 under `candidate` in `faultmap.json`, with `confidence: candidate` in `dtc/td5.json`.
+
+## A NanoCom screen corrects one name (2026-10-04)
+
+A NanoCom engine screen (`TD5ENG.APP`) posted by a Td5 owner shows seven faults with the
+tool's own numbers (https://www.defender2.net/forum/post594365.html):
+
+| NanoCom line | Our bit | Our name | Verdict |
+|---|---|---|---|
+| `(3,5) DRIVER DEMAND PROBLEM 1, (LOGGED HIGH)` | `2.4` | driver demand problem 1 (Logged High) | matches |
+| `(10,4) GEARBOX / ABS DRIVE OPEN LOAD, (LOGGED)` | `9.3` | gearbox/abs drive open load (Logged) | matches |
+| `(14,4) GEARBOX / ABS DRIVE OPEN LOAD, (CURRENT)` | `13.3` | gearbox/abs drive open load (Current) | matches |
+| `(20,2) TURBOCHARGER OVERBOOSTING, (LOGGED)` | `19.1` | turbocharger over boosting (Logged) | matches |
+| `(14,6) MIL LAMP DRIVE OPEN LOAD, (CURRENT)` | `13.5` | mil lamp drive open load (Current) | matches |
+| `(14,7) GLOWPLUG LAMP DRIVE OPEN LOAD, (CURRENT)` | `13.6` | ~~glow plug relay drive open load (Current)~~ | **corrected** |
+| `(10,3) TACHOMETER DRIVE OPEN LOAD, (CURRENT)` | `9.2` | tachometer open load (Logged) | state word differs |
+
+**`13.6` is renamed** "glowplug lamp drive open load (Current)", now **candidate**. Three
+things point the same way:
+- the tool's own screen says lamp;
+- the source list repeats "relay" at `13.6` and `13.7`, a visible copy error;
+- the logged twin `9.6` is "glow plug lamp drive open load".
+
+**`11.6` is renamed too.** It shows the same repeat ("relay" at `11.6` and `11.7`), and a
+full NanoCom dump shows `(12,7) GLOWPLUG LAMP DRIVE OPEN LOAD, (CURRENT)`
+(https://www.defender2.net/forum/post840727.html). Now **candidate**, P-code dropped.
+
+**`(10,3)` tachometer** shows "(CURRENT)" in a row whose other entry on the same screen
+reads "(LOGGED)". This is one screen and may be a NanoCom quirk, so `9.2` is unchanged and
+the bit goes on T-29.
+
+The P-code P0380 (glow-plug circuit) was removed from `13.6`, because a lamp driver is not
+the plug circuit.
+
+### The duplicate names are real, not a transcription error
+
+Bytes 10/12 and 11/13 carry identical names in the source list. For example, `11.0` and
+`13.0` are both "air conditioning fan drive open load (Current)". A hit-count across every
+NanoCom screen we could fetch (2026-10-04) shows the tool itself prints them that way:
+
+| Slots (tool / ours) | What NanoCom prints | Hits | Verdict |
+|---|---|---|---|
+| `(12,1–8)` / `11.0–11.7` | the row-10 drivers, OPEN LOAD, (CURRENT) | 1 full dump (post840727) | same text as row 14: genuine duplicate |
+| `(14,1–8)` / `13.0–13.7` | the same eight texts, (CURRENT) | 1–3 per slot (post840727, post594365, landyzone 285327, defender2 topic43605) | genuine duplicate |
+| `(12,7)`, `(14,7)` / `11.6`, `13.6` | GLOWPLUG **LAMP** DRIVE OPEN LOAD | 1 and 2 | source's "relay" was wrong; renamed |
+| `(8,7)`, `(8,8)` / `7.6`, `7.7` | GLOWPLUG RELAY / GLOWPLUG LAMP DRIVE OVER TEMPERATURE (LOGGED) | 1 | matches our map |
+| `(10,7)`, `(10,8)` / `9.6`, `9.7` | GLOWPLUG LAMP / GLOWPLUG RELAY DRIVE OPEN LOAD (LOGGED) | 1 | matches our map |
+| `(13,6)` / `12.5` | EGR INLET THROTTLE SHORT CIRCUIT, (CURRENT) | 1 | matches; weak support that 10/12 also duplicate |
+| `(10,3)` / `9.2` | TACHOMETER DRIVE OPEN LOAD, **(CURRENT)** | 3 cars | the tool's own label; see below |
+
+**Conclusion:** both copies of each duplicate pair exist in the tool, and probably in the
+ECU (two "current" memories). So the decoder cannot say which of the two bits a name
+refers to, and a name lookup resolves to one of them. The bit key (`11.0` vs `13.0`) is
+always correct.
+
+**`(10,3)` tachometer** reads "(CURRENT)" on three different cars, while the rest of row 10
+reads "(LOGGED)". The tool's state word comes from a fixed per-slot text table, not from the
+row. Our `9.2` "(Logged)" follows the band and is unchanged. Don't infer logged/current
+from NanoCom's word alone.
 
 ## Unnamed bits — backlog for on-car / NanoCom confirmation
 
@@ -109,6 +173,12 @@ under `candidate` in `faultmap.json`, with `confidence: candidate` in `dtc/td5.j
 Seen set on this car with no name:
 - `byte18.bit6` (raw sniff 2026-08-08, below);
 - `byte15.bit7`, reported by the owner.
+
+A second research pass (2026-10-04) searched for each gap separately and found no name for
+any of them. Ekaitza's own table marks every one of these slots `fault_code_void`
+("Unknown"), and SimonRafferty's `td5_dtc_table.h` (generated from the same TD5SPY list) has
+no entry for them. Names guessed by copying across the Logged/Current byte pairs were
+rejected: that is a pattern, not a source.
 
 To name a bit, photograph the NanoCom fault screen while capturing the raw `61 3B` block,
 then match the displayed `X-Y` against the set bit.

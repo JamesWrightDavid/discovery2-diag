@@ -20,7 +20,7 @@ TD5_MENU = [
         {"name": "SecurityAccess (seed→key)", "status": "ok", "ref": "keygen; Ekaitza-confirmed"},
     ]},
     {"cat": "Fault codes", "items": [
-        {"name": "Read faults (211 bits raw-mapped, 1 candidate)", "status": "ok",
+        {"name": "Read faults (211 bits raw-mapped, 3 candidate)", "status": "ok",
          "ref": "21 3B, byte*8+bit; PROVEN Ekaitza + reference tool v1.12"},
         {"name": "Clear faults", "status": "ok", "ref": "StartRoutine 0xDD + 18×00"},
         {"name": "Reference (display codes + causes)", "status": "ok", "ref": "the dictionary TD5 + Kelvin list"},
