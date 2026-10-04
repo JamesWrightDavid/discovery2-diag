@@ -15,6 +15,20 @@ summary: >
 Companion to [test_plan.md](test_plan.md). When an open test is settled, move it here
 with the date and the outcome. Newest first.
 
+- **2026-10-04 (late) — A/C request inconclusive engine-off; handbrake and brake not in SLABS `40..5B`; cruise-group faults.**
+  Engine off, ignition on. **A/C:** the car has automatic climate control (no A/C button), so the
+  request was provoked by setting the temperature 23 -> LO, fan 1: `21 1E` byte1 bit3 never moved in
+  5 reads over 12 s. Expected — the HEVAC likely withholds the request with the engine stopped (or on
+  a cold night). Retry at idle. **Handbrake / brake on SLABS:** one-off wide reads of `21 40..5B`
+  (16 LIDs answer) differenced handbrake on/off and brake pressed/released, then the movers re-read:
+  `44` and `55` wander on their own (`55` byte3 `03`/`04` did not follow the handbrake), `40` drifts
+  `87..8A`, `57` byte0 flips `05`/`06` at rest. Nothing tracks either input, so neither is in that
+  range (the ABS may hold the brake signal outside it, or not report it). **Td5 faults:** the
+  undecoded bits are now visible: `25.3` and `25.5` (Current) persist all night, and `21.5` / `21.3`
+  (their Logged copies; `21.3` new after tonight's cruise presses/ignition cycles). Their named
+  neighbours in bytes 21/25 are all cruise faults, so these are probably cruise-group faults —
+  meaning open. The earlier clear had also wiped `14.4`, `15.5`, `15.6`, which have not returned.
+  Not cleared.
 - **2026-10-04 — T-16 BCU inputs are blanked without SecurityAccess (read-only boundary mapped).**
   Ignition off -> on, engine off. New `tools/bcu_scan.py` (logic `d2diag.bcu.scan`): 5-baud `0x40`
   -> `E5 8F` first try, then `21 D8`..`E9`, `2C`, `2D` (20 LIDs) twice each in shuffled order,
@@ -81,8 +95,7 @@ with the date and the outcome. Newest first.
   each; field layout not decoded yet (T-06 stays open).
 - **2026-10-04 — SLABS reverse gear mapped; handbrake, bonnet and A/C not on the Td5/SLABS reads.**
   Automatic, engine off, ignition on. `21 42` byte0 bit3 = reverse (P `82 28` / R `8A 30`, 3x each
-  across P-R-P-R-P-R); `reverse_gear` re-read through the decoder (R=1, P=0) -> `proven`. `42`
-  byte1 shifts `28`<->`30` in step with the gear (unidentified, not stored). `21 58` did not move
+  across P-R-P-R-P-R); `reverse_gear` re-read through the decoder (R=1, P=0) -> `proven`. `42` "byte1" `28`<->`30` was the frame checksum (see the correction below). `21 58` did not move
   with P/R, `21 56` stayed `00` (door closed), and `21 48` wanders on its own (analog, not a
   switch). Door `56` re-confirmed (00 closed / 01 open). Handbrake: no polled Td5 LID responds
   (`21 36` flat; `21 1E` byte1 bit5 flickers by itself with the handbrake held, so it is not a
@@ -92,8 +105,9 @@ with the date and the outcome. Newest first.
   Diff lock added: `21 42` byte0 bit4 (OFF `82 28` / ON `92 38`, OFF-ON-OFF-ON), `diff_lock`
   re-read through the decoder (engaged=1, disengaged=0) -> `proven`. The dash is frozen in diag mode,
   so engagement was never seen visually; identity rests on the diff lock control toggling the bit.
-  **`42` byte1 is a check byte, not a field:** `byte0 - byte1 = 0x5A` in every sample (P `82 28`,
-  N `83 29`, R `8A 30`, diff lock `92 38`, lever `86 2C`). Only byte0 carries information.
+  **`42` "byte1" is the frame checksum, not data** (corrected later 2026-10-04): the frame is
+  `03 61 42 <b0> <cs>`, so `cs = b0 + 0xA6` = the `byte0 - 0x5A` pattern seen in every sample. It
+  leaked in before the kwp2000 trim fix; `21 42` returns ONE data byte.
   **Lever on byte0 bit2:** an earlier lever movement set `42` byte0 bit2 (`86 2C`, reproducible).
   The user confirmed it was low range; end-of-travel HIGH reads `82 28`, LOW `86 2C`. Staged as
   candidate `transfer_low` (neutral still unconfirmed, see test_plan T-29). Not done: HDC (`21 42/48/58`), A/C request (`21 1E` byte1 bit3).
