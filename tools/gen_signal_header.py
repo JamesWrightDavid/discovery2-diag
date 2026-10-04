@@ -66,13 +66,16 @@ def build_header() -> str:
     # Fuel-computer constants live with the Python _FuelComputer; emit them so the ESP's
     # on-node fuel calc can't drift from it (the header-match test guards this).
     from d2diag.web.sources import _INJ_PER_REV, _DIESEL_G_PER_L
-    by_name = {s.name: s for s in load_signals("td5")}
+    # The ESP decodes by offset only, so a record restricted to one reply length (see
+    # specs/2026-10-04-reply-length-layouts-design.md) cannot go in its table.
+    by_name = {s.name: s for s in load_signals("td5") if s.length is None}
     rows = []
     lids: "list[int]" = []
     for key, store_name in _FIELDS:
         sig = by_name.get(store_name)
         if sig is None:
-            raise SystemExit(f"gen_signal_header: '{store_name}' not in signals/td5.json")
+            raise SystemExit(f"gen_signal_header: '{store_name}' not in signals/td5.json "
+                             "(or only as a reply-length variant, which the ESP cannot decode)")
         if sig.kind not in _KIND:
             raise SystemExit(f"gen_signal_header: kind '{sig.kind}' ({store_name}) unsupported")
         rows.append(

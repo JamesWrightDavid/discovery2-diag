@@ -234,7 +234,7 @@
       0.0,
       5.1
     ],
-    "source": "21 1B@4 u16/1000 V; accelerator pedal track 3. PROVEN in the car 2026-08-20: moves 0→2.23 V on application → the car is Euro 3 (NNN). Mirrors way1/way2. CORRECTED 2026-10-04 (T-31 pedal sweep, long 21 1B form): @4 = track 3, falls 4.63 -> 3.50 -> 1.37 V (rest/half/full), mirroring track 2. The 2026-08 '0 -> 2.23 V' reading (RDL 016, short form, no track 3) was the pedal PERCENT.",
+    "source": "21 1B@4 u16/1000 V; accelerator pedal track 3. PROVEN in the car 2026-08-20: moves 0→2.23 V on application → the car is Euro 3 (NNN). Mirrors way1/way2. CORRECTED 2026-10-04 (T-31 pedal sweep, long 21 1B form): @4 = track 3, falls 4.63 -> 3.50 -> 1.37 V (rest/half/full), mirroring track 2. The 2026-08 '0 -> 2.23 V' reading (RDL 016, short form, no track 3) was the pedal PERCENT. length=10: long form only (D2-JW, ECU NNN000130).",
     "label": "Pedal track 3",
     "group": "Accelerator",
     "description": "Pedal track 3 — Euro 3 only; reads 0 on Euro 2.",
@@ -245,7 +245,8 @@
     "normal": [
       0.0,
       4.8
-    ]
+    ],
+    "length": 10
   },
   {
     "name": "manifold_press",
@@ -937,7 +938,7 @@
       4.9,
       5.1
     ],
-    "source": "21 1B@6 u16/1000 V (5V reference). Should sit rock-solid at 5.0 V ±0.1; a dip = short in the pedal wiring. Verified 5.01 V. MOVED 2026-10-04: the ECU now returns the LONG 21 1B form (0C 61 1B, 10 data bytes) in all 1929 replies since 2026-10-03; @6 reads 0 (spikes to 7.7 = not a voltage) while @8 sits at 4.94-5.02 V (median 4.978) through engine-off, idle and revs = the 5 V reference. The old @6 value (5.01 V, 2026-08) came from RDL 016's short 12-byte form — a different car/ECU, not a change in this ECU. D2-JW (NNN000130) sends the long form. Re-read through the decoder after a restart 2026-10-04 (engine idling): 4.98 V, status ok -> proven.",
+    "source": "21 1B@6 u16/1000 V (5V reference). Should sit rock-solid at 5.0 V ±0.1; a dip = short in the pedal wiring. Verified 5.01 V. MOVED 2026-10-04: the ECU now returns the LONG 21 1B form (0C 61 1B, 10 data bytes) in all 1929 replies since 2026-10-03; @6 reads 0 (spikes to 7.7 = not a voltage) while @8 sits at 4.94-5.02 V (median 4.978) through engine-off, idle and revs = the 5 V reference. The old @6 value (5.01 V, 2026-08) came from RDL 016's short 12-byte form — a different car/ECU, not a change in this ECU. D2-JW (NNN000130) sends the long form. Re-read through the decoder after a restart 2026-10-04 (engine idling): 4.98 V, status ok -> proven. length=10: long form only (D2-JW, ECU NNN000130).",
     "label": "Pedal supply",
     "group": "Accelerator",
     "description": "5 V reference — rock-solid 5.0 V ±0.1.",
@@ -948,7 +949,8 @@
     "normal": [
       4.9,
       5.1
-    ]
+    ],
+    "length": 10
   },
   {
     "name": "fuel_pump_relay",
@@ -985,6 +987,53 @@
     "label": "Accelerator pedal",
     "group": "Engine",
     "description": "Accelerator pedal position as computed by the ECU, 0-100 % (21 1B@6 in the long form).",
-    "source": "21 1B@6 u16 x0.01 %, T-31 2026-10-04 (engine off, ign on): rest 0, half 4590 (45.9 %), full 10000 (100.0 %), 3 reads each; rev holds earlier peaked 7746 (77.5 %). Not a voltage (10.000 at full). In RDL 016's short form (2026-08, a different ECU) this value sat at @4 (recorded then as 'way3 0 -> 2.23 V'). Re-read through the decoder after a restart: rest 0.0 %, full 100.0 % (3 reads) -> proven."
+    "source": "21 1B@6 u16 x0.01 %, T-31 2026-10-04 (engine off, ign on): rest 0, half 4590 (45.9 %), full 10000 (100.0 %), 3 reads each; rev holds earlier peaked 7746 (77.5 %). Not a voltage (10.000 at full). In RDL 016's short form (2026-08, a different ECU) this value sat at @4 (recorded then as 'way3 0 -> 2.23 V'). Re-read through the decoder after a restart: rest 0.0 %, full 100.0 % (3 reads) -> proven. length=10: long form only (D2-JW, ECU NNN000130).",
+    "length": 10
+  },
+  {
+    "name": "accel_supply",
+    "lid": "1B",
+    "offset": 6,
+    "kind": "u16",
+    "scale": 0.001,
+    "bias": 0.0,
+    "unit": "V",
+    "confidence": "proven",
+    "limits": [
+      4.9,
+      5.1
+    ],
+    "source": "21 1B@6 u16/1000 V in the SHORT 8-byte form (RDL 016, the original author's car, 2026-08): 5V reference, verified 5.01 V (recorded frame 02 86 11 1c 00 00 13 92). length=8: short form only; the long form has it at @8.",
+    "label": "Pedal supply",
+    "group": "Accelerator",
+    "description": "5 V reference — rock-solid 5.0 V ±0.1.",
+    "span": [
+      4.8,
+      5.2
+    ],
+    "normal": [
+      4.9,
+      5.1
+    ],
+    "length": 8
+  },
+  {
+    "name": "accel_pedal_pct",
+    "lid": "1B",
+    "offset": 4,
+    "kind": "u16",
+    "scale": 0.01,
+    "bias": 0.0,
+    "unit": "%",
+    "confidence": "candidate",
+    "limits": [
+      0,
+      100
+    ],
+    "label": "Accelerator pedal",
+    "group": "Engine",
+    "description": "Accelerator pedal position as computed by the ECU, 0-100 % (21 1B@6 in the long form).",
+    "source": "21 1B@4 u16 x0.01 % in the SHORT 8-byte form (RDL 016, 2026-08). Recorded then as 'accel_way3 0 -> 2.23 V on application'; reinterpreted 2026-10-04 as the pedal percent (22.3 %) because the long form's equivalent field (@6, proven on D2-JW) reads 0-100 %. Not re-read on RDL 016 as a percentage -> candidate. length=8: short form only.",
+    "length": 8
   }
 ]

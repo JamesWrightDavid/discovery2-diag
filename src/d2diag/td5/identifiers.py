@@ -16,12 +16,16 @@ from __future__ import annotations
 from ..signals import Signal, load_signals
 
 SIGNALS = load_signals("td5")
-BY_NAME = {s.name: s for s in SIGNALS}
+# A name can have one record per reply length (21 1B short/long); the first record is the
+# canonical one for metadata/limits (variants must agree — see test_signal_store).
+BY_NAME: "dict[str, Signal]" = {}
+for _s in SIGNALS:
+    BY_NAME.setdefault(_s.name, _s)
 LIDS = sorted({s.lid for s in SIGNALS})
 
 # Operating range (min_ok, max_ok) for deviation flagging — derived from the store.
 # Signals without limits are not flagged (ext_temp = unconnected sensor; maf_raw = unknown scale).
-LIMITS = {s.name: s.limits for s in SIGNALS if s.limits}
+LIMITS = {n: s.limits for n, s in BY_NAME.items() if s.limits}
 
 
 def signal_status(name: str, value: "float | None") -> "str | None":

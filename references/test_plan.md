@@ -213,8 +213,10 @@ displayed order plus ECU Status. Read them off the screen; no sniff needed.
 
 #### T-31 `[key-on]` — `21 1B` pedal block changed layout: which slot is track 3 / supply?
 **Answered 2026-10-04** (see test-plan-resolved): long form = way1 @0, way2 @2, way3 @4, pedal % @6,
-supply @8. The short form was RDL 016's (another car/ECU variant), so nothing switched. Still open:
-a decoder that picks the layout by reply length, so both cars decode (needs a spec).
+supply @8. The short form was RDL 016's (another car/ECU variant), so nothing switched. **Done 2026-10-04:**
+the store now carries per-length records (`length` 8/10, spec
+`specs/2026-10-04-reply-length-layouts-design.md`), so both cars decode. Open: RDL 016's short-form
+`accel_pedal_pct` stays candidate until re-read on that car.
 **Supply settled 2026-10-04:** `accel_supply` moved to `@8` (4.94-5.02 V over 1929 replies,
 decoder re-read 4.98 V -> proven). The August short frame (`02 86 11 1C 00 00 13 92`) shows the long
 form inserts a value at `@4`: short @4 = track 3 (0 V at rest) now sits at `@6`. Remaining: confirm
