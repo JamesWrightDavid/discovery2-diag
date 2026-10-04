@@ -3,7 +3,7 @@ title: "Test backlog — the living plan for what to do next in the car"
 area: references
 status: stable
 version: 1.1
-updated: 2026-10-01
+updated: 2026-10-04
 summary: >
   Living backlog of what to test next in the car or with a borrowed tool, each item with context tag, procedure and pre-written decision rule; Resolved log.
 ---
@@ -271,6 +271,9 @@ Log Td5 `speed` alongside to see where SLABS drops and whether bit2 stays set wh
 ### P4 — Other modules
 
 #### T-16 `[key-on]` — BCU: map the read-only auth boundary
+**Done 2026-10-04 (inputs):** every input LID answers positive but all-zero and never moves
+(door, handbrake) — inputs are masked until SecurityAccess. See test-plan-resolved. The tool
+below exists (`tools/bcu_scan.py`) but deliberately omits the seed fetch and `21 CC`.
 **Question.** How much of the BCU is legible **without** SecurityAccess? First contact,
 address `0x40`, keybytes `E5 8F`, EKA-behind-SA and the rolling seed are all already
 settled (see Resolved and `references/valeo_bcu_capabilities.md`) — the seed→key is

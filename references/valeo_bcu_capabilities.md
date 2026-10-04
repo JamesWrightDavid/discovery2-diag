@@ -3,7 +3,7 @@ title: "Valeo BCU (Discovery 2) — diagnostic capabilities"
 area: references
 status: stable
 version: 1.0
-updated: 2026-09-30
+updated: 2026-10-04
 summary: >
   Functional reference for what the Valeo BCU exposes diagnostically, compiled from a vendor guide; not raw protocol.
 ---
@@ -171,3 +171,10 @@ session 2:  27 01 → 04 67 01 4A 4D 03   → seed = 4A 4D
 - **Conclusion: stop chasing EKA via SecurityAccess.** The code is known and stored in
   the sister project. The protocol is fully documented here should it ever be
   needed; the only thing missing is `f(seed)`, which cannot be derived from our data.
+
+## Auth boundary for inputs 2026-10-04 (T-16): masked, not refused
+Without SecurityAccess, all 20 Read Inputs LIDs (`21 D8`..`E9`, `2C`, `2D`) return a positive,
+checksum-valid `61 <lid> 00 00 00 00` — never `7F 21 33` — and the bytes stay zero with the
+ignition on, a door open and the handbrake off. The BCU therefore gates live inputs by
+**zero-masking** the payload until unlocked. There is no unauthenticated body data here; the only
+route is the seed->key (T-27/T-28). Tool: `tools/bcu_scan.py` (never reads `21 CC`, never sends `27`).

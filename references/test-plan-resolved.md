@@ -15,6 +15,16 @@ summary: >
 Companion to [test_plan.md](test_plan.md). When an open test is settled, move it here
 with the date and the outcome. Newest first.
 
+- **2026-10-04 — T-16 BCU inputs are blanked without SecurityAccess (read-only boundary mapped).**
+  Ignition off -> on, engine off. New `tools/bcu_scan.py` (logic `d2diag.bcu.scan`): 5-baud `0x40`
+  -> `E5 8F` first try, then `21 D8`..`E9`, `2C`, `2D` (20 LIDs) twice each in shuffled order,
+  keepalive `3E 01` between scans; no `27` and no `21 CC` (refused in code). Every LID answers a
+  **positive, checksum-valid** `61 <lid> 00 00 00 00` — not `7F 21 33` — and the payload never
+  moves: baseline (handbrake on, doors shut), driver door open, handbrake off all read identical
+  zeros. With the ignition on, a real input block cannot be all-zero, so the BCU **masks its inputs
+  with zeros until unlocked** (a silent gate, unlike an NRC). Conclusion: no free live body data
+  from the BCU; handbrake, bonnet and door inputs stay unreachable on our side without the Valeo
+  seed->key (T-27/T-28). Settings LIDs (`21 C6..EB`) were not read.
 - **2026-10-04 — `0x18` is a generic OBD-II (ISO 9141-2) responder, likely the EAT gearbox.**
   Key-on, engine off, read-only (`/home/admin/d2tools/probe18.py`; raw log gitignored). 5-baud
   `0x18` -> `55 08 08`, `~KW2` `F7` -> `~addr` `E7`. The EAT factory-tool frames (`72 05 04 00 73`
