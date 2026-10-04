@@ -3,7 +3,7 @@ title: "Other Modules — ACE, EAT Autobox, Airbag/SRS"
 area: docs
 status: draft
 version: 1.0
-updated: 2026-09-30
+updated: 2026-10-04
 summary: >
   ACE, EAT autobox and airbag/SRS: what is proven versus open for each; all earlier-stage than Td5, SLABS and BCU.
 ---
@@ -90,7 +90,7 @@ blocks**, which is how we have anything at all.
 | Property | Value | Confidence |
 |---|---|---|
 | Protocol | Proprietary **`72`-framed** (`72 <len> <cmd…> <cs>`; response `72 <len> 60 <data> <cs>`) | 🟢 Proven (frame shape) |
-| Diagnostic address / init type | — | 🔴 Not recorded in our sources |
+| Diagnostic address / init type | `72` session: unknown. OBD-II side probably 5-baud `0x18` (`08 08`; J1979 transmission address; 2026-10-04, see test-plan-resolved) | 🟡 Candidate |
 | Read faults | `72 05 04 00 73` → `72 09 60 01 00 00 00 00 1B` | 🟢 Proven (reproduced in two independent sessions) |
 | Clear faults | `72 04 05 73` → `72 04 60 99 FF` | 🟢 Proven frame, but see caveat |
 | Fault payload meaning | `01 00 00 00 00` | 🔴 Unknown — do not interpret |
