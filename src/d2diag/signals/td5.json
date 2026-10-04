@@ -959,7 +959,7 @@
     "scale": 1.0,
     "bias": 0.0,
     "unit": "",
-    "confidence": "candidate",
+    "confidence": "proven",
     "states": {
       "0": "off",
       "1": "on"
@@ -967,6 +967,6 @@
     "label": "Fuel pump relay",
     "group": "Outputs",
     "description": "Fuel pump relay status as commanded by the ECU (21 36 byte1 bit2). Candidate.",
-    "source": "21 36 byte1 bit2: engine off/ign on 00 01 (2026-10-03/04, many reads) vs engine running 00 05 (2026-10-04, hundreds of reads) = SimonRafferty's fuel-pump bit. One state change observed (engine start), not an actuation; candidate. NB: 21 36 does NOT reflect IOControl output tests (A/C clutch/fan, MIL, gauges fired 2026-10-04; MIL lit ~1 s, a read 0.2 s into it still 00 05), so the bits can only be mapped from the ECU's own relay decisions."
+    "source": "21 36 byte1 bit2: engine off/ign on 00 01 (2026-10-03/04, many reads) vs engine running 00 05 (2026-10-04, hundreds of reads) = SimonRafferty's fuel-pump bit. One state change observed (engine start), not an actuation; candidate. NB: 21 36 does NOT reflect IOControl output tests (A/C clutch/fan, MIL, gauges fired 2026-10-04; MIL lit ~1 s, a read 0.2 s into it still 00 05), so the bits can only be mapped from the ECU's own relay decisions. PROVEN 2026-10-04 through the decoder: ignition on (engine off) after a reboot read 1 while the pump primed, then 0 at ~17:53:30 exactly when the owner heard the pump stop (raw 00 05 -> 00 01); running engine reads 1."
   }
 ]

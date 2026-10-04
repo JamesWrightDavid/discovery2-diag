@@ -21,7 +21,8 @@ with the date and the outcome. Newest first.
   `21 36` read 0.2 s into that window (and every read around the others) stayed `00 05`. So `36` is the
   ECU's own relay state, not the IOControl override: output tests cannot map it. Mapping must come
   from the ECU's own decisions (radiator fan when hot, A/C clutch on a warm day). From those: byte1
-  bit2 = **fuel pump relay** (`00 01` engine off vs `00 05` running) -> `fuel_pump_relay` candidate;
+  bit2 = **fuel pump relay** (`00 01` engine off vs `00 05` running) -> `fuel_pump_relay`, then **proven** through the decoder: with the ignition on it read 1 during the
+  prime and dropped to 0 at the moment the owner heard the pump stop;
   byte1 bit0 set whenever the ignition is on (Simon: main relay), not stored.
 - **2026-10-04 (afternoon) — T-29: `21 42` bit2 is low range only; SLABS `21 48` is an analogue brake signal.**
   Engine idling, stationary, selector N. Transfer lever H -> N -> L -> N -> H: `42` = `83` / `83` /
