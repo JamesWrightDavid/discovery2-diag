@@ -176,8 +176,9 @@ injection offset from nominal (range ±0.000127 s), **3-4** = the same for end-o
 **Progress 2026-10-03 (brake DONE, rest open).** Brake settled on RDL016: `21 1E` byte1 bit7
 = `brake_main` (active-low, 0 = pressed) and byte0 bit0 = `brake_switch_2` (active-high); both
 `proven` in the store. Byte0 bit5 (the bit seen moving earlier) is NOT the brake. `21 36` did not
-move with the brake. Still open: clutch, cruise master/set/resume, A/C request, transfer
-high/low, and the identity of byte0 bit5.
+move with the brake. Cruise master/set/resume done 2026-10-04 (byte0 bits 2/3/4, Simon's map
+confirmed; `proven`). Still open: clutch (n/a on this automatic), A/C request, transfer
+high/low, and the identity of byte1 bit5 (flickers on its own; Simon calls it the security link).
 **Reframe (Simon app, 2026-10-01):** `0x1E` is the **driver switch** bitfield and `0x36` is
 the **relay / output status** bitfield (NOT "both switch fields" as previously assumed).
 `1E` toggles `00 CA`↔`00 EA` (bit `0x20` = byte0 bit5); `36` sat constant `00 0D`.
