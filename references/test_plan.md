@@ -252,6 +252,8 @@ Verify each replies `71 22 20`. If only verifying without bleeding: pulse power_
 on→off, confirm the ack, and do **not** run the full module sequence.
 
 #### T-29 `[key-on]` `[drive]` — Is `21 42` byte0 bit2 low range, transfer neutral, or both?
+**Answered 2026-10-04: low range only** (`transfer_low` proven; neutral reads like high). See
+test-plan-resolved. Transfer neutral has no known signal yet.
 **Question.** Moving the transfer box lever set `21 42` byte0 bit2 (`82 28` -> `86 2C`),
 reproducibly (2026-10-04). The user then left it in what they believe is low range and it still
 reads `86 2C`. Staged as candidate `transfer_low` (slabs store). Not separated from neutral.

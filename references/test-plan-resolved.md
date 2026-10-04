@@ -15,6 +15,15 @@ summary: >
 Companion to [test_plan.md](test_plan.md). When an open test is settled, move it here
 with the date and the outcome. Newest first.
 
+- **2026-10-04 (afternoon) — T-29: `21 42` bit2 is low range only; SLABS `21 48` is an analogue brake signal.**
+  Engine idling, stationary, selector N. Transfer lever H -> N -> L -> N -> H: `42` = `83` / `83` /
+  **`87`** / `83` / `83` (3 reads each; `83` = `82` + bit0 for selector N). Bit2 is set only in LOW;
+  transfer NEUTRAL reads exactly like HIGH and nothing in `21 42/56/58` shows it. Decoder re-read
+  L=1, H/N=0 -> `transfer_low` **proven**, states `0 = high or neutral`, `1 = low range`. The crawl
+  part of T-29 is no longer needed. **`21 48`:** brake released `0x96xx-0xA6xx` (P or N), pressed
+  firmly `0x3A3A-0x401F`, back at once on release; the selector alone does not move it -> new
+  candidate `brake_analog` (raw u16, physical meaning open). This replaces the earlier "`48` wanders,
+  analog, not a switch" reading, which had been taken with the brake held.
 - **2026-10-04 (afternoon) — T-01/T-04: the measured MAF is `21 1C`@4; `1C`@6 is its voltage.**
   Engine idling, P, handbrake on, after the Td5 fault memory was cleared at 16:46 (dashboard). The
   long-dead sensor came alive: stationary holds idle / 1500 / 2600 rpm gave `1C`@4 = 478 / 1143 /
