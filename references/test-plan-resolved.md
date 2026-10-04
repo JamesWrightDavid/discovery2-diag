@@ -15,6 +15,17 @@ summary: >
 Companion to [test_plan.md](test_plan.md). When an open test is settled, move it here
 with the date and the outcome. Newest first.
 
+- **2026-10-04 — `0x18` is a generic OBD-II (ISO 9141-2) responder, likely the EAT gearbox.**
+  Key-on, engine off, read-only (`/home/admin/d2tools/probe18.py`; raw log gitignored). 5-baud
+  `0x18` -> `55 08 08`, `~KW2` `F7` -> `~addr` `E7`. The EAT factory-tool frames (`72 05 04 00 73`
+  faults, `72 05 0B 03 7F` inputs) got **no reply** after this init. OBD-II `68 6A F1 01 00` ->
+  `48 6B 18 41 00 90 18 80 00 | 34` (checksum OK): supported PIDs `01 04 0C 0D 11` (status, load,
+  rpm, speed, throttle). `01 01` -> `41 01 00 04 00 00` (MIL off, 0 DTCs). Mode `03` -> no reply.
+  Identity **candidate**: the reply's source byte `0x18` is in SAE J1979's transmission range
+  (`0x18`-`0x1F`; engines are `0x10`-`0x17`), the car is an automatic, the Td5 holds 2 faults where
+  this reports 0, and `0x33` (generic engine OBD) was silent in the sweep. Not proven — the proprietary
+  `72`-framed EAT session still needs its own init (not a standard 5-baud on `0x18`). Never sent:
+  mode `04` (clear), mode `09` (VIN), EAT clear/adaptive reset/settings.
 - **2026-10-04 — T-26 full address sweep: only the four known modules plus `0x18` answer.**
   Key-on, engine off, battery on a tender, unattended. `tools/module_scan.py auto` with fast init
   AND 5-baud init on every address `0x01`-`0xEF` (474 probes, init + release only, 2 s settle).
@@ -23,8 +34,7 @@ with the date and the outcome. Newest first.
   (`E5 8F`), `0x5B` airbag (`E9 8F`). Every other address was silent on both inits. So no cruise,
   HEVAC, instrument pack or IDM answers a standard fast or 5-baud init on pin 7 on this car; stop
   guessing addresses for them. Caveat: a module needing a non-standard baud, tester address or a
-  running engine would not show here. `0x18` is the only unexplained responder — next step is a
-  plain read-only `21`/`1A` probe after its 5-baud init, with owner go-ahead.
+  running engine would not show here. `0x18` is the only unexplained responder — probed the same night (entry above).
 - **2026-10-04 — T-18 airbag read verified (no SecurityAccess needed); T-26 default scan; T-06 lengths.**
   Key-on, engine off, read-only. **Airbag:** 5-baud `0x5B` -> keybytes `E9 8F`, `10 81` -> `50 81`,
   `21 02` -> `61 02 90 04 90 00 00 00 00 00 00 00`, release `82` -> `C2`. The reference tool's
