@@ -92,6 +92,8 @@ def collect_samples(events) -> "dict":
             latest = {}          # a new screen polls its own LIDs — don't carry stale bytes
             screen_lids = set()
         elif mark["kind"] == "value":
+            if mark["name"] == "fault":   # fault-screen lines: handled by fault_import
+                continue
             module = screen_module or mt.module or "unknown"
             key = (module, mark["name"])
             slot = out.setdefault(key, {"samples": [], "lids": set(), "unit": ""})
