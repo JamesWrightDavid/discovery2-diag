@@ -20,8 +20,10 @@ capture.
 **Display codes documented; raw block offsets not yet mapped.** A one-shot fault block was
 captured (`67 67 11 e0 e0 f0 f0 00 00 00 1a 00 00 08 09 80 92 00 00`) while the reference
 tool showed `04-02`, `04-04`, `04-05` and `06-01` on RDL 016 (the original author's car).
-On **D2-JW** (this fork's car) no ACE module answered the 2026-10-04 address sweep, so
-whether it has ACE fitted is open. See
+**D2-JW** (this fork's car) has ACE fitted (the owner: every module is fitted), yet no ACE
+module answered the 2026-10-04 address sweep. ACE therefore needs something the sweep didn't
+try: a non-standard init, baud or tester address, or a running engine. Its address and init
+are still open. See
 [other-modules.md](../docs/discovery-2-td5/other-modules.md). The byte-doubling question has
 to be settled before any offset is trusted, so no bit is mapped here.
 

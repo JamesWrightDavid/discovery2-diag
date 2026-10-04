@@ -53,7 +53,7 @@ codes, punctuation and the state word. Examples:
 | slabs | `v fault=20-05 right front wheel speed sensor output too low intermittent 254 times` | Include the **"N times"** line. It shows whether the first number is the count. |
 | airbag | `v fault=Code 004 - <text> (intermittent)` | D2-JW has 004; a match promotes it. Note anything shown for the raw `90 00` record. |
 | autobox | `v fault=P1884-33 <text>` | Include the internal number after the P-code if shown. |
-| ace | `v fault=04-04 <text>` | Only if D2-JW has ACE (no ACE module answered the address sweep). 04-04 (seen on RDL 016) has no known text anywhere. If you export a TXT file, compare its codes with the screen (one owner saw 18-04 on screen and 04-02 in the TXT). |
+| ace | `v fault=04-04 <text>` | D2-JW has ACE but it didn't answer a standard init in the address sweep, so the capture of how the NanoCom wakes it matters as much as the codes. 04-04 (seen on RDL 016) has no known text anywhere. If you export a TXT file, compare its codes with the screen (one owner saw 18-04 on screen and 04-02 in the TXT). |
 
 **SLABS wheel corners:** if you also map wheel-speed or sensor channels, unplug one sensor
 and check which corner reacts. Don't trust NanoCom's corner label; it is wrong on the P38's

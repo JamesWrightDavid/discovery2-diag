@@ -472,8 +472,9 @@ Priorities on **D2-JW** (this fork's car; RDL 016's faults are a different car):
   `90 00` record.
 - SLABS: photograph the whole fault screen including any "N times" line
   ([slabs_fault_codes.md](slabs_fault_codes.md); the vendor guide confirms the count).
-- ACE: only if D2-JW has it. No ACE module answered the T-26 address sweep. RDL 016's tool
-  showed `04-02`, `04-04`, `04-05` and `06-01`; `04-04` has no text anywhere.
+- ACE: D2-JW has ACE fitted but it did not answer the T-26 standard-init sweep, so capture
+  the NanoCom's ACE **init** (address, baud, wake-up) as well as the fault screen. RDL 016's
+  tool showed `04-02`, `04-04`, `04-05` and `06-01`; `04-04` has no text anywhere.
 - All modules: note the NanoCom firmware version. When mapping SLABS wheel channels, verify
   each corner physically (unplug one sensor) rather than trusting NanoCom's label, which is
   wrong on the P38's Wabco unit ([d2-tool-cross-reference.md](d2-tool-cross-reference.md)).
