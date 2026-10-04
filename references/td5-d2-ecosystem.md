@@ -2,8 +2,8 @@
 title: "Td5 / Discovery 2 ecosystem — the map of every source"
 area: references
 status: stable
-version: 1.0
-updated: 2026-10-01
+version: 1.1
+updated: 2026-10-04
 depends_on: [td5-cross-reference.md, td5-external-findings.md]
 summary: >
   Catalogue of every known Td5/Discovery 2 information source — open-source projects, professional tools, vendor and factory docs, and community archives — with what each offers and whether we have mined it. So we stop re-discovering the same sources.
@@ -30,6 +30,11 @@ obtained).
 | [BennehBoy/td5opencomstm32](https://github.com/BennehBoy/td5opencomstm32) | STM32 C++ | none | td5opencom (Luca72) port; LID + DTC tables | 🟡 cross-check |
 | td5opencom (Luca Veronesi / "Luca72") | Arduino | — | the common ancestor behind Ekaitza + BennehBoy | 🟡 via descendants |
 | [k0sci3j/BinOwl_Td5Gauge](https://github.com/k0sci3j/BinOwl_Td5Gauge) | ESP32 | GPL-3.0 | LID offsets/scales; keygen confirmation | 🟡 facts only (GPL) |
+| [hairyone/pyTD5Tester](https://github.com/hairyone/pyTD5Tester) | Python | none | init `81 13 F7 81 0C`, session `10 A0`, `27 01/02`, LIDs `09`/`0D`/`10` — all agree with ours (2026-10-04) | 🟡 corroboration |
+| [Td5OpenDiag/Td5OpenDiag-android](https://github.com/Td5OpenDiag/Td5OpenDiag-android) | Android | Apache-2.0 | diagnostics + logging app | ⚪ not yet mined |
+| [Luca72/Td5MapEditor](https://github.com/Luca72/Td5MapEditor) | C++/Qt | GPL-3.0 | Td5 **map-file** editor (base maps embedded); no ECU write path, no flash layout in the README | ⚪ tuning context only |
+| [BennehBoy/LRDuinoTD5](https://github.com/BennehBoy/LRDuinoTD5) | STM32 | Beerware | gauge over L9637D K-line | ⚪ context |
+| [JRogers83/TD5-Dash](https://github.com/JRogers83/TD5-Dash) | Pi | none | dashboard; its protocol doc claims `21 1A` = logged faults, which **conflicts** with our proven temperatures ([d2-tool-cross-reference.md](d2-tool-cross-reference.md)) | ⚠️ treat with care |
 | [muki01/OBD2_K-line_Reader](https://registry.platformio.org/libraries/muki01/OBD2%20K-Line) | Arduino/ESP32 | MIT | fast-init timing, L9637D interface | 🟡 vendored ref |
 | Leijoma/discovery2-diag | Python | — | our upstream (this repo is a fork) | 🟢 base |
 | colinbourassa/libcomm14cux · memsgauge | C / C++ | — | Rover **V8 14CUX / MEMS 1.6** — not Td5 | ⚪ low reuse (wiring only) |
@@ -47,6 +52,29 @@ SLABS / BCU / airbag / EAT / ACE / cruise / HEVAC.
 | **Faultmate MSV-2 / Lynx** | Blackbox Solutions | per-system software (6–9 modules); the `SM0xx` help pages document every D2 module functionally | 🔵 functional ref (weak modules) |
 | **Hawkeye** | Blackbox Solutions | reverse-engineered Rovacom; consumer tool | ⚪ context |
 | Rovacom / EASE / T4 / IID | various | older/pro LR tools | ⚪ context |
+| **TD5Inside / "td5 Flasher"** | Performance Inside (Portugal), td5inside.pt | commercial remap service + closed paid PC tool (OBD cable): map/firmware read-write, dual maps, faults, I/O tests, injector codes, VIN coding, ECU "security code" learn; remap files locked to an ECU key + VIN. Proprietary, no licence published, so **not** a source to copy or decompile | ⚪ public facts only (below) |
+
+### Td5 ECU variants and reflashing: what is public (2026-10-04)
+
+- **MSB vs NNN.** Both give full live data and diagnostics over OBD.
+  - NNN ECUs "have all functions enabled from the factory", including OBD map writing.
+  - MSB ECUs need their internal memory changed (a chip soldered in) before OBD mapping.
+    Early 1999–2001 MSB ECUs can't be read or written over OBD at all (TD5Inside product
+    and service pages).
+  - The NanoCom vendor guide says the same: MSB can't be programmed, NNN can.
+- **Security.** The public keygen (`pajacobson/td5keygen`, which our `td5/keygen.py` is
+  ported from) covers the **diagnostic** level `27 01/02` only. No open source documents a
+  programming-level key.
+- **The flash path is not public.** No open repository documents the Td5 programming
+  sequence: RequestDownload `34`, TransferData `36`, RequestTransferExit `37`, a
+  programming security level, or baud changes. The one library known to write maps
+  (Luca72's original `td5opencom`) is not published. Commercial tools (NanoCom, TD5Inside
+  Flasher, Rovacom, Faultmate) implement it, closed source.
+- **Engine ECU ↔ immobiliser "security learn"** (fitting a replacement ECU) exists as a
+  tool function on NanoCom and TD5Inside. Its bytes are unpublished. Our Td5 layer
+  deliberately does not implement it.
+- **Project stance:** reflashing stays research-only here. A failed write can brick the
+  engine ECU, and every write needs its own ADR and confirmation gate (CONSTITUTION).
 
 ## Vendor & factory documentation (🔵 ground truth)
 
