@@ -211,6 +211,23 @@ actions is unidentified — repeat. Ekaitza's ECU-pin map is background, not a b
 reference tool's **Settings → Feature/config** screen: all 21 ENABLED/DISABLED flags in
 displayed order plus ECU Status. Read them off the screen; no sniff needed.
 
+#### T-31 `[key-on]` — `21 1B` pedal block changed layout: which slot is track 3 / supply? (NEXT parked test)
+**Why.** Every `21 1B` reply since 2026-10-03 is the LONG form `0C 61 1B` (10 data bytes); the
+store was built on the SHORT form (`0A 61 1B`, 8 bytes) from 2026-08. Today at rest (engine
+idling): `@0` 0.68 V, `@2` 4.32 V, `@4` 4.63 V, `@6` **0.00 V**, `@8` 4.98 V. The store reads
+`accel_supply` at `@6`, so the dashboard shows **0 V supply — a decode error, not a wiring fault**
+(the real 5 V reference is almost certainly `@8` = 4.98 V; no pedal fault code is set). Open
+question: was a field inserted at `@4` (then track 3 = `@6`, 0 at rest like 2026-08's "0 -> 2.23 V
+on application"), or is `@4` track 3 and `@6` a new field? Also open: why the ECU now sends the
+long form.
+**Procedure.** Engine OFF, ignition ON, parked (the pedal is safe to press). Dashboard on Td5. Read
+`21 1B` raw continuously while the owner presses the accelerator slowly to ~half, holds 3 s, then
+full, then releases (repeat twice).
+**Decision rule.** The slot that rises from ~0 with the pedal = track 3; the slot rock-steady at
+~5.0 V = supply. Move `accel_way3`/`accel_supply` (via `upsert_field`) as candidates, restart,
+re-read through the decoder -> proven. Then decide whether the decoder must pick the layout by
+reply length (12 vs 14 bytes, see `td5-external-findings.md`).
+
 ### P3 — SLABS
 
 #### T-10 `[idle]` — Confirm session reliability across occasions
