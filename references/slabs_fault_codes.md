@@ -30,9 +30,12 @@ Both car-proven anchors contradict this list:
 | `027` shuttle valve switch, electrical failure (byte 10 bit 4) | `114` | `027` = not in the list |
 
 So the store (`src/d2diag/dtc/slabs.json`) keys these entries `rsw-NNN`, as **candidate**.
-They keep the fault-type knowledge but can never be looked up by a tool number. Only the
-two anchors are keyed by tool number, as **proven**. Before this change, a live `020` was
-shown with the meaning "No Batt Supply Voltage", which was wrong.
+They keep the fault-type knowledge but can never be looked up by a tool number. Before that
+change, a live `020` was shown with the meaning "No Batt Supply Voltage", which was wrong.
+
+**Since 2026-10-04 the two anchors are keyed by raw bit** (`3.4`, `10.4`), as **proven**. The
+decoder names a known bit by its text alone, with no number in front. The reference tool's
+`020`/`027` turned out to be occurrence counts (below), so they are not fault numbers.
 
 The four "Sensor — Bad Output" entries have no number in the rsw page text. "082" appears
 only in an image filename. They are not stored.
@@ -63,7 +66,14 @@ The second field is not a unique fault ID either:
 - `-06`, `-07` and `-08` follow the rear-left, front-left and rear-right sensors.
 
 So on NanoCom's SLABS screen the **text** identifies the fault. This car's `020`/`027` were
-the counts that day.
+probably the counts that day.
+
+How sure this is: fairly, not fully.
+- Three independent forum screens fit it (two checked first-hand).
+- But this repo's baseline notes record "×254" next to both faults. If the first field were
+  the count, those would have read 20 and 27, not 254.
+- So the decoder no longer uses the number at all. That holds either way, and T-29 settles
+  the question.
 
 Earlier reading of the same evidence: in the first three, the first field matches the occurrence count. That would make it a
 count, not a code, and would make this car's `020-05` "20 times, code 05". But the second

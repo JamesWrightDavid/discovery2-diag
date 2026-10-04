@@ -249,14 +249,15 @@ def _slabs_cause(name: str) -> str:
 
 def build_slabs() -> "list[dict]":
     out = []
-    # Car-proven anchors: reference-tool number ↔ raw bit, sniffed 2026-08-07.
-    for (off, bit), (code, text) in sorted(SLABS_FAULT_BITS.items(), key=lambda kv: kv[1][0]):
-        name = text[:1].upper() + text[1:]
-        out.append({"key": code, "name": name,
-                    "description": f"{name} (raw byte {off} bit {bit} of the 21 11 / "
-                                   f"21 47 block; shown as {code}-05 on the reference tool, "
-                                   f"where the first field is probably an occurrence count, "
-                                   f"not a fault number — see references/slabs_fault_codes.md).",
+    # Car-proven anchors, keyed by raw bit like the Td5 ("offset.bit"); the name is the
+    # decoder's text exactly, so a decoded fault resolves by name.
+    shown = {(3, 4): "020-05", (10, 4): "027-05"}  # what the reference tool displayed
+    for (off, bit), text in sorted(SLABS_FAULT_BITS.items()):
+        tail = (f"; shown as {shown[(off, bit)]} on the reference tool, where the first field "
+                f"is probably an occurrence count") if (off, bit) in shown else ""
+        out.append({"key": f"{off}.{bit}", "name": text,
+                    "description": f"{text[:1].upper() + text[1:]} (raw byte {off} bit {bit} "
+                                   f"of the 21 11 / 21 47 block{tail}).",
                     "cause": _slabs_cause(text), "system": "brakes & suspension (SLABS)",
                     "source": "slabs/faults.py sniff 2026-08-07 (RDL016), tool screen ↔ raw bit",
                     "confidence": "proven"})
