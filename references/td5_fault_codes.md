@@ -2,10 +2,10 @@
 title: "Discovery 2 TD5 (Lucas engine ECU) — fault codes"
 area: references
 status: stable
-version: 1.0
-updated: 2026-09-30
+version: 1.1
+updated: 2026-10-04
 summary: >
-  Td5 engine ECU fault memory: already raw-mapped, 210 named fault bits decoded in code.
+  Td5 engine ECU fault memory: raw-mapped, 210 proven + 1 candidate named fault bits decoded in code; the forum X-Y to offset.bit mapping verified 210/210; 69 bits still unnamed (backlog).
 ---
 
 # Discovery 2 TD5 (Lucas engine ECU) — fault codes
@@ -13,7 +13,7 @@ summary: >
 The engine ECU's fault memory. **Unlike the other modules, TD5 is already
 raw-mapped** — we read the faults directly on K-line and decode them bit-by-bit in code.
 
-- **Raw decoder (code):** `src/d2diag/td5/faults.py` — 210 named fault bits
+- **Raw decoder (code):** `src/d2diag/td5/faults.py` — 210 proven + 1 candidate named fault bits
 - **Reference (display codes + causes):** the fault-code dictionary (register repo),
   the TD5 section incl. Kelvin's complete forum list (`X-Y` format)
 - **Live signals:** `src/d2diag/td5/identifiers.py` (LIDs `21 xx`)
@@ -44,10 +44,80 @@ The reference tool distinguishes more finely than Ekaitza's coarse Logged/Curren
 | 14–25 | Crankshaft, CAN, boost, driver demand, speed, cruise |
 | 26–34 | Injectors 1–6 (peak long/short, open/short/partial) + topside switch |
 
-## Display code ↔ raw (cross-reference still to be sniffed on RDL 016)
+## Forum X-Y ↔ offset.bit: verified (2026-10-04)
+
+Forum and NanoCom codes are written `X-Y` (or `(X,Y)`), 1-indexed: **`X-Y` = offset `X-1`,
+bit `Y-1`**. Three independent checks support this:
+
+1. **Full-list diff.** The TD5SPY list (https://www.td5spy.co.za/td5_faults, 211 rows; the
+   same upstream as Ekaitza, down to the typos "peck", "inlett" and "crack") was diffed
+   mechanically against all 210 bits in `faults.py`. **210/210 match on both text and the
+   L/C marker** under `(X-1).(Y-1)`. The shifted alternatives score 0–2 name hits:
+
+   | Mapping tried | Name hits |
+   |---|---|
+   | `(X-1).(Y-1)` | 210 |
+   | `X.Y` | 0 |
+   | `(X-1).Y` | 0 |
+   | `X.(Y-1)` | 2 |
+   | `(X-2).(Y-1)` | 2 |
+
+   Examples: `1-1` egr inlet throttle (L) → `0.0`; `4-1` inlet air temp (L) → `3.0`
+   (Logged High band); `17-2` high speed crank (C) → `16.1`; `28-7` topside switch pre
+   injection (L) → `27.6`.
+2. **A NanoCom screen posted by an owner** (https://www.landyzone.co.uk/land-rover/error-code-help.353225/)
+   shows the tool's own `(X,Y)` numbers with text:
+   - `(3,5)` driver demand problem 1 (Logged High) → our `2.4`;
+   - `(20,2)` turbocharger overboosting (Logged) → `19.1`;
+   - `(22,1)` road speed missing (Logged) → `21.0`.
+
+   All three match.
+3. **This car.**
+   - The 2026-08-07 baseline read showed `001-07` and `004-01` on the reference tool, and
+     the 2026-08-08 raw sniff decoded bits `0.6` (air flow, Logged Low) and `3.0` (IAT,
+     Logged High). Those are exactly `(1-1).(7-1)` and `(4-1).(1-1)`.
+   - The text transcribed for `001-07` in the baseline table ("EGR vacuum module, short
+     circuit") does *not* fit its number, which is air flow. Treat that transcription as
+     suspect. Re-check the screen next session.
+
+**One bit gained:** TD5SPY `21-8` "injector trim data corrupted (L)" → `20.7`. Its Current
+twin `25-8` is already our proven `24.7`, and SimonRafferty's DTC table also gives `20.7`
+(P1633). It is added as **candidate**: `Fault(..., "candidate")` in `faults.py`, listed
+under `candidate` in `faultmap.json`, with `confidence: candidate` in `dtc/td5.json`.
+
+## Unnamed bits — backlog for on-car / NanoCom confirmation
+
+69 of 280 bits have no name in any source we can read. The decoder reports them as
+`byte<off>.bit<n>`, which is correct: do not invent names.
+
+| Offset | Unnamed bits |
+|---|---|
+| 5 | 5 (the Current band's "ambient air temp" slot; no list names it) |
+| 14, 15, 16 | 0, 2–7 |
+| 17 | all (0–7) |
+| 18 | 0, 3, 4, 6 |
+| 19 | 2, 5, 6, 7 |
+| 20 | 0, 1, 2 |
+| 21 | 1, 3, 4, 5 |
+| 22 | 6, 7 |
+| 23 | 5, 7 |
+| 24 | 0, 1, 2 |
+| 25 | 3, 4, 5 |
+| 26–29 | 7 (after the topside-switch bit) |
+| 30–34 | 6, 7 |
+
+Seen set on this car with no name:
+- `byte18.bit6` (raw sniff 2026-08-08, below);
+- `byte15.bit7`, reported by the owner.
+
+To name a bit, photograph the NanoCom fault screen while capturing the raw `61 3B` block,
+then match the displayed `X-Y` against the set bit.
+
+## Display code ↔ raw (reference-tool cross-check)
 The reference tool shows `X-Y` (e.g. `28-7` topside switch). Our raw mapping gives
-`offset.bit`. They should be cross-validated by **sniffing the reference tool** while it reads
-TD5 faults (capture the raw block + displayed code at the same time) — the same method as for SLABS.
+`offset.bit`, related as verified above. A sniff of the reference tool reading Td5 faults
+(raw block and displayed code captured together) would settle the remaining unnamed bits,
+the same method as for SLABS.
 The reference table in the dictionary holds the display codes; this file + `faults.py` hold
 the raw encoding.
 
