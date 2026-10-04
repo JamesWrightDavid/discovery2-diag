@@ -2,7 +2,7 @@
 title: "DTC coverage — every documented fault code in the store, honestly — design"
 area: specs
 status: stable
-version: 1.0
+version: 1.1
 updated: 2026-10-04
 depends_on: [../CONSTITUTION.md, ../decisions/adr-0006-english-confidence-vocabulary.md]
 summary: >
@@ -50,9 +50,14 @@ display:
     (1–39) tells them apart, and the tools display it (Hawkeye `P1884-33`, NanoCom
     `P1884 19`).
   - A plain P-code key would merge different faults.
-- **ace**: two display schemes exist and must not be merged. Nanocom `XX-YY` keys
-  (`20-04`) and Hawkeye/Testbook `DTC nn` keys (`dtc33`). No evidence links them, so
-  neither is mapped onto the other.
+- **ace**: three display schemes exist and must not be merged:
+  - NanoCom's component-grouped `XX-YY` (the family this car's tool shows) owns the plain
+    keys (`04-02`);
+  - NanoCom's flat-list family is keyed `flat-XX-YY`;
+  - Hawkeye/Testbook DTCs are keyed `dtcNN`.
+
+  The same text appears under different numbers across the families, so no scheme is
+  mapped onto another.
 
 Only pairings read first-hand on a fetched page are stored. Search-engine summaries are
 not used, because one misattributed a Td5 code during this work. Vehicles other than the
@@ -95,3 +100,6 @@ SLABS anchors resolve, and that `/faults?module=autobox|ace|eat` serves the new 
 ## Changelog
 
 - 2026-10-04: v1.0, written alongside the implementation from the owner's brief.
+- 2026-10-04: v1.1. A second research pass (one agent per gap) found this car's ACE
+  NanoCom family, so plain ACE keys now mean that family and the earlier flat-list codes
+  move to `flat-XX-YY`. The fault dictionary index gains a total-per-module column.

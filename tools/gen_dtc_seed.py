@@ -266,7 +266,7 @@ def build_slabs() -> "list[dict]":
 _TABLE_KEYS = {
     "airbag": r"\d{3}",
     "autobox": r"P[0-9A-F]{4}-\d{1,2}",
-    "ace": r"\d{2}-\d{2}|dtc\d{1,2}",
+    "ace": r"\d{2}-\d{2}|flat-\d{2}-\d{2}|dtc\d{1,2}",
 }
 _TABLE_META = {
     "airbag": ("airbag (SRS)", "Airbag (TRW SPS) fault {code}: {name}.",

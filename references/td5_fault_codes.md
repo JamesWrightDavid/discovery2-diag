@@ -71,7 +71,13 @@ bit `Y-1`**. Three independent checks support this:
    - `(20,2)` turbocharger overboosting (Logged) → `19.1`;
    - `(22,1)` road speed missing (Logged) → `21.0`.
 
-   All three match.
+   All three match. More NanoCom screens posted later agree too:
+   - `(15,2)` high speed crank (Logged) → `14.1`
+     (https://www.defender2.net/forum/topic79738.html);
+   - `17.2` high speed crank (current) → `16.1`
+     (https://www.landyzone.co.uk/land-rover/nanocom-fault-code-17-2.338410/);
+   - `(25,8)` injector trim data corrupted (Current) → `24.7`
+     (https://www.defender2.net/forum/post967555.html).
 3. **This car.**
    - The 2026-08-07 baseline read showed `001-07` and `004-01` on the reference tool, and
      the 2026-08-08 raw sniff decoded bits `0.6` (air flow, Logged Low) and `3.0` (IAT,
@@ -109,6 +115,12 @@ under `candidate` in `faultmap.json`, with `confidence: candidate` in `dtc/td5.j
 Seen set on this car with no name:
 - `byte18.bit6` (raw sniff 2026-08-08, below);
 - `byte15.bit7`, reported by the owner.
+
+A second research pass (2026-10-04) searched for each gap separately and found no name for
+any of them. Ekaitza's own table marks every one of these slots `fault_code_void`
+("Unknown"), and SimonRafferty's `td5_dtc_table.h` (generated from the same TD5SPY list) has
+no entry for them. Names guessed by copying across the Logged/Current byte pairs were
+rejected: that is a pattern, not a source.
 
 To name a bit, photograph the NanoCom fault screen while capturing the raw `61 3B` block,
 then match the displayed `X-Y` against the set bit.

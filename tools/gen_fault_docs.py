@@ -30,6 +30,20 @@ _MODULES = [
 ]
 
 
+# How many codes each module can report, and how we know — from the register's capacities
+# (docs/discovery-2-td5/fault-codes.md) and the sources in references/<module>_fault_codes.md.
+_TOTALS = {
+    "td5": ("280 bits", "Certain for the block size (35 bytes × 8). The register says >200 "
+                        "are used, so some unnamed bits are probably spare."),
+    "slabs": ("47", "Fairly sure: vendor guide and register agree. The rsw list (stored "
+                    "rsw-NNN) is a different numbering with ~67 fault types."),
+    "airbag": ("37", "Unsure: register capacity 37, but its string dump spans numbers 1–65."),
+    "autobox": ("39", "Fairly sure: the RAVE table uses internal numbers 1–39 (36 absent)."),
+    "ace": ("45–48", "Unsure: register says 45; Hawkeye DTC numbers run to 48. Store counts "
+                     "three display schemes."),
+}
+
+
 def _fm(title: str, summary: str) -> str:
     return (f"---\ntitle: \"{title}\"\narea: docs\nstatus: stable\nversion: 1.0\n"
             f"updated: {_TODAY}\nsummary: >\n  {summary}\n---\n\n")
@@ -73,9 +87,12 @@ def _index_page() -> str:
             "emits. Meanings are documented facts (see each row's source in the store); a "
             "code→meaning pairing is only `proven` once verified on the car; everything from a "
             "forum or vendor list is `candidate`.\n"]
+    body.append("| Dictionary | Codes in the store | Total that exist | How sure is the total |")
+    body.append("|---|---|---|---|")
     for module, slug, title, _ in _MODULES:
         n = len(dtc.load_records(module))
-        body.append(f"- [{title}]({slug}.md) — {n} codes.")
+        total, basis = _TOTALS[module]
+        body.append(f"| [{title}]({slug}.md) | {n} | {total} | {basis} |")
     body.append("")
     return "\n".join(body) + "\n"
 

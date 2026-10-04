@@ -2,7 +2,7 @@
 title: "Discovery 2 SLABS (Wabco) — fault code list"
 area: references
 status: stable
-version: 1.1
+version: 1.2
 updated: 2026-10-04
 summary: >
   Numbered SLABS fault types (self-levelling and ABS) from rswsolutions; its numbering is NOT the reference tool's (both car anchors disagree), so the store keys these rsw-NNN as candidate.
@@ -36,6 +36,30 @@ shown with the meaning "No Batt Supply Voltage", which was wrong.
 
 The four "Sensor — Bad Output" entries have no number in the rsw page text. "082" appears
 only in an image filename. They are not stored.
+
+## NanoCom's SLABS display format is unresolved (2026-10-04)
+
+Owners' NanoCom screens on other Discovery 2s show a two-field `NN-MM` display with a count:
+
+| Shown | Text |
+|---|---|
+| `16-08` | rear right sensor output too low, intermittent 16 times |
+| `24-08` | rear right wheel sensor output too low |
+| `16-07` | front left sensor output too low, intermittent 016 times |
+| `03-06` | rear right outlet valve open circuit |
+
+Sources: landyzone threads 360005, 379966, 351211 and 321133.
+
+In the first three, the first field matches the occurrence count. That would make it a
+count, not a code, and would make this car's `020-05` "20 times, code 05". But the second
+field doesn't behave like a fault code either: `03-06` is a valve fault, yet a sensor fault
+also ends in `06`.
+
+So what the displayed numbers *mean* is open. What is proven is the raw bit → fault text
+pairing for this car's two faults (byte 3 bit 4, byte 10 bit 4). The store keys them by the
+displayed `020` / `027` only because that is what the decoder emits. Next session, photograph
+the SLABS fault screen with its "times" line (T-29). Members also report NanoCom mixing up
+SLABS sensor positions.
 
 ## Systematic structure (important clue)
 The codes are regular → the raw indices likely map systematically. Per **8 valves**

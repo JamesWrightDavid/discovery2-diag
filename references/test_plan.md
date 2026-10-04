@@ -430,7 +430,10 @@ Priorities:
 - Td5: the unnamed `byte15.bit7` and `byte18.bit6`, and re-read `001-07`, whose baseline
   text contradicts its number.
 - Airbag: `004` and `022`.
-- ACE: `04-02`, `04-04`, `04-05` and `06-01`.
+- ACE: `04-02`, `04-04` (no text found anywhere), `04-05` and `06-01`.
+- SLABS: photograph the whole fault screen including any "N times" line. That settles
+  whether the first field of `020-05` is a code or an occurrence count
+  ([slabs_fault_codes.md](slabs_fault_codes.md)).
 
 **Decision rule.** A displayed code whose number and text match the raw bit or record
 promotes that store entry to `proven` (cite this test). A text that contradicts its stored

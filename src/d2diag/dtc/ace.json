@@ -1,80 +1,134 @@
 [
   {
-    "key": "04-05",
-    "name": "Electrical fault, directional control valve 1",
-    "description": "ACE fault 04-05: Electrical fault, directional control valve 1.",
+    "key": "01-03",
+    "name": "Lower accelerometer signal not changing",
+    "description": "ACE fault 01-03: Lower accelerometer signal not changing.",
     "cause": "ACE codes are known to be misleading on some tools: confirm with live pressure and valve currents (pressure transducer first) before replacing parts.",
     "system": "suspension (ACE)",
-    "source": "references/ace_fault_codes.md; thread title, https://www.aulro.com/afvb/discovery-2-a/260641-need-assitance-fault-code-04-05-electrical-fault-directional-control-valve-1-a.html (page refuses fetch; seen on RDL 016 per other-modules.md)",
+    "source": "references/ace_fault_codes.md; https://www.landyzone.co.uk/land-rover/discovery-ii-nanocom-errors.321133/",
     "confidence": "candidate"
   },
   {
-    "key": "18-04",
+    "key": "03-04",
+    "name": "Pressure control valve fault",
+    "description": "ACE fault 03-04: Pressure control valve fault.",
+    "cause": "ACE codes are known to be misleading on some tools: confirm with live pressure and valve currents (pressure transducer first) before replacing parts.",
+    "system": "suspension (ACE)",
+    "source": "references/ace_fault_codes.md; https://www.landyzone.co.uk/land-rover/ace-fault-03-04-pressure-control-valve-fault.326555/ ; https://www.landyzone.co.uk/land-rover/ace-issue-any-ideas.325758/page-3 (a member notes the NanoCom code is \"most probably wrong\")",
+    "confidence": "candidate"
+  },
+  {
+    "key": "04-02",
+    "name": "Direction control valve 2 current out of range",
+    "description": "ACE fault 04-02: Direction control valve 2 current out of range.",
+    "cause": "ACE codes are known to be misleading on some tools: confirm with live pressure and valve currents (pressure transducer first) before replacing parts.",
+    "system": "suspension (ACE)",
+    "source": "references/ace_fault_codes.md; https://landyzone.co.uk/land-rover/ace-woes.372902/ ; https://www.landyzone.co.uk/land-rover/ace-fault-04-02.299089/ (seen on RDL 016)",
+    "confidence": "candidate"
+  },
+  {
+    "key": "04-05",
+    "name": "Electrical fault, direction control valve 1 circuit",
+    "description": "ACE fault 04-05: Electrical fault, direction control valve 1 circuit.",
+    "cause": "ACE codes are known to be misleading on some tools: confirm with live pressure and valve currents (pressure transducer first) before replacing parts.",
+    "system": "suspension (ACE)",
+    "source": "references/ace_fault_codes.md; https://landyzone.co.uk/land-rover/ace-woes.372902/ (\"fault 29\"); thread title https://www.aulro.com/afvb/discovery-2-a/260641-need-assitance-fault-code-04-05-electrical-fault-directional-control-valve-1-a.html (seen on RDL 016)",
+    "confidence": "candidate"
+  },
+  {
+    "key": "04-07",
+    "name": "Electrical fault, direction control valve 1 circuit",
+    "description": "ACE fault 04-07: Electrical fault, direction control valve 1 circuit.",
+    "cause": "ACE codes are known to be misleading on some tools: confirm with live pressure and valve currents (pressure transducer first) before replacing parts.",
+    "system": "suspension (ACE)",
+    "source": "references/ace_fault_codes.md; https://landyzone.co.uk/land-rover/ace-woes.372902/ (\"fault 31\")",
+    "confidence": "candidate"
+  },
+  {
+    "key": "06-01",
+    "name": "Hydraulic pressure too low",
+    "description": "ACE fault 06-01: Hydraulic pressure too low.",
+    "cause": "ACE codes are known to be misleading on some tools: confirm with live pressure and valve currents (pressure transducer first) before replacing parts.",
+    "system": "suspension (ACE)",
+    "source": "references/ace_fault_codes.md; https://landyzone.co.uk/land-rover/ace-woes.372902/ ; https://www.landyzone.co.uk/land-rover/another-ace-question-ear-defenders-on-already.233095/ (seen on RDL 016)",
+    "confidence": "candidate"
+  },
+  {
+    "key": "06-05",
+    "name": "Pressure control valve current too low",
+    "description": "ACE fault 06-05: Pressure control valve current too low.",
+    "cause": "ACE codes are known to be misleading on some tools: confirm with live pressure and valve currents (pressure transducer first) before replacing parts.",
+    "system": "suspension (ACE)",
+    "source": "references/ace_fault_codes.md; https://www.landyzone.co.uk/land-rover/another-ace-question-ear-defenders-on-already.233095/",
+    "confidence": "candidate"
+  },
+  {
+    "key": "flat-18-04",
     "name": "Hydraulic or mechanical fault in pressure control system",
-    "description": "ACE fault 18-04: Hydraulic or mechanical fault in pressure control system.",
+    "description": "ACE fault flat-18-04: Hydraulic or mechanical fault in pressure control system.",
     "cause": "ACE codes are known to be misleading on some tools: confirm with live pressure and valve currents (pressure transducer first) before replacing parts.",
     "system": "suspension (ACE)",
     "source": "references/ace_fault_codes.md; https://www.landyzone.co.uk/land-rover/ace-red-warning-intermittent.377103/ ; https://www.landyzone.co.uk/land-rover/ace-fault-20-04.373528/",
     "confidence": "candidate"
   },
   {
-    "key": "20-04",
+    "key": "flat-20-04",
     "name": "Pressure control valve fault",
-    "description": "ACE fault 20-04: Pressure control valve fault.",
+    "description": "ACE fault flat-20-04: Pressure control valve fault.",
     "cause": "ACE codes are known to be misleading on some tools: confirm with live pressure and valve currents (pressure transducer first) before replacing parts.",
     "system": "suspension (ACE)",
     "source": "references/ace_fault_codes.md; https://www.landyzone.co.uk/land-rover/ace-fault-20-04.373528/ ; https://landyzone.co.uk/land-rover/ace-problem.396767/",
     "confidence": "candidate"
   },
   {
-    "key": "22-04",
+    "key": "flat-22-04",
     "name": "Hydraulic pressure too high",
-    "description": "ACE fault 22-04: Hydraulic pressure too high.",
+    "description": "ACE fault flat-22-04: Hydraulic pressure too high.",
     "cause": "ACE codes are known to be misleading on some tools: confirm with live pressure and valve currents (pressure transducer first) before replacing parts.",
     "system": "suspension (ACE)",
     "source": "references/ace_fault_codes.md; https://www.landyzone.co.uk/land-rover/ace-red-warning-intermittent.377103/",
     "confidence": "candidate"
   },
   {
-    "key": "23-04",
+    "key": "flat-23-04",
     "name": "Pressure signal out of range",
-    "description": "ACE fault 23-04: Pressure signal out of range.",
+    "description": "ACE fault flat-23-04: Pressure signal out of range.",
     "cause": "ACE codes are known to be misleading on some tools: confirm with live pressure and valve currents (pressure transducer first) before replacing parts.",
     "system": "suspension (ACE)",
     "source": "references/ace_fault_codes.md; https://www.landyzone.co.uk/land-rover/ace-red-warning-intermittent.377103/",
     "confidence": "candidate"
   },
   {
-    "key": "33-06",
+    "key": "flat-33-06",
     "name": "Direction control valve fault",
-    "description": "ACE fault 33-06: Direction control valve fault.",
+    "description": "ACE fault flat-33-06: Direction control valve fault.",
     "cause": "ACE codes are known to be misleading on some tools: confirm with live pressure and valve currents (pressure transducer first) before replacing parts.",
     "system": "suspension (ACE)",
     "source": "references/ace_fault_codes.md; https://www.landyzone.co.uk/land-rover/ace-red-warning-intermittent.377103/",
     "confidence": "candidate"
   },
   {
-    "key": "42-07",
+    "key": "flat-42-07",
     "name": "Hydraulic pressure too low",
-    "description": "ACE fault 42-07: Hydraulic pressure too low.",
+    "description": "ACE fault flat-42-07: Hydraulic pressure too low.",
     "cause": "ACE codes are known to be misleading on some tools: confirm with live pressure and valve currents (pressure transducer first) before replacing parts.",
     "system": "suspension (ACE)",
     "source": "references/ace_fault_codes.md; https://www.landyzone.co.uk/land-rover/ace-red-warning-intermittent.377103/",
     "confidence": "candidate"
   },
   {
-    "key": "45-07",
+    "key": "flat-45-07",
     "name": "Battery voltage too low",
-    "description": "ACE fault 45-07: Battery voltage too low.",
+    "description": "ACE fault flat-45-07: Battery voltage too low.",
     "cause": "ACE codes are known to be misleading on some tools: confirm with live pressure and valve currents (pressure transducer first) before replacing parts.",
     "system": "suspension (ACE)",
     "source": "references/ace_fault_codes.md; https://www.landyzone.co.uk/land-rover/ace-red-warning-intermittent.377103/",
     "confidence": "candidate"
   },
   {
-    "key": "47-07",
+    "key": "flat-47-07",
     "name": "Main relay test failed",
-    "description": "ACE fault 47-07: Main relay test failed.",
+    "description": "ACE fault flat-47-07: Main relay test failed.",
     "cause": "ACE codes are known to be misleading on some tools: confirm with live pressure and valve currents (pressure transducer first) before replacing parts.",
     "system": "suspension (ACE)",
     "source": "references/ace_fault_codes.md; https://www.landyzone.co.uk/land-rover/ace-red-warning-intermittent.377103/",
