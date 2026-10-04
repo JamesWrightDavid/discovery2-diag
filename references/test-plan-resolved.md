@@ -15,6 +15,14 @@ summary: >
 Companion to [test_plan.md](test_plan.md). When an open test is settled, move it here
 with the date and the outcome. Newest first.
 
+- **2026-10-04 (afternoon) — `21 36` does not show forced outputs; fuel pump relay bit candidate.**
+  Engine idling. The owner fired the Td5 output tests A/C clutch (`30 A3`), A/C fan (`A4`), MIL (`A2`),
+  rev counter (`B7`) and temp gauge (`BA`); every one acknowledged `70 xx`. The MIL lit for ~1 s, and a
+  `21 36` read 0.2 s into that window (and every read around the others) stayed `00 05`. So `36` is the
+  ECU's own relay state, not the IOControl override: output tests cannot map it. Mapping must come
+  from the ECU's own decisions (radiator fan when hot, A/C clutch on a warm day). From those: byte1
+  bit2 = **fuel pump relay** (`00 01` engine off vs `00 05` running) -> `fuel_pump_relay` candidate;
+  byte1 bit0 set whenever the ignition is on (Simon: main relay), not stored.
 - **2026-10-04 (afternoon) — T-29: `21 42` bit2 is low range only; SLABS `21 48` is an analogue brake signal.**
   Engine idling, stationary, selector N. Transfer lever H -> N -> L -> N -> H: `42` = `83` / `83` /
   **`87`** / `83` / `83` (3 reads each; `83` = `82` + bit0 for selector N). Bit2 is set only in LOW;
