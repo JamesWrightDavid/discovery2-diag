@@ -15,6 +15,15 @@ summary: >
 Companion to [test_plan.md](test_plan.md). When an open test is settled, move it here
 with the date and the outcome. Newest first.
 
+- **2026-10-04 — Td5 cruise switches mapped on `21 1E` byte0 (T-08 partial).**
+  Key-on, engine off. Differential: master off `00` / on `04`; master + SET held `0C`; master +
+  RESUME held `14`; 3-4 reads each, and every release returned to the prior state. So bit2 =
+  `cruise_master`, bit3 = `cruise_set`, bit4 = `cruise_resume` (all active-high), confirming
+  SimonRafferty's hypothesis. Re-read through the decoder after a dashboard restart
+  (master/set/resume: SET held 1/1/0, RESUME held 1/0/1, master off 0/0/0, 3x each) -> `proven`.
+  The first SET hold did not register (press not fully home), so a no-change on a momentary
+  button is not a negative until repeated. `21 36` never moved. The checksum fix holds on the
+  car (`1E` now returns 2 bytes, `00 82`).
 - **2026-10-04 — `0x18` is a generic OBD-II (ISO 9141-2) responder, likely the EAT gearbox.**
   Key-on, engine off, read-only (`/home/admin/d2tools/probe18.py`; raw log gitignored). 5-baud
   `0x18` -> `55 08 08`, `~KW2` `F7` -> `~addr` `E7`. The EAT factory-tool frames (`72 05 04 00 73`

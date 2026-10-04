@@ -870,5 +870,62 @@
     "label": "Brake switch (main)",
     "group": "Inputs",
     "description": "Main brake pedal switch (active-low: 0 = pressed)."
+  },
+  {
+    "name": "cruise_master",
+    "lid": "1E",
+    "offset": 0,
+    "kind": "bit",
+    "bit": 2,
+    "scale": 1.0,
+    "bias": 0.0,
+    "unit": "",
+    "confidence": "proven",
+    "states": {
+      "0": "off",
+      "1": "on"
+    },
+    "source": "21 1E byte0 bit2, active-high; differential 2026-10-04 on RDL016, engine off (master off 00 / on 04 / +SET 0C / +RESUME 14; each 3-4x on, released back to the prior state); re-read through the decoder on the car 2026-10-04 (master on=1 / off=0) -> proven",
+    "label": "Cruise master switch",
+    "group": "Inputs",
+    "description": "Cruise control master switch on the dash (latching)."
+  },
+  {
+    "name": "cruise_set",
+    "lid": "1E",
+    "offset": 0,
+    "kind": "bit",
+    "bit": 3,
+    "scale": 1.0,
+    "bias": 0.0,
+    "unit": "",
+    "confidence": "proven",
+    "states": {
+      "0": "released",
+      "1": "pressed"
+    },
+    "source": "21 1E byte0 bit3, active-high; differential 2026-10-04 on RDL016, engine off (master off 00 / on 04 / +SET 0C / +RESUME 14; each 3-4x on, released back to the prior state); re-read through the decoder on the car 2026-10-04 (SET held=1, released=0) -> proven",
+    "label": "Cruise SET",
+    "group": "Inputs",
+    "description": "Cruise SET button on the steering wheel (momentary)."
+  },
+  {
+    "name": "cruise_resume",
+    "lid": "1E",
+    "offset": 0,
+    "kind": "bit",
+    "bit": 4,
+    "scale": 1.0,
+    "bias": 0.0,
+    "unit": "",
+    "confidence": "proven",
+    "states": {
+      "0": "released",
+      "1": "pressed"
+    },
+    "source": "21 1E byte0 bit4, active-high; differential 2026-10-04 on RDL016, engine off (master off 00 / on 04 / +SET 0C / +RESUME 14; each 3-4x on, released back to the prior state); re-read through the decoder on the car 2026-10-04 (RESUME held=1, released=0) -> proven",
+    "label": "Cruise RESUME",
+    "group": "Inputs",
+    "description": "Cruise RESUME button on the steering wheel (momentary)."
   }
 ]
