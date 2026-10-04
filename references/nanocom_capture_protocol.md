@@ -42,6 +42,7 @@ Two **structured markers** let the importer map automatically (shorthand expands
 |---|---|---|
 | `s <module>/<page>` | `>>> screen <module>/<page>` | now on this screen |
 | `v <name>=<text>`   | `>>> value <name>=<text>`   | the plaintext the tool shows right now |
+| `v fault=<as shown>` | `>>> value fault=<…>` | on a `<module>/faults` screen: one displayed fault line (T-30, [fault_capture_runsheet.md](fault_capture_runsheet.md)) |
 
 `<module>` is the **store** name: `td5`, `slabs`, `bcu`, `airbag`, `autobox`, `ace`,
 `cruise` (the UI alias `motor` = `td5`). Free text is logged as a note and still anchors

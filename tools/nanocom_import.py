@@ -7,7 +7,14 @@ Reads a capture logged by ``tools/esp32_read.py`` with ``>>> screen …`` / ``>>
 markers (see ``references/nanocom_capture_protocol.md``), runs the auto-mapper per
 labelled value and prints a markdown report. ``--write`` persists each solved mapping as
 a **candidate** in ``src/d2diag/signals/<module>.json`` with the capture name as
-provenance. This tool never talks to the car — it reads a log and writes JSON.
+provenance.
+
+Fault screens (``s <module>/faults`` + ``v fault=<as shown>``, T-30) are paired with the
+raw fault reply on the same screen and judged against the fault store
+(``references/fault_capture_runsheet.md``). With ``--write``, airbag/autobox/ace rows
+that the capture fully supports are promoted to proven in
+``references/<module>_fault_codes.md`` and the store and dictionary are regenerated; Td5
+and SLABS promotions are printed as hand edits. This tool never talks to the car.
 
 The logic lives in :mod:`d2diag.sniff.importer` so it stays unit-testable.
 """
@@ -16,7 +23,12 @@ from __future__ import annotations
 import argparse
 import sys
 
+from pathlib import Path
+
+from d2diag.sniff.fault_import import import_faults, promote_in_reference, render_fault_report
 from d2diag.sniff.importer import import_capture, render_report
+
+_REFS = Path(__file__).resolve().parents[1] / "references"
 
 
 def main() -> int:
@@ -29,6 +41,23 @@ def main() -> int:
 
     report = import_capture(args.log, write=args.write, module_filter=args.module)
     sys.stdout.write(render_report(report))
+
+    faults = import_faults(args.log)
+    if args.module:
+        faults["screens"] = [s for s in faults["screens"] if s["module"] == args.module]
+    sys.stdout.write("\n" + render_fault_report(faults))
+    if args.write:
+        changed = sorted({sc["module"] for sc in faults["screens"] for r in sc["rows"]
+                          if r["promotable"] and promote_in_reference(
+                              sc["module"], r["key"], faults["capture"], _REFS)})
+        if changed:
+            import subprocess
+            root = Path(__file__).resolve().parents[1]
+            for tool in ("gen_dtc_seed.py", "gen_fault_docs.py"):
+                subprocess.run([sys.executable, str(root / "tools" / tool), "--force"]
+                               if tool == "gen_dtc_seed.py" else
+                               [sys.executable, str(root / "tools" / tool)], check=True)
+            sys.stdout.write(f"\nPromoted to proven in references/: {', '.join(changed)}\n")
     return 0
 
 

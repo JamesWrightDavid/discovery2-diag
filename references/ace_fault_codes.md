@@ -92,7 +92,7 @@ numbers, but they are not linked to anything either.
 
 ## Backlog (not stored, needs a first-hand source or the car)
 
-- `04-04`: seen on RDL 016, no text anywhere. Read it off the screen next session (T-29).
+- `04-04`: seen on RDL 016, no text anywhere. Read it off the screen next session (T-30).
 - `01-05`, `03-01`, `03-05`, `02-02`: texts only in search snippets.
 - Hawkeye DTC 22, 23 and 42: texts only in snippets. Hawkeye texts seen with no number
   (landyzone 383549): "the latest page of data was corrupt at the last power up" and

@@ -118,7 +118,7 @@ full NanoCom dump shows `(12,7) GLOWPLUG LAMP DRIVE OPEN LOAD, (CURRENT)`
 
 **`(10,3)` tachometer** shows "(CURRENT)" in a row whose other entry on the same screen
 reads "(LOGGED)". This is one screen and may be a NanoCom quirk, so `9.2` is unchanged and
-the bit goes on T-29.
+the bit goes on T-30.
 
 The P-code P0380 (glow-plug circuit) was removed from `13.6`, because a lamp driver is not
 the plug circuit.

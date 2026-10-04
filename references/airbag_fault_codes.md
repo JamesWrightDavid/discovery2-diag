@@ -41,7 +41,7 @@ That is one observation, not a decoded status bit.
 
 `004` and `022` are this car's own faults. They stay `candidate` until one session
 photographs the tool screen (number + text) while the raw `61 02` frame is captured. That
-promotes both to `proven` (test plan T-29).
+promotes both to `proven` (test plan T-30).
 
 ## Backlog (not stored)
 

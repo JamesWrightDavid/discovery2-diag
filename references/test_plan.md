@@ -413,16 +413,20 @@ our own `27 01` → compute key → `27 02`, expecting `67 02`.
 is verified (not the key). An `invalidKey` (`7F 27 35`) means the derivation is wrong —
 back to T-27 with more pairs. Do not retry blindly (likely attempt counter/lockout).
 
-#### T-29 `[tool]` — Photograph every fault screen against its raw frame
+#### T-30 `[tool]` — Photograph every fault screen against its raw frame
 The fault stores hold forum-sourced codes as `candidate`. The sources are listed in
 [td5_fault_codes.md](td5_fault_codes.md), [slabs_fault_codes.md](slabs_fault_codes.md),
 [airbag_fault_codes.md](airbag_fault_codes.md),
 [autobox_fault_codes.md](autobox_fault_codes.md) and
 [ace_fault_codes.md](ace_fault_codes.md).
 
+**Procedure:** [fault_capture_runsheet.md](fault_capture_runsheet.md). Afterwards run
+`PYTHONPATH=src python3 tools/nanocom_import.py logs/<capture>.log`, which pairs every
+typed fault line with the raw reply and reports what the capture supports.
+
 During T-25, for each module's Faults – Read:
 - photograph the screen (code, text, state);
-- mark it `s <module>/faults`;
+- mark it `s <module>/faults` and type each line as `v fault=<as shown>`;
 - capture the raw reply: Td5 `61 3B`, SLABS `61 11`/`61 47`, airbag `61 02`, EAT `72 … 60`
   and the ACE `67` block.
 

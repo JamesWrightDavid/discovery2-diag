@@ -78,7 +78,7 @@ How sure this was before the guide: fairly, not fully.
 - Three independent forum screens fit it (two checked first-hand).
 - But this repo's baseline notes record "×254" next to both faults. If the first field were
   the count, those would have read 20 and 27, not 254.
-- So the decoder no longer uses the number at all. That holds either way, and T-29 settles
+- So the decoder no longer uses the number at all. That holds either way, and T-30 settles
   the question.
 
 Earlier reading of the same evidence: in the first three, the first field matches the occurrence count. That would make it a
@@ -89,7 +89,7 @@ also ends in `06`.
 So what the displayed numbers *mean* is open. What is proven is the raw bit → fault text
 pairing for this car's two faults (byte 3 bit 4, byte 10 bit 4). The store keys them by the
 displayed `020` / `027` only because that is what the decoder emits. Next session, photograph
-the SLABS fault screen with its "times" line (T-29). Members also report NanoCom mixing up
+the SLABS fault screen with its "times" line (T-30). Members also report NanoCom mixing up
 SLABS sensor positions.
 
 ## Systematic structure (important clue)
