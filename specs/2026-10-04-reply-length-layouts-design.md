@@ -1,7 +1,7 @@
 ---
 title: "Reply-length layouts (Td5 21 1B short vs long) — Design"
 area: specs
-status: approved
+status: stable
 version: 1.0
 updated: 2026-10-04
 depends_on: [references/test_plan.md, references/td5-external-findings.md]
