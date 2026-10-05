@@ -6,10 +6,10 @@ the ReadOnlyEcu guard). The interactive CLI is not tested (requires input()).
 """
 import pytest
 
-from d2diag.kline import KLine, encode
-from d2diag.kwp2000 import KWP2000
-from d2diag.session import EcuSession
-from d2diag.sniff.automap import stable_diff
+from openostler.kline import KLine, encode
+from openostler.kwp2000 import KWP2000
+from openostler.session import EcuSession
+from openostler.sniff.automap import stable_diff
 from tests.fakes import FakeKLineEcu
 
 import tools.diffmap as dm

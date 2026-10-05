@@ -24,8 +24,8 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src"))
 
-from d2diag.sniff import automap  # noqa: E402
-from d2diag.signals import upsert_field  # noqa: E402
+from openostler.sniff import automap  # noqa: E402
+from openostler.signals import upsert_field  # noqa: E402
 
 # Read-only candidate LIDs per module (input/switch/settings — never actuators).
 _CANDIDATES = {
@@ -88,9 +88,9 @@ class ReadOnlyEcu:
 # I/O + interactive CLI
 # --------------------------------------------------------------------------- #
 def _open_session(module: str, port: str) -> ReadOnlyEcu:
-    from d2diag.kline import KLine
-    from d2diag.kwp2000 import KWP2000
-    from d2diag.transport import SerialTransport
+    from openostler.kline import KLine
+    from openostler.kwp2000 import KWP2000
+    from openostler.transport import SerialTransport
 
     tp = SerialTransport(port, timeout=1.0)
     if module == "slabs":

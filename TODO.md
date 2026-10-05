@@ -15,6 +15,10 @@ Updated 2026-10-01. Check off when done.
 > **Scope:** this repo is the tool. The car's actual faults and maintenance
 > work are handled in the sister project `../Discovery 2/` — fault codes we
 > read out belong there, not here.
+>
+> **Repo split (2026-10-06):** this repo is now the Discovery 2 pack. Items about the
+> dashboard, UI, logbook, packaging or deploy belong to the platform repo
+> ([openostler/ostler](https://github.com/openostler/ostler)) and are tracked there.
 
 ## Status
 

@@ -10,12 +10,12 @@ licensed separately under AGPL-3.0-or-later (see LICENSE).
   - src/d2diag/signals/*.json   — signal definitions (addresses, offsets, scaling,
                                   units, ranges, confidence, sources)
   - src/d2diag/dtc/*.json       — fault-code meanings
+  - src/d2diag/{td5,slabs}/faultmap.json — generated fault-bit maps
+  - src/d2diag/layout.json      — the UI layout manifest
+  - src/d2diag/demo/            — synthetic demo sessions and the sniff demo log
   - references/*_fault_codes.md — fault-code reference tables
-  - any future vehicle packs    — e.g. vehicles/**/ ECU, signal, DTC and menu
-                                  definitions (JSON/YAML data files)
 
-Third-party data bundled here keeps its own licence (e.g. GeoNames place names in
-src/d2diag/geo/ are CC BY 4.0) — see THIRD_PARTY_LICENSES.md.
+Third-party data bundled here keeps its own licence — see THIRD_PARTY_LICENSES.md.
 
 Attribution: "discovery2-diag contributors" with a link to the repository.
 Share-alike: if you adapt this data, share your adaptation under CC BY-SA 4.0.

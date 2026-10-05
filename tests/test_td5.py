@@ -1,6 +1,6 @@
 """Test for the Td5 layer: the whole stack Td5 → KWP2000 → K-Line → simulated ECU."""
-from d2diag.kline import KLine, encode
-from d2diag.kwp2000 import KWP2000
+from openostler.kline import KLine, encode
+from openostler.kwp2000 import KWP2000
 from d2diag.td5 import Td5
 from d2diag.td5.keygen import key_bytes_from_seed
 from tests.fakes import FakeKLineEcu

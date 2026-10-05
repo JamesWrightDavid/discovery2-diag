@@ -4,12 +4,20 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "d2diag"
-version = "0.0.1"
-description = "Open, modular diagnostics platform for the Land Rover Discovery 2 Td5"
+version = "0.1.0"
+description = "Ostler pack for Land Rover Discovery 2 (Td5, SLABS, BCU, airbag, ACE, EAT)"
 readme = "README.md"
 requires-python = ">=3.9"
-license = { text = "AGPL-3.0-or-later" }
-dependencies = ["pyserial>=3.5"]
+# Code: AGPL-3.0-or-later (LICENSE). Data (signals/, dtc/, faultmaps, demo): CC BY-SA 4.0
+# (LICENSE-DATA). See ADR-0012 in the platform repo.
+license = { text = "AGPL-3.0-or-later AND CC-BY-SA-4.0" }
+# The platform (https://github.com/openostler/ostler). Until it is on PyPI, install it
+# first from git: pip install "openostler @ git+https://github.com/openostler/ostler@main"
+dependencies = ["openostler", "pyserial>=3.5"]
+
+[project.urls]
+Homepage = "https://ostler.tech"
+Platform = "https://github.com/openostler/ostler"
 
 [project.optional-dependencies]
 dev = ["pytest>=7"]
@@ -18,14 +26,12 @@ dev = ["pytest>=7"]
 where = ["src"]
 
 [tool.setuptools.package-data]
-"d2diag.web" = ["dashboard.html", "dashboard_v2.html", "static/*", "static/assets/*"]
-"d2diag.geo" = ["*.tsv.gz"]
-"d2diag.vehicles.lr_d2" = ["layout.json", "signals/*.json", "dtc/*.json", "td5/*.json",
-                           "slabs/*.json", "demo/*.txt", "demo/sessions/*/*"]
+d2diag = ["layout.json", "signals/*.json", "dtc/*.json", "td5/*.json", "slabs/*.json",
+          "demo/*.txt", "demo/sessions/*/*"]
 
-# Vehicle packs (ADR-0013): the platform resolves its pack through this group.
+# Vehicle packs (ADR-0013, ADR-0014): the platform resolves its pack through this group.
 [project.entry-points."openostler.vehicle"]
-lr_d2 = "d2diag.vehicles.lr_d2:PACK"
+lr_d2 = "d2diag:PACK"
 
 [tool.pytest.ini_options]
 pythonpath = ["src", "."]

@@ -1,9 +1,9 @@
-"""The fault-meaning store (d2diag.dtc): loader, enrich join, and freshness guards."""
+"""The fault-meaning store (openostler.dtc): loader, enrich join, and freshness guards."""
 import re
 
 import tools.gen_dtc_seed as seed
 import tools.gen_fault_docs as docs
-from d2diag import dtc
+from openostler import dtc
 from d2diag.td5.faults import FAULTS
 
 

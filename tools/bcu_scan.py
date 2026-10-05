@@ -24,11 +24,11 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."
 
 from d2diag.bcu.bcu import BCU_ADDRESS, Bcu  # noqa: E402
 from d2diag.bcu.scan import INPUT_LIDS, moved, scan  # noqa: E402
-from d2diag.kline import KLine  # noqa: E402
-from d2diag.kwp2000 import KWP2000  # noqa: E402
-from d2diag.ports import resolve_serial_port  # noqa: E402
-from d2diag.transport import SerialTransport  # noqa: E402
-from d2diag.transport.logging_transport import LoggingTransport  # noqa: E402
+from openostler.kline import KLine  # noqa: E402
+from openostler.kwp2000 import KWP2000  # noqa: E402
+from openostler.ports import resolve_serial_port  # noqa: E402
+from openostler.transport import SerialTransport  # noqa: E402
+from openostler.transport.logging_transport import LoggingTransport  # noqa: E402
 
 _ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 

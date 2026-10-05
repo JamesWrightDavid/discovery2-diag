@@ -1,4 +1,4 @@
-"""Seed the fault-meaning store (src/d2diag/vehicles/lr_d2/dtc/*.json) from the canonical fault data.
+"""Seed the fault-meaning store (src/d2diag/dtc/*.json) from the canonical fault data.
 
 One-shot, **merge-preserving** seeder: it fills meanings that don't exist yet and leaves
 any hand-refined entry alone (use ``--force`` to regenerate from scratch). Run it when the
@@ -35,7 +35,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from d2diag import dtc  # noqa: E402
+from openostler import dtc  # noqa: E402
 from d2diag.slabs.faults import SLABS_FAULT_BITS  # noqa: E402
 from d2diag.td5.faults import FAULTS  # noqa: E402
 

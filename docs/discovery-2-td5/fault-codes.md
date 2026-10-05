@@ -33,9 +33,9 @@ a Discovery 2 Td5, reg. **RDL 016**.
 Unlike the other modules, the Td5 fault memory is **already raw-mapped in code** —
 we read it directly on the K-line and decode it bit-for-bit.
 
-- Raw decoder: [`src/d2diag/vehicles/lr_d2/td5/faults.py`](../../src/d2diag/vehicles/lr_d2/td5/faults.py) — 210
+- Raw decoder: [`src/d2diag/td5/faults.py`](../../src/d2diag/td5/faults.py) — 210
   named fault bits.
-- Live signals: [`src/d2diag/vehicles/lr_d2/td5/identifiers.py`](../../src/d2diag/vehicles/lr_d2/td5/identifiers.py).
+- Live signals: [`src/d2diag/td5/identifiers.py`](../../src/d2diag/td5/identifiers.py).
 
 ### How the faults are read 🟢
 
@@ -110,7 +110,7 @@ dictionary holds the `X-Y` side; the bridge between them is an open item.
 
 ## SLABS (Wabco ABS + rear self-levelling)
 
-- Raw decoder: [`src/d2diag/vehicles/lr_d2/slabs/faults.py`](../../src/d2diag/vehicles/lr_d2/slabs/faults.py).
+- Raw decoder: [`src/d2diag/slabs/faults.py`](../../src/d2diag/slabs/faults.py).
 - Display-number list: [`../../references/slabs_fault_codes.md`](../../references/slabs_fault_codes.md).
 
 ### How the faults are read 🟢
@@ -178,11 +178,11 @@ This is only an **index** to our code-embedded and sniffed sources:
 
 | Module | Raw-mapped in code | Public list | Seen on RDL 016 |
 |---|---|---|---|
-| **Td5** | `src/d2diag/vehicles/lr_d2/td5/faults.py` (210, `21 3B` bit-per-fault) | reference tool Lucas TD5 guide + **forum list (Kelvin, complete X-Y)** — forum note: `28-7` topside switch ≈ ECU failure (not seen here) | `01-07` EGR, `04-01` IAT (intermittent); air flow+IAT under load |
+| **Td5** | `src/d2diag/td5/faults.py` (210, `21 3B` bit-per-fault) | reference tool Lucas TD5 guide + **forum list (Kelvin, complete X-Y)** — forum note: `28-7` topside switch ≈ ECU failure (not seen here) | `01-07` EGR, `04-01` IAT (intermittent); air flow+IAT under load |
 | **SLABS** | ✅ `21 11`=logged / `21 47`=current (bit-per-fault, index=byte*8+bit), `14 FF FF`=clear. Confirmed: `020-05`→byte3.bit4, `027-05`→byte10.bit4 | `references/slabs_fault_codes.md` (012–114) | `020-05` RF sensor + `027-05` shuttle valve (×254, logged) |
 | **ACE** | — (bulk block isolated) | dict **complete 0001–0048** (factory display index = display index, forum-confirmed) | `04-02/04/05` directional valves + `06-01` low pressure (current) — **re-read 2026-08-10**, cleared + calibrated accelerometers. Fault block: `67 67 11 e0 e0 f0 f0 … 08 09 80 92`. Utilities: calib1=`15 15 ff`, calib2=`16 16 ff`, set cal=`10 10 00` |
 | **EAT** | — (different protocol, `72`-framed) | dict (39, RAVE) — **forum-confirmed** factory display index 1–39 | reference tool "unable to perform the function" 2026-08-10, BUT the ECU **responds** with a data block. Functions: read faults `72 05 04 00`, clear `72 04 05`, settings `72 05 93 00`, inputs `72 05 0b 00/03` |
-| **Airbag** | ✅ **`src/d2diag/vehicles/lr_d2/airbag/faults.py`** (`21 02`→entries `[status][num]`) | dict **position=display code solved**; full string dump 1–65 | `004` + `022` (intermittent) — **re-read + cleared 2026-08-10**; raw `61 02 90 04 90 16` decoded |
+| **Airbag** | ✅ **`src/d2diag/airbag/faults.py`** (`21 02`→entries `[status][num]`) | dict **position=display code solved**; full string dump 1–65 | `004` + `022` (intermittent) — **re-read + cleared 2026-08-10**; raw `61 02 90 04 90 16` decoded |
 | **BCU** | — (EKA via LID `CC`) | no conventional fault capacity (reference tool) | EKA `XXXX` read: `21 CC`=read, `3B CC XX XX XX XX`=write (ignition cycling to connect) |
 
 > ✅ **CORRECTION (earlier error):** ACE/EAT/Airbag/BCU are **structured protocols**,
@@ -243,7 +243,7 @@ Notes:
   so neither list can be used to predict the other, or the raw index.
 - **ACE / EAT / Airbag / BCU** use different framing than the Td5/SLABS KWP path and
   are only partially decoded (airbag fault format is decoded in
-  `src/d2diag/vehicles/lr_d2/airbag/faults.py`); their raw ↔ display mappings are outside this
+  `src/d2diag/airbag/faults.py`); their raw ↔ display mappings are outside this
   page's proven scope.
 
 ## Changelog

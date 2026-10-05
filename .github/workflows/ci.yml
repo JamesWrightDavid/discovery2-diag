@@ -1,8 +1,21 @@
 name: ci
 
+# The Ostler pack for Land Rover Discovery 2. The platform (openostler) lives in
+# https://github.com/openostler/ostler and is installed first; PLATFORM_REF picks the
+# platform branch, tag or commit to test against (default: main).
+
 on:
   push:
   pull_request:
+  workflow_dispatch:
+    inputs:
+      platform_ref:
+        description: "openostler/ostler ref to test against"
+        required: false
+        default: main
+
+env:
+  PLATFORM_REF: ${{ inputs.platform_ref || vars.PLATFORM_REF || 'main' }}
 
 jobs:
   test:
@@ -13,8 +26,16 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install -e ".[dev]"
+      - name: Install the platform
+        run: pip install "openostler @ git+https://github.com/openostler/ostler@${PLATFORM_REF:-main}"
+      - name: Install the pack
+        run: pip install -e ".[dev]"
       - run: pytest -q
+      - name: Generated files are current
+        run: |
+          python3 tools/gen_signal_header.py --check
+          python3 tools/gen_faultmap.py --check
+          python3 tools/gen_fault_docs.py --check
 
   docs:
     runs-on: ubuntu-latest
@@ -33,47 +54,3 @@ jobs:
           python3 skill/scripts/build_index.py
           # The generated date line changes daily; compare everything else.
           git diff --exit-code -I '^updated: ' -- INDEX.md
-
-  ui:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    defaults:
-      run:
-        working-directory: ui
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          cache: npm
-          cache-dependency-path: ui/package-lock.json
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run typecheck
-      - run: npm test
-      - run: npm run build
-      - name: Committed build output is current
-        run: git diff --exit-code -- ../src/d2diag/web/static && test -z "$(git status --porcelain -- ../src/d2diag/web/static)"
-
-  e2e:
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-      - run: pip install -e .
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          cache: npm
-          cache-dependency-path: ui/package-lock.json
-      - run: npm ci
-        working-directory: ui
-      - run: npx playwright install --with-deps chromium
-        working-directory: ui
-      - run: npx playwright test
-        working-directory: ui
-        env:
-          PYTHON: python

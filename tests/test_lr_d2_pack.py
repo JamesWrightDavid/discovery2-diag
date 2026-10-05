@@ -1,24 +1,18 @@
-"""The built-in Discovery 2 pack (d2diag.vehicles.lr_d2:PACK) assembles and resolves, and
-the platform stores follow whichever pack is active (Phase 0 Step 0)."""
-import json
-from pathlib import Path
-
+"""The Discovery 2 pack (d2diag:PACK) assembles, resolves as the active pack, and the
+platform stores read from it."""
 import pytest
 
-from d2diag import dtc, pack, signals
-from tests.fake_pack import FAKE_PACK
-
-_UI_PACK = Path(__file__).resolve().parents[1] / "ui" / "src" / "api" / "fixtures" / "pack.json"
+from openostler import dtc, pack, signals
 
 
 @pytest.fixture()
 def lr_d2():
-    from d2diag.vehicles.lr_d2 import PACK
+    from d2diag import PACK
 
     return PACK
 
 
-def test_fallback_resolves_the_lr_d2_pack(lr_d2):
+def test_active_pack_is_the_lr_d2_pack(lr_d2):
     assert pack.active_pack() is lr_d2
     assert lr_d2.id == "lr_d2" and lr_d2.api_version == pack.PACK_API_VERSION
 
@@ -34,9 +28,9 @@ def test_canonical_ids_and_aliases(lr_d2):
 
 
 def test_pack_members_reference_the_live_objects(lr_d2):
-    from d2diag import commands, menus
+    from openostler import commands, menus
 
-    from d2diag.vehicles.lr_d2.actions import ACTIONS
+    from d2diag.actions import ACTIONS
 
     assert lr_d2.actions is ACTIONS
     assert list(commands.registry().values()) == list(ACTIONS)
@@ -54,22 +48,9 @@ def test_sources_factory_keys_follow_module_order(lr_d2):
     assert list(srcs) == lr_d2.module_ids()
 
 
-def test_manifest_matches_the_ui_fixture(lr_d2):
-    want = json.loads(_UI_PACK.read_text(encoding="utf-8"))
-    assert lr_d2.manifest() == want, "regenerate ui/src/api/fixtures/pack.json from PACK.manifest()"
-
-
-def test_stores_follow_the_active_pack(monkeypatch):
-    with pack.use_pack(FAKE_PACK):
-        assert pack.active_pack() is FAKE_PACK
-        assert signals._dir() == FAKE_PACK.signals_dir
-        assert dtc._dir() == FAKE_PACK.dtc_dir
-        assert [r["name"] for r in signals.load_records("alpha")] == ["alpha_speed", "alpha_temp"]
-        assert dtc.load_records("alpha")[0]["key"] == "A1"
-        from d2diag.logbook import demo
-
-        assert demo.DEMO_ROOT is None
-        assert pack.canonical_module("A") == "alpha"
-    assert pack.active_pack().id == "lr_d2"
-    monkeypatch.setattr(signals, "_DIR", FAKE_PACK.signals_dir)   # the tests' override wins
-    assert signals._dir() == FAKE_PACK.signals_dir
+def test_stores_read_from_the_pack(lr_d2):
+    assert signals._dir() == lr_d2.signals_dir
+    assert dtc._dir() == lr_d2.dtc_dir
+    assert {r["name"] for r in signals.load_records("td5")}
+    assert dtc.load_records("td5")
+    assert pack.canonical_module("motor") == "td5"

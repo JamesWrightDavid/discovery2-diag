@@ -1,5 +1,10 @@
 # d2diag community contribution endpoint
 
+> **Interim location.** This endpoint seeds the private Ostler Cloud repo (ADR-0013 in
+> [openostler/ostler](https://github.com/openostler/ostler)) and moves there when that repo
+> is created. It is not part of the `d2diag` pack package. Its device-side client is the
+> platform's `openostler.community`.
+
 A tiny, dependency-free service (`server/endpoint.py`, stdlib `http.server` +
 `sqlite3`) that receives **anonymous, PII-free** contributions from the diagnostic
 app and shows a maintainer admin view. Runs on the maintainer's own host behind
@@ -75,7 +80,7 @@ requires `?token=<secret>` (or an `X-Admin-Token` header).
 
 1. Review incoming contributions at `/d2diag/admin` (or query the SQLite directly).
 2. When several installs agree on a candidate field, promote it
-   `candidate → proven` in the app's `src/d2diag/vehicles/lr_d2/signals/*.json`.
+   `candidate → proven` in the app's `src/d2diag/signals/*.json`.
 3. Ship it in the next release. Nothing is auto-published — you stay in control of
    what becomes "Verified".
 

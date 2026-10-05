@@ -21,7 +21,7 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src"))
 
-from d2diag.signals import load_signals  # noqa: E402
+from openostler.signals import load_signals  # noqa: E402
 
 _HEADER_PATH = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), "..", "esp32", "kline_node", "signals_td5.h")
@@ -65,7 +65,7 @@ def _fmt_float(v: float) -> str:
 def build_header() -> str:
     # Fuel-computer constants live with the Python _FuelComputer; emit them so the ESP's
     # on-node fuel calc can't drift from it (the header-match test guards this).
-    from d2diag.vehicles.lr_d2.sources import _INJ_PER_REV, _DIESEL_G_PER_L
+    from d2diag.sources import _INJ_PER_REV, _DIESEL_G_PER_L
     # The ESP decodes by offset only, so a record restricted to one reply length (see
     # specs/2026-10-04-reply-length-layouts-design.md) cannot go in its table.
     by_name = {s.name: s for s in load_signals("td5") if s.length is None}
@@ -86,7 +86,7 @@ def build_header() -> str:
     lid_list = ", ".join(f"0x{l:02X}" for l in sorted(lids))
     body = "\n".join(rows)
     return (
-        "// AUTO-GENERATED from src/d2diag/vehicles/lr_d2/signals/td5.json by tools/gen_signal_header.py.\n"
+        "// AUTO-GENERATED from src/d2diag/signals/td5.json by tools/gen_signal_header.py.\n"
         "// DO NOT EDIT. Regenerate: python3 tools/gen_signal_header.py\n"
         "// The ESP decode table is derived from the signal store so the two never drift.\n"
         "// Requires `enum Kind { U8, U16, S16 };` and `struct Field { … };` before include.\n"
@@ -100,7 +100,7 @@ def build_header() -> str:
         f"static const uint8_t LIDS[] = {{ {lid_list} }};\n"
         "static const size_t  NLIDS  = sizeof LIDS / sizeof LIDS[0];\n"
         "\n"
-        "// Fuel-computer constants — kept in sync with _FuelComputer (src/d2diag/vehicles/lr_d2/sources.py).\n"
+        "// Fuel-computer constants — kept in sync with _FuelComputer (src/d2diag/sources.py).\n"
         f"#define INJ_PER_REV    {_fmt_float(_INJ_PER_REV)}   // injections per crank rev (5-cyl 4-stroke)\n"
         f"#define DIESEL_G_PER_L {_fmt_float(_DIESEL_G_PER_L)}   // diesel density\n"
     )

@@ -158,7 +158,7 @@ Follows the muki01 `L9637D.png` reference. Pinout (SO-8):
 - **Architecture decision deferred** (hardware is identical either way):
   - **WiFi bridge (least work, reuses everything):** extend the firmware into a TCP
     server + a small control protocol (`fast_init` / `slow_init` / `set_baud`, then
-    transparent bytes). Add a thin `src/d2diag/transport/tcp_transport.py` that maps
+    transparent bytes). Add a thin `openostler/transport/tcp_transport.py` (platform repo) that maps
     those control calls to messages and `send`/`receive` to the socket. The existing
     `SerialTransport` already opens `serial_for_url("socket://…")`, so only the
     control methods are missing — the whole `d2diag` stack + dashboard then run

@@ -1,84 +1,61 @@
-# Discovery 2 Td5 — Open Diagnostic Platform
+# Ostler pack for Land Rover Discovery 2
 
-An open, modular diagnostics platform for the Land Rover Discovery 2 Td5. The
-D2 is a little too old for CAN bus, so it talks to its control modules over
-**K-line**. With a cheap OBD2-to-USB cable (~€20–30) this project speaks that
-protocol from your own computer — no proprietary tool required.
+The **Land Rover Discovery 2 (Td5)** vehicle pack for **[Ostler](https://ostler.tech)**,
+the open vehicle platform ([openostler/ostler](https://github.com/openostler/ostler)).
 
-The goal isn't just another fault-code reader: it's a **library** where the Td5
-is the first implementation, but the layered architecture is meant to extend to
-other modules, vehicles and protocols. There's also a mobile-friendly web
-dashboard on top so it's usable in the driveway from a phone.
+The D2 is a little too old for CAN bus: it talks to its control modules over **K-line**.
+With a cheap OBD2-to-USB KKL cable (~€20–30) or an ESP32 tap, the platform speaks that
+protocol, and this pack tells it what the Discovery 2 is: which modules it has, how to
+reach and unlock them, what every byte means, and how its fault codes read. It is
+reverse-engineered from sniffed bus traffic and community documentation.
 
-> ⚠️ **Hobby / research project.** Reverse-engineered from bus traffic and
-> community documentation. It reads a lot reliably, but it is not a finished
-> product like a commercial tool. Use at your own risk; see the safety notes.
+> ⚠️ **Hobby / research project.** It reads a lot reliably, but it is not a finished
+> commercial tool. Use at your own risk; see the [safety notes](#safety).
 
-## 📚 Knowledge base
+Ostler is not affiliated with or endorsed by Jaguar Land Rover. "Land Rover" and
+"Discovery" are used only to say which vehicle this pack is for.
 
-The reverse-engineering itself — every module, signal, and service, tagged
-**🟢 proven / 🟡 assumed / 🔴 unknown** with its evidence — lives in **[`docs/`](docs/README.md)**.
-It's written to be a public reference the community can compile and correct, and to
-extend to the Rover V8 platforms over time. Start at
-[docs/discovery-2-td5/](docs/discovery-2-td5/README.md).
+## What is in this pack
 
-## What it can do today
+| Part | Where |
+|---|---|
+| Module layers: **Td5** engine ECU (seed→key, live data, faults, output and injector tests), **SLABS** (ABS + self-levelling air suspension: faults, live data, actuator tests, ABS bleed), **BCU**, **airbag/SRS** (read-only), **ACE**, **EAT** auto gearbox | `src/d2diag/{td5,slabs,bcu,airbag,ace,autobox}/` |
+| Signal store (the single source of truth for LID field mappings) | `src/d2diag/signals/*.json` |
+| Fault-meaning store and fault-bit maps | `src/d2diag/dtc/*.json`, `src/d2diag/{td5,slabs}/faultmap.json` |
+| Menus, actions (command registry), fault-scan order, data sources | `src/d2diag/{menus,actions,faultscan,sources}.py` |
+| Sniff spec, NanoCom capture and fault-screen importers, protocol library | `src/d2diag/sniff_spec.py`, `src/d2diag/sniff/` |
+| UI layout manifest | `src/d2diag/layout.json` |
+| Demo: two synthetic sessions and a sniff log, plus their generator | `src/d2diag/demo/`, `src/d2diag/synth.py` |
+| D2 tools: ECU checks, module and BCU scans, capture analysis, mappers, generators | [`tools/`](tools/CLAUDE.md) |
+| ESP32 K-line node firmware (live view, sniffer) | [`esp32/`](esp32/README.md) |
+| The knowledge base: every module, signal and service tagged 🟢 proven / 🟡 assumed / 🔴 unknown | [`docs/`](docs/README.md), [`references/`](references/CLAUDE.md) |
 
-- **Read & clear fault codes** — TD5 and SLABS (ABS + self-levelling air
-  suspension) are proven against the car; SRS/airbag is **experimental** and
-  strictly read-only.
-- **Live engine data** from the TD5 ECU — rpm, coolant/air/fuel temperatures,
-  manifold (boost) pressure, **mass air flow (MAF)**, battery, accelerator tracks,
-  cylinder injector balance, immobiliser status, …
-- **SLABS actuator tests** — ABS pump, per-wheel valve tests and the **ABS
-  bleed procedure**, ride-height raise/lower, compressor, exhaust valve, buzzer.
-- **BCU** — connect (5-baud slow init) and read immobiliser status. The EKA
-  (emergency key access) code turned out to be **gated behind SecurityAccess**
-  (Valeo seed→key unknown), so it can't be read — see the [BCU knowledge-base page](docs/discovery-2-td5/bcu.md).
-- **Mobile-first web dashboard** — a React + TypeScript app in [`ui/`](ui/)
-  (Drive · Connect · Faults · Inputs · Outputs · Utilities). It always runs live (there
-  is no mock or demo mode), with a one-click fault scan across every module. A password-gated
-  **`/admin` mapping console** (coverage map with live sniff, labelled capture, docs)
-  is the *same app* with the reverse-engineering tabs revealed. The built app is
-  committed, so running the dashboard needs Python only.
-- **Reverse-engineering tools** — a passive sniff decoder, an active
-  differential-mapping harness, full **raw TX/RX logging** of every live session,
-  and an offline analyser (`tools/raw_analyze.py`) that surfaces every *unmapped*
-  byte and correlates it against rpm — this is how the MAF field was found. A
-  declarative signal store turns confirmed mappings into permanent, machine-readable
-  knowledge, and feeds the [knowledge base](docs/README.md).
+The pack plugs into the platform through the `VehiclePack` contract (entry point group
+`openostler.vehicle`, name `lr_d2`, object `d2diag:PACK`). The platform never imports the
+pack directly.
 
-ACE, the automatic gearbox (EAT) and BCU fault lists are partially
-reverse-engineered but not yet decoded in code.
+## Install with the platform
 
-## Hardware
+The platform is the app (K-line core, web dashboard, logbook, GPS); this pack is the data
+and the Discovery 2 code. Install both:
 
-- A generic **OBD2-to-USB K-line cable** (KKL 409.1 style, FTDI FT232 / CH340 /
-  CP210x). ~€20–30 on the usual sites. That's it.
-- Optional, for **passive sniffing** of another tool's traffic: an ESP32 + an
-  L9637D K-line front-end (RX-only), or an OBD splitter with pin 7 passed through.
-
-## Architecture
-
-A strict, bottom-up layer stack — each layer is decoupled and unit-tested:
-
-```
-Web dashboard   (stdlib HTTP + SSE server · React/TS UI, prebuilt — no Node at runtime)
-Module layer    (Td5 · Slabs · Airbag — establish / read faults / live data / actuators)
-KWP2000         (10/27/3E/21/30/31 · negative responses · responsePending · addressed mode)
-K-Line          (framing addressed+unaddressed, checksum, fast + 5-baud slow init, retries)
-Transport       (raw bytes in/out — no protocol knowledge; pyserial)
+```bash
+python -m venv .venv && . .venv/bin/activate
+pip install "openostler @ git+https://github.com/openostler/ostler@main"
+pip install "d2diag @ git+https://github.com/JamesWrightDavid/discovery2-diag@main"
 ```
 
-Supporting pieces: a **signal store** (`src/d2diag/vehicles/lr_d2/signals/*.json`) read and
-written by both the decoders and the auto-mapper, a passive **sniff** subsystem,
-and the `web` dashboard. Nothing above the transport layer knows *how* the bytes
-travel:
+Then run the platform's dashboard (see the
+[platform README](https://github.com/openostler/ostler)); it finds this pack through its
+entry point. Exactly one installed pack is picked up automatically; with several, set
+`OSTLER_VEHICLE=lr_d2`.
+
+The module layers also work as a library:
 
 ```python
-from d2diag.transport import SerialTransport
-from d2diag.kwp2000 import KWP2000
-from d2diag.kline import KLine
+from openostler.kline import KLine
+from openostler.kwp2000 import KWP2000
+from openostler.transport import SerialTransport
 from d2diag.td5 import Td5
 
 td5 = Td5(KWP2000(KLine(SerialTransport("/dev/cu.usbserial-XXXX")), tolerant=True))
@@ -88,173 +65,74 @@ with td5:
     print(td5.read_all())       # decoded live data
 ```
 
-## Quick start
+## Develop
 
 ```bash
-python -m venv .venv && . .venv/bin/activate
+pip install "openostler @ git+https://github.com/openostler/ostler@main"   # or: pip install -e ../ostler
 pip install -e ".[dev]"
 pytest -q
+python3 tools/gen_signal_header.py --check
+python3 tools/gen_faultmap.py --check
+python3 tools/gen_fault_docs.py --check
 ```
 
-Tests run without hardware against a simulated half-duplex ECU (pyserial's
-`loop://`), so you can hack on it with no car attached.
-
-Run the dashboard:
+Tests run without hardware against a simulated half-duplex ECU (`tests/fakes.py`).
+`tests/test_pack_contract.py` checks the pack against the platform's contract; it needs
+the pack installed so the entry point exists. Read-only checks against the car:
 
 ```bash
-# Against the real vehicle (ignition on, stationary):
-PYTHONPATH=src python3 tools/dashboard.py --serial /dev/cu.usbserial-XXXX
+python3 tools/verify_ecu.py td5   /dev/cu.usbserial-XXXX
+python3 tools/verify_ecu.py slabs /dev/cu.usbserial-XXXX
 ```
 
-Then open <http://localhost:8080> — from the same machine, or from your phone on
-the same network. The machine with the cable runs the server; the phone is just a
-browser (it never touches the cable).
-
-**No car? Replay the demo.** The dashboard has no mock or demo mode: it always runs
-live and shows "No connection" until a car is connected. The demo is two committed,
-read-only synthetic sessions, "Demo log 1" and "Demo log 2" (`src/d2diag/vehicles/lr_d2/demo/sessions/`).
-Open one from the Logs tab and replay it through the whole app
-([ADR-0011](decisions/adr-0011-no-demo-mode-live-only-recording-place-names.md)).
-
-**Working on the UI without a car:** `PYTHONPATH=src python3 tests/e2e_server.py`
-starts the dashboard against the test-only simulated sources (the same server
-Playwright drives). The simulated ECU lives in `tests/` and never ships in the
-product. For hot reload, see [`ui/CLAUDE.md`](ui/CLAUDE.md).
-
-### Session logbook
-
-- **Recording only while connected.** A session opens when the car connects. While
-  the car is disconnected the session is *paused*: no rows are written, not even GPS,
-  and it ends after 5 minutes. GPS movement alone never records anything.
-- **Place names.** Sessions are named by where they started and ended. Offline, the
-  name comes from a trimmed GeoNames `cities1000` table (nearest town within a reach
-  that scales with population, else the region). When the Pi is online, OSM Nominatim
-  refines the name: at most 1 request per second, a custom User-Agent, and every
-  result cached in `logs/geocache.json`. `--geocoder URL|off` sets or disables the
-  endpoint. Only one rounded point per session start and end is sent. The Logs footer
-  credits "Place names © OpenStreetMap contributors (ODbL) · GeoNames (CC BY 4.0)".
-- **Session index.** A local SQLite index (`logbook/index.py`) serves the Logs
-  browser: newest-first paging, search over names, descriptions, places and notes,
-  filters, and a month scrubber. Names and descriptions are editable in place. The
-  index rebuilds itself from the session files when it is missing or out of date.
-
-### Running on a Raspberry Pi (in the car)
-
-The natural home is a **Raspberry Pi** wired to the OBD port — power it, connect
-your phone, open the dashboard. Runs on the system Python (`PYTHONPATH=src` +
-`python3-serial`, no venv needed); autostart it with a `systemd` service and reach
-it at `http://<pi>.local:8080`. `--serial auto` finds the KKL cable and keeps
-retrying until it's plugged in, so the UI is always up. Add `--raw-log` to capture
-all bus traffic for later mapping, and `--admin-password` to protect `/admin`.
-
-Read-only sanity check against a module:
-
-```bash
-PYTHONPATH=src python3 tools/verify_ecu.py td5   /dev/cu.usbserial-XXXX
-PYTHONPATH=src python3 tools/verify_ecu.py slabs /dev/cu.usbserial-XXXX
-```
-
-### Serial port on macOS
-
-`resolve_serial_port("auto")` finds the cable automatically
-(`/dev/cu.usbserial-*`, `/dev/cu.wchusbserial*`, `/dev/cu.SLAB_USBtoUART*`), or
-pass the port explicitly.
-
-- Use **`/dev/cu.*`**, never `/dev/tty.*` — `tty` blocks waiting for carrier
-  (DCD); `cu` (call-out) is correct for a KKL cable.
-- **Drivers:** FTDI and CH34x are built into modern macOS. CH340 clones may need
-  the WCH VCP driver; CP210x may need the Silicon Labs VCP.
-- No `dialout` group / root needed for `/dev/cu.*` on macOS.
-- FTDI's default 16 ms latency timer can jitter K-line fast init, but the
-  tolerant `converse()`/`establish()` retry compensates — keep `tolerant=True`.
-
-### Serial port on Linux / Raspberry Pi
-
-- Ports are `/dev/ttyUSB*` (or the stable `/dev/serial/by-id/*`, which
-  `resolve_serial_port("auto")` prefers). The user must be in the **`dialout`** group.
-- **FTDI fast-init gotcha:** the fast-init low pulse uses a ~360-baud trick that
-  FTDI on Linux can't set — it clamps to a much higher rate, giving a ~2 ms pulse
-  instead of 25 ms, and the ECU never wakes. The transport detects Linux and uses an
-  OS-timed `send_break` instead (proven in the car, 2026-08-21). Also set the FTDI
-  **latency timer to 1 ms** (`/sys/bus/usb-serial/devices/ttyUSB0/latency_timer`, or
-  a udev rule) for snappy K-line timing.
+Project rules for contributors and agents: [CLAUDE.md](CLAUDE.md) and
+[CONSTITUTION.md](CONSTITUTION.md). What is proven and what is still open:
+[references/protocol_state_handoff.md](references/protocol_state_handoff.md) and the
+in-car backlog [references/test_plan.md](references/test_plan.md).
 
 ## Safety
 
-K-line is a shared bus and this tool can *write* to ECUs. The design is
-read-first and conservative:
+K-line is a shared bus and this pack can *write* to ECUs. The design is read-first and
+conservative:
 
 - Fault reads and live data are read-only.
-- Actuator tests (ABS pump, valves, air suspension) run only when you press the
-  button, always behind a confirmation, and should be done **stationary with the
-  ignition on**.
-- **The airbag/SRS module is read-only by construction** — no clear, no outputs,
-  no security writes. Never actuate pyrotechnic circuits.
-- BCU output writes and the active mapping harness are gated / read-only by
-  default.
+- Actuator tests (ABS pump, valves, air suspension) run only when you press the button,
+  always behind a confirmation, and should be done **stationary with the ignition on**.
+- **The airbag/SRS module is read-only by construction**: no clear, no outputs, no
+  security writes. Never actuate pyrotechnic circuits.
+- BCU output writes and the active mapping harness are gated or read-only by default.
 
-## Status
+## Credits
 
-- [x] Transport, K-Line (addressed + unaddressed framing, fast + slow init), KWP2000
-- [x] Td5 — SecurityAccess seed→key, session, ~20 live signals incl. **MAF** and
-      immobiliser status, faults, output + injector tests (validated on the car)
-- [x] SLABS — faults, live data, actuator tests + ABS bleed. Connects on the first
-      attempt since the fast-init pulse was corrected (2026-08-19): our TiniH was
-      ~32 ms instead of the 25 ms ISO 14230-2 specifies, because the UART stop bit
-      after the wake byte was unaccounted for and `time.sleep` overshoots. The Td5
-      (Lucas) tolerated it for months; the Wabco module did not.
-- [~] Airbag/SRS — read-only fault read (experimental, addressed framing at 0x5B)
-- [~] ACE / auto gearbox (EAT) / BCU — partially reverse-engineered
-- [x] Web dashboard (mobile v2 + `/admin` mapping console), signal store, sniff
-      decoder, active differential mapping, raw-log analyser
-- [x] Raspberry-Pi deployment (systemd autostart) + Linux fast-init fix (`send_break`)
-- [x] Public **[knowledge base](docs/README.md)** — confidence-tagged protocol reference
+This project stands on other people's work. Full licences and exactly what was used are
+in [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md).
 
-The test suite runs without hardware (`pytest -q`); CI runs it on every push, together
-with the documentation checks.
-
-## Contributing
-
-If you're equally nerdy — building something similar, have useful documentation,
-or want to help develop and test — contributions of **data, mappings, docs or
-code** are very welcome. Verifying every mapping (warning lights, sensor values,
-status bits) against the car is slow, so extra hands and extra cars help a lot.
-Open an issue or a pull request.
-
-## Credits & references
-
-This project stands on other people's work. Full licenses and exactly what was
-used are in [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md).
-
+- **leijoma** started this repository (upstream
+  [Leijoma/discovery2-diag](https://github.com/Leijoma/discovery2-diag)); their
+  MIT-licensed work stays credited.
 - **seed→key** (immobiliser SecurityAccess): ported from
   [pajacobson/td5keygen](https://github.com/pajacobson/td5keygen) (BSD-2-Clause).
-- **protocol reference** (framing, ECU addresses, init/session, identifiers,
-  fault-code map): [EA2EGA/Ekaitza_Itzali](https://github.com/EA2EGA/Ekaitza_Itzali)
-  — protocol facts only, no code copied. Credits there to OffTrack (ECU
-  disassembly) and Luca72 (Arduino reference).
+- **Protocol reference** (framing, ECU addresses, init/session, identifiers, fault-code
+  map): [EA2EGA/Ekaitza_Itzali](https://github.com/EA2EGA/Ekaitza_Itzali), protocol facts
+  only, no code copied. Credits there to OffTrack (ECU disassembly) and Luca72 (Arduino
+  reference).
 - **K-line front-end** (fast-init timing, burst reads, L9637D):
   [muki01/OBD2_K-line_Reader](https://registry.platformio.org/libraries/muki01/OBD2%20K-Line) (MIT).
-- **UI theme tokens**: [facebook/astryx](https://astryx.atmeta.com/) neutral theme
-  (Meta's open-source design system, MIT) — colour/spacing values only.
-- **Td5 fault-code text**: cross-validated against a public, community-maintained
-  Td5 fault-code list (offset/bit → fault text only).
-- Thanks to the **Land Rover community** (forums and shared notes) for fault
-  codes, menu structures and protocol tips that made the reverse engineering
-  possible.
+- **Td5 fault-code text**: cross-validated against a public, community-maintained Td5
+  fault-code list (offset/bit → fault text only).
+- Thanks to the **Land Rover community** (forums and shared notes) for fault codes, menu
+  structures and protocol tips.
 
-Contributing data or code? Add yourself here.
+Contributing data or code? Add yourself here, and see [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## License
+## Licences
 
-- **Code:** [AGPL-3.0-or-later](LICENSE). Running a modified version as a network
-  service means offering its source to its users. A **commercial licence** (for closed or
-  embedded use without the AGPL obligations) is available from the maintainer.
-- **Vehicle data** (`src/d2diag/vehicles/lr_d2/signals/`, `src/d2diag/vehicles/lr_d2/dtc/`, fault-code tables, future
-  vehicle packs): [CC BY-SA 4.0](LICENSE-DATA).
-- **Contributions** are accepted under the [Contributor License Agreement](CLA.md) — see
-  [CONTRIBUTING.md](CONTRIBUTING.md).
-- Versions published before 2026-10-06 were MIT-licensed; copies obtained under those
-  terms keep them. Third-party components retain their own licences — see
-  [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md). Decision: ADR-0012.
+- **Code:** [AGPL-3.0-or-later](LICENSE). A **commercial licence** is available from the
+  maintainer.
+- **Vehicle data** (`src/d2diag/signals/`, `src/d2diag/dtc/`, the fault maps, the layout,
+  the demo data and the fault-code tables): [CC BY-SA 4.0](LICENSE-DATA).
+- **Contributions** are accepted under the [Contributor License Agreement](CLA.md).
+- Versions published before 2026-10-06 were MIT-licensed; copies obtained under those terms
+  keep them.
 - **Trademarks:** "Ostler" and "OpenOstler" are trademarks; the licences grant no rights to
-  the names — see [TRADEMARKS.md](TRADEMARKS.md).
+  the names. See [TRADEMARKS.md](TRADEMARKS.md).

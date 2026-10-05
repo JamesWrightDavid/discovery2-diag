@@ -7,8 +7,8 @@ import pytest
 
 from d2diag.bcu import BCU_ADDRESS, Bcu
 from d2diag.bcu.bcu import _plausible
-from d2diag.kline import KLine, encode
-from d2diag.kwp2000 import KWP2000, KWP2000Error
+from openostler.kline import KLine, encode
+from openostler.kwp2000 import KWP2000, KWP2000Error
 from tests.fakes import FakeKLineEcu
 
 

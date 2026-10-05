@@ -1,4 +1,4 @@
-// AUTO-GENERATED from src/d2diag/vehicles/lr_d2/signals/td5.json by tools/gen_signal_header.py.
+// AUTO-GENERATED from src/d2diag/signals/td5.json by tools/gen_signal_header.py.
 // DO NOT EDIT. Regenerate: python3 tools/gen_signal_header.py
 // The ESP decode table is derived from the signal store so the two never drift.
 // Requires `enum Kind { U8, U16, S16 };` and `struct Field { … };` before include.
@@ -31,6 +31,6 @@ static const size_t NFIELDS = sizeof FIELDS / sizeof FIELDS[0];
 static const uint8_t LIDS[] = { 0x09, 0x0D, 0x10, 0x1A, 0x1B, 0x1C, 0x1D, 0x21, 0x23, 0x40 };
 static const size_t  NLIDS  = sizeof LIDS / sizeof LIDS[0];
 
-// Fuel-computer constants — kept in sync with _FuelComputer (src/d2diag/vehicles/lr_d2/sources.py).
+// Fuel-computer constants — kept in sync with _FuelComputer (src/d2diag/sources.py).
 #define INJ_PER_REV    2.5f   // injections per crank rev (5-cyl 4-stroke)
 #define DIESEL_G_PER_L 832.0f   // diesel density

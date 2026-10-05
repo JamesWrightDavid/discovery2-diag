@@ -7,8 +7,8 @@ slabs_session_20260807.log``. The tests prove that our layer:
 """
 import pytest
 
-from d2diag.kline import KLine, encode
-from d2diag.kwp2000 import KWP2000
+from openostler.kline import KLine, encode
+from openostler.kwp2000 import KWP2000
 from d2diag.slabs import Slabs, decode_fault_block
 from tests.fakes import FakeKLineEcu
 
@@ -123,13 +123,13 @@ def test_actuator_command_matches_capture(call, frame_hex):
 
 
 def _f(d):
-    from d2diag.kline import encode
+    from openostler.kline import encode
     return encode(d, addressed=False)
 
 
 def _slabs_over(responses):
-    from d2diag.kline import KLine, encode
-    from d2diag.kwp2000 import KWP2000
+    from openostler.kline import KLine, encode
+    from openostler.kwp2000 import KWP2000
     from d2diag.slabs import SLABS_ADDRESS, Slabs
     from tests.fakes import FakeKLineEcu
     responses = dict(responses)
@@ -166,7 +166,7 @@ def test_functional_init_frame_matches_the_address_hunt():
     # Our address hunt 2026-08-05 got a response from 0x29 ONLY in functional mode with
     # tester address 0xF1: C1 29 F1 81 5c. The muki01 reference initialises the same way
     # (C1 33 F1 81 66). The frame must be byte-identical to the one that worked.
-    from d2diag.kline import encode
+    from openostler.kline import encode
     from d2diag.slabs import SLABS_ADDRESS
     f = encode(b"\x81", SLABS_ADDRESS, 0xF1, addressed=True, functional=True)
     assert f.hex(" ") == "c1 29 f1 81 5c"
@@ -176,8 +176,8 @@ def test_establish_tries_functional_addressing_first():
     # FUNCTIONAL first: in the car 2026-08-19 the functional frames accounted for
     # 6 hits out of 24 while physical gave 1 of 21. Physical is tried last — it has, after
     # all, made contact once, and it is the one the reference tool uses.
-    from d2diag.kline import KLine, encode
-    from d2diag.kwp2000 import KWP2000, KWP2000Error
+    from openostler.kline import KLine, encode
+    from openostler.kwp2000 import KWP2000, KWP2000Error
     from d2diag.slabs import SLABS_ADDRESS, Slabs
     from tests.fakes import FakeKLineEcu
 
@@ -196,8 +196,8 @@ def test_establish_tries_functional_addressing_first():
 
 def test_establish_falls_back_to_physical_on_later_tries():
     # All three modes should be tried before we give up — physical last.
-    from d2diag.kline import KLine, encode
-    from d2diag.kwp2000 import KWP2000
+    from openostler.kline import KLine, encode
+    from openostler.kwp2000 import KWP2000
     from d2diag.slabs import SLABS_ADDRESS, Slabs
     from tests.fakes import FakeKLineEcu
 
@@ -215,21 +215,21 @@ class _RoutineEcu(FakeKLineEcu):
     def send(self, data):
         data = bytes(data); self.sent.append(data); self._rx.extend(data)  # echo
         # the frame is <len><31 22 …><cs>; always answer with 71 22 20 (ack, no data)
-        from d2diag.kline import encode
+        from openostler.kline import encode
         self._rx.extend(encode(b"\x71\x22\x20", addressed=False))
         return len(data)
 
 
 def _slabs_capture():
-    from d2diag.kline import KLine
-    from d2diag.kwp2000 import KWP2000
+    from openostler.kline import KLine
+    from openostler.kwp2000 import KWP2000
     from d2diag.slabs import SLABS_ADDRESS, Slabs
     ecu = _RoutineEcu()
     return ecu, Slabs(KWP2000(KLine(ecu, target=SLABS_ADDRESS), tolerant=True))
 
 
 def test_abs_power_bleed_frames_match_the_sniff():
-    from d2diag.kline import encode
+    from openostler.kline import encode
     from tests.fakes import FakeKLineEcu  # noqa: F401 (used by _RoutineEcu)
     ecu, slabs = _slabs_capture()
     with slabs:
@@ -242,7 +242,7 @@ def test_abs_power_bleed_frames_match_the_sniff():
 
 
 def test_abs_module_bleed_steps_through_0x11_to_0x14():
-    from d2diag.kline import encode
+    from openostler.kline import encode
     ecu, slabs = _slabs_capture()
     with slabs:
         slabs.abs_module_bleed(sleep=lambda *_: None)
@@ -264,8 +264,8 @@ def test_clear_faults_reads_the_delayed_54_ack():
     # The SLABS 54 ack is delayed ~300 ms (EEPROM write). Previously we raised
     # "empty response" even though the clear succeeded. With a wider read window + a fake
     # that answers 54, clear_faults should not raise.
-    from d2diag.kline import KLine, encode
-    from d2diag.kwp2000 import KWP2000
+    from openostler.kline import KLine, encode
+    from openostler.kwp2000 import KWP2000
     from d2diag.slabs import SLABS_ADDRESS, Slabs
     from tests.fakes import FakeKLineEcu
 

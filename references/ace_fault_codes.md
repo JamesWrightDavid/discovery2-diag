@@ -11,7 +11,7 @@ summary: >
 # Discovery 2 ACE — fault codes
 
 Display codes for the ACE (Active Cornering Enhancement) ECU, compiled from public forum
-pages. They seed `src/d2diag/vehicles/lr_d2/dtc/ace.json` through `tools/gen_dtc_seed.py`, which reads the
+pages. They seed `src/d2diag/dtc/ace.json` through `tools/gen_dtc_seed.py`, which reads the
 table below. Every row is **candidate**: no row has been confirmed on RDL 016 against a raw
 capture.
 

@@ -2,60 +2,81 @@
 title: Architecture and key seams
 area: docs
 status: stable
-version: 1.4
+version: 2.0
 updated: 2026-10-06
 depends_on: [SCOPE.md, CONSTITUTION.md]
 summary: >
-  Developer map of the code: the bottom-up protocol stack, the seams to understand before
-  changing things (frame formats, EcuSession, signal store, DataSource boundary, the two
-  command paths) and the dev commands.
+  Developer map of the Discovery 2 pack: how it plugs into the Ostler platform (PACK and
+  the VehiclePack contract), the module layers, the seams to understand before changing
+  things (frame formats, EcuSession, signal store, data sources) and the dev commands.
 ---
 
 # Architecture and key seams
 
 The boundary and mission are in [SCOPE.md](../SCOPE.md). The rules that must not be
-broken are in [CONSTITUTION.md](../CONSTITUTION.md). This page is the working map.
+broken are in [CONSTITUTION.md](../CONSTITUTION.md). This page is the working map of the
+pack. The platform's own map (server, UI, logbook, geo) is in the
+[platform repo](https://github.com/openostler/ostler/blob/main/docs/architecture.md).
 
 ## Commands
 
 ```bash
 python -m venv .venv && . .venv/bin/activate
-pip install -e ".[dev]"          # only runtime dep is pyserial
+pip install "openostler @ git+https://github.com/openostler/ostler@main"   # the platform
+pip install -e ".[dev]"          # this pack: registers the openostler.vehicle entry point
 
 pytest -q                        # whole suite, no hardware needed
 pytest tests/test_slabs.py -q    # one file
-pytest tests/test_web.py -k slabs_empty_read_grace -q   # one test
+pytest tests/test_pack_contract.py -q   # the VehiclePack contract
 
-# Dashboard: always live (ignition on, stationary); there is no mock/demo mode
-PYTHONPATH=src python3 tools/dashboard.py --serial /dev/cu.usbserial-XXXX [--slabs] [--fault-watch] [--csv] [--geocoder URL|off]
-
-# UI development without a car: the test-only server on simulated sources
-# (the same one Playwright drives)
-PYTHONPATH=src python3 tests/e2e_server.py
+# Generators (CI runs --check)
+python3 tools/gen_signal_header.py [--check]   # esp32/kline_node/signals_td5.h
+python3 tools/gen_faultmap.py [--check]        # td5/slabs faultmap.json
+python3 tools/gen_fault_docs.py [--check]      # docs/discovery-2-td5/fault-dictionary*.md
+python3 tools/make_demo_session.py             # src/d2diag/demo/sessions/
 
 # Read-only sanity check against a module
-PYTHONPATH=src python3 tools/verify_ecu.py td5|slabs /dev/cu.usbserial-XXXX
+python3 tools/verify_ecu.py td5|slabs /dev/cu.usbserial-XXXX
 ```
 
-`pyproject.toml` sets `pythonpath = ["src", "."]`, so `pytest` works without
-`PYTHONPATH`; the `tools/*.py` scripts need it (or an editable install). There is no
-linter or formatter config, so match the surrounding style.
+The dashboard is the platform's (`tools/dashboard.py` in openostler/ostler); with this
+pack installed it serves the Discovery 2. `pyproject.toml` sets
+`pythonpath = ["src", "."]` for pytest, but the platform resolves its pack through the
+entry point, so the pack must be installed. There is no linter or formatter config, so
+match the surrounding style.
+
+## How the pack plugs in
+
+```
+openostler.pack.active_pack()
+   └─ entry point openostler.vehicle: lr_d2 = "d2diag:PACK"
+        └─ d2diag/__init__.py: PACK built lazily on first access
+             modules (ModuleSpec: id, name, address, init, keygen, aliases, live)
+             sources(port) → {td5: Td5DataSource, slabs: SlabsDataSource, others: InfoDataSource}
+             signals_dir, dtc_dir, actions, menus, unlinked_ok, derived_fields
+             faultscan readers, sniff spec + importers, demo, docs, layout.json
+```
+
+- **Canonical module ids** are the store ids: `td5, slabs, bcu, ace, autobox, airbag`.
+  Legacy ids (`motor`, `eat`, `gearbox`) are declared once as aliases and migrated on read
+  by the platform.
+- **Lazy build.** `td5.identifiers` reads the signal store at import time, and the store
+  path comes from the active pack, so building `PACK` must not import `td5` eagerly; the
+  menus, keygen, derived fields and sources are reached through lazy wrappers.
+- **Docs** are only offered from a source checkout (editable install); a wheel ships the
+  data, not `docs/` or `references/`.
 
 ## The stack
 
-It is strictly bottom-up. No layer knows anything about the layer below it beyond that
-layer's interface, and each layer is unit-tested in isolation.
+The comms layers come from the platform; the module layer is this pack.
 
 ```
-Transport      transport/base.py: raw bytes in/out (SerialTransport, LoggingTransport)
-K-Line         kline/frame.py (encode/decode) + kline/kline.py (fast/slow init, echo, retries)
-KWP2000        kwp2000/: service IDs, negative responses (0x7F+NRC), responsePending (0x78)
-EcuSession     session.py: shared lifecycle/keepalive/read_block + tolerant establish retry
-Module layer   td5/ slabs/ airbag/ (+ bcu/ ace/ autobox/ menu stubs)
-Side inputs    gps/ (NMEA fixes) → logbook/ (session recorder + store + index + exports,
-               ADR-0009/0011); geo/ (offline GeoNames + OSM Nominatim place names)
-Web            web/: stdlib HTTP + SSE server; serves the built UI from web/static
-UI             ui/: Vite + React + TypeScript app → npm run build → web/static (committed)
+Transport      openostler.transport: raw bytes in/out (SerialTransport, LoggingTransport)
+K-Line         openostler.kline (encode/decode, fast/slow init, echo, retries)
+KWP2000        openostler.kwp2000: service IDs, negative responses, responsePending
+EcuSession     openostler.session: shared lifecycle/keepalive/read_block + tolerant retry
+Module layer   d2diag.td5 · slabs · airbag · bcu (+ ace/ autobox/ menu stubs)
+Data sources   d2diag.sources (Td5/SLABS sources over openostler.web.sources.DataSource)
 ```
 
 ## Key seams
@@ -72,49 +93,21 @@ UI             ui/: Vite + React + TypeScript app → npm run build → web/stat
   - SLABS passes `after=None`, because its services work right after fast init. It also
     sets `_keepalive_sub = None` so it gets a bare `3E`.
 - **`EcuSession.read_block(lids) -> {lid_hex: bytes}`** has exactly the shape
-  `sniff/automap.py` consumes. That lets a live session feed the differential mapper.
-- **Signal store (`src/d2diag/vehicles/lr_d2/signals/*.json`).**
-  - Decoders, the dashboard and automap all read it.
+  `openostler.sniff.automap` consumes. That lets a live session feed the differential mapper.
+- **Signal store (`src/d2diag/signals/*.json`).**
+  - Decoders, the dashboard and automap all read it (through `openostler.signals`).
   - Confirmed mappings are written back with `upsert_field`.
   - Each field carries `confidence`, either `proven` or `candidate`.
-- **`web/sources.py` is the protocol/UI boundary.**
+- **`d2diag.sources` is the pack's protocol/UI boundary.**
   - Each `DataSource.poll()` returns `{status, signals, faults}`.
-  - The product always uses live sources; there are no server modes (ADR-0011). The
-    simulated sources live only in `tests/` (`tests/fake_sources.py`), used by the tests
-    and by `tests/e2e_server.py`.
-  - Adding a module to the dashboard means adding a source pair, not touching the server.
-- **Two command paths in `web/server.py`.**
-  - `_INLINE_COMMANDS` (CSV start/stop, fault-watch) run on the HTTP thread.
-  - Everything that touches the K-line is queued for the poll thread. Queued commands can
-    wait out a ~20 s reconnect, which is longer than the 8 s HTTP timeout.
-- **The UI contract.** `ui/src/api/schemas.ts` (Zod) describes every response.
-  `tests/test_ui_contract.py` checks the real server against the fixtures in
-  `ui/src/api/fixtures/`, and the UI tests parse the same fixtures. Signal labels,
-  groups and descriptions come from `/fields`, which reads the signal store plus
-  `sources.DERIVED_FIELDS`. The UI never hard-codes them.
-- **Session logbook (`logbook/`, ADR-0009/0011).**
-  - The recorder opens a session only while the car is connected. While disconnected
-    it is *paused*: no data rows (not even GPS), and it ends after 300 s.
-  - The demo is two committed, read-only synthetic sessions in `logbook/demo/`
-    ("Demo log 1", "Demo log 2"), replayed through the whole app. The public server
-    lists only these.
-  - `logbook/index.py` `SessionIndex` is a stdlib-`sqlite3` index (FTS5 where available)
-    behind `GET /sessions` (keyset paging, search, filters), `/sessions/histogram` (the
-    month scrubber) and `PATCH /sessions/<id>` (name and description). It rebuilds itself
-    from the session files when missing or on a schema change.
-- **Place names (`geo/`).**
-  - `geo.offline.label(lat, lon)` names a point from a trimmed GeoNames `cities1000`
-    table (`geo/places.tsv.gz`, built by `tools/build_places.py`, CC BY 4.0).
-  - `geo.nominatim.Enricher` refines it from OSM Nominatim when online, within the usage
-    policy: at most 1 request/s, a custom User-Agent, results cached in
-    `logs/geocache.json`, exponential back-off. `--geocoder URL|off` sets the endpoint;
-    tests use `off`.
-  - The Logs footer credits OpenStreetMap contributors (ODbL) and GeoNames (CC BY 4.0).
-- **`faultscan.py`** reads every module strictly in sequence: establish → read → release.
-- **`web/docs.py`** serves the canonical markdown fresh on every request, with the
-  frontmatter stripped. It is a window on the source. Never cache or duplicate it.
-- **`server/endpoint.py`** is the separate community-contribution service (stdlib +
-  sqlite3), paired with `community/`. Both are whitelist-based and PII-free.
+  - `DERIVED_FIELDS` (fuel computer, ride heights in mm) adds presentation metadata for
+    computed fields; the UI never hard-codes labels.
+  - The simulated sources live only in `tests/fake_sources.py`.
+- **`faultscan.py`** lists the fault readers (TD5, SLABS, airbag); the platform's
+  `faultscan.read_all` runs them strictly in sequence: establish → read → release.
+- **`sniff_spec.py`** maps K-line addresses to modules and holds the authoritative and
+  hint detectors the platform's `ModuleTracker` uses, plus the NanoCom and fault-screen
+  importers.
 
 ## Why the protocol rules exist
 
@@ -154,3 +147,5 @@ UI             ui/: Vite + React + TypeScript app → npm run build → web/stat
 - 2026-10-06 — No mock/demo mode: always live, demo logs replayed, simulated sources
   test-only (`tests/e2e_server.py` for UI work); record only while connected; `geo/` place
   names and the SQLite session index (ADR-0011).
+- 2026-10-06 — Repo split: rewritten as the pack's map; the platform layers (server, UI,
+  logbook, geo) moved to openostler/ostler.

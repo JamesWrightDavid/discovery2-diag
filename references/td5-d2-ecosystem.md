@@ -107,7 +107,7 @@ SLABS / BCU / airbag / EAT / ACE / cruise / HEVAC.
   entries, wants its own verification pass).
 
 ## Fault dictionary (built 2026-10-01)
-The "meaning of each error" is now a store: `src/d2diag/vehicles/lr_d2/dtc/<module>.json` (loader
+The "meaning of each error" is now a store: `src/d2diag/dtc/<module>.json` (loader
 `d2diag.dtc`), seeded for Td5 (210 codes, meaning+cause+severity+inferred P-code), SLABS
 (012–114 from rswsolutions) and airbag (sparse). It is served two ways: the generated
 [fault dictionary](../docs/discovery-2-td5/fault-dictionary.md) (Docs tab, `tools/gen_fault_docs.py`)

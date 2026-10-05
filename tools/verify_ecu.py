@@ -19,9 +19,9 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src"))
 
-from d2diag.kline import KLine  # noqa: E402
-from d2diag.kwp2000 import KWP2000  # noqa: E402
-from d2diag.transport import EspTransport, SerialTransport  # noqa: E402
+from openostler.kline import KLine  # noqa: E402
+from openostler.kwp2000 import KWP2000  # noqa: E402
+from openostler.transport import EspTransport, SerialTransport  # noqa: E402
 
 
 def _hex(b) -> str:
@@ -140,7 +140,7 @@ def main() -> int:
     try:
         port = args.port
         if not args.esp:  # 'auto' (and bare names) resolve to a concrete /dev/cu.* — novices never hunt for a port
-            from d2diag.ports import resolve_serial_port  # noqa: E402
+            from openostler.ports import resolve_serial_port  # noqa: E402
             port = resolve_serial_port(args.port)
             if port != args.port:
                 print(f"Using cable at {port}")

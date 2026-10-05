@@ -4,8 +4,8 @@ import random
 import pytest
 
 from d2diag.bcu.scan import FORBIDDEN_LIDS, INPUT_LIDS, moved, read_one, scan
-from d2diag.kline import KLineTimeout
-from d2diag.kwp2000 import NegativeResponse
+from openostler.kline import KLineTimeout
+from openostler.kwp2000 import NegativeResponse
 
 PLACEHOLDER = bytes.fromhex("11 99 07 01 01 01 01 0a eb")
 

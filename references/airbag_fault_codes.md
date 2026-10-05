@@ -10,7 +10,7 @@ summary: >
 
 # Discovery 2 airbag (TRW SPS 2A) — fault codes
 
-Display codes for the airbag ECU. They seed `src/d2diag/vehicles/lr_d2/dtc/airbag.json` through
+Display codes for the airbag ECU. They seed `src/d2diag/dtc/airbag.json` through
 `tools/gen_dtc_seed.py`, which reads the table below. **Read-only module**: this project
 never clears, actuates or writes to it (CONSTITUTION, Safety).
 
@@ -19,7 +19,7 @@ never clears, actuates or writes to it (CONSTITUTION, Safety).
 **Fault number decoded; number→circuit text mostly undocumented.** Unlike the other
 modules, the raw format is proven: `21 02` returns 2-byte `[status][number]` records, and the
 number *is* the tool's display code (`90 04` = 004, `90 16` = 022). See
-`src/d2diag/vehicles/lr_d2/airbag/faults.py`. So a stored key resolves directly against a live read. What
+`src/d2diag/airbag/faults.py`. So a stored key resolves directly against a live read. What
 is missing is the text for most numbers, and the meaning of the status bits (only `0x90` has
 been observed).
 

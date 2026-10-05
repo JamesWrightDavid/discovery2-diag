@@ -3,8 +3,8 @@
 The protocol derived from the Ekaitza sniff (Read_Faults*.log).
 """
 import d2diag.td5.faults as faults_mod
-from d2diag.kline import KLine, encode
-from d2diag.kwp2000 import KWP2000
+from openostler.kline import KLine, encode
+from openostler.kwp2000 import KWP2000
 from d2diag.td5 import Fault, Td5, decode_faults
 from tests.fakes import FakeKLineEcu
 

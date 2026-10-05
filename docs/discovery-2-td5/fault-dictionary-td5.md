@@ -5,13 +5,13 @@ status: stable
 version: 1.0
 updated: 2026-10-04
 summary: >
-  Generated fault dictionary for the td5 module — every known code with its meaning, likely cause, severity and (inferred) P-code. Generated from src/d2diag/vehicles/lr_d2/dtc/td5.json; do not hand-edit.
+  Generated fault dictionary for the td5 module — every known code with its meaning, likely cause, severity and (inferred) P-code. Generated from src/d2diag/dtc/td5.json; do not hand-edit.
 ---
 
 
 # Td5 engine fault dictionary
 
-_Generated from the fault-meaning store (`src/d2diag/vehicles/lr_d2/dtc/td5.json`) — do not edit by hand; refine the store and re-run `tools/gen_fault_docs.py`._
+_Generated from the fault-meaning store (`src/d2diag/dtc/td5.json`) — do not edit by hand; refine the store and re-run `tools/gen_fault_docs.py`._
 
 | Bit (off.bit) | Fault | Confidence | P-code | Severity | Meaning | Likely cause |
 |---|---|---|---|---|---|---|

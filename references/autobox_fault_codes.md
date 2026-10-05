@@ -11,7 +11,7 @@ summary: >
 # Discovery 2 auto gearbox (EAT) — fault codes
 
 Fault codes for the EAT ECU (ZF 4HP22/24, Bosch control). They seed
-`src/d2diag/vehicles/lr_d2/dtc/autobox.json` through `tools/gen_dtc_seed.py`, which reads the table below.
+`src/d2diag/dtc/autobox.json` through `tools/gen_dtc_seed.py`, which reads the table below.
 They apply to both Td5 and V8 automatics. Every row is **candidate**.
 
 ## Key: P-code plus internal fault number

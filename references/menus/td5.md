@@ -5,14 +5,14 @@ status: stable
 version: 1.0
 updated: 2026-10-01
 summary: >
-  Complete reference tool Td5 menu (settings, inputs, outputs, utilities) in exact UI order; drives src/d2diag/vehicles/lr_d2/td5/menu.py. Values are screenshot baselines, not RDL 016 readings.
+  Complete reference tool Td5 menu (settings, inputs, outputs, utilities) in exact UI order; drives src/d2diag/td5/menu.py. Values are screenshot baselines, not RDL 016 readings.
 ---
 
 # TD5 Engine ECU (Lucas) — complete reference tool menu
 
 Source: `reference tool_protocol_Discovery2_Master_TD5_Complete.docx` (register
 repo, transcribed 2026-08-08). Menu order preserved exactly. Drives the TD5 map
-(`src/d2diag/vehicles/lr_d2/td5/menu.py`). Our raw mapping: `td5/identifiers.py` (live) +
+(`src/d2diag/td5/menu.py`). Our raw mapping: `td5/identifiers.py` (live) +
 `td5/faults.py` (`21 3B`).
 
 > ⚠️ **The display values below (ABNFE, svtnp006, ENABLED/DISABLED, ROBUST, 12.6 V …)

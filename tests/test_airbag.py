@@ -1,7 +1,7 @@
 """Airbag fault decoding verified against sniff 2026-08-10 (RDL 016)."""
 from d2diag.airbag import AIRBAG_ADDRESS, Airbag, decode_faults
-from d2diag.kline import KLine, encode
-from d2diag.kwp2000 import KWP2000
+from openostler.kline import KLine, encode
+from openostler.kwp2000 import KWP2000
 from tests.fakes import FakeKLineEcu
 
 

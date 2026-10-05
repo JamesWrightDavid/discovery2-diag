@@ -1,31 +1,39 @@
 # CLAUDE.md — Entry Point
 
-Open diagnostics for the Land Rover Discovery 2 Td5 over **K-line** (pre-CAN), using a
-cheap KKL cable or an ESP32 tap. It is reverse-engineered from sniffed bus traffic. This
-repo follows the [Vibes as Code](https://github.com/JamesWrightDavid/Vibes-as-Code)
-method: orient cheaply, then load on demand.
+The **Ostler pack for Land Rover Discovery 2** (Td5) over **K-line** (pre-CAN): the
+Discovery 2 module layers, signal and fault data, menus, actions, demo data, importers,
+tools and research. It is reverse-engineered from sniffed bus traffic. The platform that
+runs it is [openostler/ostler](https://github.com/openostler/ostler) (import `openostler`);
+this pack is the `d2diag` distribution, registered under the `openostler.vehicle` entry
+point as `lr_d2 = "d2diag:PACK"`. This repo follows the
+[Vibes as Code](https://github.com/JamesWrightDavid/Vibes-as-Code) method: orient
+cheaply, then load on demand.
 
 ## Read first, every session
 
 1. **[INDEX.md](INDEX.md)** is the manifest: every doc's path, area, status and
    ~100-token summary, plus reading paths.
-2. **[CONSTITUTION.md](CONSTITUTION.md)** holds the hard rules (layering, protocol,
-   safety, data honesty). Load it in full and never summarize it.
+2. **[CONSTITUTION.md](CONSTITUTION.md)** holds this pack's hard rules (protocol, safety,
+   data honesty). It defers to the platform's constitution for platform rules. Load it in
+   full and never summarize it.
 
 ## Then load on demand
 
-- The code map, commands and key seams: [docs/architecture.md](docs/architecture.md).
-- Mission and layering boundary: [SCOPE.md](SCOPE.md).
+- The pack's code map, commands and key seams: [docs/architecture.md](docs/architecture.md).
+- Mission and boundary with the platform: [SCOPE.md](SCOPE.md).
 - What is proven, candidate or open per module:
   [references/protocol_state_handoff.md](references/protocol_state_handoff.md).
 - What to test next in the car: [references/test_plan.md](references/test_plan.md).
-- Why a choice was made: [decisions/](decisions/CLAUDE.md).
+- Why a choice was made: [decisions/](decisions/CLAUDE.md) (platform ADRs are in the
+  platform repo).
 - Designs in progress: [specs/](specs/CLAUDE.md).
 
 ## Working rules
 
 - Design before code: write a spec in `specs/` and get it approved before implementing.
-- Run `pytest -q` before committing code. It needs no hardware.
+  Platform changes go to the platform repo.
+- Install the platform, then the pack (`pip install -e ".[dev]"`), and run `pytest -q`
+  before committing code. It needs no hardware.
 - After editing docs, run `python3 skill/scripts/validate_frontmatter.py`, then
   `python3 skill/scripts/build_index.py`. `INDEX.md` is generated, so never hand-edit it.
 - Record car and capture findings in `references/` and the signal store in the same
