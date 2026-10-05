@@ -1,15 +1,15 @@
 ---
-title: "Capability inventory — Airbag — TRW SPS Type 2A"
+title: "Capability inventory — SRS (airbag) — TRW SPS Type 2A"
 area: docs
 status: draft
 version: 1.0
-updated: 2026-10-01
+updated: 2026-10-05
 depends_on: [docs/capability-inventory/overview.md]
 summary: >
-  Airbag capability inventory: fault record format and clear, 16 identification/configuration fields; read-only in this project.
+  SRS (airbag) capability inventory: fault record format and clear, 16 identification/configuration fields; read-only in this project.
 ---
 
-# Capability inventory — Airbag — TRW SPS Type 2A
+# Capability inventory — SRS (airbag) — TRW SPS Type 2A
 
 Part of the [capability inventory](overview.md). Status words (ESTABLISHED, STRONG CANDIDATE, OPEN, NOT ESTABLISHED) are defined there.
 

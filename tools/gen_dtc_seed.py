@@ -283,10 +283,10 @@ _TABLE_KEYS = {
     "ace": r"\d{2}-\d{2}|flat-\d{2}-\d{2}|dtc\d{1,2}",
 }
 _TABLE_META = {
-    "airbag": ("airbag (SRS)", "Airbag (TRW SPS) fault {code}: {name}.",
+    "airbag": ("SRS (airbag)", "SRS (airbag, TRW SPS) fault {code}: {name}.",
                "Read-only module: investigate the named circuit (connectors, rotary coupler, "
                "under-seat plugs); never actuate."),
-    "autobox": ("auto gearbox (EAT)", "Auto gearbox (EAT) fault {code}: {name}.",
+    "autobox": ("EAT (auto gearbox)", "EAT (auto gearbox) fault {code}: {name}.",
                 "Check the named circuit or CAN signal; for CAN-message faults read the "
                 "engine ECU faults too."),
     "ace": ("suspension (ACE)", "ACE fault {code}: {name}.",

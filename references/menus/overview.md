@@ -23,7 +23,7 @@ and give decoding hints. The original one-cell-per-line paste is in git history 
 | BCU settings and info | [bcu-settings.md](bcu-settings.md) |
 | BCU outputs and utilities (EKA, keys) | [bcu-outputs-utilities.md](bcu-outputs-utilities.md) |
 | ACE | [ace.md](ace.md) |
-| Auto gearbox (EAT) | [autobox.md](autobox.md) |
+| EAT (auto gearbox) | [autobox.md](autobox.md) |
 | Airbag (SRS) | [airbag.md](airbag.md) |
 | Td5 engine ECU | [td5.md](td5.md) |
 | Hella cruise control (V8 branch) | [cruise.md](cruise.md) |

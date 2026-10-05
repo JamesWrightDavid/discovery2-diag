@@ -18,7 +18,7 @@ ZF4HP22/24. Sniff = passive ESP32 (RX-only) on K-line pin 7, while the reference
 | File | Content |
 |---|---|
 | `logs/session.log` | **Cleanest** — TD5 (fuelling/outputs/security) + full SLABS sweep |
-| `logs/faultread-20260809.log` | Auto gearbox (EAT), ACE, Airbag — read faults/inputs/outputs |
+| `logs/faultread-20260809.log` | EAT (auto gearbox), ACE, Airbag — read faults/inputs/outputs |
 | `logs/faultread-20260809-2.log` | BCU (RF test, EKA read) |
 | `logs/labeled_captures.jsonl` | Labeled captures: `{module, lid, raw, text}` (plain-text reference) |
 | `logs/analysis-all.txt` | Machine-run analysis of all logs (`tools/analyze_capture.py`) |

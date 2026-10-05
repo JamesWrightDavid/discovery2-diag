@@ -24,8 +24,8 @@ _TODAY = "2026-10-04"
 _MODULES = [
     ("td5", "fault-dictionary-td5", "Td5 engine fault dictionary", "Bit (off.bit)"),
     ("slabs", "fault-dictionary-slabs", "SLABS (ABS/SLS) fault dictionary", "Code"),
-    ("airbag", "fault-dictionary-airbag", "Airbag (SRS) fault dictionary", "Code"),
-    ("autobox", "fault-dictionary-autobox", "Auto gearbox (EAT) fault dictionary", "Code"),
+    ("airbag", "fault-dictionary-airbag", "SRS (airbag) fault dictionary", "Code"),
+    ("autobox", "fault-dictionary-autobox", "EAT (auto gearbox) fault dictionary", "Code"),
     ("ace", "fault-dictionary-ace", "ACE fault dictionary", "Code"),
 ]
 

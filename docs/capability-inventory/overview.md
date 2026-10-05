@@ -3,14 +3,14 @@ title: "Land Rover Discovery 2 Diagnostic Protocol Capability Inventory"
 area: docs
 status: draft
 version: 1.0
-updated: 2026-10-01
+updated: 2026-10-05
 summary: >
   Entry point of the consolidated Discovery 2 capability inventory: status vocabulary, shared protocol patterns, the per-module capability matrix and the safety note, with links to one page per module.
 ---
 
 # Land Rover Discovery 2 Diagnostic Protocol Capability Inventory
 
-**TD5 · SLABS · BCU/DCU · ACE · Auto Gearbox · Airbag**
+**TD5 · SLABS · BCU/DCU · ACE · EAT (auto gearbox) · SRS (airbag)**
 
 Consolidated inventory of module capabilities, observed K-line behavior, established hex commands, and unresolved areas. It serves two purposes: a technical handoff and working reference for continued implementation in d2diag, and a **shareable progress report for the Discovery 2 / Td5 community** — to show how far this open reverse-engineering effort has come and to exchange findings and experience. Vehicle-identifying values and security credentials are deliberately excluded (see §11).
 
@@ -69,8 +69,8 @@ Practical conclusion: SLABS proved significantly more sensitive to effective Tin
 | SLABS | [slabs.md](slabs.md) |
 | BCU / DCU | [bcu.md](bcu.md) |
 | ACE | [ace.md](ace.md) |
-| Auto gearbox | [autobox.md](autobox.md) |
-| Airbag | [airbag.md](airbag.md) |
+| EAT (auto gearbox) | [autobox.md](autobox.md) |
+| SRS (airbag) | [airbag.md](airbag.md) |
 | Open questions | [open-questions.md](open-questions.md) |
 
 ## 9. Consolidated capability matrix

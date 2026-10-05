@@ -1,15 +1,15 @@
 ---
-title: "Capability inventory — Auto Gearbox — Bosch GS8.87.0"
+title: "Capability inventory — EAT (auto gearbox) — Bosch GS8.87.0"
 area: docs
 status: draft
 version: 1.0
-updated: 2026-10-01
+updated: 2026-10-05
 depends_on: [docs/capability-inventory/overview.md]
 summary: >
-  Auto gearbox (EAT) capability inventory: fault read/clear confirmed, GENERAL inputs, reset-adaptive utility, 0x72 framing open.
+  EAT (auto gearbox) capability inventory: fault read/clear confirmed, GENERAL inputs, reset-adaptive utility, 0x72 framing open.
 ---
 
-# Capability inventory — Auto Gearbox — Bosch GS8.87.0
+# Capability inventory — EAT (auto gearbox) — Bosch GS8.87.0
 
 Part of the [capability inventory](overview.md). Status words (ESTABLISHED, STRONG CANDIDATE, OPEN, NOT ESTABLISHED) are defined there.
 

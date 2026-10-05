@@ -3,7 +3,7 @@ title: "Other Modules — ACE, EAT Autobox, Airbag/SRS"
 area: docs
 status: draft
 version: 1.0
-updated: 2026-10-04
+updated: 2026-10-05
 summary: >
   ACE, EAT autobox and airbag/SRS: what is proven versus open for each; all earlier-stage than Td5, SLABS and BCU.
 ---
@@ -23,7 +23,7 @@ is why several facts are stuck at 🟡/🔴.
 
 ---
 
-## Airbag / SRS (TRW SPS Type 2A)
+## SRS (airbag) — TRW SPS Type 2A
 
 > 🔴 **Pyrotechnic safety module — read-only by construction.** This layer reads
 > fault codes only. **No clear, no outputs, no SecurityAccess writes** — deliberately
@@ -80,7 +80,7 @@ Source: `src/d2diag/airbag/airbag.py`, `src/d2diag/airbag/faults.py`,
 
 ---
 
-## EAT Autobox (Bosch GS8.87.0 / ZF4HP22-24)
+## EAT (auto gearbox) — Bosch GS8.87.0 / ZF4HP22-24
 
 The automatic gearbox ECU speaks a **different, non-KWP2000 protocol** — its own
 `72`-prefixed framing. Notably, the factory tool itself displayed *"unable to
