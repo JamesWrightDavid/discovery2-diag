@@ -31,8 +31,8 @@ The full pack goals are in [GOALS.md](GOALS.md).
   contract, the generated UI and the decode pipeline are tested against.
 - **Contributing upstream:** CC BY-SA data in an OBDb-compatible shape, offered to OBDb
   (which has no D2/Td5 entry), and a shareable progress report for the Td5 community.
-- **Safe by construction:** read-first, airbag read-only, gated actuators, no EKA or key
-  programming in any default path, no VIN or raw capture ever committed.
+- **Safe by construction:** read-first, airbag read-only, gated actuators, EKA read/set only
+  gated and opt-in (no key programming in any default path), no VIN or raw capture ever committed.
 
 ## Part of Ostler
 

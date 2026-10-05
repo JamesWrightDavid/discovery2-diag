@@ -31,7 +31,7 @@ Discovery 2 Td5 over K-line, and the pack every other Ostler pack is measured ag
 | 5 | **Open standards in the data** | Each signal carries a COVESA VSS `metric` path where one exists; fields are OBDb-expressible, with confidence, evidence and safety in an `x-ostler` block; proven fields gain fixtures from real, scrubbed captures | Platform UI spec, phases U0 and U7 |
 | 6 | **Contributing upstream** | The D2 data, CC BY-SA 4.0, offered to OBDb (which has no D2/Td5 entry); findings shared with the Td5 community as a progress report; collaboration with Discovery 3/4 work (jlr-scanner) rather than duplication | [LICENSE-DATA](LICENSE-DATA), capability inventory |
 | 7 | **One interpretation, two comms nodes** | The ESP32 K-line node's decode header is always generated from the signal store, never hand-copied | [esp32/](esp32/README.md), `tools/gen_signal_header.py --check` |
-| 8 | **Safe by construction** | Reads first; airbag/SRS read-only; actuator tests confirmed and stationary; no EKA or key programming in any default path; BCU SecurityAccess research stays offline and gated (ADR-0007); no VIN, EKA or raw capture ever committed | [CONSTITUTION.md](CONSTITUTION.md), [decisions/](decisions/CLAUDE.md) |
+| 8 | **Safe by construction** | Reads first; airbag/SRS read-only; actuator tests confirmed and stationary; no EKA or key programming in any default path, EKA read/set gated and opt-in (ADR-0007); no VIN, EKA or raw capture ever committed | [CONSTITUTION.md](CONSTITUTION.md), [decisions/](decisions/CLAUDE.md) |
 
 **Not this pack's job:**
 
@@ -42,8 +42,9 @@ Discovery 2 Td5 over K-line, and the pack every other Ostler pack is measured ag
 - The car's own faults and maintenance history: those belong in the owner's sister
   project, not here.
 
-**Open:** how the gated BCU security research (ADR-0007, test plan T-27/T-28) sits with
-the platform's "no key programming" hard line is for the owner to settle.
+**Decided (2026-10-06):** EKA read/set stays in this pack, gated and opt-in (ADR-0007,
+test plan T-27/T-28); the platform hard line is "no EKA, key or immobiliser programming in
+any default path".
 
 ## The Ostler platform, in brief
 
@@ -63,9 +64,10 @@ vehicle platform on hardware you own. Full detail in the
 - **Hardware:** a Pi 5 + CarPiHAT and an ESP32-S3 LTE/GNSS dev kit now; our own boards
   later.
 - **Principles:** local-first and private by default; open standards (COVESA VSS
-  canonical); safety travels with the action; honest confidence; core, add-on or moonshot,
+  canonical, ADR-0016); safety travels with the action; honest confidence; core, add-on or moonshot,
   with the rule of two.
-- **Hard lines:** nothing writes to a car without gates; no EKA or key programming; the
+- **Hard lines:** nothing writes to a car without gates; no EKA, key or immobiliser
+  programming in any default path (gated, opt-in only); the
   VIN is never logged or uploaded; no cloud dependency; no vehicle maker's marks in our
   brand.
 - **Business:** official hardware and a closed Ostler Cloud subscription; AGPL code plus
