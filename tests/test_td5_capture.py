@@ -5,8 +5,8 @@ Exact bytes from ``logs/session.log`` (the TD5 session). Proves that our layer:
   - decodes the `21 3B` fault block correctly, and
   - **writes byte-identical** output/injector/security commands.
 """
-from d2diag.kline import KLine, encode
-from d2diag.kwp2000 import KWP2000
+from openostler.kline import KLine, encode
+from openostler.kwp2000 import KWP2000
 from d2diag.td5 import Td5
 from d2diag.td5.faults import decode_faults
 from d2diag.td5.keygen import key_bytes_from_seed

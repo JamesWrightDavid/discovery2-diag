@@ -81,7 +81,7 @@ def _sniff_demo() -> Path:
 
 
 def _signal_store_names() -> "list[str]":
-    from d2diag import signals
+    from openostler import signals
 
     d = Path(signals._dir()) if hasattr(signals, "_dir") else Path(signals._DIR)
     names: "set[str]" = set()
@@ -93,12 +93,12 @@ def _signal_store_names() -> "list[str]":
 
 
 def capture() -> dict:
-    from d2diag import catalog, commands, faultscan, modscan
-    from d2diag.logbook import channels
-    from d2diag.logbook.store import SessionStore
-    from d2diag.sniff import modules
-    from d2diag.sniff.capture import parse_log
-    from d2diag.web import server
+    from openostler import catalog, commands, faultscan, modscan
+    from openostler.logbook import channels
+    from openostler.logbook.store import SessionStore
+    from openostler.sniff import modules
+    from openostler.sniff.capture import parse_log
+    from openostler.web import server
 
     out: dict = {}
 
@@ -128,7 +128,7 @@ def capture() -> dict:
 
     # ---- faultscan ------------------------------------------------------- #
     out["faultscan_unimplemented"] = faultscan.unimplemented_rows()
-    import d2diag.ports as ports
+    import openostler.ports as ports
 
     real = ports.resolve_serial_port
 

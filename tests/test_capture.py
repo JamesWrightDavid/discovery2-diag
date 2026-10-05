@@ -1,5 +1,5 @@
 """Tests for the capture parsing (the foundation of the protocol library)."""
-from d2diag.sniff import capture
+from openostler.sniff import capture
 from d2diag.sniff.library import build_library
 
 

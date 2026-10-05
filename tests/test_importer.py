@@ -8,7 +8,6 @@ import json
 
 import pytest
 
-import tools.esp32_read as reader
 from d2diag.sniff import importer
 from d2diag.sniff.importer import collect_samples, import_capture, parse_marker
 
@@ -54,14 +53,8 @@ def test_parse_marker_forms():
     assert parse_marker("just a note")["kind"] == "note"
 
 
-def test_expand_marker_shorthand_matches_parse():
-    assert reader.expand_marker("s td5/rpm") == "screen td5/rpm"
-    assert reader.expand_marker("v rpm=1500") == "value rpm=1500"
-    assert reader.expand_marker("free text") == "free text"
-
-
 def test_collect_groups_values_by_module_and_name(tmp_path):
-    from d2diag.sniff import capture
+    from openostler.sniff import capture
     events = capture.parse_log(_capture(tmp_path))
     grouped = collect_samples(events)
     assert ("td5", "rpm") in grouped
@@ -87,7 +80,7 @@ def test_import_reproduces_known_td5_mappings(tmp_path):
 
 def test_write_persists_candidates(tmp_path, monkeypatch):
     # Redirect the signal store to a temp dir so the test never touches the real JSON.
-    import d2diag.signals as sig
+    import openostler.signals as sig
     monkeypatch.setattr(sig, "_DIR", tmp_path)
     sig._CACHE.clear()
 

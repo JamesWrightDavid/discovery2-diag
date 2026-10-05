@@ -1,4 +1,4 @@
-"""Tests for the declarative signal store (d2diag.signals).
+"""Tests for the declarative signal store (openostler.signals).
 
 The parity test is **the safety net for the migration**: the frozen reference table
 below is the hand-coded td5.identifiers literal as it looked before the flip.
@@ -9,8 +9,8 @@ import json
 
 import pytest
 
-from d2diag import signals as store
-from d2diag.signals import Signal, load_signals, upsert_field
+from openostler import signals as store
+from openostler.signals import Signal, load_signals, upsert_field
 
 # (name, lid, offset, kind, scale, bias, unit) — frozen reference from the old literal.
 _SPEC = [
@@ -191,8 +191,8 @@ def test_slabs_store_has_belagt_heights_and_door():
 
 
 def test_legacy_swedish_confidence_is_normalised(tmp_path, monkeypatch):
-    import d2diag.signals as store
-    from d2diag.signals import normalize_confidence
+    import openostler.signals as store
+    from openostler.signals import normalize_confidence
 
     assert normalize_confidence("belagt") == "proven"
     assert normalize_confidence("kandidat") == "candidate"
@@ -232,7 +232,7 @@ def test_length_variants_agree_on_unit_limits_and_labels():
 
 
 def test_fields_list_each_name_once():
-    from d2diag.web.server import _fields_list
+    from openostler.web.server import _fields_list
     names = [f["name"] for f in _fields_list("motor")["fields"]]
     assert len(names) == len(set(names))
     assert "accel_supply" in names

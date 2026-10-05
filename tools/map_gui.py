@@ -22,7 +22,7 @@ sys.path.insert(0, os.path.join(_TOOLS, "..", "src"))
 sys.path.insert(0, _TOOLS)
 
 import map_inputs as mi  # noqa: E402  (pure logic + _establish + _DEFAULT_LIDS)
-from d2diag.signals import load_records, remove_field, upsert_field  # noqa: E402
+from openostler.signals import load_records, remove_field, upsert_field  # noqa: E402
 
 # Documented input-name suggestions for the click-to-label datalist (valeo_bcu_capabilities.md).
 _SUGGESTIONS = {

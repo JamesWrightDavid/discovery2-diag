@@ -19,10 +19,10 @@ import time
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src"))
 
-from d2diag.kline import KLine  # noqa: E402
-from d2diag.kwp2000 import KWP2000  # noqa: E402
-from d2diag.signals import upsert_field  # noqa: E402
-from d2diag.transport import EspTransport, SerialTransport  # noqa: E402
+from openostler.kline import KLine  # noqa: E402
+from openostler.kwp2000 import KWP2000  # noqa: E402
+from openostler.signals import upsert_field  # noqa: E402
+from openostler.transport import EspTransport, SerialTransport  # noqa: E402
 
 # Default input/switch LID sets per module (hex). Overridable with --lids.
 _DEFAULT_LIDS = {

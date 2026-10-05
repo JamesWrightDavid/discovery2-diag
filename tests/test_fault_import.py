@@ -9,7 +9,7 @@ from pathlib import Path
 
 from d2diag.sniff import fault_import as fi
 from d2diag.sniff.importer import collect_samples
-from d2diag.sniff import capture
+from openostler.sniff import capture
 
 _REFS = Path(__file__).resolve().parents[1] / "references"
 

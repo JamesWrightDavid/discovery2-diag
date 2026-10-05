@@ -16,8 +16,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."
 from d2diag.slabs.faults import FAULT_BLOCK_LEN as SLABS_LEN, SLABS_FAULT_BITS  # noqa: E402
 from d2diag.td5.faults import FAULT_BLOCK_LEN as TD5_LEN, FAULTS  # noqa: E402
 
-_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src", "d2diag", "vehicles",
-                    "lr_d2")
+_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src", "d2diag")
 
 
 def build_td5() -> str:

@@ -5,13 +5,13 @@ status: stable
 version: 1.0
 updated: 2026-10-04
 summary: >
-  Generated fault dictionary for the airbag module — every known code with its meaning, likely cause, severity and (inferred) P-code. Generated from src/d2diag/vehicles/lr_d2/dtc/airbag.json; do not hand-edit.
+  Generated fault dictionary for the airbag module — every known code with its meaning, likely cause, severity and (inferred) P-code. Generated from src/d2diag/dtc/airbag.json; do not hand-edit.
 ---
 
 
 # SRS (airbag) fault dictionary
 
-_Generated from the fault-meaning store (`src/d2diag/vehicles/lr_d2/dtc/airbag.json`) — do not edit by hand; refine the store and re-run `tools/gen_fault_docs.py`._
+_Generated from the fault-meaning store (`src/d2diag/dtc/airbag.json`) — do not edit by hand; refine the store and re-run `tools/gen_fault_docs.py`._
 
 | Code | Fault | Confidence | P-code | Severity | Meaning | Likely cause |
 |---|---|---|---|---|---|---|

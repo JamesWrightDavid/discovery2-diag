@@ -1,64 +1,80 @@
-"""Basic mode — read fault codes from all modules sequentially.
+"""Discovery 2 "read all fault codes": one reader per readable module (shared K-line bus).
 
-K-line is a shared bus → one module at a time: establish → read faults → close, then
-the next. Returns a normalized report ``[{module, status, faults, note}]`` where
-``status`` ∈ ``ok`` (no faults) / ``faults`` / ``error`` (could not read) /
-``unimplemented`` (no reading comms class yet).
+Each reader takes the resolved serial port, establishes, reads the fault codes and always
+releases (CONSTITUTION: the next module inits on the same bus). The platform
+(:func:`openostler.faultscan.read_all`) calls them in order, with a quiet gap in between.
 
-Generic: the readers come from the active vehicle pack (``VehiclePack.faultscan``, one
-:class:`d2diag.pack.FaultReader` per readable module, each owning its establish/release),
-and the rows without a reader from ``VehiclePack.faultscan_unimplemented``.
+TD5 and SLABS are proven and tested. Airbag (0x5B) is **experimental** (read-only,
+unverified live). ACE/EAT/BCU have no comms class → listed in ``UNIMPLEMENTED``.
 """
 from __future__ import annotations
 
-import time
-from typing import Callable
-
-from .pack import active_pack
-
-# Quiet gap between modules: let the bus go idle before the next init.
-_GAP = 0.5
+from openostler.pack import FaultReader
 
 
-def _row(module: str, faults: "list[str]", *, note: str = "") -> "dict":
-    return {"module": module, "status": "faults" if faults else "ok",
-            "faults": faults, "note": note}
+def read_td5(real_port: str) -> "list[str]":
+    from openostler.kline import KLine
+    from openostler.kwp2000 import KWP2000
+    from openostler.transport import SerialTransport
 
+    from .td5 import Td5
 
-def _err(module: str, exc: "Exception", *, note: str = "") -> "dict":
-    return {"module": module, "status": "error", "faults": [],
-            "error": f"{type(exc).__name__}: {exc}", "note": note}
-
-
-def unimplemented_rows() -> "list[dict]":
-    """The modules without a reading comms class, as ``unimplemented`` report rows."""
-    return [{"module": name, "status": "unimplemented", "faults": [], "note": note}
-            for name, note in active_pack().faultscan_unimplemented]
-
-
-def read_all(port: str = "auto",
-             sleep: "Callable[[float], None]" = time.sleep) -> "list[dict]":
-    """Read fault codes from all modules on the car (live only: ADR-0011, no demo mode)."""
-    return _live_report(port, sleep) + unimplemented_rows()
-
-
-def _live_report(port: str, sleep: "Callable[[float], None]") -> "list[dict]":
-    from . import ports
-
-    readers = active_pack().faultscan
+    t = Td5(KWP2000(KLine(SerialTransport(real_port, timeout=1.0)), tolerant=True))
+    t.open()
     try:
-        real_port = ports.resolve_serial_port(port)
-    except FileNotFoundError as exc:
-        # no cable → mark every readable module as unread, same cause
-        return [_err(r.label, exc) for r in readers]
+        t.establish()
+        return list(t.read_faults())  # undecoded byte<off>.bit<n> faults included
+    finally:
+        t.release()  # close the session cleanly — the next module inits on the same bus
 
-    rows = []
-    for i, reader in enumerate(readers):
-        try:
-            rows.append(_row(reader.label, list(reader.read(real_port)), note=reader.note))
-        except Exception as exc:  # noqa: BLE001 — one module failing must not stop the scan
-            note = reader.error_note if reader.error_note is not None else reader.note
-            rows.append(_err(reader.label, exc, note=note))
-        if i + 1 < len(readers):
-            sleep(_GAP)  # let the bus go quiet between modules
-    return rows
+
+def read_slabs(real_port: str) -> "list[str]":
+    from openostler.kline import KLine
+    from openostler.kwp2000 import KWP2000
+    from openostler.transport import SerialTransport
+
+    from .slabs import SLABS_ADDRESS, Slabs
+
+    s = Slabs(KWP2000(KLine(SerialTransport(real_port, timeout=1.0), target=SLABS_ADDRESS),
+                      tolerant=True))
+    s.open()
+    try:
+        s.establish()
+        f = s.read_faults()  # {"loggade":[…], "aktuella":[…]}  (logged / current)
+        return [x + " (Logged)" for x in f.get("loggade", [])] + \
+               [x + " (Current)" for x in f.get("aktuella", [])]
+    finally:
+        s.release()  # close the session cleanly — the next module inits on the same bus
+
+
+def read_airbag(real_port: str) -> "list[str]":
+    """Experimental and read-only by construction (no clear, no outputs, no security)."""
+    from openostler.kline import KLine
+    from openostler.kwp2000 import KWP2000
+    from openostler.transport import SerialTransport
+
+    from .airbag import AIRBAG_ADDRESS, Airbag
+
+    a = Airbag(KWP2000(KLine(SerialTransport(real_port, timeout=1.0), target=AIRBAG_ADDRESS),
+                       tolerant=True, addressed=True))
+    a.open()
+    try:
+        a.establish()
+        return [f"{r['number']:03d}: {r['status_text']}" for r in a.read_faults()]
+    finally:
+        a.release()  # close the session cleanly — the next module inits on the same bus
+
+
+FAULTSCAN: "tuple[FaultReader, ...]" = (
+    FaultReader("TD5", read_td5),
+    FaultReader("SLABS", read_slabs),
+    FaultReader("Airbag", read_airbag, note="experimental",
+                error_note="experimental (may need SecurityAccess we can't do)"),
+)
+
+# Modules that don't yet have a reading comms class (proprietary protocols).
+UNIMPLEMENTED: "tuple[tuple[str, str], ...]" = (
+    ("ACE", "active suspension — proprietary bulk protocol, not read in code yet"),
+    ("Auto Gearbox", "EAT 72-framed — ECU responds but decoding not finished"),
+    ("BCU", "Valeo — no fault-code list in code yet"),
+)
