@@ -4,7 +4,7 @@ Everything Discovery 2 specific lives under this package: the module layers
 (``td5``, ``slabs``, ``bcu``, ``airbag``, ``ace``, ``autobox``), the signal and fault
 stores (``signals/``, ``dtc/``), the demo data (``demo/``), the sniff importers
 (``sniff/``) and the UI layout (``layout.json``). The platform reaches it only through
-:func:`d2diag.pack.active_pack` (entry point ``ostler.vehicle`` → ``lr_d2``).
+:func:`d2diag.pack.active_pack` (entry point ``openostler.vehicle`` → ``lr_d2``).
 
 ``PACK`` is assembled lazily on first access (module ``__getattr__``), so importing a
 module layer such as ``d2diag.vehicles.lr_d2.td5`` never pulls in the menus, the command
