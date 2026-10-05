@@ -20,6 +20,7 @@ cheaply, then load on demand.
 ## Then load on demand
 
 - The pack's code map, commands and key seams: [docs/architecture.md](docs/architecture.md).
+- The pack's goals, and the platform's in brief: [GOALS.md](GOALS.md).
 - Mission and boundary with the platform: [SCOPE.md](SCOPE.md).
 - What is proven, candidate or open per module:
   [references/protocol_state_handoff.md](references/protocol_state_handoff.md).
