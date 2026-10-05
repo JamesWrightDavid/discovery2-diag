@@ -15,6 +15,33 @@ reverse-engineered from sniffed bus traffic and community documentation.
 Ostler is not affiliated with or endorsed by Jaguar Land Rover. "Land Rover" and
 "Discovery" are used only to say which vehicle this pack is for.
 
+## Goals
+
+The full pack goals are in [GOALS.md](GOALS.md).
+
+- **Full Discovery 2 coverage:** every module the car carries (Td5, SLABS, BCU, airbag,
+  ACE, EAT and any still-unconfirmed address) read over K-line, with faults, live data,
+  tests and procedures.
+- **NanoCom-parity map:** every menu item of the reference tool mapped to our LIDs and
+  routines, each with an honest status, so the gap to a closed dealer-class tool is visible.
+- **Verified signals:** every field is `proven` against the car or `candidate`; the
+  in-car backlog ([references/test_plan.md](references/test_plan.md)) turns candidates
+  into proven, and coverage never regresses.
+- **The platform's reference pack and conformance fixture:** the pack the `VehiclePack`
+  contract, the generated UI and the decode pipeline are tested against.
+- **Contributing upstream:** CC BY-SA data in an OBDb-compatible shape, offered to OBDb
+  (which has no D2/Td5 entry), and a shareable progress report for the Td5 community.
+- **Safe by construction:** read-first, airbag read-only, gated actuators, no EKA or key
+  programming in any default path, no VIN or raw capture ever committed.
+
+## Part of Ostler
+
+This pack is one part of **Ostler**, an open, local-first vehicle platform: diagnostics,
+logging and telemetry, a GPS tracker and notify-only alarm, add-on devices, cameras and
+Home Assistant integration, for the Discovery 2 first and then any car. The platform's
+full goals are in
+[openostler/ostler GOALS.md](https://github.com/openostler/ostler/blob/main/GOALS.md).
+
 ## What is in this pack
 
 | Part | Where |
