@@ -33,7 +33,7 @@ Updated 2026-10-01.
 
 | Result | Home |
 | --- | --- |
-| LID → field mapping, scaling, confidence | `src/d2diag/signals/*.json` via `upsert_field` — never hand-edited |
+| LID → field mapping, scaling, confidence | `src/d2diag/vehicles/lr_d2/signals/*.json` via `upsert_field` — never hand-edited |
 | Protocol facts (framing, init, services, timing) | `references/<module>_*.md` + the summary in `references/protocol_state_handoff.md` |
 | Verdicts on external repos/claims | `references/td5-external-findings.md` |
 | Fault codes and the car's actual condition | the sister project `../Discovery 2/` — **not** here |
@@ -433,7 +433,7 @@ During the BCU security session (NanoCom READ-SET EKA + key programming, run sev
 times), record every `27 01`/`27 02` exchange with valid checksums. The high-impedance tap
 must not corrupt the frames (unlike the old KKL tap — see
 [valeo_bcu_capabilities.md](valeo_bcu_capabilities.md)).
-**Decision rule.** Feed the clean pairs to `src/d2diag/bcu/keygen.py`. A family that fits
+**Decision rule.** Feed the clean pairs to `src/d2diag/vehicles/lr_d2/bcu/keygen.py`. A family that fits
 every pair with evidence to spare → commit the **algorithm** (never the pairs or any EKA).
 No fit → widen the search or plan a bench EEPROM read
 ([bcu_security_research.md](bcu_security_research.md)). Offline only; no live byte here.

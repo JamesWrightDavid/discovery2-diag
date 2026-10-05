@@ -10,5 +10,5 @@ Arduino firmware: a second K-line comms node and a passive sniffer.
 
 ## Editing rules
 
-- Never hand-edit generated headers. Change `src/d2diag/signals/*.json` and regenerate.
+- Never hand-edit generated headers. Change `src/d2diag/vehicles/lr_d2/signals/*.json` and regenerate.
 - The sniffer must stay RX-only (passive).

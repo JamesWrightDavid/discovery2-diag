@@ -6,7 +6,7 @@
 Reads a capture logged by ``tools/esp32_read.py`` with ``>>> screen …`` / ``>>> value …``
 markers (see ``references/nanocom_capture_protocol.md``), runs the auto-mapper per
 labelled value and prints a markdown report. ``--write`` persists each solved mapping as
-a **candidate** in ``src/d2diag/signals/<module>.json`` with the capture name as
+a **candidate** in ``src/d2diag/vehicles/lr_d2/signals/<module>.json`` with the capture name as
 provenance.
 
 Fault screens (``s <module>/faults`` + ``v fault=<as shown>``, T-30) are paired with the

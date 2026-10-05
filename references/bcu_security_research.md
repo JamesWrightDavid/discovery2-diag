@@ -59,7 +59,7 @@ conditions make them usable, both already met by this project's rig:
 
 ## The offline derivation
 
-`src/d2diag/bcu/keygen.py` is the harness. Feed it the clean pairs; it tries, simplest
+`src/d2diag/vehicles/lr_d2/bcu/keygen.py` is the harness. Feed it the clean pairs; it tries, simplest
 first: identity, XOR-mask, add-constant, byte-swap-plus-XOR, the Td5 LFSR, rotate-left-
 plus-XOR, and affine (`key = a·seed + b mod 2¹⁶`, `a` odd). It reports the first family
 that reproduces **every** pair, with its parameters, or says no family fits. A

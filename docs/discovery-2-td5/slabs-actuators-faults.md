@@ -34,7 +34,7 @@ window (gap 0.5 s, overall 2.5 s) because SLABS writes EEPROM and only ACKs `54`
 Only two `(byte, bit) → number` anchors are confirmed, from the 2026-08-07 sniff
 where `21 11` = `00 00 00 10 … 00 10 …` (bits at byte3.bit4 and byte10.bit4)
 matched the car's two known baseline faults (`SLABS_FAULT_BITS` in
-`src/d2diag/slabs/faults.py`):
+`src/d2diag/vehicles/lr_d2/slabs/faults.py`):
 
 | byte, bit | Number | Text | Confidence |
 |---|---|---|---|

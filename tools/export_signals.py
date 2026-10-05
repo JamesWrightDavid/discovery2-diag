@@ -60,7 +60,8 @@ def main() -> int:
             "limits": list(LIMITS[s.name]) if s.name in LIMITS else None,
             "source": src,
         })
-    out = os.path.join(os.path.dirname(__file__), "..", "src", "d2diag", "signals", "td5.json")
+    out = os.path.join(os.path.dirname(__file__), "..", "src", "d2diag", "vehicles", "lr_d2", "signals",
+                       "td5.json")
     with open(out, "w", encoding="utf-8") as f:
         json.dump(rows, f, ensure_ascii=False, indent=2)
         f.write("\n")

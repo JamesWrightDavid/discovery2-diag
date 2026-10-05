@@ -18,7 +18,7 @@ static void (*klineRawTap)(const char *dir, const uint8_t *d, size_t n) = nullpt
 // enum Kind / struct Field must precede the generated header (it uses U8/U16/S16 + Field).
 enum Kind { U8, U16, S16 };
 struct Field { const char *key; uint8_t lid; uint8_t off; uint8_t kind; float scale; float bias; };
-// FIELDS[]/LIDS[]/NLIDS are GENERATED from src/d2diag/signals/td5.json — one source of
+// FIELDS[]/LIDS[]/NLIDS are GENERATED from src/d2diag/vehicles/lr_d2/signals/td5.json — one source of
 // truth for both platforms. Regenerate with: python3 tools/gen_signal_header.py
 #include "signals_td5.h"
 
@@ -198,7 +198,7 @@ static int kwpRequest(uint8_t sid, const uint8_t *payload, size_t plen,
 }
 
 // Td5 SecurityAccess seed→key (LFSR variant). Ported from td5keygen (BSD-2-Clause);
-// see src/d2diag/td5/keygen.py and THIRD_PARTY_LICENSES.md.
+// see src/d2diag/vehicles/lr_d2/td5/keygen.py and THIRD_PARTY_LICENSES.md.
 static uint16_t td5KeyFromSeed(uint16_t seed) {
   int count = ((seed >> 0xC) & 0x8) | ((seed >> 0x5) & 0x4)
             | ((seed >> 0x3) & 0x2) | (seed & 0x1);

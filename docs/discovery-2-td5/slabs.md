@@ -26,7 +26,7 @@ All facts below are tagged with the project
 real car, reg. RDL 016, and confirmed), 🟡 **Assumed** (derived/transcribed, not
 yet confirmed), 🔴 **Unknown** (visible but not yet interpreted). The evidence and
 date are cited for each claim. The single source of truth for the signal tags is
-`src/d2diag/signals/slabs.json`; this page reflects it, it does not override it.
+`src/d2diag/vehicles/lr_d2/signals/slabs.json`; this page reflects it, it does not override it.
 
 ## Connection at a glance
 
@@ -123,7 +123,7 @@ held 2 min 25 s with no reconnect once the light poll was in place (2026-08-18,
 ## Live parameters
 
 Everything the tool actually decodes today, straight from
-`src/d2diag/signals/slabs.json`. Values are raw unless a scale is shown.
+`src/d2diag/vehicles/lr_d2/signals/slabs.json`. Values are raw unless a scale is shown.
 `u16le` = little-endian 16-bit.
 
 | Name | LID / offset | Type · scale | Unit | Confidence | Evidence |
@@ -229,10 +229,10 @@ Moved to [slabs-actuators-faults.md](slabs-actuators-faults.md).
 
 | Concern | File |
 |---|---|
-| Module driver (init, faults, live, actuators) | `src/d2diag/slabs/slabs.py` |
-| Fault-block decoder + anchors | `src/d2diag/slabs/faults.py` |
-| Factory-tool menu ↔ coverage map | `src/d2diag/slabs/menu.py` |
-| Signal store (source of truth for tags) | `src/d2diag/signals/slabs.json` |
+| Module driver (init, faults, live, actuators) | `src/d2diag/vehicles/lr_d2/slabs/slabs.py` |
+| Fault-block decoder + anchors | `src/d2diag/vehicles/lr_d2/slabs/faults.py` |
+| Factory-tool menu ↔ coverage map | `src/d2diag/vehicles/lr_d2/slabs/menu.py` |
+| Signal store (source of truth for tags) | `src/d2diag/vehicles/lr_d2/signals/slabs.json` |
 | Dashboard data source (light poll) | `src/d2diag/web/sources.py` (`SlabsDataSource`) |
 | Protocol write-up (evidence) | `references/slabs/` (start at `overview.md`) |
 | Display fault-number list | `references/slabs_fault_codes.md` |
