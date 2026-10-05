@@ -17,7 +17,7 @@ from __future__ import annotations
 import time
 from typing import Callable
 
-from ..session import EcuSession
+from d2diag.session import EcuSession
 from .faults import FAULT_BLOCK_LEN, decode_fault_block
 
 SLABS_ADDRESS = 0x29

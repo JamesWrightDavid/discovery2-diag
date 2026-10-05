@@ -24,7 +24,7 @@ from __future__ import annotations
 import re
 from difflib import SequenceMatcher
 
-from . import capture
+from d2diag.sniff import capture
 from .importer import parse_marker
 
 FAULT_VALUE = "fault"
@@ -197,7 +197,7 @@ def collect_fault_screens(events) -> "list[dict]":
 
 def _store_names(module: str) -> "dict[str, dict]":
     """``{key: {name, confidence}}`` for a module: decoder names first, then the dtc store."""
-    from .. import dtc
+    from d2diag import dtc
 
     out: "dict[str, dict]" = {}
     for k, m in dtc.load_meanings(module).items():

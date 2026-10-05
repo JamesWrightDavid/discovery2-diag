@@ -20,8 +20,8 @@ import random
 from collections import Counter
 from typing import Callable, Iterable
 
-from ..kline.kline import KLineError
-from ..kwp2000.kwp2000 import KWP2000Error, NegativeResponse
+from d2diag.kline.kline import KLineError
+from d2diag.kwp2000.kwp2000 import KWP2000Error, NegativeResponse
 
 # 21 D8..E9 + 2C/2D: the factory tool's Read Inputs sweep (sniff 2026-08-09).
 INPUT_LIDS = list(range(0xD8, 0xEA)) + [0x2C, 0x2D]

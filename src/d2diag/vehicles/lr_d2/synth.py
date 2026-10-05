@@ -34,10 +34,10 @@ import os
 import re
 import shutil
 
-from ..gps.nmea import Fix
-from ..gps.route import PERIOD_S, demo_route, speed_at
-from .notes import NoteLog
-from .recorder import SessionRecorder, _read_meta, write_json_atomic
+from d2diag.gps.nmea import Fix
+from d2diag.gps.route import PERIOD_S, demo_route, speed_at
+from d2diag.logbook.notes import NoteLog
+from d2diag.logbook.recorder import SessionRecorder, _read_meta, write_json_atomic
 
 START_UTC = (2026, 10, 5, 9, 0, 0)  # fixed, so the id is stable: 20261005T090000Z
 HZ = 5

@@ -22,9 +22,9 @@ from __future__ import annotations
 import time
 from typing import Callable
 
-from ..kline.kline import KLineError
-from ..kwp2000.kwp2000 import KWP2000Error
-from ..session import EcuSession
+from d2diag.kline.kline import KLineError
+from d2diag.kwp2000.kwp2000 import KWP2000Error
+from d2diag.session import EcuSession
 from .faults import FAULT_LID, decode_faults
 
 AIRBAG_ADDRESS = 0x5B

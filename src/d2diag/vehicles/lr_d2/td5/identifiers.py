@@ -13,7 +13,7 @@ and the echoed identifier), i.e. what :meth:`KWP2000.read_local_identifier` retu
 """
 from __future__ import annotations
 
-from ..signals import Signal, load_signals
+from d2diag.signals import Signal, load_signals
 
 SIGNALS = load_signals("td5")
 # A name can have one record per reply length (21 1B short/long); the first record is the

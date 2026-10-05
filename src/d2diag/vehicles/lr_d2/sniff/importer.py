@@ -22,9 +22,9 @@ from __future__ import annotations
 
 import os
 
-from ..signals import upsert_field
-from . import capture
-from .automap import solve
+from d2diag.signals import upsert_field
+from d2diag.sniff import capture
+from d2diag.sniff.automap import solve
 
 
 def parse_marker(text: str) -> "dict":
@@ -70,7 +70,7 @@ def collect_samples(events) -> "dict":
     value appears before any screen marker. ``lids`` is every LID polled on the screen(s)
     where the value was recorded (the automap candidate set).
     """
-    from .modules import ModuleTracker
+    from d2diag.sniff.modules import ModuleTracker
 
     out: "dict" = {}
     mt = ModuleTracker()

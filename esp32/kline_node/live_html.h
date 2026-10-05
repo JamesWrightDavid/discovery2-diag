@@ -74,7 +74,7 @@ const $=s=>document.querySelector(s);
 // GitHub (the phone hotspot has data) + cached in localStorage for offline use. TD5 (21 3B) and
 // SLABS (logged 21 11 / current 21 47).
 let FMAP=null, SMAP=null, FAULTS_NOW=[], SLABSPOLL=0;
-const RAW='https://raw.githubusercontent.com/Leijoma/discovery2-diag/main/src/d2diag/';
+const RAW='https://raw.githubusercontent.com/Leijoma/discovery2-diag/main/src/d2diag/vehicles/lr_d2/';
 async function loadMap(url,key){
  try{const r=await fetch(url);if(r.ok){const j=await r.json();localStorage.setItem(key,JSON.stringify(j));return j;}}catch(e){}
  const c=localStorage.getItem(key);return c?JSON.parse(c):null;   // offline → last cached

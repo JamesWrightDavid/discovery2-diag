@@ -29,9 +29,9 @@ from __future__ import annotations
 import time
 from typing import Callable
 
-from ..kline.kline import KLineError
-from ..kwp2000.kwp2000 import KWP2000Error
-from ..session import EcuSession
+from d2diag.kline.kline import KLineError
+from d2diag.kwp2000.kwp2000 import KWP2000Error
+from d2diag.session import EcuSession
 
 BCU_ADDRESS = 0x40          # candidate, see module docstring
 EKA_LID = 0xCC              # `21 CC` — proven from the sniff 2026-08-09

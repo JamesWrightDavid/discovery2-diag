@@ -7,7 +7,7 @@ transactions/functions + annotations.
 """
 from __future__ import annotations
 
-from . import capture
+from d2diag.sniff import capture
 
 # Verified non-KWP facts (from analysis of the logs, see protocol_state_handoff.md).
 KNOWN: "dict" = {

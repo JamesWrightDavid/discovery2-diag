@@ -9,7 +9,7 @@ from __future__ import annotations
 import time
 from typing import Callable
 
-from ..session import EcuSession
+from d2diag.session import EcuSession
 from .identifiers import BY_NAME, LIDS, decode_lid
 from .keygen import key_bytes_from_seed
 
