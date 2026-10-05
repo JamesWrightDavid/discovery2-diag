@@ -43,8 +43,8 @@ confidence tag is raised without car evidence — see [../test_plan.md](../test_
 | TD5 engine | faults, inputs (fuelling, switch), outputs, settings (info, injectors), utility | 23 | best-mapped (live + faults + outputs) |
 | SLABS | faults, inputs (ABS, SLS, switch), outputs, settings, utility (bleed, height) | 29 | well-mapped (live + faults + actuators) |
 | Valeo BCU | key programming, outputs (body, security), read inputs (body 1/2, instrument, power), settings (alarm/other, info, instrument pack, lights/win/seat, transm/lock/warn, write), utility | 54 | richest + least mapped (EKA offline only) |
-| Auto gearbox (EAT) | faults, inputs (general, pressures), settings, utility | 16 | faults read; payload undecoded |
-| Airbag / SRS | faults, settings | 7 | faults (experimental, read-only) |
+| EAT (auto gearbox) | faults, inputs (general, pressures), settings, utility | 16 | faults read; payload undecoded |
+| SRS (airbag) | faults, settings | 7 | faults (experimental, read-only) |
 | ACE | faults, inputs, outputs, utility | 9 | fault block isolated |
 | Cruise (Hella) | faults, inputs, settings, utility | 9 | unconfirmed (shared with V8 variant) |
 

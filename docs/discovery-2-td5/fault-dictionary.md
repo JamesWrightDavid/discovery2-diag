@@ -19,7 +19,7 @@ The meaning of every known fault code per module — what it means, the likely c
 |---|---|---|---|
 | [Td5 engine fault dictionary](fault-dictionary-td5.md) | 211 | 280 bits | Vendor guide: "over 200" fault codes in a 35-byte (280-bit) block, so some unnamed bits are probably spare. |
 | [SLABS (ABS/SLS) fault dictionary](fault-dictionary-slabs.md) | 65 | 47 | Vendor guide: "up to 47 different faults". The rsw list (stored rsw-NNN) is a different numbering with ~67 fault types. |
-| [Airbag (SRS) fault dictionary](fault-dictionary-airbag.md) | 4 | 37 | Vendor guide: "up to 37 faults". The register's string dump spans numbers 1–65, so the numbering is not simply 1–37. |
-| [Auto gearbox (EAT) fault dictionary](fault-dictionary-autobox.md) | 38 | 39 | Vendor guide: "up to 39 different problems"; RAVE table uses internal numbers 1–39 (36 absent). |
+| [SRS (airbag) fault dictionary](fault-dictionary-airbag.md) | 4 | 37 | Vendor guide: "up to 37 faults". The register's string dump spans numbers 1–65, so the numbering is not simply 1–37. |
+| [EAT (auto gearbox) fault dictionary](fault-dictionary-autobox.md) | 38 | 39 | Vendor guide: "up to 39 different problems"; RAVE table uses internal numbers 1–39 (36 absent). |
 | [ACE fault dictionary](fault-dictionary-ace.md) | 22 | 45 | Vendor guide: "up to 45 different problems" (some shown as MASKED FAULT). Store counts three display schemes for the same faults. |
 

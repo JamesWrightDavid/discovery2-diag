@@ -3,7 +3,7 @@ title: "Test backlog — the living plan for what to do next in the car"
 area: references
 status: stable
 version: 1.2
-updated: 2026-10-04
+updated: 2026-10-06
 summary: >
   Living backlog of what to test next in the car or with a borrowed tool, each item with context tag, procedure and pre-written decision rule; Resolved log.
 ---
@@ -489,6 +489,11 @@ shows it.
 Needs a u-blox USB receiver (M8/M9/M10; not bought yet). Session logbook design:
 [2026-10-05-session-logbook-design.md](../specs/2026-10-05-session-logbook-design.md),
 ADR-0009.
+
+**Note (2026-10-06, ADR-0011):** sessions now record only while the car is connected. GPS
+movement alone no longer opens a session, and while the car is disconnected the session is
+paused (no rows, not even GPS). Run this test with the KKL cable connected and the car's
+module connected, or the drive will not be recorded.
 
 1. Run `tools/dashboard.py --gps auto`. The snapshot `gps.src` must read `usb`, with `fix` true within about a minute.
 2. Drive a known loop. In the Logs tab, the replay trace must follow the road.

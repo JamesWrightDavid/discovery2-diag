@@ -82,7 +82,7 @@ captured cleanly — re-log Outputs in menu order (sniff **1**).
 | Outputs | actuator | 5 items | OPEN | 3 | Outputs | write-coding |
 | Utility | service | 3 calibration + 3 oil-bleed steps | ESTABLISHED | 3 | Utilities | write-coding ⚠ |
 
-## Airbag / SRS (0x5B addressed · 7 pages)
+## SRS (airbag) (0x5B addressed · 7 pages)
 
 | Function | Type | Data exposed | Coverage | Sniff | UI tab | Safety |
 |---|---|---|---|---|---|---|

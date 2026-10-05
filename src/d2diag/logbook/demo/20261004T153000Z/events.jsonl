@@ -1,0 +1,8 @@
+{"t":0,"type":"state","conn":"connected","status":"connected","module":"slabs","mode":null,"active_test":null,"fault_watch":false,"logging":{"recording":false}}
+{"t":25000,"type":"command","action":"raise_left","ok":true,"message":"Raise left"}
+{"t":25000,"type":"active_test","active_test":{"action":"raise_left","label":"Raise left"}}
+{"t":33000,"type":"active_test","active_test":null}
+{"t":38000,"type":"command","action":"lower_left","ok":true,"message":"Lower left"}
+{"t":38000,"type":"active_test","active_test":{"action":"lower_left","label":"Lower left"}}
+{"t":46000,"type":"active_test","active_test":null}
+{"t":280000,"type":"fault_watch","on":true}
