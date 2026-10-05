@@ -72,8 +72,10 @@ def collect_samples(events) -> "dict":
     """
     from d2diag.sniff.modules import ModuleTracker
 
+    from ..sniff_spec import SNIFF
+
     out: "dict" = {}
-    mt = ModuleTracker()
+    mt = ModuleTracker(SNIFF)  # this importer reads Discovery 2 captures: the D2 spec
     screen_module: "str | None" = None
     latest: "dict[str, bytes]" = {}
     screen_lids: "set[str]" = set()

@@ -4,9 +4,8 @@ Each reader takes the resolved serial port, establishes, reads the fault codes a
 releases (CONSTITUTION: the next module inits on the same bus). The platform
 (:func:`d2diag.faultscan.read_all`) calls them in order, with a quiet gap in between.
 
-Phase 0 Step 0: the bodies are copied verbatim from ``d2diag.faultscan._live_report``
-(which still runs them until agent A makes ``read_all`` generic and deletes its copy).
-``FAULTSCAN`` and ``UNIMPLEMENTED`` are the frozen names.
+TD5 and SLABS are proven and tested. Airbag (0x5B) is **experimental** (read-only,
+unverified live). ACE/EAT/BCU have no comms class → listed in ``UNIMPLEMENTED``.
 """
 from __future__ import annotations
 
@@ -74,11 +73,8 @@ FAULTSCAN: "tuple[FaultReader, ...]" = (
 )
 
 # Modules that don't yet have a reading comms class (proprietary protocols).
-# Step 0: referenced from d2diag.faultscan._UNIMPLEMENTED; agent A moves the data here.
-def _unimplemented() -> "tuple[tuple[str, str], ...]":
-    from d2diag import faultscan as _fs
-
-    return tuple((name, note) for name, note in _fs._UNIMPLEMENTED)
-
-
-UNIMPLEMENTED: "tuple[tuple[str, str], ...]" = _unimplemented()
+UNIMPLEMENTED: "tuple[tuple[str, str], ...]" = (
+    ("ACE", "active suspension — proprietary bulk protocol, not read in code yet"),
+    ("Auto Gearbox", "EAT 72-framed — ECU responds but decoding not finished"),
+    ("BCU", "Valeo — no fault-code list in code yet"),
+)

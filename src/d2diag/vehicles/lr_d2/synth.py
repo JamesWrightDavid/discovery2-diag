@@ -16,11 +16,11 @@ ids. Same inputs → byte-identical files (the offline place names come from
 
 Demo log 1 timeline (session time) for the replay demo (ADR-0010):
 
-* 0:00 ``state`` line (connected, motor, demo); GPS-derived ``GPS_LonAcc``/``GPS_LatAcc``
+* 0:00 ``state`` line (connected, td5, demo); GPS-derived ``GPS_LonAcc``/``GPS_LatAcc``
   throughout.
 * 2:10 at the first stop: Td5 output test ``output_ac_fan`` (a ``command`` event; the
   car is stationary, as actuator tests must be).
-* 6:00 module switch motor → slabs (the session continues; ``conn`` stays connected);
+* 6:00 module switch td5 → slabs (the session continues; ``conn`` stays connected);
   from here the SLABS channels (heights, battery, wheel speeds) at ~1 Hz.
 * 9:00 at the third stop: ``pump_on`` → ``active_test`` on, ``pump_off`` 8 s later → off.
 * Three retrospective notes in ``notes.jsonl`` (fixed ids and created times).
@@ -51,7 +51,7 @@ UNITS = {"rpm": "rpm", "speed": "km/h", "coolant_temp": "°C", "air_temp": "°C"
          "battery": "V", "manifold_press": "bar", "accel_pedal_pct": "%"}
 
 
-SWITCH_S = 360.0            # motor → slabs
+SWITCH_S = 360.0            # td5 → slabs
 FAN_TEST_S = 130.0          # output_ac_fan at the first stop (125–145 s)
 PUMP_ON_S, PUMP_OFF_S = 540.0, 548.0  # SLABS pump test at the third stop (535–560 s)
 SLABS_UNITS = {"height_left": "", "height_right": "", "battery": "V",
@@ -180,7 +180,7 @@ def generate_log1(root: str, duration_s: float = PERIOD_S, hz: int = HZ) -> str:
         t = i / hz
         now["t"] = t
         if t < SWITCH_S:
-            module, sig, units = "motor", engine(t), UNITS
+            module, sig, units = "td5", engine(t), UNITS
         else:
             module, units = "slabs", SLABS_UNITS
             sig = slabs(t) if i % hz == 0 else {}  # SLABS is polled lightly: ~1 Hz

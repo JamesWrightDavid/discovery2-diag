@@ -1,4 +1,4 @@
-{"t":0,"type":"state","conn":"connected","status":"connected","module":"motor","mode":"demo","active_test":null,"fault_watch":false,"logging":{"recording":false}}
+{"t":0,"type":"state","conn":"connected","status":"connected","module":"td5","mode":"demo","active_test":null,"fault_watch":false,"logging":{"recording":false}}
 {"t":130000,"type":"command","action":"output_ac_fan","ok":true,"message":"A/C fan (mock)"}
 {"t":360000,"type":"module","module":"slabs"}
 {"t":360000,"type":"state","conn":"connected","status":"connected","module":"slabs","mode":"demo","active_test":null,"fault_watch":false,"logging":{"recording":false}}

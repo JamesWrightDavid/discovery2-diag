@@ -1,4 +1,4 @@
-"""Seed the fault-meaning store (src/d2diag/dtc/*.json) from the canonical fault data.
+"""Seed the fault-meaning store (src/d2diag/vehicles/lr_d2/dtc/*.json) from the canonical fault data.
 
 One-shot, **merge-preserving** seeder: it fills meanings that don't exist yet and leaves
 any hand-refined entry alone (use ``--force`` to regenerate from scratch). Run it when the
@@ -374,9 +374,9 @@ def _merged_rows(module: str, built: "list[dict]") -> "list[dict]":
 
 
 def _write(module: str, rows: "list[dict]") -> None:
-    path = Path(dtc.__file__).resolve().parent / f"{module}.json"
+    path = dtc._dir() / f"{module}.json"
     path.write_text(json.dumps(rows, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    dtc._CACHE.pop(module, None)
+    dtc._CACHE.pop(dtc._key(module), None)
 
 
 if __name__ == "__main__":
