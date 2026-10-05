@@ -2,18 +2,27 @@
 title: Constitution
 area: root
 status: stable
-version: 1.2
+version: 2.0
 updated: 2026-10-06
 summary: >
-  Hard rules for every agent and contributor: the five Vibes as Code operating
-  principles plus this project's protocol, layering, safety and data-honesty invariants.
-  Load in full; never summarize.
+  Hard rules for the Discovery 2 pack: it defers to the platform's constitution
+  (openostler/ostler) for the operating principles and platform rules, and keeps the
+  pack's own layering, protocol, safety and data-honesty invariants. Load in full; never
+  summarize.
 ---
 
 # Constitution
 
 > Hard rules. Loaded by every agent. Never summarized away. Append-only in
 > spirit: amend deliberately, record the amendment in the changelog.
+
+## Precedence
+
+The platform's [CONSTITUTION.md](https://github.com/openostler/ostler/blob/main/CONSTITUTION.md)
+is the shared constitution (ADR-0013). Its operating principles and platform rules apply
+here too. This file restates the five principles for convenience and adds the rules that
+are specific to the Discovery 2 pack. If the two disagree on a platform matter, the
+platform's wins; on Discovery 2 protocol, safety and data, this file wins.
 
 ## The five operating principles
 
@@ -27,19 +36,16 @@ summary: >
    (versioned, with changelogs).
 5. **Hard rules live in non-compressible places**, which means this file.
 
-## Project invariants
+## Pack invariants
 
 ### Layering and data
-- **Core never imports from the consumer layer.** `transport`, `kline`, `kwp2000`,
-  `session`, `ports`, module decoders and `signals` must not import `web` (enforced by
-  `tests/test_layering.py`). `web/sources.py` is the boundary. See [SCOPE.md](SCOPE.md).
-- **The platform never imports a vehicle pack** (ADR-0013). Vehicle specifics live in
-  `src/d2diag/vehicles/<pack>/` and reach the platform only through the `VehiclePack`
-  contract (`d2diag.pack.active_pack()`). Platform code names no module ids or aliases.
-  `tests/test_layering.py` enforces both rules.
-- **`src/d2diag/vehicles/lr_d2/signals/*.json` is the single source of truth for LID field mappings.**
-  Write it only via `upsert_field`; never hand-paste `Signal(...)` rows. The ESP32 decode
-  header is generated from it, never hand-copied.
+- **The platform never imports this pack** (ADR-0013). The pack reaches the platform only
+  through `PACK` (entry point `openostler.vehicle` → `lr_d2` → `d2diag:PACK`), built
+  lazily. This pack imports the platform as `openostler.*` and never copies platform code.
+  Only `src/d2diag/sources.py` imports `openostler.web`.
+- **`src/d2diag/signals/*.json` is the single source of truth for LID field mappings.**
+  Write it only via `openostler.signals.upsert_field`; never hand-paste `Signal(...)` rows.
+  The ESP32 decode header is generated from it, never hand-copied.
 - **Confidence is honest.** Every field is `proven` (verified against the car) or
   `candidate` (derived or unverified). Nothing is promoted to `proven` without a car
   result recorded in [references/test_plan.md](references/test_plan.md).
@@ -51,8 +57,6 @@ summary: >
   each cycle, faults at most every 10th poll.
 - **Keep `tolerant=True`** on KWP2000 for cheap KKL cables.
 - **K-line is a shared bus:** one module at a time, establish → read → release.
-- **K-line access is serialized on the poll thread.** Only server-state commands run
-  inline on the HTTP thread.
 - **macOS serial ports are `/dev/cu.*`**, never `/dev/tty.*`.
 
 ### Safety
@@ -65,10 +69,9 @@ summary: >
   or EKA data.
 
 ### Code and tests
-- **Zero runtime dependencies above pyserial** for the Python package. The React/TS UI is
-  built ahead of time and shipped as static files (ADR-0004), so a Pi install stays
-  Node-free.
+- **No runtime dependencies beyond the platform (`openostler`) and pyserial.**
 - **Tests run without hardware** against `tests/fakes.py::FakeKLineEcu`.
+- **`tests/test_pack_contract.py` must pass against the platform version CI pins.**
 - **English everywhere** for new content: code, comments, docs and commits. When you
   touch Swedish text, translate it.
 
@@ -87,3 +90,7 @@ summary: >
   former CLAUDE.md and SCOPE.md.
 - 2026-10-01 — Confidence values renamed to `proven`/`candidate` (ADR-0006).
 - 2026-10-06 — Vehicle specifics moved behind the `VehiclePack` contract; the signal store path is now `src/d2diag/vehicles/lr_d2/signals/` (ADR-0013, Phase 0).
+- 2026-10-06 — Repo split (ADR-0013 step 2): this repo is the Discovery 2 pack. Platform
+  rules (core/web layering, server threading, UI build) moved to the platform's
+  constitution, which takes precedence on platform matters. The signal store is
+  `src/d2diag/signals/` again (package `d2diag` = the pack).

@@ -4,7 +4,7 @@ area: specs
 status: stable
 version: 1.2
 updated: 2026-10-04
-depends_on: [../CONSTITUTION.md, ../decisions/adr-0006-english-confidence-vocabulary.md]
+depends_on: [../CONSTITUTION.md]
 summary: >
   Design for filling the fault-meaning store (src/d2diag/dtc/) from public forum lists: a confidence field on every meaning, one forum-named Td5 bit (20.7) after verifying the forum X-Y to offset.bit mapping, new airbag/autobox/ace stores keyed by display code, and re-keying the rswsolutions SLABS list because its numbering contradicts both car-proven anchors.
 ---

@@ -12,7 +12,7 @@ summary: >
 # Td5 LID cross-reference — ours vs five external repos
 
 So we don't redo solved work: what each external Td5 repo maps, lined up against our
-signal store (`src/d2diag/vehicles/lr_d2/signals/td5.json`). The research narrative is in
+signal store (`src/d2diag/signals/td5.json`). The research narrative is in
 [td5-external-findings.md](td5-external-findings.md); this is the field-by-field table and
 the authority for what we ported.
 

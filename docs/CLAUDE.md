@@ -6,11 +6,9 @@ The public, curated knowledge base. Every fact carries a confidence tag
 ## Files
 
 - `README.md` — hub and legend.
-- `architecture.md` — code map, commands and key seams (for developers and agents).
+- `architecture.md` — the pack's code map, commands and key seams (for developers and agents).
 - `discovery-2-td5/` — one page per module, plus the shared K-line layer.
 - `capability-inventory/` — consolidated per-module inventory (start at `overview.md`).
-- `tester_quickstart.md` — non-programmer Mac guide.
-- `https_on_the_pi.md` — local HTTPS (mkcert) so the phone mic and motion sensors work.
 - `rover-v8/` — roadmap only.
 
 ## Editing rules

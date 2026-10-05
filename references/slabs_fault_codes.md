@@ -29,7 +29,7 @@ Both car-proven anchors contradict this list:
 | `020` right front wheel-speed sensor, output too low (byte 3 bit 4) | `044` | `020` = No Batt Supply Voltage |
 | `027` shuttle valve switch, electrical failure (byte 10 bit 4) | `114` | `027` = not in the list |
 
-So the store (`src/d2diag/vehicles/lr_d2/dtc/slabs.json`) keys these entries `rsw-NNN`, as **candidate**.
+So the store (`src/d2diag/dtc/slabs.json`) keys these entries `rsw-NNN`, as **candidate**.
 They keep the fault-type knowledge but can never be looked up by a tool number. Before that
 change, a live `020` was shown with the meaning "No Batt Supply Voltage", which was wrong.
 

@@ -1,24 +1,28 @@
 # tests/
 
-The hardware-free pytest suite. Run it with `pytest -q` from the repo root.
+The hardware-free pytest suite for the pack. Install the platform and the pack first
+(`pip install "openostler @ git+https://github.com/openostler/ostler@main"`, then
+`pip install -e ".[dev]"`), then run `pytest -q` from the repo root.
 
 ## Files
 
 - `fakes.py` — `FakeKLineEcu`, a half-duplex ECU simulator at the transport level.
-- `fake_sources.py` — simulated dashboard sources (`FakeTd5Source`, `FakeSlabsSource`,
-  `FakeInfoSource`, fake GPS and fault scan). Test scaffolding only: the product has no
-  demo mode (ADR-0011).
-- `e2e_server.py` — a dashboard on those fakes for Playwright and UI dev without a car
-  (`python3 tests/e2e_server.py --port 8765`). Never deployed.
-- `test_layering.py` — AST guards: the core never imports `web`; the platform never imports a
-  vehicle pack or names a module id (ADR-0013).
-- `fake_pack.py` (`FAKE_PACK`) + `test_pack.py`, `test_platform_fake_pack.py` — the platform
-  run against a fake vehicle pack. `phase0_golden.py` + `test_phase0_golden.py` — the
-  Phase 0 no-behaviour-change golden.
-- `test_<area>.py` — one file per package or area (kline, kwp2000, td5, slabs, web, …).
+- `fake_sources.py` — simulated Td5/SLABS/info sources and the fake fault report (test
+  scaffolding; the product has no demo mode).
+- `test_pack_contract.py` — the pack resolves through the `openostler.vehicle` entry point
+  and satisfies the platform's `VehiclePack` contract (api_version, manifest, module ids,
+  stores, actions, sniff spec, `layout.json`).
+- `test_lr_d2_pack.py` — pack members, ids and aliases. `test_d2_catalog.py` — the real
+  menus against the platform catalog (links resolve, drift guard).
+  `test_demo_sessions.py` — the committed demo sessions regenerate byte for byte.
+- `phase0_golden.py` + `test_phase0_golden.py` — platform outputs over this pack, by value
+  (the Phase 0 / split no-behaviour-change golden).
+- `test_<area>.py` — one file per module layer or tool (td5, slabs, bcu, airbag, importer, …).
 
 ## Editing rules
 
 - No test may need hardware or the network.
+- Platform behaviour is tested in the platform repo with a fake pack; test here only what
+  depends on Discovery 2 code or data.
 - Prefer a `FakeKLineEcu` response sequence or `callable(count)` over mocking internals.
 - Do not hard-code the test count in docs. CI is the source.

@@ -2,9 +2,9 @@
 title: "HEVAC (climate) control — Design"
 area: specs
 status: draft
-version: 1.0
-updated: 2026-10-02
-depends_on: [specs/2026-10-02-hardware-platform-design.md, docs/discovery-2-td5/system-map.md]
+version: 1.1
+updated: 2026-10-06
+depends_on: [docs/discovery-2-td5/system-map.md]
 summary: >
   Control and read the Discovery 2 electronic climate control (HEVAC/ATC) without the
   diagnostic bus — by sniffing the control panel's display bus to read current state and
@@ -13,6 +13,11 @@ summary: >
 ---
 
 # HEVAC (climate) control — Design
+
+> **Archived (2026-10-06): moved out of scope.** HEVAC control lives in a separate ESP32
+> project (see [SCOPE.md](../SCOPE.md)). Kept here as the Discovery 2 research record. The
+> hardware platform design it built on moved to the platform repo,
+> [openostler/ostler `specs/`](https://github.com/openostler/ostler/tree/main/specs).
 
 ## Goal
 
@@ -84,3 +89,4 @@ logic analyzer for the RE phase. This rides on the platform spec's real-time MCU
 ## Changelog
 
 - 2026-10-02 — Initial design drafted from the HEVAC conversation.
+- 2026-10-06 — Archived at the repo split: moved out of scope (separate ESP32 project).

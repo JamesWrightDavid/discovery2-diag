@@ -1,0 +1,1 @@
+The October 2026 platform research (landscape, OVMS, hardware, platform, feature backlog) moved to [openostler/ostler `references/research/`](https://github.com/openostler/ostler/tree/main/references/research).

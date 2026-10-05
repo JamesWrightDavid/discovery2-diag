@@ -33,7 +33,7 @@ Updated 2026-10-01.
 
 | Result | Home |
 | --- | --- |
-| LID → field mapping, scaling, confidence | `src/d2diag/vehicles/lr_d2/signals/*.json` via `upsert_field` — never hand-edited |
+| LID → field mapping, scaling, confidence | `src/d2diag/signals/*.json` via `upsert_field` — never hand-edited |
 | Protocol facts (framing, init, services, timing) | `references/<module>_*.md` + the summary in `references/protocol_state_handoff.md` |
 | Verdicts on external repos/claims | `references/td5-external-findings.md` |
 | Fault codes and the car's actual condition | the sister project `../Discovery 2/` — **not** here |
@@ -433,7 +433,7 @@ During the BCU security session (NanoCom READ-SET EKA + key programming, run sev
 times), record every `27 01`/`27 02` exchange with valid checksums. The high-impedance tap
 must not corrupt the frames (unlike the old KKL tap — see
 [valeo_bcu_capabilities.md](valeo_bcu_capabilities.md)).
-**Decision rule.** Feed the clean pairs to `src/d2diag/vehicles/lr_d2/bcu/keygen.py`. A family that fits
+**Decision rule.** Feed the clean pairs to `src/d2diag/bcu/keygen.py`. A family that fits
 every pair with evidence to spare → commit the **algorithm** (never the pairs or any EKA).
 No fit → widen the search or plan a bench EEPROM read
 ([bcu_security_research.md](bcu_security_research.md)). Offline only; no live byte here.
@@ -487,7 +487,7 @@ shows it.
 
 #### T-31 `[drive]` — USB GPS against the road (session logbook)
 Needs a u-blox USB receiver (M8/M9/M10; not bought yet). Session logbook design:
-[2026-10-05-session-logbook-design.md](../specs/2026-10-05-session-logbook-design.md),
+[2026-10-05-session-logbook-design.md](https://github.com/openostler/ostler/blob/main/specs/2026-10-05-session-logbook-design.md),
 ADR-0009.
 
 **Note (2026-10-06, ADR-0011):** sessions now record only while the car is connected. GPS
@@ -505,8 +505,8 @@ module connected, or the drive will not be recorded.
 car-checked, which removes the candidate caveat in the spec. Record the receiver model.
 
 #### T-32 `[drive]` — Accelerometer (phone and Pi IMU) against GPS acceleration
-Design: [2026-10-05-replay-notes-capture-design.md](../specs/2026-10-05-replay-notes-capture-design.md),
-ADR-0010. Needs HTTPS for the phone ([https_on_the_pi.md](../docs/https_on_the_pi.md)), or an
+Design: [2026-10-05-replay-notes-capture-design.md](https://github.com/openostler/ostler/blob/main/specs/2026-10-05-replay-notes-capture-design.md),
+ADR-0010. Needs HTTPS for the phone ([https_on_the_pi.md](https://github.com/openostler/ostler/blob/main/docs/https_on_the_pi.md)), or an
 LSM6DSOX/LSM6DS3TR-C on the Pi's I2C (`--imu auto`).
 
 1. Mount the phone (or the IMU) rigidly. Logs → Recording → ⚙ Options → Accelerometer → Calibrate, with the car still.
