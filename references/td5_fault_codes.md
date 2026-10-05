@@ -13,10 +13,10 @@ summary: >
 The engine ECU's fault memory. **Unlike the other modules, TD5 is already
 raw-mapped** — we read the faults directly on K-line and decode them bit-by-bit in code.
 
-- **Raw decoder (code):** `src/d2diag/td5/faults.py` — 208 proven + 3 candidate named fault bits
+- **Raw decoder (code):** `src/d2diag/vehicles/lr_d2/td5/faults.py` — 208 proven + 3 candidate named fault bits
 - **Reference (display codes + causes):** the fault-code dictionary (register repo),
   the TD5 section incl. Kelvin's complete forum list (`X-Y` format)
-- **Live signals:** `src/d2diag/td5/identifiers.py` (LIDs `21 xx`)
+- **Live signals:** `src/d2diag/vehicles/lr_d2/td5/identifiers.py` (LIDs `21 xx`)
 
 ## Raw encoding (PROVEN)
 Td5 does **not** read standard DTCs. The fault memory is fetched as a **status block** via

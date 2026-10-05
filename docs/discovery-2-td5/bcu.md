@@ -153,14 +153,14 @@ ignition positions, mileage), Settings (market/build config, DRL, immobiliser
 options, EKA option), and Outputs (locking, indicators, wipers, horn). All of it
 is `todo` in our layer: none has been sniffed and decoded on this bus yet, and the
 Outputs/Settings/key-programming sections are **write/actuator territory that we
-will not touch**. The menu structure is carried in `src/d2diag/bcu/menu.py` for
+will not touch**. The menu structure is carried in `src/d2diag/vehicles/lr_d2/bcu/menu.py` for
 future mapping only.
 
 ## Source files
 
-- `src/d2diag/bcu/bcu.py` — the `Bcu(EcuSession)` read-only layer (`establish`,
+- `src/d2diag/vehicles/lr_d2/bcu/bcu.py` — the `Bcu(EcuSession)` read-only layer (`establish`,
   `identify`, `read_eka`).
-- `src/d2diag/bcu/menu.py` — reference-tool menu map + our coverage status.
+- `src/d2diag/vehicles/lr_d2/bcu/menu.py` — reference-tool menu map + our coverage status.
 - `references/valeo_bcu_capabilities.md` — capability reference + the 2026-08-20
   car-test findings (connect confirmed, EKA gated, seed characterization).
 - `references/bcu_sniff_plan.md`, `references/bcu_key_coding.md` — sniff plan and
