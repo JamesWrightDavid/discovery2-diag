@@ -499,6 +499,21 @@ ADR-0009.
 **Decision rule.** A trace on the road and speeds within ±2 km/h mark the GPS channels
 car-checked, which removes the candidate caveat in the spec. Record the receiver model.
 
+#### T-32 `[drive]` — Accelerometer (phone and Pi IMU) against GPS acceleration
+Design: [2026-10-05-replay-notes-capture-design.md](../specs/2026-10-05-replay-notes-capture-design.md),
+ADR-0010. Needs HTTPS for the phone ([https_on_the_pi.md](../docs/https_on_the_pi.md)), or an
+LSM6DSOX/LSM6DS3TR-C on the Pi's I2C (`--imu auto`).
+
+1. Mount the phone (or the IMU) rigidly. Logs → Recording → ⚙ Options → Accelerometer → Calibrate, with the car still.
+2. Drive straight, brake firmly, then take a left and a right bend.
+3. In replay:
+   - braking must show `InlineAcc` negative;
+   - the left bend must show `LateralAcc` positive;
+   - both should track `GPS_LonAcc`/`GPS_LatAcc` within about 0.1 g on steady sections.
+
+**Decision rule.** Signs and magnitudes that match mark the accelerometer channels car-checked.
+Record the phone or IMU model and the mount.
+
 ---
 
 ## Resolved and appendices
