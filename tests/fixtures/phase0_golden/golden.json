@@ -21180,7 +21180,8 @@
      50.627
     ],
     "start_utc": "2026-10-04T15:30:00.000Z",
-    "synthetic": true
+    "synthetic": true,
+    "vid": "golden"
    },
    "meta_public": {
     "accel_cal": null,
@@ -21347,7 +21348,8 @@
      50.627
     ],
     "start_utc": "2026-10-04T15:30:00.000Z",
-    "synthetic": true
+    "synthetic": true,
+    "vid": "golden"
    },
    "notes_digest": "fa95b98764bc0b16b0589eddc07d9eb22610772e518dab52110ed738aba4fcd9"
   },
@@ -21581,7 +21583,8 @@
      56.623
     ],
     "start_utc": "2026-10-05T09:00:00.000Z",
-    "synthetic": true
+    "synthetic": true,
+    "vid": "golden"
    },
    "meta_public": {
     "accel_cal": null,
@@ -21810,7 +21813,8 @@
      56.623
     ],
     "start_utc": "2026-10-05T09:00:00.000Z",
-    "synthetic": true
+    "synthetic": true,
+    "vid": "golden"
    },
    "notes_digest": "51629c231368b99e86f5a3bc2dcd29b301ddad0f044ec66d3c94243fad29c611"
   }
@@ -22043,7 +22047,8 @@
     56.623
    ],
    "start_utc": "2026-10-05T09:00:00.000Z",
-   "synthetic": true
+   "synthetic": true,
+   "vid": "golden"
   },
   {
    "accel_cal": null,
@@ -22210,7 +22215,8 @@
     50.627
    ],
    "start_utc": "2026-10-04T15:30:00.000Z",
-   "synthetic": true
+   "synthetic": true,
+   "vid": "golden"
   }
  ],
  "sniff_demo_tracker_digest": "7b48958db74d395fe018aadd689651959748052488bdef4321ddfafc609550ea",

@@ -25,7 +25,6 @@ EXPECTED = {
     ("td5", "speed"): "Vehicle.Speed",
     ("td5", "battery"): "Vehicle.LowVoltageBattery.CurrentVoltage",
     ("td5", "coolant_temp"): "Vehicle.Powertrain.CombustionEngine.EngineCoolant.Temperature",
-    ("td5", "ext_temp"): "Vehicle.Exterior.AirTemperature",
     ("td5", "manifold_press"): "Vehicle.Powertrain.CombustionEngine.MAP",
     ("td5", "ambient_press_1"): "Vehicle.Exterior.AirPressure",
     ("td5", "maf_sensor"): "Vehicle.Powertrain.CombustionEngine.MAF",
@@ -36,9 +35,10 @@ EXPECTED = {
     ("slabs", "height_right"): "Vehicle.Ostler.Chassis.RideHeight.RearRightRaw",
 }
 
-# Pack-private or not-yet-canonical fields that must stay unmapped.
+# Pack-private or not-yet-canonical fields that must stay unmapped. ext_temp: the sensor is
+# not fitted on this car (constant 150 °C), so it must not be published as outside air.
 UNMAPPED = [
-    ("td5", "balance_1"), ("td5", "injection_qty"), ("td5", "maf"), ("td5", "battery_direct"),
+    ("td5", "ext_temp"), ("td5", "balance_1"), ("td5", "injection_qty"), ("td5", "maf"), ("td5", "battery_direct"),
     ("td5", "ambient_press_2"), ("slabs", "wheel_speed_fl"), ("slabs", "ecu_supply"),
 ]
 

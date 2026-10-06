@@ -137,7 +137,6 @@
     "scale": 0.1,
     "bias": -273.2,
     "unit": "°C",
-    "metric": "Vehicle.Exterior.AirTemperature",
     "confidence": "candidate",
     "limits": [
       -40,
