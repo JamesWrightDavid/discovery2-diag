@@ -145,6 +145,37 @@ def test_docs_are_optional_sources(p):
 
 
 # ---- layout.json -------------------------------------------------------------------------- #
+def _platform_schema(name: str) -> dict:
+    """A platform JSON Schema from its source checkout; skips on a wheel install."""
+    from pathlib import Path
+
+    import openostler
+
+    path = Path(openostler.__file__).resolve().parents[2] / "schemas" / f"{name}.schema.json"
+    if not path.is_file():
+        pytest.skip("platform schema not available (wheel install)")
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def test_layout_validates_against_the_platform_schema(p):
+    jsonschema = pytest.importorskip("jsonschema")
+    schema = _platform_schema("layout")
+    v = jsonschema.Draft202012Validator(schema)
+    assert [e.message for e in v.iter_errors(dict(p.layout))] == []
+
+
+def test_layout_declares_the_driver_side_right(p):
+    """The D2 is right-hand drive: the platform's rail goes on the right (UI spec §3.3)."""
+    assert p.layout["driver_side"] == "right"
+    jsonschema = pytest.importorskip("jsonschema")
+    schema = _platform_schema("layout")
+    if "driver_side" not in schema.get("properties", {}):
+        pytest.skip("the installed platform's layout schema predates driver_side")
+    v = jsonschema.Draft202012Validator(schema)
+    assert list(v.iter_errors({"driver_side": p.layout["driver_side"]})) == []
+    assert list(v.iter_errors({"driver_side": "centre"}))  # the schema really checks it
+
+
 def test_layout_is_valid(p):
     raw = json.loads((p.signals_dir.parent / "layout.json").read_text(encoding="utf-8"))
     assert raw == dict(p.layout)
