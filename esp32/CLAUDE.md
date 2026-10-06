@@ -2,6 +2,11 @@
 
 Arduino firmware: a second K-line comms node and a passive sniffer.
 
+> **Planned move (platform ADR-0034, 2026-10-06):** node firmware becomes first-class in
+> `openostler/ostler-firmware`, with one C decoder that reads this pack's signal JSON
+> (no generated header). `kline_node/` moves there when that repo is created; until then it
+> stays here and the header generator keeps working.
+
 ## Files
 
 - `README.md` — sketches and wiring (L9637D transceiver, UART2 on GPIO16/17).

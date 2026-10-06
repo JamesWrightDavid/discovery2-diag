@@ -2,7 +2,7 @@
 title: "Goals — the Ostler pack for Land Rover Discovery 2, and the platform in brief"
 area: root
 status: stable
-version: 1.1
+version: 1.2
 updated: 2026-10-06
 depends_on: [SCOPE.md]
 summary: >
@@ -52,36 +52,42 @@ any default path".
 > diagnostics and live data, then grows with add-ons.**
 
 Ostler is an open, local-first automotive ecosystem: a smart-home-like platform for your
-car. A base hardware pack interfaces with the vehicle you already have and turns its
-existing systems into a connected IoT platform, with diagnostics and telemetry at the
-core. Add-on modules join over standard networking, the way devices join a smart home:
-the alarm/guardian, cameras, relay boxes, sensors and displays. Every device speaks IP on
+car. An Ostler node plugs into the vehicle you already have and turns its existing
+systems into a connected IoT platform, with diagnostics and telemetry at the core.
+**Ostler Lite** is the node on its own (optional 4G, works offline with a phone);
+**Ostler** adds a Pi brain for the full local app, cameras, logbooks, replay and the
+decode lab. The node owns the car and is its only transmit path; the brain never touches
+the car (platform ADR-0032). Add-on modules join over standard networking, the way
+devices join a smart home: cameras, relay and I/O boxes, sensors and displays. Every device speaks IP on
 an automotive-Ethernet backbone (10BASE-T1S for modules, faster Ethernet for cameras),
 with the same VSS-named, MQTT-style messages, so modules are interchangeable and integrate
 with Home Assistant and the wider IoT world. Full detail in the
 [canonical GOALS.md](https://github.com/openostler/ostler/blob/main/GOALS.md) and its
 [long-term vision](https://github.com/openostler/ostler/blob/main/references/vision.md).
 
-- **Pillars:** diagnostics; a data logger with telemetry; a GPS tracker and a
-  **notify-only** alarm on the always-on guardian add-on (own battery, IoT SIM); add-on
-  modules on a 10BASE-T1S module bus, CAN as fallback (relay box, sensors, head-unit
+- **Pillars:** diagnostics; a data logger with telemetry; a GPS tracker and an alarm
+  on the node, with the **guardian** as a hidden, battery-backed node variant (no outputs;
+  sirens or immobilisers only via a future I/O module, platform ADR-0033); add-on modules
+  on a 10BASE-T1S module bus, CAN as fallback (relay and I/O boxes, sensor nodes, head-unit
   CAN/OBD emulator); IP cameras; MQTT/Home Assistant, OVMS and OwnTracks integration; a
   decode pipeline; community data.
 - **Vehicles:** this D2 first, then other Land Rover and Rover, any OBD-II car
   (`generic_obd2`), modern CAN/UDS, and pre-OBD cars.
 - **Displays are thin clients:** one head-unit-first PWA generated from capability
   manifests, with a garage for several vehicles; later an Ostler Android launcher.
-- **Hardware:** a Pi 5 + CarPiHAT and an ESP32-S3 LTE/GNSS dev kit now; our own boards
-  later.
+- **Hardware:** the node (ESP32-S3, K-line/CAN, GPS, optional 4G) plus an optional Pi 5
+  brain; the KKL cable is dev-only. One C decoder reads this pack's signal JSON on the node
+  and on a PC; Python stays the lab and reference. Our own boards later.
 - **Principles:** local-first and private by default; open standards (COVESA VSS
   canonical, ADR-0016); safety travels with the action; honest confidence; core, add-on or moonshot,
   with the rule of two.
 - **Hard lines:** nothing writes to a car without gates; no EKA, key or immobiliser
   programming in any default path (gated, opt-in only); the
-  VIN is never logged or uploaded; no cloud dependency; no vehicle maker's marks in our
+  VIN is never recorded by default and never leaves the device (platform ADR-0036); no cloud dependency; no vehicle maker's marks in our
   brand.
 - **Business:** official hardware and a closed Ostler Cloud subscription; AGPL code plus
   a commercial licence; CC BY-SA vehicle data; a CLA.
 - **Done:** `VehiclePack` decoupling, the platform/pack repo split, a dev server, a
   version tracker and the UI research. **Next:** UI seams and shell, then opt-in
-  MQTT/Home Assistant, the guardian, `generic_obd2` and CAN add-ons.
+  MQTT/Home Assistant, node firmware (one firmware, all variants), `generic_obd2` and
+  CAN add-ons.

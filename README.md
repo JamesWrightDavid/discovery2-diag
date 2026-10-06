@@ -37,9 +37,10 @@ The full pack goals are in [GOALS.md](GOALS.md).
 ## Part of Ostler
 
 This pack is one part of **Ostler**: *an open, smart-home-like ecosystem for your car. It
-reads your car's diagnostics and live data, then grows with add-ons.* A base hardware pack
-turns the car's existing systems into a connected IoT platform, and add-on modules
-(guardian alarm, cameras, relay boxes, sensors, displays) join over standard IP
+reads your car's diagnostics and live data, then grows with add-ons.* An Ostler node turns
+the car's existing systems into a connected IoT platform (Ostler Lite on its own, or
+Ostler with a Pi brain), and add-on modules (cameras, relay and I/O boxes, sensors,
+displays) join over standard IP
 networking, with Home Assistant integration, for the Discovery 2 first and then any car. The platform's
 full goals are in
 [openostler/ostler GOALS.md](https://github.com/openostler/ostler/blob/main/GOALS.md).
