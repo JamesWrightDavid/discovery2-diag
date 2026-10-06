@@ -144,7 +144,7 @@ in [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md).
   only, no code copied. Credits there to OffTrack (ECU disassembly) and Luca72 (Arduino
   reference).
 - **K-line front-end** (fast-init timing, burst reads, L9637D):
-  [muki01/OBD2_K-line_Reader](https://registry.platformio.org/libraries/muki01/OBD2%20K-Line) (MIT).
+  [muki01/OBD2_K-line_Reader](https://github.com/muki01/OBD2_K-line_Reader) (MIT snapshot; upstream GPL-3.0 since 2026-10-03).
 - **Td5 fault-code text**: cross-validated against a public, community-maintained Td5
   fault-code list (offset/bit → fault text only).
 - Thanks to the **Land Rover community** (forums and shared notes) for fault codes, menu
