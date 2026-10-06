@@ -22,10 +22,8 @@ import time
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src"))
 
-from d2diag.bcu.bcu import BCU_ADDRESS, Bcu  # noqa: E402
 from d2diag.bcu.scan import INPUT_LIDS, moved, scan  # noqa: E402
-from openostler.kline import KLine  # noqa: E402
-from openostler.kwp2000 import KWP2000  # noqa: E402
+from d2diag.kline_profiles import open_session  # noqa: E402
 from openostler.ports import resolve_serial_port  # noqa: E402
 from openostler.transport import SerialTransport  # noqa: E402
 from openostler.transport.logging_transport import LoggingTransport  # noqa: E402
@@ -53,7 +51,7 @@ def main() -> int:
 
     log = os.path.join(_ROOT, "logs", time.strftime("raw-bcu-%Y%m%d-%H%M%S.log"))
     t = LoggingTransport(SerialTransport(resolve_serial_port(args.serial), timeout=1.0), log)
-    bcu = Bcu(KWP2000(KLine(t, target=BCU_ADDRESS), tolerant=True))
+    bcu = open_session("bcu", t)   # the BCU's K-line profile (0x40, 5-baud, unaddressed)
     bcu.open()
     try:
         kw = bcu.establish(progress=lambda m: print("  ·", m, flush=True))

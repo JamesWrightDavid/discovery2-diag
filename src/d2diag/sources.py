@@ -241,14 +241,12 @@ class Td5DataSource(DataSource):
         return self._td5 is not None
 
     def _connect(self):
-        from openostler.kline import KLine
-        from openostler.kwp2000 import KWP2000
-        from .td5 import Td5
+        from .kline_profiles import open_session, profile
 
         if self.on_progress:
             self.on_progress("opening the cable")
         port = resolve_serial_port(self._port)  # auto-detect on every attempt
-        td5 = Td5(KWP2000(KLine(_transport(port, self._raw_log_path)), tolerant=True))
+        td5 = open_session("td5", _transport(port, self._raw_log_path, profile("td5")))
         td5.open()
         td5.establish(progress=self.on_progress, **_sleep_kw(self.on_sleep))
         return td5
@@ -494,15 +492,12 @@ class SlabsDataSource(DataSource):
         return self._slabs is not None
 
     def _connect(self):
-        from openostler.kline import KLine
-        from openostler.kwp2000 import KWP2000
-        from .slabs import SLABS_ADDRESS, Slabs
+        from .kline_profiles import open_session, profile
 
         if self.on_progress:
             self.on_progress("opening the cable")
         port = resolve_serial_port(self._port)
-        slabs = Slabs(KWP2000(KLine(_transport(port, self._raw_log_path), target=SLABS_ADDRESS),
-                              tolerant=True))
+        slabs = open_session("slabs", _transport(port, self._raw_log_path, profile("slabs")))
         slabs.open()
         slabs.establish(progress=self.on_progress, **_sleep_kw(self.on_sleep))
         # The other LIDs the store cares about (the 0x54 heights are read every cycle; the rest

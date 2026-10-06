@@ -19,6 +19,8 @@ The hardware-free pytest suite for the pack. Install the platform and the pack f
   (the Phase 0 / split no-behaviour-change golden).
 - `test_metrics_d2.py` — every store `metric` resolves to a known VSS path, and the
   common-set fields carry the expected one (ADR-0016). Skips on a platform without metrics.
+- `test_kline_profiles_d2.py` — the modules' K-line profiles; a profile-built session
+  sends the same bytes and sleeps as the legacy constructors.
 - `test_<area>.py` — one file per module layer or tool (td5, slabs, bcu, airbag, importer, …).
 
 ## Editing rules

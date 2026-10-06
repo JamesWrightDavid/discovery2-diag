@@ -35,8 +35,10 @@ _DEFAULT_ATTEMPTS = 3
 class Airbag(EcuSession):
     """TRW SPS 2A via slow init 0x5B + addressed framing. **Read only.**
 
-    Construct with ``KWP2000(KLine(transport, target=0x5B), tolerant=True,
-    addressed=True)``. Lifecycle/`read_local`/`read_block` inherited from EcuSession.
+    Build with ``d2diag.kline_profiles.open_session("airbag", transport)`` (the profile:
+    0x5B, addressed frames from F7). The legacy ``KWP2000(KLine(transport, target=0x5B),
+    tolerant=True, addressed=True)`` builds the same session without a profile.
+    Lifecycle/`read_local`/`read_block` inherited from EcuSession.
     """
 
     name = "Airbag"
@@ -50,10 +52,11 @@ class Airbag(EcuSession):
         """5-baud slow init to 0x5B → StartDiagnosticSession (10 81). Returns
         keybytes (KW1, KW2). No SecurityAccess. Raises :class:`KWP2000Error`
         after ``attempts`` attempts."""
+        address = self.profile.init_address if self.profile is not None else AIRBAG_ADDRESS
         last: "Exception | None" = None
         for _ in range(attempts):
             try:
-                kw = self._kwp.slow_init(AIRBAG_ADDRESS)
+                kw = self._kwp.slow_init(address)
                 self._kwp.start_diagnostic_session(_SESSION)
                 return kw
             except (KLineError, KWP2000Error) as exc:

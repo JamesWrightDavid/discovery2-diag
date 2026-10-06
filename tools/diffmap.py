@@ -88,17 +88,12 @@ class ReadOnlyEcu:
 # I/O + interactive CLI
 # --------------------------------------------------------------------------- #
 def _open_session(module: str, port: str) -> ReadOnlyEcu:
-    from openostler.kline import KLine
-    from openostler.kwp2000 import KWP2000
     from openostler.transport import SerialTransport
 
+    from d2diag.kline_profiles import open_session
+
     tp = SerialTransport(port, timeout=1.0)
-    if module == "slabs":
-        from d2diag.slabs import SLABS_ADDRESS, Slabs
-        sess = Slabs(KWP2000(KLine(tp, target=SLABS_ADDRESS), tolerant=True))
-    else:
-        from d2diag.td5 import Td5
-        sess = Td5(KWP2000(KLine(tp), tolerant=True))
+    sess = open_session("slabs" if module == "slabs" else "td5", tp)
     ro = ReadOnlyEcu(sess)
     ro.open()
     ro.establish()

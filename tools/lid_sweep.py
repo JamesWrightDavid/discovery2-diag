@@ -27,11 +27,9 @@ import time
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src"))
 
-from openostler.kline import KLine  # noqa: E402
 from openostler.kline.kline import KLineError  # noqa: E402
-from openostler.kwp2000 import KWP2000  # noqa: E402
 from openostler.kwp2000.kwp2000 import KWP2000Error  # noqa: E402
-from d2diag.td5 import Td5  # noqa: E402
+from d2diag.kline_profiles import open_session  # noqa: E402
 from openostler.transport import SerialTransport  # noqa: E402
 from openostler.web.sources import resolve_serial_port  # noqa: E402
 
@@ -84,7 +82,7 @@ def main() -> int:
         print(f"no cable: {exc}")
         return 1
 
-    t = Td5(KWP2000(KLine(SerialTransport(port, timeout=1.0)), tolerant=True))
+    t = open_session("td5", SerialTransport(port, timeout=1.0))
     t.open()
     span: "dict[str, list[int]]" = {}   # "1C@2" -> [min, max]
     samples: "list[dict]" = []          # per cycle: {key: value} for correlation

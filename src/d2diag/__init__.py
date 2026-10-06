@@ -107,19 +107,22 @@ def _generate(root: str) -> "list[str]":
 def _modules():
     from openostler.pack import ModuleSpec
 
+    from .kline_profiles import KLINE
+
     # Order = display order (catalog module list, coverage-map picker, sources).
+    # ``kline`` = the module's K-line profile overrides (kline_profiles.py).
     return (
         ModuleSpec("td5", "TD5 (engine)", address=0x13, init="fast", keygen=_td5_keygen,
-                   aliases=("motor",), live=True, fault_label="TD5"),
+                   aliases=("motor",), live=True, fault_label="TD5", kline=KLINE["td5"]),
         ModuleSpec("slabs", "SLABS (ABS + air suspension)", address=0x29, init="fast",
-                   live=True, fault_label="SLABS"),
+                   live=True, fault_label="SLABS", kline=KLINE["slabs"]),
         ModuleSpec("bcu", "BCU (body control)", address=0x40, init="slow", live=False,
-                   fault_label="BCU"),
+                   fault_label="BCU", kline=KLINE["bcu"]),
         ModuleSpec("ace", "ACE (active cornering)", init="none", live=False, fault_label="ACE"),
         ModuleSpec("autobox", "EAT (auto gearbox)", init="none", aliases=("eat", "gearbox"),
                    live=False, fault_label="Auto Gearbox"),
         ModuleSpec("airbag", "SRS (airbag)", address=0x5B, init="slow", live=False,
-                   fault_label="Airbag"),
+                   fault_label="Airbag", kline=KLINE["airbag"]),
     )
 
 

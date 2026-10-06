@@ -83,12 +83,10 @@ entry point. Exactly one installed pack is picked up automatically; with several
 The module layers also work as a library:
 
 ```python
-from openostler.kline import KLine
-from openostler.kwp2000 import KWP2000
 from openostler.transport import SerialTransport
-from d2diag.td5 import Td5
+from d2diag.kline_profiles import open_session
 
-td5 = Td5(KWP2000(KLine(SerialTransport("/dev/cu.usbserial-XXXX")), tolerant=True))
+td5 = open_session("td5", SerialTransport("/dev/cu.usbserial-XXXX"))   # the Td5's K-line profile
 with td5:
     td5.establish()             # fast init → session → SecurityAccess unlock
     print(td5.read_faults())
