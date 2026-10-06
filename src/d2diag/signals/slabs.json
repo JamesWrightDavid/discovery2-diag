@@ -7,6 +7,7 @@
     "scale": 1.0,
     "bias": 0.0,
     "unit": "",
+    "metric": "Vehicle.Ostler.Chassis.RideHeight.RearLeftRaw",
     "confidence": "proven",
     "limits": null,
     "source": "21 54 byte0 = left height; proven via variance session.log 2026-08-08. Normal band ~135–165 raw (≈1.4 mm per count): RDL 016 read 149/162; owners' NanoCom/Hawkeye logs 138–157 (landyzone 314170, 402791). Calibration-dependent: L and R may differ on level ground, so L≈R is not a health check. Fixed 0/255 = broken arm/sensor. See references/d2-tool-cross-reference.md.",
@@ -30,6 +31,7 @@
     "scale": 1.0,
     "bias": 0.0,
     "unit": "",
+    "metric": "Vehicle.Ostler.Chassis.RideHeight.RearRightRaw",
     "confidence": "proven",
     "limits": null,
     "source": "21 54 byte1 = right height; proven via variance session.log 2026-08-08. Normal band ~135–165 raw (≈1.4 mm per count): RDL 016 read 149/162; owners' NanoCom/Hawkeye logs 138–157 (landyzone 314170, 402791). Calibration-dependent: L and R may differ on level ground, so L≈R is not a health check. Fixed 0/255 = broken arm/sensor. See references/d2-tool-cross-reference.md.",
@@ -73,6 +75,7 @@
     "scale": 0.0625,
     "bias": 0.0,
     "unit": "V",
+    "metric": "Vehicle.LowVoltageBattery.CurrentVoltage",
     "confidence": "proven",
     "limits": [
       11.5,
@@ -347,6 +350,7 @@
     "scale": 1.0,
     "bias": 0.0,
     "unit": "",
+    "metric": "Vehicle.Powertrain.Transmission.IsLowRangeEngaged",
     "confidence": "proven",
     "states": {
       "0": "high or neutral",

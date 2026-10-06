@@ -2,7 +2,7 @@
 title: Architecture and key seams
 area: docs
 status: stable
-version: 2.0
+version: 2.1
 updated: 2026-10-06
 depends_on: [SCOPE.md, CONSTITUTION.md]
 summary: >
@@ -98,6 +98,11 @@ Data sources   d2diag.sources (Td5/SLABS sources over openostler.web.sources.Dat
   - Decoders, the dashboard and automap all read it (through `openostler.signals`).
   - Confirmed mappings are written back with `upsert_field`.
   - Each field carries `confidence`, either `proven` or `candidate`.
+  - A field with a canonical meaning also carries `metric`, a COVESA VSS path such as
+    `Vehicle.Speed` (platform ADR-0016). It must resolve via `openostler.metrics.is_known`.
+    Pack-private fields (injector balance, EGR, raw wheel speeds) have none. The store keeps
+    its own units; conversion to the VSS unit is the platform's job.
+    `tests/test_metrics_d2.py` pins the mapping.
 - **`d2diag.sources` is the pack's protocol/UI boundary.**
   - Each `DataSource.poll()` returns `{status, signals, faults}`.
   - `DERIVED_FIELDS` (fuel computer, ride heights in mm) adds presentation metadata for
@@ -149,3 +154,5 @@ Data sources   d2diag.sources (Td5/SLABS sources over openostler.web.sources.Dat
   names and the SQLite session index (ADR-0011).
 - 2026-10-06 — Repo split: rewritten as the pack's map; the platform layers (server, UI,
   logbook, geo) moved to openostler/ostler.
+- 2026-10-06 — Signal records now carry a VSS `metric` where the meaning is canonical
+  (ADR-0016, U0 seams).

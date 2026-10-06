@@ -93,6 +93,19 @@ def _signal_store_names() -> "list[str]":
 
 
 def capture() -> dict:
+    # The platform stamps a per-install vehicle id (U0); pin it so the fixture is stable.
+    prev_vid = os.environ.get("OSTLER_VEHICLE_ID")
+    os.environ["OSTLER_VEHICLE_ID"] = "golden"
+    try:
+        return _capture()
+    finally:
+        if prev_vid is None:
+            os.environ.pop("OSTLER_VEHICLE_ID", None)
+        else:
+            os.environ["OSTLER_VEHICLE_ID"] = prev_vid
+
+
+def _capture() -> dict:
     from openostler import catalog, commands, faultscan, modscan
     from openostler.logbook import channels
     from openostler.logbook.store import SessionStore
