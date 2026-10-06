@@ -65,6 +65,17 @@ def _digest(obj) -> str:
     return hashlib.sha256(blob.encode("utf-8")).hexdigest()
 
 
+# Fields the platform added after Phase 0 (API consistency, additive). The golden pins
+# the Phase 0 behaviour, so it ignores them and passes on platforms with or without them.
+_ADDED_AFTER_PHASE0 = ("t0_utc", "trace")
+
+
+def _phase0_data(data):
+    if isinstance(data, dict):
+        return {k: v for k, v in data.items() if k not in _ADDED_AFTER_PHASE0}
+    return data
+
+
 def _jsonable(obj):
     return json.loads(json.dumps(obj, ensure_ascii=False, default=str))
 
@@ -194,7 +205,7 @@ def _capture() -> dict:
                 "meta": st.meta(sid),
                 "meta_public": st.meta(sid, public=True),
                 "events_digest": _digest(st.events(sid)),
-                "data_digest": _digest(st.data(sid)),
+                "data_digest": _digest(_phase0_data(st.data(sid))),
                 "notes_digest": _digest(st.notes(sid)),
             }
         out["sessions"] = sess
