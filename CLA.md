@@ -10,8 +10,10 @@ summary: >
 
 # Contributor License Agreement (CLA)
 
-Thank you for contributing to **discovery2-diag** ("the Project"). This agreement lets the
-maintainer keep the Project open source under AGPL-3.0-or-later (code) and CC BY-SA 4.0
+Thank you for contributing to
+**[ostler-pack-lr-d2](https://github.com/openostler/ostler-pack-lr-d2)** (formerly
+discovery2-diag; "the Project"). This agreement lets the maintainer keep the Project open
+source under AGPL-3.0-or-later (code) and CC BY-SA 4.0
 (vehicle data) **and** offer it under other terms — for example a commercial licence for
 closed or embedded use — which funds the Project. It is modelled on the Apache Software
 Foundation Individual CLA. It is not legal advice; if you contribute on behalf of an

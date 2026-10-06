@@ -17,7 +17,7 @@ dependencies = ["openostler", "pyserial>=3.5"]
 
 [project.urls]
 Homepage = "https://ostler.tech"
-Source = "https://github.com/JamesWrightDavid/discovery2-diag"
+Source = "https://github.com/openostler/ostler-pack-lr-d2"
 Platform = "https://github.com/openostler/ostler"
 
 [project.optional-dependencies]
