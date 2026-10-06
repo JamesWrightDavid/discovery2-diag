@@ -11,7 +11,8 @@ The hardware-free pytest suite for the pack. Install the platform and the pack f
   scaffolding; the product has no demo mode).
 - `test_pack_contract.py` — the pack resolves through the `openostler.vehicle` entry point
   and satisfies the platform's `VehiclePack` contract (api_version, manifest, module ids,
-  stores, actions, sniff spec, `layout.json`).
+  stores, actions, sniff spec, `layout.json` against the platform's layout schema, with
+  `driver_side: "right"`).
 - `test_lr_d2_pack.py` — pack members, ids and aliases. `test_d2_catalog.py` — the real
   menus against the platform catalog (links resolve, drift guard).
   `test_demo_sessions.py` — the committed demo sessions regenerate byte for byte.

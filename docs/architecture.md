@@ -2,7 +2,7 @@
 title: Architecture and key seams
 area: docs
 status: stable
-version: 2.2
+version: 2.3
 updated: 2026-10-06
 depends_on: [SCOPE.md, CONSTITUTION.md]
 summary: >
@@ -65,6 +65,10 @@ openostler.pack.active_pack()
   menus, keygen, derived fields and sources are reached through lazy wrappers.
 - **Docs** are only offered from a source checkout (editable install); a wheel ships the
   data, not `docs/` or `references/`.
+- **`layout.json`** is the screen layout the platform UI reads (`GET /pack` → `layout`),
+  checked against the platform's `schemas/layout.schema.json` by `test_pack_contract.py`.
+  It declares `driver_side: "right"` (the D2 is right-hand drive), so the platform puts
+  its rail on the right on landscape screens (platform UI spec §3.3; added 2026-10-06).
 
 ## The stack
 
