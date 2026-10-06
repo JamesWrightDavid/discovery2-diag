@@ -12,14 +12,18 @@ from __future__ import annotations
 from openostler.pack import FaultReader
 
 
-def read_td5(real_port: str) -> "list[str]":
-    from openostler.kline import KLine
-    from openostler.kwp2000 import KWP2000
+def _open(module_id: str, real_port: str):
+    """The module's session from its K-line profile (``kline_profiles.open_session``) on a
+    serial port. The port's default line format, 10400 8N1, is every D2 profile's."""
     from openostler.transport import SerialTransport
 
-    from .td5 import Td5
+    from .kline_profiles import open_session
 
-    t = Td5(KWP2000(KLine(SerialTransport(real_port, timeout=1.0)), tolerant=True))
+    return open_session(module_id, SerialTransport(real_port, timeout=1.0))
+
+
+def read_td5(real_port: str) -> "list[str]":
+    t = _open("td5", real_port)
     t.open()
     try:
         t.establish()
@@ -29,14 +33,7 @@ def read_td5(real_port: str) -> "list[str]":
 
 
 def read_slabs(real_port: str) -> "list[str]":
-    from openostler.kline import KLine
-    from openostler.kwp2000 import KWP2000
-    from openostler.transport import SerialTransport
-
-    from .slabs import SLABS_ADDRESS, Slabs
-
-    s = Slabs(KWP2000(KLine(SerialTransport(real_port, timeout=1.0), target=SLABS_ADDRESS),
-                      tolerant=True))
+    s = _open("slabs", real_port)
     s.open()
     try:
         s.establish()
@@ -49,14 +46,7 @@ def read_slabs(real_port: str) -> "list[str]":
 
 def read_airbag(real_port: str) -> "list[str]":
     """Experimental and read-only by construction (no clear, no outputs, no security)."""
-    from openostler.kline import KLine
-    from openostler.kwp2000 import KWP2000
-    from openostler.transport import SerialTransport
-
-    from .airbag import AIRBAG_ADDRESS, Airbag
-
-    a = Airbag(KWP2000(KLine(SerialTransport(real_port, timeout=1.0), target=AIRBAG_ADDRESS),
-                       tolerant=True, addressed=True))
+    a = _open("airbag", real_port)
     a.open()
     try:
         a.establish()

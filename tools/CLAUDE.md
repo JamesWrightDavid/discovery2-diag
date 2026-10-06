@@ -9,6 +9,8 @@ the platform's `tools/dashboard.py`.
 
 - `verify_ecu.py`, `module_scan.py`, `bcu_scan.py` — read-only live checks, the address
   scan and the BCU input scan (logic in `openostler.modscan`, `d2diag/bcu/scan.py`).
+  `module_scan.py` is Parked-only: it refuses to sweep without `--confirm-parked` or a
+  "yes" at its prompt.
 - `decode_session.py`, `analyze_capture.py`, `raw_analyze.py`, `diffmap.py`,
   `lid_sweep.py`, `map_inputs.py`, `map_gui.py`, `nanocom_import.py`,
   `parse_nanocom_emulator.py` — capture analysis and mapping (`nanocom_import` logic in
@@ -20,4 +22,6 @@ the platform's `tools/dashboard.py`.
 ## Editing rules
 
 - Keep logic in `src/d2diag/`. Tools are thin wrappers so the logic stays testable.
+- Build a module session with `d2diag.kline_profiles.open_session(module, transport)`, so
+  every tool talks to a module with its declared K-line profile.
 - Generators read the canonical store. Never hand-edit their output; CI runs `--check`.

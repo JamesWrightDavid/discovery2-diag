@@ -19,8 +19,7 @@ import time
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src"))
 
-from openostler.kline import KLine  # noqa: E402
-from openostler.kwp2000 import KWP2000  # noqa: E402
+from d2diag.kline_profiles import open_session  # noqa: E402
 from openostler.signals import upsert_field  # noqa: E402
 from openostler.transport import EspTransport, SerialTransport  # noqa: E402
 
@@ -101,18 +100,9 @@ def _transport(port: str, esp: bool):
 
 def _establish(module: str, port: str, esp: bool):
     """Return an established module session with read_block()."""
-    t = _transport(port, esp)
-    if module == "td5":
-        from d2diag.td5 import Td5
-        s = Td5(KWP2000(KLine(t), tolerant=True))
-    elif module == "slabs":
-        from d2diag.slabs import SLABS_ADDRESS, Slabs
-        s = Slabs(KWP2000(KLine(t, target=SLABS_ADDRESS), tolerant=True))
-    elif module == "bcu":
-        from d2diag.bcu import BCU_ADDRESS, Bcu
-        s = Bcu(KWP2000(KLine(t, target=BCU_ADDRESS), tolerant=True))
-    else:
+    if module not in ("td5", "slabs", "bcu"):
         raise SystemExit(f"unknown module {module!r}")
+    s = open_session(module, _transport(port, esp))   # the module's K-line profile
     s.open()
     print(f"{module.upper()}: establishing…", file=sys.stderr)
     s.establish()

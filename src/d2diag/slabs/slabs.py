@@ -69,7 +69,9 @@ class Slabs(EcuSession):
     are inherited from :class:`EcuSession`."""
 
     name = "SLABS"
-    _keepalive_sub = None  # SLABS wants a bare 3E (sniffed frame 01 3e 3f), not 3E 01
+    # SLABS wants a bare 3E (sniffed frame 01 3e 3f), not 3E 01. The profile says so
+    # (``keepalive: 3E``); this is the legacy path for a session built without a profile.
+    _keepalive_sub = None
 
     # Cycle address mode between attempts. Functional first because those frames accounted
     # for 6 hits out of 24 versus physical 1 out of 21 in the car 2026-08-19 — BUT that number is

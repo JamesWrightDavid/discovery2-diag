@@ -41,12 +41,15 @@ _DEFAULT_ATTEMPTS = 3
 class Bcu(EcuSession):
     """Valeo BCU via 5-baud slow init. Reads EKA code and ECU identification.
 
-    Construct with ``KWP2000(KLine(transport, target=BCU_ADDRESS), tolerant=True)``
-    — the session is UNADDRESSED (unlike the airbag).
+    Build with ``d2diag.kline_profiles.open_session("bcu", transport)`` (the profile); the
+    legacy ``KWP2000(KLine(transport, target=BCU_ADDRESS), tolerant=True)`` builds the same
+    session without one — the session is UNADDRESSED (unlike the airbag).
     """
 
     name = "BCU"
-    # Keepalive with sub-byte: the sniff shows `02 3e 01 41`, not SLABS's bare `3E`.
+    # Keepalive with sub-byte: the sniff shows `02 3e 01 41`, not SLABS's bare `3E`. The
+    # profile says so (``keepalive: 3E 01``); this is the legacy path for a session built
+    # without a profile.
     _keepalive_sub = 0x01
 
     def establish(
@@ -63,12 +66,13 @@ class Bcu(EcuSession):
         it we do not know. Try the read first; a ``securityAccessDenied`` (NRC
         0x33) is in itself an answer worth getting.
         """
+        address = self.profile.init_address if self.profile is not None else BCU_ADDRESS
         last: "Exception | None" = None
         for i in range(attempts):
             if progress:
-                progress(f"5-baud slow init to 0x{BCU_ADDRESS:02X} (attempt {i+1}/{attempts})")
+                progress(f"5-baud slow init to 0x{address:02X} (attempt {i+1}/{attempts})")
             try:
-                kw = self._kwp.slow_init(BCU_ADDRESS)
+                kw = self._kwp.slow_init(address)
                 if progress:
                     progress(f"handshake done, keybytes {kw[0]:02X} {kw[1]:02X}")
                 return kw

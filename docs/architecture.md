@@ -2,7 +2,7 @@
 title: Architecture and key seams
 area: docs
 status: stable
-version: 2.1
+version: 2.2
 updated: 2026-10-06
 depends_on: [SCOPE.md, CONSTITUTION.md]
 summary: >
@@ -51,7 +51,7 @@ match the surrounding style.
 openostler.pack.active_pack()
    └─ entry point openostler.vehicle: lr_d2 = "d2diag:PACK"
         └─ d2diag/__init__.py: PACK built lazily on first access
-             modules (ModuleSpec: id, name, address, init, keygen, aliases, live)
+             modules (ModuleSpec: id, name, address, init, keygen, aliases, live, kline)
              sources(port) → {td5: Td5DataSource, slabs: SlabsDataSource, others: InfoDataSource}
              signals_dir, dtc_dir, actions, menus, unlinked_ok, derived_fields
              faultscan readers, sniff spec + importers, demo, docs, layout.json
@@ -75,6 +75,7 @@ Transport      openostler.transport: raw bytes in/out (SerialTransport, LoggingT
 K-Line         openostler.kline (encode/decode, fast/slow init, echo, retries)
 KWP2000        openostler.kwp2000: service IDs, negative responses, responsePending
 EcuSession     openostler.session: shared lifecycle/keepalive/read_block + tolerant retry
+Profiles       d2diag.kline_profiles: each module's K-line profile + open_session()
 Module layer   d2diag.td5 · slabs · airbag · bcu (+ ace/ autobox/ menu stubs)
 Data sources   d2diag.sources (Td5/SLABS sources over openostler.web.sources.DataSource)
 ```
@@ -90,8 +91,19 @@ Data sources   d2diag.sources (Td5/SLABS sources over openostler.web.sources.Dat
 - **`EcuSession` is where module layers share behaviour.**
   - Subclasses set `name` and call `_establish(after=…)`.
   - Td5 passes `after=self.connect` (StartDiagnosticSession + SecurityAccess seed→key).
-  - SLABS passes `after=None`, because its services work right after fast init. It also
-    sets `_keepalive_sub = None` so it gets a bare `3E`.
+  - SLABS passes `after=None`, because its services work right after fast init. Its
+    profile's keep-alive is a bare `3E` (`_keepalive_sub = None` covers a session built
+    without a profile).
+- **K-line profiles are data** (platform ADR-0022, K-line profiles spec migration step 2).
+  - `d2diag/kline_profiles.py` declares the Td5, SLABS, BCU and airbag overrides of the
+    platform built-ins (`kwp2000_fast`/`kwp2000_slow`) as `ModuleSpec.kline`: tester
+    `0xF7`, header and length mode, keep-alive frame, 5-baud `~address` handling, and the
+    platform's link idles and P3 guard switched off.
+  - `open_session(module, transport)` builds every session (sources, fault scan, tools)
+    via `KLine.from_profile`, `KWP2000.from_profile` and the session's `profile`.
+  - Settle and retry sleeps, the SLABS init-variant cycle and `1A 8A` confirm, and the
+    Td5/airbag sessions stay module code. `tests/test_kline_profiles_d2.py` pins that the
+    wire bytes and sleeps equal the legacy constructors'.
 - **`EcuSession.read_block(lids) -> {lid_hex: bytes}`** has exactly the shape
   `openostler.sniff.automap` consumes. That lets a live session feed the differential mapper.
 - **Signal store (`src/d2diag/signals/*.json`).**

@@ -19,8 +19,7 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src"))
 
-from openostler.kline import KLine  # noqa: E402
-from openostler.kwp2000 import KWP2000  # noqa: E402
+from d2diag.kline_profiles import open_session  # noqa: E402
 from openostler.transport import EspTransport, SerialTransport  # noqa: E402
 
 
@@ -33,15 +32,13 @@ def _transport(port: str, esp: bool):
     return EspTransport(port) if esp else SerialTransport(port, timeout=1.0)
 
 
-def _kwp(port: str, target: "int | None" = None, esp: bool = False) -> KWP2000:
-    kline = KLine(_transport(port, esp), target=target) if target is not None \
-        else KLine(_transport(port, esp))
-    return KWP2000(kline, tolerant=True)
+def _session(module: str, port: str, esp: bool = False):
+    """The module's session from its K-line profile (``d2diag.kline_profiles``)."""
+    return open_session(module, _transport(port, esp))
 
 
 def verify_td5(port: str, buzzer: bool = False, esp: bool = False) -> int:
-    from d2diag.td5 import Td5
-    t = Td5(_kwp(port, esp=esp))
+    t = _session("td5", port, esp)
     t.open()
     try:
         print("TD5: establishing (fast init 0x13 → session A0 → security)…")
@@ -60,8 +57,7 @@ def verify_td5(port: str, buzzer: bool = False, esp: bool = False) -> int:
 
 
 def verify_slabs(port: str, buzzer: bool = False, esp: bool = False) -> int:
-    from d2diag.slabs import SLABS_ADDRESS, Slabs
-    s = Slabs(_kwp(port, target=SLABS_ADDRESS, esp=esp))
+    s = _session("slabs", port, esp)
     s.open()
     try:
         print("SLABS: establishing (fast init 0x29)…")
@@ -94,8 +90,7 @@ def verify_slabs(port: str, buzzer: bool = False, esp: bool = False) -> int:
 
 
 def verify_bcu(port: str, buzzer: bool = False, esp: bool = False) -> int:
-    from d2diag.bcu import BCU_ADDRESS, Bcu
-    b = Bcu(_kwp(port, target=BCU_ADDRESS, esp=esp))   # 5-baud slow init, unaddressed session
+    b = _session("bcu", port, esp)   # 5-baud slow init, unaddressed session
     b.open()
     try:
         print("BCU: 5-baud slow init to 0x40 (tip: needs an ignition cycle to connect)…")
@@ -111,9 +106,8 @@ def verify_bcu(port: str, buzzer: bool = False, esp: bool = False) -> int:
 
 
 def verify_airbag(port: str, buzzer: bool = False, esp: bool = False) -> int:
-    from d2diag.airbag import AIRBAG_ADDRESS, Airbag
     # Airbag is addressed framing throughout (unlike TD5/SLABS/BCU). Read-only by construction.
-    a = Airbag(KWP2000(KLine(_transport(port, esp), target=AIRBAG_ADDRESS), tolerant=True, addressed=True))
+    a = _session("airbag", port, esp)
     a.open()
     try:
         print("AIRBAG: 5-baud slow init to 0x5B → StartDiagnosticSession…")
