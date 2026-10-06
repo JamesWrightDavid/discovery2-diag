@@ -1,7 +1,7 @@
 # Ostler pack for Land Rover Discovery 2
 
 The **Land Rover Discovery 2 (Td5)** vehicle pack for **[Ostler](https://ostler.tech)**,
-the open vehicle platform ([openostler/ostler](https://github.com/openostler/ostler)).
+the open, smart-home-like ecosystem for your car ([openostler/ostler](https://github.com/openostler/ostler)).
 
 The D2 is a little too old for CAN bus: it talks to its control modules over **K-line**.
 With a cheap OBD2-to-USB KKL cable (~€20–30) or an ESP32 tap, the platform speaks that
@@ -36,9 +36,11 @@ The full pack goals are in [GOALS.md](GOALS.md).
 
 ## Part of Ostler
 
-This pack is one part of **Ostler**, an open, local-first vehicle platform: diagnostics,
-logging and telemetry, a GPS tracker and notify-only alarm, add-on devices, cameras and
-Home Assistant integration, for the Discovery 2 first and then any car. The platform's
+This pack is one part of **Ostler**: *an open, smart-home-like ecosystem for your car. It
+reads your car's diagnostics and live data, then grows with add-ons.* A base hardware pack
+turns the car's existing systems into a connected IoT platform, and add-on modules
+(guardian alarm, cameras, relay boxes, sensors, displays) join over standard IP
+networking, with Home Assistant integration, for the Discovery 2 first and then any car. The platform's
 full goals are in
 [openostler/ostler GOALS.md](https://github.com/openostler/ostler/blob/main/GOALS.md).
 

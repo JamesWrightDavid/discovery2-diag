@@ -2,7 +2,7 @@
 title: "Goals — the Ostler pack for Land Rover Discovery 2, and the platform in brief"
 area: root
 status: stable
-version: 1.0
+version: 1.1
 updated: 2026-10-06
 depends_on: [SCOPE.md]
 summary: >
@@ -48,15 +48,25 @@ any default path".
 
 ## The Ostler platform, in brief
 
-Ostler aims to be **the Home Assistant of the automotive world**: an open, local-first
-vehicle platform on hardware you own. Full detail in the
-[canonical GOALS.md](https://github.com/openostler/ostler/blob/main/GOALS.md).
+> **Ostler: an open, smart-home-like ecosystem for your car. It reads your car's
+> diagnostics and live data, then grows with add-ons.**
+
+Ostler is an open, local-first automotive ecosystem: a smart-home-like platform for your
+car. A base hardware pack interfaces with the vehicle you already have and turns its
+existing systems into a connected IoT platform, with diagnostics and telemetry at the
+core. Add-on modules join over standard networking, the way devices join a smart home:
+the alarm/guardian, cameras, relay boxes, sensors and displays. Every device speaks IP on
+an automotive-Ethernet backbone (10BASE-T1S for modules, faster Ethernet for cameras),
+with the same VSS-named, MQTT-style messages, so modules are interchangeable and integrate
+with Home Assistant and the wider IoT world. Full detail in the
+[canonical GOALS.md](https://github.com/openostler/ostler/blob/main/GOALS.md) and its
+[long-term vision](https://github.com/openostler/ostler/blob/main/references/vision.md).
 
 - **Pillars:** diagnostics; a data logger with telemetry; a GPS tracker and a
-  **notify-only** alarm on an always-on ESP32 guardian (own battery, IoT SIM); add-on
-  devices on a private CAN bus (relay box, head-unit CAN/OBD emulator); cameras on our own
-  infrastructure; MQTT/Home Assistant, OVMS and OwnTracks integration; a decode pipeline;
-  community data.
+  **notify-only** alarm on the always-on guardian add-on (own battery, IoT SIM); add-on
+  modules on a 10BASE-T1S module bus, CAN as fallback (relay box, sensors, head-unit
+  CAN/OBD emulator); IP cameras; MQTT/Home Assistant, OVMS and OwnTracks integration; a
+  decode pipeline; community data.
 - **Vehicles:** this D2 first, then other Land Rover and Rover, any OBD-II car
   (`generic_obd2`), modern CAN/UDS, and pre-OBD cars.
 - **Displays are thin clients:** one head-unit-first PWA generated from capability
