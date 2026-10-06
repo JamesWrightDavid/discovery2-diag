@@ -1,11 +1,24 @@
 # muki01 / OBD2_K-line_Reader — reference
 
-Saved reference (via the Wayback Machine 2025-10) of **muki01/OBD2_K-line_Reader**,
-an OBD2 K-line library (ISO 9141 / ISO 14230 KWP2000, slow + fast init) for
-Arduino/ESP32. **License: MIT** (per the PlatformIO/Arduino registry). Author: muki01.
+A saved copy of `Basic_Code/` and `Schematics/` from
+[muki01/OBD2_K-line_Reader](https://github.com/muki01/OBD2_K-line_Reader), a ready-to-flash
+OBD2 K-line scan-tool firmware (ISO 9141-2 / ISO 14230 KWP2000, slow and fast init) for
+Arduino/ESP32. Author: Muksin Muksin (muki01).
 
-- PlatformIO: https://registry.platformio.org/libraries/muki01/OBD2%20K-Line
-- Archived source (the repo has been removed from GitHub): `web.archive.org/.../muki01/OBD2_K-line_Reader`
+- **Snapshot:** upstream commit `a1946a7` (2025-09-24), byte-identical except for a trailing
+  newline. The repository is still on GitHub; an earlier version of this note wrongly said
+  it had been removed.
+- **Licence of this copy: MIT** ("Copyright (c) 2023 Muksin Muksin"). Upstream was MIT until
+  `91ae045` (2026-10-01) and has been GPL-3.0, with a commercial licence offered, since
+  `aef63b4` (2026-10-03). Port only from `91ae045` or earlier, with the notice kept, and
+  never from HEAD.
+- **Not the library.** The PlatformIO entry "muki01/OBD2 K-Line" is the companion
+  [OBD2_KLine_Library](https://github.com/muki01/OBD2_KLine_Library). Its current files carry
+  non-commercial or conflicting licence headers, so it is facts only and we take no code.
+- **Known bug in this snapshot:** request headers come from the *selected* protocol, so
+  Automatic mode sends frames with no header. Upstream later switched to the *connected*
+  protocol. Use this copy as a timing reference, not as working code.
+- Full audit: the Ostler platform repo, `references/research/muki01/obd2_kline_reader.md`.
 
 ## What we take from here (into the ESP32 port)
 

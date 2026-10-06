@@ -58,11 +58,14 @@ verified against our own captures. Since ADR-0012 the project is AGPL-3.0-or-lat
 is compatible with GPL-3.0: code could now be reused **with** its GPL-3.0 notice and
 attribution recorded here — none has been so far.
 
-## muki01/OBD2_K-line_Reader — K-line reference (MIT)
+## muki01/OBD2_K-line_Reader — K-line reference (MIT snapshot; upstream now GPL-3.0)
 
-[muki01/OBD2_K-line_Reader](https://registry.platformio.org/libraries/muki01/OBD2%20K-Line)
-— OBD2 K-line library (ISO 9141 / ISO 14230) for Arduino/ESP32, **MIT license**.
-An archived copy (Basic_Code + Schematics) is in `references/muki01_OBD2_K-line_Reader/`
+[muki01/OBD2_K-line_Reader](https://github.com/muki01/OBD2_K-line_Reader) — OBD2 K-line
+scan-tool firmware (ISO 9141 / ISO 14230) for Arduino/ESP32, © 2023 Muksin Muksin.
+**MIT until `91ae045` (2026-10-01); GPL-3.0 (plus a commercial licence) since `aef63b4`
+(2026-10-03).** We use the MIT snapshot only and never port from upstream HEAD (ADR-0019).
+The companion OBD2_KLine_Library carries non-commercial headers: facts only.
+The MIT snapshot (Basic_Code + Schematics, upstream `a1946a7`) is in `references/muki01_OBD2_K-line_Reader/`
 as a reference for the ESP32 port (fast init timing, burst reading, L9637D interface). MIT
 allows reuse with the copyright and license notice retained; keep this
 attribution if code from there is ported in.
