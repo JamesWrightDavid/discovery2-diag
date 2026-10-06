@@ -7,6 +7,7 @@
     "scale": 1.0,
     "bias": 0.0,
     "unit": "rpm",
+    "metric": "Vehicle.Powertrain.CombustionEngine.Speed",
     "confidence": "proven",
     "limits": [
       0,
@@ -33,6 +34,7 @@
     "scale": 1.0,
     "bias": 0.0,
     "unit": "km/h",
+    "metric": "Vehicle.Speed",
     "confidence": "proven",
     "limits": [
       0,
@@ -55,6 +57,7 @@
     "scale": 0.001,
     "bias": 0.0,
     "unit": "V",
+    "metric": "Vehicle.LowVoltageBattery.CurrentVoltage",
     "confidence": "proven",
     "limits": [
       11.5,
@@ -81,6 +84,7 @@
     "scale": 0.1,
     "bias": -273.2,
     "unit": "°C",
+    "metric": "Vehicle.Powertrain.CombustionEngine.EngineCoolant.Temperature",
     "confidence": "proven",
     "limits": [
       -40,
@@ -133,6 +137,7 @@
     "scale": 0.1,
     "bias": -273.2,
     "unit": "°C",
+    "metric": "Vehicle.Exterior.AirTemperature",
     "confidence": "candidate",
     "limits": [
       -40,
@@ -256,6 +261,7 @@
     "scale": 0.0001,
     "bias": 0.0,
     "unit": "bar",
+    "metric": "Vehicle.Powertrain.CombustionEngine.MAP",
     "confidence": "proven",
     "limits": [
       0.8,
@@ -308,6 +314,7 @@
     "scale": 0.0001,
     "bias": 0.0,
     "unit": "bar",
+    "metric": "Vehicle.Exterior.AirPressure",
     "confidence": "proven",
     "limits": [
       0.8,
@@ -578,6 +585,7 @@
     "scale": 0.1,
     "bias": 0.0,
     "unit": "kg/hr",
+    "metric": "Vehicle.Powertrain.CombustionEngine.MAF",
     "confidence": "proven",
     "source": "21 1C@4 = PHYSICAL MAF sensor (hot-film, 3-wire). Faulted on RDL016 (reads 0/stuck) — logged RAW to confirm whether it EVER responds to airflow, vs the 1D@4 MODELLED air mass. Separate upstream IAT feeds the model. 2026-08-29. UPDATE 2026-10-04 on D2-JW (this fork's car, ECU NNN000130), whose sensor WORKS — non-zero at idle before and after the 15:46 fault clear; the dead/zero readings above were RDL 016's faulted sensor. Stationary revs in P: idle 760rpm/1.04bar -> 478, 1575/1.09 -> 1143, 2600/1.29 -> 2154 (repeat 2119-2147): proportional to rpm x MAP (ratio 0.61/0.67/0.64). Scale x0.1 kg/h (BinOwl_Td5Gauge) gives 48/114/215 kg/h, physically plausible for 2.5 L (theoretical ~62/~260 at VE 0.9). The zeros in older logs are RDL 016 (faulted MAF), a different car. Field identity strong; scale from the reference + physics. Re-read through the decoder on the car 2026-10-04 after a dashboard restart: idle 47.5 kg/h (1.76 V), 2560 rpm 207-210 kg/h (3.41-3.43 V) vs modelled 213-218 -> proven (field identity; x0.1 scale per the reference + physics).",
     "label": "Air flow (measured)",
@@ -979,6 +987,7 @@
     "scale": 0.01,
     "bias": 0.0,
     "unit": "%",
+    "metric": "Vehicle.Chassis.Accelerator.PedalPosition",
     "confidence": "proven",
     "limits": [
       0,
@@ -1025,6 +1034,7 @@
     "scale": 0.01,
     "bias": 0.0,
     "unit": "%",
+    "metric": "Vehicle.Chassis.Accelerator.PedalPosition",
     "confidence": "candidate",
     "limits": [
       0,
