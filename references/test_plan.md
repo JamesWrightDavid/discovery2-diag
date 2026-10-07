@@ -2,7 +2,7 @@
 title: "Test backlog — the living plan for what to do next in the car"
 area: references
 status: stable
-version: 1.3
+version: 1.4
 updated: 2026-10-07
 summary: >
   Living backlog of what to test next in the car or with a borrowed tool, each item with context tag, procedure and pre-written decision rule; Resolved log.
@@ -16,7 +16,7 @@ After the session, route each result to its permanent home (table below), then m
 item down to **Resolved** with the date and the outcome. Nothing else in the repo is a
 to-do list for car work — `TODO.md` covers code and infrastructure only.
 
-Updated 2026-10-01.
+Updated 2026-10-07.
 
 ## How to use it
 
@@ -405,6 +405,24 @@ Run the new app (`/`) next to `/legacy/v2` on TD5 then SLABS. **Decision rule:**
 Drive/Inputs value, fault, output and capture matches, delete the legacy pages; any gap
 becomes an issue first (`specs/2026-10-01-web-ui-design.md`).
 
+#### T-34 `[key-on]` `[idle]` `[tool]` — OBDLink MX+/EX (STN) against Td5 and SLABS
+Can an off-the-shelf STN adapter replace the KKL cable on the D2? Platform source-adapters
+spec, phase A4 and decision 11; ADR-0044 (an adapter may run on the Brain only when no node
+is fitted). Borrow or buy one OBDLink MX+ or EX. Laptop host, read-only throughout.
+1. Identify: `ATZ`, `ATE0`, `STI`, `STDI`, `STMFR`; note firmware and the clone check result.
+2. Td5: `STPX`/`STIFI` fast init with the D2 tester address (`81 13 F7 81 0C`), one-byte
+   (unaddressed) headers, `ATPC` so the chip sends no keep-alives of its own. Expect `C1`.
+   Then the security exchange and the `21` live reads the KKL path runs; record each frame.
+3. SLABS: the same with `81 29 F7 81 22`, keeping the quiet periods SLABS needs between
+   sessions.
+4. Capture the raw transcript for both (it becomes the A4 recorded fixture, ADR-0011).
+⚠️ Reads only: no clear, no actuator, no outputs.
+
+**Decision rule:** if Td5 `C1` and its live reads and the SLABS live reads all succeed, mark
+STN "tested" for Td5 and SLABS in the platform's adapter list with this log and the firmware
+version. If either init fails or frames are mangled, record "not possible on STN" with the
+transcript and keep the D2 on KKL and the node only.
+
 ### P6 — Offline `[offline]`
 
 #### T-21 — Decode `21 0E` / `21 32` (homologation / map variant)
@@ -417,6 +435,18 @@ Signals sharing a LID are read in one request, so a bad read corrupts them toget
 Whole-LID corrupt = comms glitch (~1 % baseline); one signal bad while its LID-mates are
 valid = a real sensor/circuit fault, corroborated by the ECU's own DTC. Tag CSV/snapshot
 rows with a `comms_glitch` marker and classify in the analysis. Detail in `TODO.md`.
+
+#### T-35 `[offline]` — Declare the D2's identity data (`VehiclePack.identity`)
+Trip sharing (platform TS1, ADR-0036 §2) scrubs identity replies before anything leaves the
+car. The platform list covers standard services; the pack must add its own. Declare in the
+pack: Td5 `1A 87` (VIN, build date, software number), `1A 9A` (part number + serial),
+`1A 9B`/`1A 9C`, and any SLABS, BCU and airbag identity blocks found in captures, plus the
+tester and module addresses as `diag_ids` and the Td5 seed–key exchange as `seed_key`.
+Check with `ostler share build` on a recorded Td5 session, then `ostler share verify`.
+
+**Decision rule:** if the verifier reports zero identity bytes left in an L3 bundle built
+from a session that ran *Read ECU identity*, the declaration is complete; any hit becomes a
+new entry before L3/L4 sharing is offered for the D2.
 
 ### P7 — NanoCom rental readiness `[tool]` `[offline]`
 
