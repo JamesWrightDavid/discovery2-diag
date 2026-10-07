@@ -31,6 +31,9 @@ cheaply, then load on demand.
 
 ## Working rules
 
+- UX first (platform ADR-0045): no screen, setup flow or widget without an approved UX
+  brief; build it against recorded fixtures before wiring. Decoding, protocol and pack-data
+  work need no brief.
 - Design before code: write a spec in `specs/` and get it approved before implementing.
   Platform changes go to the platform repo.
 - Install the platform, then the pack (`pip install -e ".[dev]"`), and run `pytest -q`
