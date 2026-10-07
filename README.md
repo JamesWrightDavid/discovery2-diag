@@ -72,7 +72,7 @@ and the Discovery 2 code. Install both:
 ```bash
 python -m venv .venv && . .venv/bin/activate
 pip install "openostler @ git+https://github.com/openostler/ostler@main"
-pip install "d2diag @ git+https://github.com/JamesWrightDavid/discovery2-diag@main"
+pip install "d2diag @ git+https://github.com/openostler/ostler-pack-lr-d2@main"
 ```
 
 Then run the platform's dashboard (see the

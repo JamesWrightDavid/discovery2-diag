@@ -1,5 +1,5 @@
 ---
-title: "TODO — discovery2-diag"
+title: "TODO — ostler-pack-lr-d2"
 area: root
 status: draft
 version: 1.1
@@ -8,7 +8,7 @@ summary: >
   Code and infrastructure to-do list (not car tests). Decode ACE/EAT/BCU, comms_glitch tagging, packaging, NanoCom tooling, retiring the legacy dashboard pages, data-hub ideas.
 ---
 
-# TODO — discovery2-diag
+# TODO — ostler-pack-lr-d2
 
 Updated 2026-10-01. Check off when done.
 
