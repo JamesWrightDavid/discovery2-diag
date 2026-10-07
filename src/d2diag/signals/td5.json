@@ -58,6 +58,7 @@
     "bias": 0.0,
     "unit": "V",
     "metric": "Vehicle.LowVoltageBattery.CurrentVoltage",
+    "primary": true,
     "confidence": "proven",
     "limits": [
       11.5,

@@ -5,8 +5,10 @@
 """VSS metrics on the D2 signal store (ADR-0016, U0 seams spec §D).
 
 Every ``metric`` in the pack must resolve through ``openostler.metrics.is_known``; the
-common-set fields carry the expected path; and within a module a metric names one field
-(length variants of the same field may share it). Skips on a platform without metrics.
+common-set fields carry the expected path; within a module a metric names one field
+(length variants of the same field may share it); and a path mapped by more than one
+module has exactly one ``primary`` module (module-bus spec v1.3 §6, owner answer 9).
+Skips on a platform without metrics.
 """
 from __future__ import annotations
 
@@ -33,6 +35,12 @@ EXPECTED = {
     ("slabs", "transfer_low"): "Vehicle.Powertrain.Transmission.IsLowRangeEngaged",
     ("slabs", "height_left"): "Vehicle.Ostler.Chassis.RideHeight.RearLeftRaw",
     ("slabs", "height_right"): "Vehicle.Ostler.Chassis.RideHeight.RearRightRaw",
+}
+
+# VSS path → the module marked ``"primary": true`` for it, for every path that more than one
+# module maps. Why each was chosen: docs/architecture.md, "Shared VSS paths".
+PRIMARY = {
+    "Vehicle.LowVoltageBattery.CurrentVoltage": "td5",
 }
 
 # Pack-private or not-yet-canonical fields that must stay unmapped. ext_temp: the sensor is
@@ -80,3 +88,29 @@ def test_metric_unique_per_module():
             owners[(m, r["metric"])].add(r["name"])
     dup = {k: v for k, v in owners.items() if len(v) > 1}
     assert not dup, f"one metric mapped by several fields in a module: {dup}"
+
+
+def test_one_primary_module_per_shared_path():
+    modules: "dict[str, set[str]]" = defaultdict(set)
+    primary: "dict[str, set[str]]" = defaultdict(set)
+    for m, r in _records():
+        if "primary" in r:
+            assert r["primary"] is True, f"{m}.{r['name']}: primary must be true or absent"
+            assert "metric" in r, f"{m}.{r['name']}: primary without a metric"
+            primary[r["metric"]].add(m)
+        if "metric" in r:
+            modules[r["metric"]].add(m)
+    shared = {path for path, ms in modules.items() if len(ms) > 1}
+    for path in shared:
+        assert len(primary[path]) == 1, f"{path}: primary in {sorted(primary[path])}, need one"
+    stray = {path for path in primary if path not in shared}
+    assert not stray, f"primary on a path only one module maps: {sorted(stray)}"
+    assert {path: next(iter(ms)) for path, ms in primary.items()} == PRIMARY
+
+
+def test_primary_marks_every_record_of_the_field():
+    # Length variants of the primary field must all carry the marker, so the node publishes
+    # the VSS path whichever layout the ECU replies with.
+    for m, r in _records():
+        if "metric" in r and PRIMARY.get(r["metric"]) == m:
+            assert r.get("primary") is True, (m, r["name"], r.get("length"))

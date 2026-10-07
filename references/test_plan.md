@@ -2,8 +2,8 @@
 title: "Test backlog — the living plan for what to do next in the car"
 area: references
 status: stable
-version: 1.2
-updated: 2026-10-06
+version: 1.3
+updated: 2026-10-07
 summary: >
   Living backlog of what to test next in the car or with a borrowed tool, each item with context tag, procedure and pre-written decision rule; Resolved log.
 ---
@@ -303,6 +303,21 @@ Log Td5 `speed` alongside to see where SLABS drops and whether bit2 stays set wh
 - bit2 set in N only -> it is transfer neutral, not low; rename and look for the low-range bit.
 - bit2 follows none of them -> the earlier toggles were something else; remove the candidate.
 - Do not move the lever while the car is rolling; do not force it.
+
+#### T-33 `[key-on]` `[idle]` — Do the Td5 and SLABS battery voltages agree?
+Both `battery` fields are `proven` and map `Vehicle.LowVoltageBattery.CurrentVoltage`; the
+Td5 one (`21 10`@0) is marked `primary` on source quality (resolution, availability while
+driving; see docs/architecture.md, "Shared VSS paths"), not on a side-by-side reading.
+**Procedure.** Stationary. Read Td5 `21 10` and SLABS `21 44` in one session (SLABS polled
+lightly), with a multimeter on the battery terminals: key-on engine off, then idling.
+Note all three values each time.
+**Decision rule.**
+- Td5 and the meter within 0.1 V, SLABS within its 0.0625 V step of them -> Td5 stays
+  primary; close the item.
+- Td5 off the meter by more than 0.2 V in both states while SLABS matches it -> move
+  `primary` to SLABS in the store, update the architecture table, and record why.
+- Neither matches the meter -> they read a supply after a drop (fuse, harness); keep Td5
+  primary, note the offset in each field's `source`, do not rescale.
 
 ### P4 — Other modules
 
