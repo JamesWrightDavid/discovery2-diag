@@ -2,8 +2,8 @@
 title: Architecture and key seams
 area: docs
 status: stable
-version: 2.3
-updated: 2026-10-06
+version: 2.4
+updated: 2026-10-07
 depends_on: [SCOPE.md, CONSTITUTION.md]
 summary: >
   Developer map of the Discovery 2 pack: how it plugs into the Ostler platform (PACK and
@@ -119,6 +119,22 @@ Data sources   d2diag.sources (Td5/SLABS sources over openostler.web.sources.Dat
     Pack-private fields (injector balance, EGR, raw wheel speeds) have none. The store keeps
     its own units; conversion to the VSS unit is the platform's job.
     `tests/test_metrics_d2.py` pins the mapping.
+  - **Shared VSS paths.** When more than one module maps the same `metric`, exactly one
+    module's records carry `"primary": true` (a JSON boolean; absent means not primary, and
+    `false` is not written). The node publishes `vss/<VSS path>` only from the primary
+    field and every other module's reading on its `vss/lr_d2.<module>.<field>` leaf;
+    selection across sources stays on the Brain (platform module-bus messages spec v1.3
+    §6, owner answer 9). Every record of the primary field carries it, length variants
+    included. `tests/test_metrics_d2.py` pins one primary per shared path. Today there is
+    one shared path:
+
+    | VSS path | Modules | Primary | Why |
+    | -------- | ------- | ------- | --- |
+    | `Vehicle.LowVoltageBattery.CurrentVoltage` | Td5 `21 10`@0, SLABS `21 44`@12 | **Td5** | Both are `proven`. Td5 reads it at 1 mV resolution (u16 ×0.001 V) against SLABS's 62.5 mV (u8 ×0.0625 V), and ours, Ekaitza's and SimonRafferty's decoders agree on it ([td5-cross-reference](../references/td5-cross-reference.md)). Td5 live data is read while driving; SLABS diagnostics go silent once the car moves and stay dead until the next ignition cycle (proven 2026-08-29, [slabs/overview](../references/slabs/overview.md)), and SLABS is only polled lightly (~1 Hz). So the SLABS value would go stale on every drive. |
+
+    The choice ranks the two sources by recorded evidence; it raises no confidence. No
+    side-by-side Td5 and SLABS reading is recorded yet: that is T-33 in
+    [test_plan](../references/test_plan.md).
 - **`d2diag.sources` is the pack's protocol/UI boundary.**
   - Each `DataSource.poll()` returns `{status, signals, faults}`.
   - `DERIVED_FIELDS` (fuel computer, ride heights in mm) adds presentation metadata for
@@ -172,3 +188,5 @@ Data sources   d2diag.sources (Td5/SLABS sources over openostler.web.sources.Dat
   logbook, geo) moved to openostler/ostler.
 - 2026-10-06 — Signal records now carry a VSS `metric` where the meaning is canonical
   (ADR-0016, U0 seams).
+- 2026-10-07 — One `primary` module per shared VSS path (the battery voltage: Td5), per the
+  platform module-bus messages spec v1.3 §6.

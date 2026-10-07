@@ -3,7 +3,7 @@ title: Index
 area: root
 status: stable
 version: 1.0
-updated: 2026-10-06
+updated: 2026-10-07
 summary: >
   Generated manifest of every document in this repo — path, area,
   status, version, updated date, and a ~100-token summary — plus reading paths.
@@ -27,7 +27,7 @@ summary: >
 | [SCOPE.md](SCOPE.md) | root | stable | 2.0 | 2026-10-06 | This repo is the Ostler pack for the Land Rover Discovery 2 (Td5): the Discovery 2 module layers, signal and fault data, menus, actions, demo data, importers, tools, ESP32 node and research. The platform (comms core, server, UI, logbook) lives in openostler/ostler. |
 | [TODO.md](TODO.md) | root | draft | 1.1 | 2026-10-01 | Code and infrastructure to-do list (not car tests). Decode ACE/EAT/BCU, comms_glitch tagging, packaging, NanoCom tooling, retiring the legacy dashboard pages, data-hub ideas. |
 | [TRADEMARKS.md](TRADEMARKS.md) | root | stable | 1.0 | 2026-10-06 | Ostler™ and OpenOstler™ are trademarks; the AGPL code licence and the CC BY-SA data licence grant no rights to the names or logos, so forks and redistributions must use a different name unless permitted. |
-| [docs/architecture.md](docs/architecture.md) | docs | stable | 2.3 | 2026-10-06 | Developer map of the Discovery 2 pack: how it plugs into the Ostler platform (PACK and the VehiclePack contract), the module layers, the seams to understand before changing things (frame formats, EcuSession, signal store, data sources) and the dev commands. |
+| [docs/architecture.md](docs/architecture.md) | docs | stable | 2.4 | 2026-10-07 | Developer map of the Discovery 2 pack: how it plugs into the Ostler platform (PACK and the VehiclePack contract), the module layers, the seams to understand before changing things (frame formats, EcuSession, signal store, data sources) and the dev commands. |
 | [docs/capability-inventory/ace.md](docs/capability-inventory/ace.md) | docs | draft | 1.0 | 2026-10-01 | ACE capability inventory: fault read/clear structure, 15 inputs, 5 outputs, calibration and bleed utilities; raw mapping mostly open. |
 | [docs/capability-inventory/airbag.md](docs/capability-inventory/airbag.md) | docs | draft | 1.0 | 2026-10-05 | SRS (airbag) capability inventory: fault record format and clear, 16 identification/configuration fields; read-only in this project. |
 | [docs/capability-inventory/autobox.md](docs/capability-inventory/autobox.md) | docs | draft | 1.0 | 2026-10-05 | EAT (auto gearbox) capability inventory: fault read/clear confirmed, GENERAL inputs, reset-adaptive utility, 0x72 framing open. |
@@ -96,7 +96,7 @@ summary: >
 | [references/td5-full-coverage-and-maf.md](references/td5-full-coverage-and-maf.md) | references | stable | 1.0 | 2026-09-30 | Method and findings from the MAF hunt: capture all received bytes, correlate unmapped bytes against known inputs. |
 | [references/td5_fault_codes.md](references/td5_fault_codes.md) | references | stable | 1.1 | 2026-10-04 | Td5 engine ECU fault memory: raw-mapped, 208 proven + 3 candidate named fault bits (13.6 renamed from a NanoCom screen); the forum X-Y to offset.bit mapping verified 210/210; 69 bits still unnamed (backlog). |
 | [references/test-plan-resolved.md](references/test-plan-resolved.md) | references | stable | 1.0 | 2026-10-01 | Append-only log of settled car and tool tests, newest first, with the date and what settled each one (inconclusive outcomes included) so nothing is re-run blind. |
-| [references/test_plan.md](references/test_plan.md) | references | stable | 1.2 | 2026-10-06 | Living backlog of what to test next in the car or with a borrowed tool, each item with context tag, procedure and pre-written decision rule; Resolved log. |
+| [references/test_plan.md](references/test_plan.md) | references | stable | 1.3 | 2026-10-07 | Living backlog of what to test next in the car or with a borrowed tool, each item with context tag, procedure and pre-written decision rule; Resolved log. |
 | [references/valeo_bcu_capabilities.md](references/valeo_bcu_capabilities.md) | references | stable | 1.0 | 2026-10-04 | Functional reference for what the Valeo BCU exposes diagnostically, compiled from a vendor guide; not raw protocol. |
 | [references/wabco_slabs_capabilities.md](references/wabco_slabs_capabilities.md) | references | stable | 1.0 | 2026-09-30 | Functional reference for what the Wabco SLABS exposes diagnostically: signals, expected values and tests. |
 | [decisions/adr-0005-nanocom-sniff-workflow.md](decisions/adr-0005-nanocom-sniff-workflow.md) | decisions | locked | 1.0 | 2026-09-30 | Full-coverage mapping is done by passively sniffing a rented NanoCom with the ESP32 tap, labelling each capture against the tool's screen, and importing results as kandidat only; nothing sniffed is replayed as a write without its own ADR. |
