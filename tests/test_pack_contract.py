@@ -63,7 +63,7 @@ def test_import_is_lazy():
 def test_manifest_shape(p):
     m = p.manifest()
     assert set(m) == {"id", "name", "api_version", "default_module", "modules", "aliases",
-                      "layout"}
+                      "layout", "metrics"}
     assert m["id"] == "lr_d2" and m["api_version"] == platform_pack.PACK_API_VERSION
     assert m["default_module"] == "td5"
     for row in m["modules"]:
